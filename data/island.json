@@ -1,0 +1,15 @@
+{
+ "v": 1,
+ "islandName": "Pulau Tanpa Nama",
+ "followers": 0,
+ "residents": [],
+ "buildings": [],
+ "episodes": [
+  {"ep": 0, "date": "2 Nov 2026", "picks": [], "text": "Aru terbangun di pantai. Tidak ada siapa-siapa. Hanya ombak, sebuah perahu yang rusak, dan batu besar yang masih kosong."}
+ ],
+ "letters": [],
+ "clues": [
+  {"text": "Di sisa perahu ada tali yang terikat rapi. Seseorang sengaja mengikatnya, bukan badai.", "ep": 0}
+ ],
+ "clueTotal": 10
+}

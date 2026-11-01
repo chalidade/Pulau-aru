@@ -1,0 +1,245 @@
+// Low-poly models built from primitives. Everything shares cached materials.
+import * as THREE from 'three';
+
+const matCache = new Map();
+export function mat(color, o = {}) {
+  const key = color + JSON.stringify(o);
+  if (!matCache.has(key)) matCache.set(key, new THREE.MeshStandardMaterial({ color, flatShading: true, roughness: .85, metalness: 0, ...o }));
+  return matCache.get(key);
+}
+// window glass glows at night (emissiveIntensity driven by main loop)
+export const windowMat = new THREE.MeshStandardMaterial({ color: '#2f4a5a', emissive: '#ffcc66', emissiveIntensity: 0, flatShading: true, roughness: .4 });
+export const lampOnMat = new THREE.MeshStandardMaterial({ color: '#ffd56a', emissive: '#ffc34a', emissiveIntensity: 2.2, flatShading: true });
+export const lampOffMat = mat('#6d6a62');
+export const flameMat = new THREE.MeshBasicMaterial({ color: '#ffb347' });
+export const flameMat2 = new THREE.MeshBasicMaterial({ color: '#ff6a2a' });
+export const lanternMat = new THREE.MeshStandardMaterial({ color: '#ffcf70', emissive: '#ffb347', emissiveIntensity: 0.4, flatShading: true });
+
+const G = {
+  box: new THREE.BoxGeometry(1, 1, 1),
+  cyl6: new THREE.CylinderGeometry(1, 1, 1, 6),
+  cyl8: new THREE.CylinderGeometry(1, 1, 1, 8),
+  cone4: new THREE.ConeGeometry(1, 1, 4),
+  cone6: new THREE.ConeGeometry(1, 1, 6),
+  ico: new THREE.IcosahedronGeometry(1, 0),
+  dode: new THREE.DodecahedronGeometry(1, 0),
+  sph: new THREE.SphereGeometry(1, 6, 4),
+};
+export { G };
+
+function add(parent, geo, m, sx, sy, sz, x, y, z, ry = 0, shadow = true) {
+  const o = new THREE.Mesh(geo, typeof m === 'string' ? mat(m) : m);
+  o.scale.set(sx, sy, sz); o.position.set(x, y, z); o.rotation.y = ry;
+  o.castShadow = shadow; o.receiveShadow = true;
+  parent.add(o); return o;
+}
+export const box = (p, m, sx, sy, sz, x, y, z, ry) => add(p, G.box, m, sx, sy, sz, x, y + sy / 2, z, ry);
+const cyl = (p, m, r, h, x, y, z, seg = 6) => add(p, seg === 8 ? G.cyl8 : G.cyl6, m, r, h, r, x, y + h / 2, z);
+const roof4 = (p, m, w, h, d, x, y, z) => { const o = add(p, G.cone4, m, w * .72, h, d * .72, x, y + h / 2, z, Math.PI / 4); return o; };
+
+export function textTexture(lines, opts = {}) {
+  const w = opts.w || 512, h = opts.h || 256;
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const g = c.getContext('2d');
+  g.fillStyle = opts.bg || '#a7794a'; g.fillRect(0, 0, w, h);
+  if (opts.grain) for (let i = 0; i < 400; i++) { g.fillStyle = `rgba(0,0,0,${Math.random() * .08})`; g.fillRect(Math.random() * w, Math.random() * h, 2 + Math.random() * 30, 1); }
+  g.fillStyle = opts.color || '#3a2412'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  const fs = opts.size || 40; g.font = `700 ${fs}px "Pixelify Sans", monospace`;
+  lines.forEach((l, i) => g.fillText(l, w / 2, h / 2 + (i - (lines.length - 1) / 2) * fs * 1.25));
+  const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;
+  return t;
+}
+
+// ---------- characters ----------
+const SKIN = ['#f1c9a5', '#d9a478', '#c68a5b', '#a76b3f', '#7d4d2c'], HAIR = ['#2b1d14', '#4a2f1d', '#7a4b26', '#c9a24b', '#1c1c24', '#8a8f99', '#a8442f'],
+  SHIRT = ['#d0483a', '#3a7fc2', '#e6b84a', '#5fae6a', '#8e5bc2', '#e07a3a', '#2d9c9a', '#f0e6d0', '#c2508f', '#46546b'], PANTS = ['#3a4a6b', '#5a4632', '#2f3b33', '#6b6b72', '#7a3b3b'];
+export function lookOf(name) {
+  const s = [...name.toLowerCase()].reduce((a, c) => (a * 31 + c.charCodeAt(0)) | 0, 7);
+  const r = k => ((s >>> (k * 3)) ^ (s >>> (k * 5 + 1))) >>> 0;
+  return { skin: SKIN[r(1) % 5], hair: HAIR[r(2) % 7], shirt: SHIRT[r(3) % 10], pants: PANTS[r(4) % 5], style: r(5) % 3 };
+}
+export const ARU = { skin: '#c68a5b', hair: '#2b1d14', shirt: '#ece4d2', pants: '#3a5a7a', style: 1, scarf: '#e2733a' };
+
+export function makeCharacter(lk) {
+  const root = new THREE.Group();
+  const body = new THREE.Group(); root.add(body);
+  const hip = 0.5;
+  const leg = (x) => { const g = new THREE.Group(); g.position.set(x, hip, 0); box(g, lk.pants, .16, .5, .18, 0, -.5, 0); box(g, '#3a2a20', .17, .08, .22, 0, -.5, .02); body.add(g); return g; };
+  const legL = leg(-.11), legR = leg(.11);
+  box(body, lk.shirt, .46, .52, .28, 0, hip, 0);
+  if (lk.scarf) { box(body, lk.scarf, .5, .1, .32, 0, hip + .44, 0); box(body, lk.scarf, .1, .26, .06, .12, hip + .24, .16); }
+  const arm = (x) => { const g = new THREE.Group(); g.position.set(x, hip + .48, 0); box(g, lk.shirt, .13, .2, .15, 0, -.2, 0); box(g, lk.skin, .11, .26, .12, 0, -.44, 0); body.add(g); return g; };
+  const armL = arm(-.3), armR = arm(.3);
+  const head = new THREE.Group(); head.position.y = hip + .54; body.add(head);
+  box(head, lk.skin, .36, .36, .34, 0, 0, 0);
+  box(head, lk.hair, .38, .12, .36, 0, .3, 0);
+  box(head, lk.hair, .38, .26, .1, 0, .1, -.14);
+  if (lk.style === 1) { box(head, lk.hair, .06, .22, .3, -.19, .1, -.02); box(head, lk.hair, .06, .22, .3, .19, .1, -.02); }
+  if (lk.style === 2) box(head, lk.hair, .2, .1, .2, 0, .4, -.05);
+  box(head, '#1d1410', .05, .06, .02, -.08, .17, .175); box(head, '#1d1410', .05, .06, .02, .08, .17, .175);
+  root.userData = { legL, legR, armL, armR, body, phase: Math.random() * 6 };
+  return root;
+}
+export function animateCharacter(ch, moving, dt) {
+  const u = ch.userData;
+  if (moving) u.phase += dt * 11; else u.phase *= 0.9;
+  const s = moving ? Math.sin(u.phase) * .7 : Math.sin(u.phase) * .7 * 0.2;
+  u.legL.rotation.x = s; u.legR.rotation.x = -s; u.armL.rotation.x = -s * .8; u.armR.rotation.x = s * .8;
+  u.body.position.y = moving ? Math.abs(Math.cos(u.phase)) * .05 : 0;
+}
+
+// ---------- buildings ----------
+// each builder returns a Group centred on its footprint, ground at y=0
+function palm(g, x, z, s = 1) {
+  const trunk = new THREE.Group(); trunk.position.set(x, 0, z); g.add(trunk);
+  let px = 0, py = 0;
+  for (let i = 0; i < 6; i++) { const seg = add(trunk, G.cyl6, i % 2 ? '#9b7444' : '#83603a', .11 * s, .5 * s, .11 * s, px, py + .25 * s, 0); seg.rotation.z = -.08 * i; px += .05 * i * s; py += .48 * s; }
+  for (let k = 0; k < 7; k++) {
+    const a = k / 7 * Math.PI * 2; const leaf = new THREE.Group(); leaf.position.set(px, py, 0); leaf.rotation.y = a; trunk.add(leaf);
+    const l = add(leaf, G.box, k % 2 ? '#3f9a5a' : '#4fae62', .22 * s, .04, 1.3 * s, 0, 0, .6 * s); l.rotation.x = .45;
+  }
+  add(trunk, G.sph, '#6b4a2b', .14 * s, .14 * s, .14 * s, px, py - .08, .08);
+}
+export const BT = {
+  rumah: { n: 'Rumah', w: 2, h: 2, land: true, build(g) { box(g, '#e3c49a', 1.6, 1.1, 1.4, 0, 0, 0); roof4(g, '#b8523c', 2.1, 1, 1.9, 0, 1.1, 0); box(g, '#5e3b22', .36, .66, .05, 0, 0, .71); box(g, windowMat, .3, .3, .05, -.5, .5, .71); box(g, windowMat, .3, .3, .05, .5, .5, .71); box(g, '#9a9b94', .22, .5, .22, .45, 1.3, -.3); } },
+  tenda: { n: 'Tenda', w: 2, h: 2, land: true, build(g) { add(g, G.cone4, '#d9763f', 1, 1.4, 1, 0, .7, 0, Math.PI / 4); box(g, '#3a2a20', .3, .5, .05, 0, 0, .55); add(g, G.cyl6, '#5e3b22', .03, .3, .03, 0, 1.5, 0); } },
+  kebun: { n: 'Kebun', w: 3, h: 2, land: true, walk: true, build(g) { box(g, '#7a5534', 2.8, .12, 1.8, 0, 0, 0); for (let r = 0; r < 4; r++) { box(g, '#5d3e24', 2.6, .06, .14, 0, .12, -.6 + r * .4); for (let c = 0; c < 7; c++) add(g, G.cone6, r % 2 ? '#62bd73' : '#e0a84a', .09, .28, .09, -1.1 + c * .36, .3, -.6 + r * .4); } } },
+  sumur: { n: 'Sumur', w: 1, h: 1, land: true, build(g) { cyl(g, '#9a9b94', .38, .5, 0, 0, 0, 8); add(g, G.cyl8, '#2b6a85', .3, .02, .3, 0, .45, 0, 0, false); box(g, '#5e3b22', .06, 1.1, .06, -.34, .5, 0); box(g, '#5e3b22', .06, 1.1, .06, .34, .5, 0); roof4(g, '#b8523c', .95, .4, .7, 0, 1.55, 0); } },
+  dermaga: { n: 'Dermaga', w: 1, h: 4, water: true, walk: true, build(g) { for (let i = 0; i < 12; i++) box(g, i % 2 ? '#b07a4a' : '#8a5a34', .9, .08, .3, 0, .22, -1.7 + i * .31); for (const z of [-1.8, 0, 1.8]) for (const x of [-.4, .4]) add(g, G.cyl6, '#5e3b22', .07, 1.8, .07, x, -.6, z); } },
+  jembatan: { n: 'Jembatan', w: 4, h: 1, water: true, walk: true, build(g) { for (let i = 0; i < 12; i++) box(g, i % 2 ? '#b07a4a' : '#8a5a34', .3, .08, .9, -1.7 + i * .31, .22, 0); for (const x of [-1.8, 0, 1.8]) for (const z of [-.42, .42]) { add(g, G.cyl6, '#5e3b22', .06, 2.2, .06, x, -.6, z); } box(g, '#8a5a34', 3.9, .06, .06, 0, .7, -.42); box(g, '#8a5a34', 3.9, .06, .06, 0, .7, .42); } },
+  api: { n: 'Api unggun', w: 1, h: 1, land: true, fire: true, build(g) { campfire(g); } },
+  pasar: { n: 'Pasar', w: 3, h: 2, land: true, build(g) { for (const sx of [-.75, .75]) { box(g, '#b07a4a', 1.2, .6, .6, sx, 0, .2); for (const [px, pz] of [[-.55, -.4], [.55, -.4], [-.55, .45], [.55, .45]]) box(g, '#5e3b22', .06, 1.3, .06, sx + px, 0, pz); for (let i = 0; i < 6; i++) box(g, i % 2 ? '#f0e6d0' : '#d0483a', .2, .06, 1.1, sx - .5 + i * .2, 1.3, 0); const cols = ['#e6b84a', '#7bc06a', '#d56b3a']; for (let i = 0; i < 3; i++) add(g, G.sph, cols[i], .1, .1, .1, sx - .35 + i * .35, .7, .25); } } },
+  sekolah: { n: 'Sekolah', w: 3, h: 2, land: true, build(g) { box(g, '#efe2c6', 2.6, 1.3, 1.5, 0, 0, 0); roof4(g, '#4e7a9a', 3.3, .9, 2, 0, 1.3, 0); box(g, '#4e7a9a', .4, .5, .4, 0, 2.1, 0); add(g, G.sph, '#e5c06a', .1, .1, .1, 0, 2.4, .21); box(g, '#5e3b22', .4, .8, .05, 0, 0, .76); for (const x of [-.9, -.5, .5, .9]) box(g, windowMat, .26, .3, .05, x, .6, .76); } },
+  menara: { n: 'Menara pandang', w: 1, h: 1, land: true, build(g) { for (const [x, z] of [[-.35, -.35], [.35, -.35], [-.35, .35], [.35, .35]]) box(g, '#5e3b22', .08, 2.6, .08, x, 0, z); box(g, '#8a5a34', .95, .1, .95, 0, 2.5, 0); for (let i = 0; i < 4; i++) box(g, '#8a5a34', .8, .05, .05, 0, .6 + i * .5, .36); roof4(g, '#d9b45c', 1.3, .7, 1.3, 0, 3.1, 0); for (const [x, z] of [[-.4, -.4], [.4, -.4], [-.4, .4], [.4, .4]]) box(g, '#5e3b22', .05, .5, .05, x, 2.6, z); } },
+  patung: { n: 'Patung', w: 1, h: 1, land: true, build(g) { box(g, '#9a9b94', .8, .5, .8, 0, 0, 0); box(g, '#c2c2b8', .3, .5, .2, 0, .5, 0); box(g, '#c2c2b8', .4, .45, .25, 0, .95, 0); box(g, '#c2c2b8', .3, .3, .28, 0, 1.4, 0); const a = box(g, '#c2c2b8', .1, .45, .1, .26, 1.1, 0); a.rotation.z = -2.6; a.position.y = 1.55; } },
+  taman: { n: 'Taman bunga', w: 2, h: 2, land: true, walk: true, build(g) { box(g, '#5aa64c', 1.9, .06, 1.9, 0, 0, 0); const cols = ['#f06b8a', '#ffd25a', '#f4f1ea', '#b48cf0', '#ff9b52']; for (let i = 0; i < 26; i++) { const x = -.8 + ((i * 37) % 17) / 10, z = -.8 + ((i * 53) % 17) / 10; add(g, G.cyl6, '#3f8a42', .015, .25, .015, x, .18, z, 0, false); add(g, G.sph, cols[i % 5], .07, .06, .07, x, .32, z); } for (let i = 0; i < 8; i++) { box(g, '#e8dcc4', .05, .3, .05, -.95 + i * .27, 0, -.95); box(g, '#e8dcc4', .05, .3, .05, -.95 + i * .27, 0, .95); } } },
+  kelapa: { n: 'Pohon kelapa', w: 1, h: 1, land: true, build(g) { palm(g, 0, 0, 1); } },
+  lumbung: { n: 'Lumbung', w: 2, h: 2, land: true, build(g) { box(g, '#a8443a', 1.6, 1.3, 1.5, 0, 0, 0); const r = add(g, G.cone4, '#5b3b2a', 1.25, .9, 1.15, 0, 1.75, 0, Math.PI / 4); box(g, '#efe2c6', .6, .8, .05, 0, 0, .76); box(g, '#7c2f28', .5, .7, .06, 0, .05, .77); const x1 = box(g, '#efe2c6', .06, .9, .07, 0, 0, .79); x1.rotation.z = .6; x1.position.y = .4; const x2 = box(g, '#efe2c6', .06, .9, .07, 0, 0, .79); x2.rotation.z = -.6; x2.position.y = .4; } },
+  perahu: { n: 'Perahu', w: 2, h: 1, water: true, deep: true, bob: true, build(g) { box(g, '#8a5a34', 1.6, .3, .6, 0, .05, 0); box(g, '#5e3b22', 1.2, .12, .4, 0, -.05, 0); const p = add(g, G.cone4, '#8a5a34', .3, .6, .42, .95, .2, 0, Math.PI / 4); p.rotation.z = -Math.PI / 2; box(g, '#5e3b22', .06, 1.6, .06, -.1, .3, 0); const sh = new THREE.Shape(); sh.moveTo(0, 0); sh.lineTo(0, 1.3); sh.lineTo(.9, .1); const sail = new THREE.Mesh(new THREE.ShapeGeometry(sh), mat('#f2ead8', { side: THREE.DoubleSide })); sail.position.set(-.05, .55, 0); sail.castShadow = true; g.add(sail); } },
+  papan: { n: 'Papan nama', w: 1, h: 1, land: true, sign: true, build(g, b) { box(g, '#5e3b22', .08, 1, .08, 0, 0, 0); const board = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(splitLabel(b && b.label || 'Pulau'), { size: 46, grain: true }), flatShading: true }), mat('#8a5a34')]); board.scale.set(.95, .48, .06); board.position.set(0, 1, .05); board.castShadow = true; g.add(board); } },
+};
+function splitLabel(s) { s = String(s).slice(0, 40); if (s.length <= 16) return [s]; const i = s.lastIndexOf(' ', 20); return i > 0 ? [s.slice(0, i), s.slice(i + 1)] : [s.slice(0, 18), s.slice(18)]; }
+export function buildBuilding(b) { const d = BT[b.type]; const g = new THREE.Group(); d.build(g, b); g.userData.def = d; return g; }
+
+// ---------- landmarks ----------
+export function campfire(g) {
+  for (let a = 0; a < 8; a++) add(g, G.dode, '#8d8e88', .12, .09, .12, Math.cos(a / 8 * 6.28) * .32, .05, Math.sin(a / 8 * 6.28) * .32);
+  const l1 = box(g, '#5e3b22', .55, .1, .1, 0, .05, 0); l1.rotation.y = .6; const l2 = box(g, '#5e3b22', .55, .1, .1, 0, .1, 0); l2.rotation.y = -.6;
+  const fl = new THREE.Group(); fl.position.y = .12; g.add(fl);
+  for (let i = 0; i < 4; i++) { const f = new THREE.Mesh(G.cone4, i % 2 ? flameMat2 : flameMat); f.scale.set(.12, .4, .12); f.position.set(Math.cos(i * 1.6) * .06, .2, Math.sin(i * 1.6) * .06); fl.add(f); }
+  g.userData.flames = fl;
+  return g;
+}
+export function shelter() {
+  const g = new THREE.Group();
+  box(g, '#5e3b22', .12, 1.9, .12, -1.2, 0, -.7); box(g, '#5e3b22', .12, 1.9, .12, 1.2, 0, -.7);
+  box(g, '#5e3b22', .1, .9, .1, -1.2, 0, .8); box(g, '#5e3b22', .1, .9, .1, 1.2, 0, .8);
+  const roof = new THREE.Group(); roof.position.set(0, 1.4, 0); roof.rotation.x = .55; g.add(roof);
+  for (let i = 0; i < 7; i++) box(roof, i % 2 ? '#7d9a4a' : '#6a8a3a', .38, .06, 1.9, -1.15 + i * .38, 0, 0);
+  box(g, '#b39a6a', 1.6, .05, .9, 0, 0, .1); box(g, '#8a6a4a', .45, .14, .3, -.5, .05, -.2);
+  box(g, '#5c7a8c', .4, .3, .3, .9, 0, -.3);
+  return g;
+}
+export function mailbox() {
+  const g = new THREE.Group();
+  box(g, '#5e3b22', .1, 1, .1, 0, 0, 0); box(g, '#3a6ea5', .4, .32, .55, 0, 1, 0); box(g, '#2b5480', .42, .04, .57, 0, 1.3, 0);
+  const flag = new THREE.Group(); flag.position.set(.22, 1.1, -.15); g.add(flag); box(flag, '#d0483a', .03, .35, .03, 0, 0, 0); box(flag, '#d0483a', .03, .12, .16, 0, .25, .08);
+  g.userData.flag = flag; return g;
+}
+export function rulesBoard() {
+  const g = new THREE.Group();
+  box(g, '#5e3b22', .1, 1.6, .1, -.8, 0, 0); box(g, '#5e3b22', .1, 1.6, .1, .8, 0, 0);
+  const face = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(['ATURAN', 'PULAU'], { size: 64, grain: true }), flatShading: true }), mat('#8a5a34')]);
+  face.scale.set(1.9, .9, .08); face.position.set(0, 1.3, .06); face.castShadow = true; g.add(face);
+  return g;
+}
+export function wreck() {
+  const g = new THREE.Group();
+  const hull = new THREE.Group(); hull.rotation.set(.12, .4, .35); hull.position.y = .1; g.add(hull);
+  const ribs = 7; for (let i = 0; i < ribs; i++) { const z = -1.2 + i * .4, w = 1 - Math.abs(i - 3) * .12; box(hull, i === 4 ? '#3e2716' : '#5e3b22', w * 1.2, .12, .3, 0, 0, z); box(hull, '#6b4529', .12, .55, .3, -w * .6, 0, z); if (i !== 2 && i !== 5) box(hull, '#6b4529', .12, .55, .3, w * .6, 0, z); }
+  box(hull, '#4a2f1c', .12, 1.2, .12, 0, .1, .2).rotation.z = .4;
+  box(g, '#8a6a4a', .8, .06, .18, 1.4, 0, .6).rotation.y = .8;
+  box(g, '#8a6a4a', .6, .06, .18, -1.2, 0, -.7).rotation.y = -.4;
+  // coiled rope (the first clue)
+  add(g, new THREE.TorusGeometry(.18, .05, 4, 8), '#c9b27a', 1, 1, 1, .9, .06, -.4).rotation.x = Math.PI / 2;
+  return g;
+}
+export function lighthouse() {
+  const g = new THREE.Group();
+  cyl(g, '#8d8a80', 1.6, .5, 0, 0, 0, 8);
+  const hgt = 8, segs = 8;
+  for (let i = 0; i < segs; i++) { const r0 = 1.15 - i / segs * .4, r1 = 1.15 - (i + 1) / segs * .4; const m = new THREE.Mesh(new THREE.CylinderGeometry(r1, r0, hgt / segs, 10), mat(i % 2 ? '#f2efe6' : '#c4473a')); m.position.y = .5 + (i + .5) * hgt / segs; m.castShadow = true; m.receiveShadow = true; g.add(m); }
+  const top = .5 + hgt;
+  cyl(g, '#343a44', 1.05, .15, 0, top, 0, 10);
+  for (let a = 0; a < 12; a++) box(g, '#343a44', .04, .4, .04, Math.cos(a / 12 * 6.28) * 1, top + .15, Math.sin(a / 12 * 6.28) * 1);
+  const glass = new THREE.MeshStandardMaterial({ color: '#56707a', emissive: '#ffd27a', emissiveIntensity: 0, flatShading: true, roughness: .2 });
+  const room = new THREE.Mesh(new THREE.CylinderGeometry(.6, .6, 1, 8), glass); room.position.y = top + .65; g.add(room);
+  const roof = new THREE.Mesh(new THREE.ConeGeometry(.8, .8, 8), mat('#c4473a')); roof.position.y = top + 1.55; roof.castShadow = true; g.add(roof);
+  add(g, G.sph, '#343a44', .1, .1, .1, 0, top + 2, 0);
+  box(g, '#4a3a2a', .5, .9, .1, 0, .5, 1.12);
+  // lamps: spiral of small bulbs around the tower, one per resident (first 64 visible)
+  const N = 64, lampGeo = new THREE.IcosahedronGeometry(.07, 0);
+  const lamps = [];
+  for (let i = 0; i < N; i++) {
+    const t = i / N, y = .9 + t * (hgt - .7), r = 1.15 - (y - .5) / hgt * .4 + .05, a = i * 2.4;
+    const m = new THREE.Mesh(lampGeo, lampOffMat); m.position.set(Math.cos(a) * r, y, Math.sin(a) * r); g.add(m); lamps.push(m);
+  }
+  // rotating beam
+  const beamGeo = new THREE.ConeGeometry(3.2, 30, 16, 1, true); beamGeo.translate(0, -15, 0); beamGeo.rotateZ(Math.PI / 2);
+  const beamMat = new THREE.MeshBasicMaterial({ color: '#fff0b8', transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide });
+  const beam = new THREE.Group(); beam.position.y = top + .65; g.add(beam);
+  const b1 = new THREE.Mesh(beamGeo, beamMat); beam.add(b1); const b2 = b1.clone(); b2.rotation.y = Math.PI; beam.add(b2);
+  g.userData = { lamps, glass, beam, beamMat, top: top + .65 };
+  return g;
+}
+export function nameStone() {
+  const g = new THREE.Group();
+  const rock = add(g, G.dode, '#7c827d', 1.3, 1.25, .6, 0, 1.05, -.05); rock.rotation.set(.1, .2, .05);
+  add(g, G.dode, '#6c716c', .6, .45, .5, -1.1, .25, .3);
+  add(g, G.dode, '#6c716c', .45, .35, .4, 1.2, .2, .2);
+  const c = document.createElement('canvas'); c.width = 512; c.height = 384;
+  const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 4;
+  const face = new THREE.Mesh(new THREE.PlaneGeometry(1.75, 1.3), new THREE.MeshStandardMaterial({ map: tex, roughness: 1, flatShading: true }));
+  face.position.set(0, 1.1, .74); face.rotation.x = -.05; g.add(face);
+  g.userData.paint = (names, total) => {
+    const x = c.getContext('2d');
+    x.fillStyle = '#9ba19b'; x.fillRect(0, 0, 512, 384);
+    for (let i = 0; i < 300; i++) { x.fillStyle = `rgba(${Math.random() > .5 ? '255,255,255' : '0,0,0'},${Math.random() * .08})`; x.fillRect(Math.random() * 512, Math.random() * 384, 2 + Math.random() * 6, 2 + Math.random() * 6); }
+    x.textAlign = 'center'; x.textBaseline = 'middle';
+    const carve = (t, px, py, fs) => { x.font = `700 ${fs}px "Pixelify Sans", monospace`; x.fillStyle = 'rgba(255,255,255,.35)'; x.fillText(t, px + 1.5, py + 1.5); x.fillStyle = '#3f4440'; x.fillText(t, px, py); };
+    carve('WARGA PULAU', 256, 34, 34);
+    if (!names.length) { carve('menunggu', 256, 180, 28); carve('warga pertama', 256, 216, 28); }
+    else {
+      const show = names.slice(-30); const cols = 3, rowH = 30;
+      show.forEach((n, i) => { const col = i % cols, row = (i / cols) | 0; let t = '@' + n; if (t.length > 14) t = t.slice(0, 13) + '…'; carve(t, 90 + col * 166, 82 + row * rowH, 20); });
+      carve(total.toLocaleString('id-ID') + ' nama', 256, 362, 22);
+    }
+    tex.needsUpdate = true;
+  };
+  return g;
+}
+export function ship() {
+  const g = new THREE.Group();
+  box(g, '#3d2a1c', 5, 1, 1.6, 0, 0, 0); box(g, '#c4473a', 5.05, .15, 1.65, 0, .8, 0);
+  const bow = add(g, G.cone4, '#3d2a1c', .8, 1.6, 1.15, 3.2, .5, 0, Math.PI / 4); bow.rotation.z = -Math.PI / 2;
+  box(g, '#8a5a34', 4.8, .08, 1.4, 0, 1, 0); box(g, '#5e3b22', 1.2, .8, 1.2, -1.8, 1, 0);
+  for (let i = 0; i < 5; i++) box(g, lanternMat, .2, .15, .05, -1.6 + i * .8, .45, .82);
+  for (const [x, h] of [[-.5, 4.5], [1.5, 3.6]]) { box(g, '#5e3b22', .12, h, .12, x, 1, 0); const s = box(g, '#f6f0de', .05, h * .55, 1.6, x + .15, 1.6, 0); s.castShadow = true; }
+  box(g, '#d0483a', .5, .3, .03, -.5, 5.3, 0);
+  return g;
+}
+export function festival(radius = 6) {
+  const g = new THREE.Group(); const N = 8; const cols = ['#d0483a', '#ffc94a', '#3a7fc2', '#5fae6a'];
+  const pts = []; for (let k = 0; k < N; k++) { const a = k / N * Math.PI * 2; pts.push([Math.cos(a) * radius, Math.sin(a) * radius * .75]); box(g, '#5e3b22', .1, 2.4, .1, pts[k][0], 0, pts[k][1]); }
+  const lanterns = [];
+  for (let k = 0; k < N; k++) {
+    const [ax, az] = pts[k], [bx, bz] = pts[(k + 1) % N];
+    for (let i = 0; i < 8; i++) { const t0 = i / 8, t1 = (i + 1) / 8, y0 = 2.3 - Math.sin(t0 * Math.PI) * .5, y1 = 2.3 - Math.sin(t1 * Math.PI) * .5; const x0 = ax + (bx - ax) * t0, z0 = az + (bz - az) * t0, x1 = ax + (bx - ax) * t1, z1 = az + (bz - az) * t1; const len = Math.hypot(x1 - x0, y1 - y0, z1 - z0); const r = new THREE.Mesh(G.box, mat('#e8dcc4')); r.scale.set(.02, .02, len); r.position.set((x0 + x1) / 2, (y0 + y1) / 2, (z0 + z1) / 2); r.lookAt(x1, y1, z1); g.add(r); }
+    for (let i = 1; i < 7; i++) { const t = i / 7, x = ax + (bx - ax) * t, z = az + (bz - az) * t, y = 2.3 - Math.sin(t * Math.PI) * .5; const f = add(g, G.cone4, cols[(i + k) % 4], .12, .22, .03, x, y - .1, z, Math.atan2(bz - az, bx - ax)); f.rotation.x = Math.PI; f.castShadow = false; }
+    const l = add(g, G.sph, lanternMat, .16, .2, .16, pts[k][0], 2.5, pts[k][1]); l.castShadow = false; lanterns.push(l);
+  }
+  g.userData.lanterns = lanterns; return g;
+}
+
+// instanced nature
+export function makeInstanced(geo, material, count) { const m = new THREE.InstancedMesh(geo, material, Math.max(1, count)); m.castShadow = true; m.receiveShadow = true; m.count = count; return m; }
