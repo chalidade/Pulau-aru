@@ -150,3 +150,6 @@ body.rec #labels .lbl:not(.keep){display:none}
 .tokenbox{background:var(--ink-2);border-radius:6px;padding:12px;margin-top:10px;font-size:13px;line-height:1.5;color:var(--sand-dim)}
 .tokenbox ol{margin:6px 0 0;padding-left:18px}
 .tokenbox a{color:var(--lamp)}
+
+.fishplate{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 12px}
+.fishplate b{font-family:var(--f-display);font-size:20px;color:var(--lamp);font-variant-numeric:tabular-nums}

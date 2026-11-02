@@ -9,6 +9,7 @@ import * as M from './models.js';
 import { BT, ARU, lookOf, makeCharacter, animateCharacter, buildBuilding } from './models.js';
 import { loadState, normalize, store } from './data.js';
 import * as UI from './ui.js';
+import { createFishing } from './fishing.js';
 import { $, h, toast, fmt, clean } from './ui.js';
 
 const touch = matchMedia('(pointer:coarse)').matches;
@@ -176,6 +177,9 @@ function rebuildBuildings() {
 const player = { obj: null, x: 0, z: 0, tx: null, tz: null, moving: false };
 function setPlayerLook() { if (player.obj) scene.remove(player.obj); player.obj = makeCharacter(role.kind === 'aru' ? ARU : lookOf(role.name + 'me')); scene.add(player.obj); player.obj.traverse(o => { if (o.isMesh) o.castShadow = true; }); }
 let npcs = [];
+const fishHud = h('div', { class: 'plate fishplate', hidden: true }); $('hud-l').appendChild(fishHud);
+function updateFishHud() { const st = fishing.st; fishHud.hidden = !st.active && !st.total; fishHud.replaceChildren(h('span', { class: 'eyebrow' }, 'Tangkapan ikan'), h('b', null, fmt(st.total))); }
+const fishing = createFishing({ scene, player, toast: (...a) => toast(...a), onChange: () => { near = null; updateFishHud(); } });
 const SEED = Math.random(), rankOf = n => { let h = SEED * 4294967296 >>> 0; for (const c of n.toLowerCase()) h = Math.imul(h ^ c.charCodeAt(0), 2654435761) >>> 0; return h; };
 const npcGroup = new THREE.Group(); scene.add(npcGroup);
 function rebuildNpcs() {
@@ -236,6 +240,7 @@ addEventListener('keydown', e => {
   keys[k] = true;
   if (k === 'e' || k === 'enter' || k === ' ') doAct();
   if (k === 'm') UI.openMap(); if (k === 'h') toggleRec(); if (k === 'escape') { UI.closeDialog(); endPlace(); }
+  if (k === 'f') fishing.throwAt();
   if (k === 'r' && place && !place.erase) place.r = ((place.r | 0) + 1) % 4;
   if (k === 'q') cam.yaw += .4; if (k === 'z') cam.yaw -= .4;
 });
@@ -274,6 +279,7 @@ cvs.addEventListener('contextmenu', e => e.preventDefault());
 function tapAt(cx, cy) {
   const p = pickGround(cx, cy); if (!p) return;
   if (place) { placeAt(WD.w2cx(p.x), WD.w2cy(p.z)); return; }
+  if (fishing.st.active && fishing.isWater(p.x, p.z) && Math.hypot(p.x - player.x, p.z - player.z) < 5.5) { fishing.throwAt({ x: p.x, z: p.z }); return; }
   let hit = null, bd = 1.6; for (const it of interactables()) { const d = Math.hypot(it.x - p.x, it.z - p.z); if (d < bd) { bd = d; hit = it; } }
   if (hit && Math.hypot(hit.x - player.x, hit.z - player.z) < 4) { hit.act(); return; }
   player.tx = p.x; player.tz = p.z;
@@ -290,16 +296,18 @@ function interactables() {
   L.push({ ...at(LM.board[0], LM.board[1], 2, 1, .9), label: 'Baca papan aturan', act: UI.openRules, r: 1.6 });
   L.push({ ...at(LM.wreck[0], LM.wreck[1], 3, 2, 1.4), label: 'Periksa perahu rusak', act: UI.openMystery, r: 2.4 });
   L.push({ ...at(LM.fire[0], LM.fire[1], 1, 1, .9), label: 'Catatan di api unggun', act: UI.openJournal, r: 1.6 });
-  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); L.push({ x: cx, z: cz + f.h / 2 + .4, label: 'Lihat ' + BT[b.type].n.toLowerCase(), act: () => UI.bldDialog(b), r: Math.max(1.4, f.w * .7) }); });
+  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : () => UI.bldDialog(b), r: Math.max(1.4, f.w * .7), key: sp ? 'spear' + fishing.st.active : null }); });
   for (const n of npcs) L.push({ x: n.x, z: n.z, label: 'Bicara dengan ' + n.name, act: () => { n.obj.rotation.y = Math.atan2(player.x - n.x, player.z - n.z); n.wait = 4; UI.talk(n); }, r: 1.3 });
   return L;
 }
-let near = null;
+let near = null, nearKey = null, lastThr = false;
 function findNear() { let best = null, bd = 1e9; for (const it of interactables()) { const d = Math.hypot(it.x - player.x, it.z - player.z); if (d < (it.r || 1.5) && d < bd) { bd = d; best = it; } } return best; }
-function doAct() { if (!$('dialog').hidden) { UI.closeDialog(); return; } if (near) near.act(); }
+function doAct() { if (!$('dialog').hidden) { UI.closeDialog(); return; } if (near) near.act(); else if (fishing.st.active) fishing.throwAt(); }
 function updatePrompt() {
-  const p = $('prompt'); if (!near || place) { p.hidden = true; if (touch) $('act').disabled = true; return; }
-  p.replaceChildren(...(touch ? [] : [h('kbd', null, 'E')]), near.label); p.hidden = false; if (touch) $('act').disabled = false;
+  const p = $('prompt'), thr = !near && fishing.canThrow();
+  $('act').textContent = thr ? 'LEMPAR' : 'AKSI';
+  if ((!near && !thr) || place) { p.hidden = true; if (touch) $('act').disabled = true; return; }
+  p.replaceChildren(...(touch ? [] : [h('kbd', null, near ? 'E' : 'F')]), near ? near.label : 'Lempar tombak'); p.hidden = false; if (touch) $('act').disabled = false;
 }
 
 // ---------- placement (admin) ----------
@@ -391,6 +399,7 @@ function frame() {
   } else player.moving = false;
   player.obj.position.set(player.x, surfaceY(player.x, player.z), player.z);
   animateCharacter(player.obj, player.moving, dt);
+  fishing.update(dt, T0);
   for (const n of npcs) { stepNpc(n, dt); n.obj.position.set(n.x, surfaceY(n.x, n.z), n.z); animateCharacter(n.obj, n.moving, dt); }
   // camera
   if (cam.attract && !$('start').hidden) { cam.yaw += dt * .05; }
@@ -440,7 +449,8 @@ function frame() {
   updateGhost();
   // prompt + labels
   const nn = blocked ? null : findNear();
-  if (nn !== near || (nn && $('prompt').hidden)) { near = nn; updatePrompt(); }
+  const thr = !nn && fishing.canThrow();
+  if (nn !== near || (nn && nn.key !== nearKey) || thr !== lastThr || (nn && $('prompt').hidden)) { near = nn; nearKey = nn && nn.key; lastThr = thr; updatePrompt(); }
   if (player.obj) updateLabels();
   composer.render();
   requestAnimationFrame(frame);
@@ -494,7 +504,8 @@ UI.initUI(app);
 // ---------- start ----------
 function begin(kind, name) {
   role.kind = kind; role.name = name || 'Aru'; store.set('pulau-aru-role', JSON.stringify(role));
-  $('start').hidden = true; cam.attract = false; setPlayerLook(); rebuildNpcs();
+  if (fishing.st.active) fishing.setActive(false);
+  $('start').hidden = true; cam.attract = false; setPlayerLook(); rebuildNpcs(); updateFishHud();
   if (kind === 'warga') {
     const [x, z] = fpCenter(LM.stone[0], LM.stone[1] + 2, 2, 1); player.x = x; player.z = z;
     const i = S.residents.findIndex(r => r.n.toLowerCase() === name.toLowerCase());
@@ -533,4 +544,4 @@ requestAnimationFrame(frame);
   }, 90000);
 })();
 
-window.__pulau = { app, LM, get player() { return player; } };
+window.__pulau = { app, LM, fishing, get player() { return player; } };
