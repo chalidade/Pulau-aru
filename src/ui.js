@@ -38,7 +38,7 @@ export function refreshHud() {
   const S = app.S;
   $('isl-name').textContent = S.islandName || 'Pulau Tanpa Nama';
   const ep = app.curEp();
-  $('isl-sub').textContent = `Hari ke-${ep} · ${S.buildings.length} bangunan`;
+  $('isl-sub').textContent = `Hari ke-${ep} · ${S.buildings.length} bangunan` + (S.tiktok ? ' · live dari TikTok' : '');
   $('pop-n').textContent = fmt(app.pop());
   const p = app.pop(), next = MS.find(m => p < m);
   if (next) { const prev = MS[MS.indexOf(next) - 1] || 0; $('ms-fill').style.width = Math.max(2, (p - prev) / (next - prev) * 100) + '%'; $('ms-txt').textContent = `Menuju ${fmt(next)} penduduk: ${next === 100 ? 'festival pertama' : next === 1000 ? 'kapal pertama datang' : 'pulau muncul di peta'}`; }
@@ -160,6 +160,7 @@ function adWarga() {
   drawList();
   return h('div', null,
     h('p', { class: 'lede' }, 'Penduduk = jumlah follower + Aru. Setiap follower menyalakan satu lampu mercusuar.'),
+    S.tiktok ? h('p', { class: 'lede' }, `Jumlah follower diisi otomatis dari TikTok (terakhir berubah ${new Date(S.tiktok.updatedAt).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' })}). Angka manual akan ditimpa sinkron berikutnya.`) : null,
     h('div', { class: 'row' }, fld('Jumlah follower', f), h('button', { class: 'btn ghost', onclick: () => { S.followers = Math.max(S.residents.length, parseInt(f.value) || 0); app.markDirty(); openAdmin(); } }, 'Pakai')),
     fld('Ukir nama warga baru di Batu Nama', ta),
     h('button', { class: 'btn ghost', onclick: () => { const have = new Set(S.residents.map(r => r.n.toLowerCase())); let added = 0; for (const raw of ta.value.split(/[\n,]+/)) { const n = clean(raw); if (!n || have.has(n.toLowerCase())) continue; have.add(n.toLowerCase()); S.residents.push({ n, ep: app.curEp() }); added++; } if (S.followers < S.residents.length) S.followers = S.residents.length; app.markDirty(); toast(added + ' nama diukir'); openAdmin(); } }, 'Ukir nama'),

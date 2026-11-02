@@ -1,0 +1,43 @@
+name: "TikTok: sinkron follower"
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: island-data
+  cancel-in-progress: false
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Ambil jumlah follower
+        id: tt
+        env:
+          MODE: sync
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          TIKTOK_REFRESH_TOKEN: ${{ secrets.TIKTOK_REFRESH_TOKEN }}
+        run: node scripts/tiktok-sync.mjs
+      - name: Simpan token baru (jika TikTok menggantinya)
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          if [ ! -f "$RUNNER_TEMP/tiktok_refresh_token" ]; then echo "Token tidak berubah."; exit 0; fi
+          if [ -z "$GH_TOKEN" ]; then echo "::warning::Secret GH_PAT belum diisi, token baru tidak bisa disimpan."; exit 0; fi
+          gh secret set TIKTOK_REFRESH_TOKEN --repo "$GITHUB_REPOSITORY" < "$RUNNER_TEMP/tiktok_refresh_token"
+          rm -f "$RUNNER_TEMP/tiktok_refresh_token"
+      - name: Terbitkan ke pulau
+        if: steps.tt.outputs.changed == 'true'
+        run: |
+          git config user.name "Aru"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/island.json
+          git commit -m "Follower TikTok: ${{ steps.tt.outputs.followers }}"
+          git pull --rebase -q origin main
+          git push

@@ -38,3 +38,14 @@ data/island.json    kondisi pulau saat ini
 lib/three/          three.js r160 (MIT)
 ```
 Tidak ada build step. Jalankan lokal dengan `python3 -m http.server` lalu buka `http://localhost:8000`.
+
+## Follower otomatis dari TikTok
+GitHub Action `TikTok: sinkron follower` mengambil jumlah follower tiap 15 menit lewat TikTok Display API (scope `user.info.stats`) dan menulisnya ke `data/island.json`. Penduduk, lampu mercusuar, lampu jalan, dan milestone ikut naik otomatis.
+
+Pengaturan sekali saja:
+1. Buat app di https://developers.tiktok.com, tambahkan produk **Login Kit** dengan scope `user.info.basic` dan `user.info.stats`, lalu daftarkan redirect URI `https://chalidade.github.io/Pulau-aru/tiktok/callback.html`. Pakai mode **Sandbox** dan tambahkan akun TikTok-mu sebagai target user (tanpa app review).
+2. Di repo: Settings → Secrets and variables → Actions, isi `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET`, dan `GH_PAT` (fine-grained token untuk repo ini dengan izin **Secrets: Read and write**).
+3. Buka https://chalidade.github.io/Pulau-aru/tiktok/, login dengan TikTok, salin kodenya.
+4. Actions → **TikTok: hubungkan akun** → Run workflow → tempel kode.
+
+Token tidak pernah ditulis ke repo atau log; refresh token disimpan sebagai repository secret.

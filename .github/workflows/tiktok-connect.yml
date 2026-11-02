@@ -1,0 +1,47 @@
+name: "TikTok: hubungkan akun"
+on:
+  workflow_dispatch:
+    inputs:
+      code:
+        description: "Kode dari halaman /tiktok/callback.html (sekali pakai)"
+        required: true
+permissions:
+  contents: write
+concurrency:
+  group: island-data
+  cancel-in-progress: false
+jobs:
+  connect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sembunyikan kode di log
+        run: echo "::add-mask::${{ inputs.code }}"
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Tukar kode dengan token
+        id: tt
+        env:
+          MODE: connect
+          CODE: ${{ inputs.code }}
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+        run: node scripts/tiktok-sync.mjs
+      - name: Simpan refresh token sebagai secret
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then echo "::error::Isi secret GH_PAT dulu (token GitHub dengan izin Secrets: Read and write)."; exit 1; fi
+          gh secret set TIKTOK_REFRESH_TOKEN --repo "$GITHUB_REPOSITORY" < "$RUNNER_TEMP/tiktok_refresh_token"
+          rm -f "$RUNNER_TEMP/tiktok_refresh_token"
+          echo "Terhubung. Sinkron otomatis berjalan tiap 15 menit."
+      - name: Terbitkan ke pulau
+        if: steps.tt.outputs.changed == 'true'
+        run: |
+          git config user.name "Aru"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/island.json
+          git commit -m "Follower TikTok: ${{ steps.tt.outputs.followers }}"
+          git pull --rebase -q origin main
+          git push

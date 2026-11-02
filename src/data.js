@@ -41,7 +41,14 @@ export async function publishState(state, message) {
   let sha;
   const cur = await fetch(api + '?ref=' + REPO.branch + '&t=' + Date.now(), { headers, cache: 'no-store' });
   if (cur.status === 401) throw Object.assign(new Error('bad_token'), { code: 'bad_token' });
-  if (cur.ok) sha = (await cur.json()).sha;
+  if (cur.ok) {
+    const j = await cur.json(); sha = j.sha;
+    // the TikTok sync owns the follower count: keep the newest synced value instead of the draft's
+    try {
+      const remote = JSON.parse(decodeURIComponent(escape(atob((j.content || '').replace(/\n/g, '')))));
+      if (remote.tiktok && (!state.tiktok || remote.tiktok.updatedAt >= state.tiktok.updatedAt)) { state.tiktok = remote.tiktok; state.followers = Math.max(remote.tiktok.followers, state.residents.length); }
+    } catch (e) { }
+  }
   const body = { message, content: b64(JSON.stringify(state, null, 1) + '\n'), branch: REPO.branch };
   if (sha) body.sha = sha;
   const r = await fetch(api, { method: 'PUT', headers, body: JSON.stringify(body) });
