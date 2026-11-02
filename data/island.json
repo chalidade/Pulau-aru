@@ -1,7 +1,7 @@
 {
  "v": 1,
  "islandName": "Pulau Netizen",
- "followers": 3,
+ "followers": 423,
  "residents": [
   {
    "n": "yanzz7384",
@@ -40,5 +40,9 @@
    "ep": 0
   }
  ],
- "clueTotal": 10
+ "clueTotal": 10,
+ "tiktok": {
+  "followers": 423,
+  "updatedAt": "2026-11-02T08:37:43.866Z"
+ }
 }
