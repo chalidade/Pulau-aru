@@ -7,7 +7,7 @@ import path from 'node:path';
 
 const env = process.env;
 const KEY = env.TIKTOK_CLIENT_KEY, SECRET = env.TIKTOK_CLIENT_SECRET;
-const REDIRECT = env.TIKTOK_REDIRECT_URI || 'https://chalidade.github.io/Pulau-aru/tiktok/callback.html';
+const REDIRECT = env.TIKTOK_REDIRECT_URI || 'https://pulau-aru.web.id/tiktok/callback.html';
 const OUT = path.join(env.RUNNER_TEMP || '.', 'tiktok_refresh_token');
 const DATA = 'data/island.json';
 

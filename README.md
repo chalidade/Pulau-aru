@@ -2,7 +2,7 @@
 
 Satu pulau, satu penghuni. Setiap follower TikTok menjadi warga, dan setiap hari dua komentar dipilih acak untuk menentukan jalan cerita. Game 3D low-poly ini menampilkan kondisi pulau persis seperti di video.
 
-**Main:** https://chalidade.github.io/Pulau-aru/
+**Main:** https://pulau-aru.web.id/
 
 ## Isi pulau
 - **Batu Nama**: nama setiap warga diukir di batu dekat pantai.
@@ -14,7 +14,7 @@ Satu pulau, satu penghuni. Setiap follower TikTok menjadi warga, dan setiap hari
 - Lampu jalan bertambah satu setiap 20 follower.
 
 ## Mengelola pulau (kreator)
-1. Buka `https://chalidade.github.io/Pulau-aru/?kelola`.
+1. Buka `https://pulau-aru.web.id/?kelola`.
 2. Klik tombol pensil (Kelola pulau).
 3. Tab **Pulau & GitHub**: tempel fine-grained token GitHub (Contents: Read and write, hanya untuk repo ini). Token disimpan di peramban itu saja.
 4. Ubah warga, taruh bangunan, undi komentar, catat episode, tulis surat, buka petunjuk.
@@ -43,9 +43,9 @@ Tidak ada build step. Jalankan lokal dengan `python3 -m http.server` lalu buka `
 GitHub Action `TikTok: sinkron follower` mengambil jumlah follower tiap jam lewat TikTok Display API (scope `user.info.stats`) dan menulisnya ke `data/island.json`. Penduduk, lampu mercusuar, lampu jalan, dan milestone ikut naik otomatis.
 
 Pengaturan sekali saja:
-1. Buat app di https://developers.tiktok.com, tambahkan produk **Login Kit** dengan scope `user.info.basic` dan `user.info.stats`, lalu daftarkan redirect URI `https://chalidade.github.io/Pulau-aru/tiktok/callback.html`. Pakai mode **Sandbox** dan tambahkan akun TikTok-mu sebagai target user (tanpa app review).
+1. Buat app di https://developers.tiktok.com, tambahkan produk **Login Kit** dengan scope `user.info.basic` dan `user.info.stats`, lalu daftarkan redirect URI `https://pulau-aru.web.id/tiktok/callback.html`. Pakai mode **Sandbox** dan tambahkan akun TikTok-mu sebagai target user (tanpa app review).
 2. Di repo: Settings → Secrets and variables → Actions, isi `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET`, dan `GH_PAT` (fine-grained token untuk repo ini dengan izin **Secrets: Read and write**).
-3. Buka https://chalidade.github.io/Pulau-aru/tiktok/, login dengan TikTok, salin kodenya.
+3. Buka https://pulau-aru.web.id/tiktok/, login dengan TikTok, salin kodenya.
 4. Actions → **TikTok: hubungkan akun** → Run workflow → tempel kode.
 
 Token tidak pernah ditulis ke repo atau log; refresh token disimpan sebagai repository secret.
