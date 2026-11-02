@@ -16,7 +16,7 @@ const ADMIN = /[?&#]kelola\b/.test(location.search + location.hash);
 
 // ---------- state ----------
 let S = normalize(null), PUB = '{}', dirty = false;
-const pop = () => (S.followers | 0) + 1;
+const pop = () => S.followers | 0;
 const lamps = () => S.followers | 0;
 const curEp = () => S.episodes.length ? Math.max(...S.episodes.map(e => e.ep | 0)) : 0;
 const role = { kind: 'aru', name: 'Aru' };
@@ -176,12 +176,15 @@ function rebuildBuildings() {
 const player = { obj: null, x: 0, z: 0, tx: null, tz: null, moving: false };
 function setPlayerLook() { if (player.obj) scene.remove(player.obj); player.obj = makeCharacter(role.kind === 'aru' ? ARU : lookOf(role.name + 'me')); scene.add(player.obj); player.obj.traverse(o => { if (o.isMesh) o.castShadow = true; }); }
 let npcs = [];
+const SEED = Math.random(), rankOf = n => { let h = SEED * 4294967296 >>> 0; for (const c of n.toLowerCase()) h = Math.imul(h ^ c.charCodeAt(0), 2654435761) >>> 0; return h; };
 const npcGroup = new THREE.Group(); scene.add(npcGroup);
 function rebuildNpcs() {
-  const res = S.residents, extra = Math.max(0, lamps() - res.length), N = Math.min(touch ? 36 : 60, res.length + extra);
+  // a random pick of named residents, reshuffled per page load but stable while the page is open
+  const res = S.residents.map((r, i) => ({ ...r, num: i + 1 })).sort((a, b) => rankOf(a.n) - rankOf(b.n));
+  const extra = Math.max(0, lamps() - res.length), N = Math.min(touch ? 60 : 100, res.length + extra);
   const want = [];
   if (role.kind !== 'aru') want.push({ key: 'aru', name: 'Aru', aru: true });
-  for (let i = 0; i < N; i++) { const r = i < res.length ? res[res.length - 1 - i] : null; const key = r ? 'r:' + r.n.toLowerCase() : 'a:' + i; if (role.kind === 'warga' && key === 'r:' + role.name.toLowerCase()) continue; want.push(r ? { key, name: '@' + r.n, num: res.length - i } : { key, name: 'Warga', num: null }); }
+  for (let i = 0; i < N; i++) { const r = i < res.length ? res[i] : null; const key = r ? 'r:' + r.n.toLowerCase() : 'a:' + i; if (role.kind === 'warga' && key === 'r:' + role.name.toLowerCase()) continue; want.push(r ? { key, name: '@' + r.n, num: r.num } : { key, name: 'Warga', num: null }); }
   const old = new Map(npcs.map(n => [n.key, n]));
   const next = want.map((w, i) => {
     const o = old.get(w.key); if (o) { old.delete(w.key); Object.assign(o, w); return o; }

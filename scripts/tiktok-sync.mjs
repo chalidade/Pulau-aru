@@ -60,5 +60,5 @@ if (changed) {
   s.tiktok = { followers: count, updatedAt: new Date().toISOString() };
   fs.writeFileSync(DATA, JSON.stringify(s, null, 1) + '\n');
 }
-console.log(changed ? `Penduduk diperbarui → ${next + 1}` : 'Tidak ada perubahan follower.');
+console.log(changed ? `Penduduk diperbarui → ${next}` : 'Tidak ada perubahan follower.');
 if (env.GITHUB_OUTPUT) fs.appendFileSync(env.GITHUB_OUTPUT, `changed=${changed}\nfollowers=${count}\n`);

@@ -35,7 +35,7 @@ jobs:
           if [ -z "$GH_TOKEN" ]; then echo "::error::Isi secret GH_PAT dulu (token GitHub dengan izin Secrets: Read and write)."; exit 1; fi
           gh secret set TIKTOK_REFRESH_TOKEN --repo "$GITHUB_REPOSITORY" < "$RUNNER_TEMP/tiktok_refresh_token"
           rm -f "$RUNNER_TEMP/tiktok_refresh_token"
-          echo "Terhubung. Sinkron otomatis berjalan tiap 15 menit."
+          echo "Terhubung. Sinkron otomatis berjalan tiap jam."
       - name: Terbitkan ke pulau
         if: steps.tt.outputs.changed == 'true'
         run: |

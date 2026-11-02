@@ -46,7 +46,7 @@ if (q.get('error')) {
   box.append(btn); body.append(box);
   const ol = el('ol');
   const li1 = el('li'); li1.append('Buka ', Object.assign(el('a', null, 'workflow "TikTok: hubungkan akun"'), { href: 'https://github.com/chalidade/Pulau-aru/actions/workflows/tiktok-connect.yml', target: '_blank', rel: 'noopener' }), '.');
-  ol.append(li1, el('li', null, 'Klik "Run workflow", tempel kode di kolom, lalu jalankan.'), el('li', null, 'Lakukan dalam beberapa menit, karena kodenya cepat kedaluwarsa. Setelah hijau, follower tersinkron tiap 15 menit.'));
+  ol.append(li1, el('li', null, 'Klik "Run workflow", tempel kode di kolom, lalu jalankan.'), el('li', null, 'Lakukan dalam beberapa menit, karena kodenya cepat kedaluwarsa. Setelah hijau, follower tersinkron tiap jam.'));
   body.append(ol);
   history.replaceState(null, '', location.pathname);
 }
