@@ -164,7 +164,41 @@ function adWarga() {
     h('div', { class: 'row' }, fld('Jumlah follower', f), h('button', { class: 'btn ghost', onclick: () => { S.followers = Math.max(S.residents.length, parseInt(f.value) || 0); app.markDirty(); openAdmin(); } }, 'Pakai')),
     fld('Ukir nama warga baru di Batu Nama', ta),
     h('button', { class: 'btn ghost', onclick: () => { const have = new Set(S.residents.map(r => r.n.toLowerCase())); let added = 0; for (const raw of ta.value.split(/[\n,]+/)) { const n = clean(raw); if (!n || have.has(n.toLowerCase())) continue; have.add(n.toLowerCase()); S.residents.push({ n, ep: app.curEp() }); added++; } if (S.followers < S.residents.length) S.followers = S.residents.length; app.markDirty(); toast(added + ' nama diukir'); openAdmin(); } }, 'Ukir nama'),
+    h('div', { class: 'eyebrow', style: 'margin-top:18px;margin-bottom:6px' }, 'Impor dari data TikTok'),
+    h('p', { class: 'lede' }, 'Pilih file user_data_tiktok.json (atau Follower.txt) dari unduhan data akun TikTok-mu. Nama follower baru langsung diukir, urut dari yang paling lama follow.'),
+    h('input', { id: 'ad-ttfile', type: 'file', accept: '.json,.txt,application/json,text/plain', class: 'inp', onchange: e => importFollowers(e.target.files[0]) }),
     h('div', { class: 'eyebrow', style: 'margin-top:16px' }, `${S.residents.length} nama di batu`), list);
+}
+// Parse TikTok's "Download your data" export. The layout differs between versions, so search
+// for any list of objects carrying a username under a key that mentions fans/followers.
+export function parseFollowerExport(text) {
+  const out = [];
+  const t = text.trim();
+  if (t.startsWith('{') || t.startsWith('[')) {
+    const data = JSON.parse(t);
+    const walk = (node, inFans) => {
+      if (Array.isArray(node)) { for (const it of node) { if (inFans && it && typeof it === 'object') { const u = it.UserName || it.username || it.userName || it.Username || it.uniqueId; if (u) out.push({ n: String(u), d: it.Date || it.date || '' }); } walk(it, inFans); } return; }
+      if (node && typeof node === 'object') for (const k in node) walk(node[k], inFans || /fans|follower/i.test(k) && !/following/i.test(k));
+    };
+    walk(data, false);
+  } else {
+    // TXT export: blocks of "Date: …" followed by "Username: …"
+    let d = '';
+    for (const line of t.split(/\r?\n/)) { const md = line.match(/^\s*Date:\s*(.+)$/i); if (md) d = md[1]; const mu = line.match(/^\s*User ?name:\s*(\S+)/i); if (mu) out.push({ n: mu[1], d }); }
+  }
+  out.sort((a, b) => String(a.d).localeCompare(String(b.d)));
+  return out;
+}
+async function importFollowers(file) {
+  if (!file) return;
+  const S = app.S;
+  let list;
+  try { list = parseFollowerExport(await file.text()); } catch (e) { toast('File tidak bisa dibaca. Pilih user_data_tiktok.json dari folder hasil unduhan.'); return; }
+  if (!list.length) { toast('Daftar follower tidak ditemukan di file ini.'); return; }
+  const have = new Set(S.residents.map(r => r.n.toLowerCase())); let added = 0;
+  for (const it of list) { const n = clean(it.n); if (!n || have.has(n.toLowerCase())) continue; have.add(n.toLowerCase()); S.residents.push({ n, ep: app.curEp() }); added++; }
+  if (S.followers < S.residents.length) S.followers = S.residents.length;
+  app.markDirty(); toast(`${list.length} follower ditemukan, ${added} nama baru diukir. Jangan lupa terbitkan.`); openAdmin('warga');
 }
 function adBangun() {
   const pal = h('div', { class: 'palette' });
