@@ -176,6 +176,8 @@ export function parseFollowerExport(text) {
   const t = text.trim();
   if (t.startsWith('{') || t.startsWith('[')) {
     const data = JSON.parse(t);
+    // Apify tiktok-followers-scraper: [{ authorMeta: { name } }], newest follower first
+    if (Array.isArray(data) && data[0]?.authorMeta) return data.map(it => ({ n: String(it.authorMeta?.name || ''), d: '' })).filter(it => it.n).reverse();
     const walk = (node, inFans) => {
       if (Array.isArray(node)) { for (const it of node) { if (inFans && it && typeof it === 'object') { const u = it.UserName || it.username || it.userName || it.Username || it.uniqueId; if (u) out.push({ n: String(u), d: it.Date || it.date || '' }); } walk(it, inFans); } return; }
       if (node && typeof node === 'object') for (const k in node) walk(node[k], inFans || /fans|follower/i.test(k) && !/following/i.test(k));
