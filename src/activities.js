@@ -1,0 +1,202 @@
+// Things the residents do: fish at the shore, chop trees, build houses together, sit by the fire, stroll.
+import * as THREE from 'three';
+import * as WD from './world.js';
+import { W, H, tile, treeAt, LM, village } from './world.js';
+import { mat, box, G } from './models.js';
+
+// ---------- props ----------
+function axe() { const g = new THREE.Group(); box(g, '#7a5432', .04, .5, .04, 0, -.95, .02); box(g, '#9aa3a8', .04, .14, .2, 0, -.97, .12); return g; }
+function hammer() { const g = new THREE.Group(); box(g, '#7a5432', .035, .32, .035, 0, -.8, .02); box(g, '#6d7378', .08, .08, .16, 0, -.82, .06); return g; }
+function rod() {
+  const g = new THREE.Group();
+  const pole = new THREE.Mesh(G.cyl6, mat('#8a6a3a')); pole.scale.set(.018, 2.1, .018); pole.position.set(0, 1.05, 0); g.add(pole);
+  g.rotation.x = 1.15; g.position.set(.28, .95, .25);
+  return g;
+}
+function plank() { const g = new THREE.Group(); box(g, '#b07a4a', .9, .06, .16, 0, -.62, .25); return g; }
+
+export function constructionSite() {
+  const g = new THREE.Group();
+  box(g, '#8a6a4a', 2.6, .12, 2.6, 0, 0, 0);                                       // floor
+  for (const [x, z] of [[-1.2, -1.2], [1.2, -1.2], [-1.2, 1.2], [1.2, 1.2]]) box(g, '#6b4a2b', .14, 1.9, .14, x, .1, z);
+  for (let i = 0; i < 5; i++) box(g, i % 2 ? '#b07a4a' : '#9a6a3e', 2.5, .16, .08, 0, .25 + i * .2, -1.22);   // back wall half done
+  for (let i = 0; i < 3; i++) box(g, i % 2 ? '#b07a4a' : '#9a6a3e', .08, .16, 2.5, -1.22, .25 + i * .2, 0);   // side wall started
+  box(g, '#6b4a2b', 2.6, .1, .1, 0, 1.95, -1.2); box(g, '#6b4a2b', 2.6, .1, .1, 0, 1.95, 1.2);
+  const r1 = box(g, '#6b4a2b', .08, 1.5, .08, -.7, 1.95, 0); r1.rotation.x = Math.PI / 2; r1.position.y = 2.2;
+  for (let i = 0; i < 4; i++) box(g, '#b07a4a', 1.2, .06, .18, 1.9, .02 + i * .07, -.6 + (i % 2) * .05);    // plank pile
+  for (let i = 0; i < 3; i++) { const l = new THREE.Mesh(G.cyl6, mat('#7a5432')); l.scale.set(.12, 1.1, .12); l.rotation.z = Math.PI / 2; l.position.set(1.9, .12 + (i === 2 ? .2 : 0), .5 + (i === 2 ? .12 : i * .24)); l.castShadow = true; g.add(l); }
+  const lad = new THREE.Group(); lad.position.set(1.3, 0, 1.3); lad.rotation.z = -.25; g.add(lad);
+  box(lad, '#8a6a3a', .05, 1.8, .05, -.18, 0, 0); box(lad, '#8a6a3a', .05, 1.8, .05, .18, 0, 0); for (let i = 0; i < 5; i++) box(lad, '#8a6a3a', .4, .04, .04, 0, .25 + i * .32, 0);
+  return g;
+}
+function logSeat() { const l = new THREE.Mesh(G.cyl6, mat('#6b4a2b')); l.scale.set(.16, .9, .16); l.rotation.z = Math.PI / 2; l.castShadow = true; l.receiveShadow = true; return l; }
+
+// ---------- spots ----------
+const FIRE_SEATS = 7;
+export function createActivities(ctx) {
+  // ctx: { scene, solid(), occ(), npcWalkable, groundY, surfaceY, fireXZ, player }
+  const deco = new THREE.Group(); ctx.scene.add(deco);
+  let spots = { fish: [], chop: [], build: [], sit: [] }, sites = [];
+  const free = i => ctx.occ()[i] === -1 && !ctx.solid()[i];
+  const spaced = (list, x, y, d) => list.every(s => Math.abs(s.cx - x) >= d || Math.abs(s.cy - y) >= d);
+
+  function compute() {
+    deco.clear(); spots = { fish: [], chop: [], build: [], sit: [] }; sites = [];
+    const cx0 = LM.camp[0], cy0 = LM.camp[1];
+    const cells = [];
+    for (let y = 2; y < H - 2; y++) for (let x = 2; x < W - 2; x++) { const d = Math.hypot(x - cx0, y - cy0); if (d < 34) cells.push({ x, y, d }); }
+    cells.sort((a, b) => a.d - b.d);
+    for (const c of cells) {
+      const i = c.y * W + c.x, t = tile[i];
+      if (t === WD.SAND && free(i) && spots.fish.length < 14) {
+        for (const [dx, dy] of [[0, 1], [1, 0], [-1, 0], [0, -1]]) if (tile[(c.y + dy) * W + c.x + dx] === WD.SHALLOW && spaced(spots.fish, c.x, c.y, 3)) { spots.fish.push({ cx: c.x, cy: c.y, x: WD.cx2w(c.x) + dx * .3, z: WD.cy2w(c.y) + dy * .3, face: Math.atan2(dx, dy), water: [WD.cx2w(c.x) + dx * 2.6, WD.cy2w(c.y) + dy * 2.6] }); break; }
+      }
+      if (t >= WD.GRASS && free(i) && c.d > 6 && c.d < 26 && spots.chop.length < 14) {
+        for (const [dx, dy] of [[0, 1], [1, 0], [-1, 0], [0, -1]]) { const j = (c.y + dy) * W + c.x + dx; if (treeAt[j] >= 0 && ctx.occ()[j] === -1 && spaced(spots.chop, c.x, c.y, 3)) { spots.chop.push({ cx: c.x, cy: c.y, x: WD.cx2w(c.x) + dx * .15, z: WD.cy2w(c.y) + dy * .15, face: Math.atan2(dx, dy), tree: j }); break; } }
+      }
+    }
+    // two construction sites: open 3x3 grass a little away from the camp
+    for (const c of cells) {
+      if (sites.length >= 2) break;
+      if (c.d < 9 || c.d > 20) continue;
+      let ok = true;
+      for (let dy = -2; dy <= 2 && ok; dy++) for (let dx = -2; dx <= 2 && ok; dx++) { const i = (c.y + dy) * W + c.x + dx; if (tile[i] < WD.GRASS || !free(i)) ok = false; }
+      if (!ok || sites.some(s => Math.hypot(s.cx - c.x, s.cy - c.y) < 10)) continue;
+      const x = WD.cx2w(c.x), z = WD.cy2w(c.y), site = constructionSite();
+      site.position.set(x, ctx.groundY(x, z), z); site.rotation.y = (sites.length ? 1 : 0) * Math.PI / 2; deco.add(site);
+      sites.push({ cx: c.x, cy: c.y });
+      for (const [dx, dz] of [[0, 2.1], [2.1, 0], [-2.1, 0], [0, -2.1]]) spots.build.push({ x: x + dx, z: z + dz, face: Math.atan2(-dx, -dz), cx: c.x, cy: c.y });
+    }
+    // seats around the camp fire, leaving the shelter side open
+    const [fx, fz] = ctx.fireXZ;
+    for (let k = 0; k < FIRE_SEATS; k++) {
+      const a = Math.PI * .15 + k / (FIRE_SEATS - 1) * Math.PI * .7; // southern arc
+      const x = fx + Math.cos(a) * 2.3, z = fz + Math.sin(a) * 2.3;
+      spots.sit.push({ x, z, face: Math.atan2(fx - x, fz - z) });
+      const seat = logSeat(); seat.position.set(fx + Math.cos(a) * 2.55, ctx.groundY(x, z) + .12, fz + Math.sin(a) * 2.55); seat.rotation.y = -a; deco.add(seat);
+    }
+    return sites;
+  }
+  const siteCells = () => sites.flatMap(s => { const out = []; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) out.push((s.cy + dy) * W + s.cx + dx); return out; });
+
+  // ---------- roles ----------
+  const ROLE_ORDER = ['fish', 'chop', 'build', 'sit', 'chop', 'fish', 'build', 'wander', 'sit', 'build', 'wander', 'fish'];
+  function assign(npcs) {
+    const used = { fish: 0, chop: 0, build: 0, sit: 0 };
+    npcs.forEach((n, i) => {
+      if (n.aru) { setRole(n, 'sit', spots.sit[used.sit++] || null); return; }
+      let want = ROLE_ORDER[i % ROLE_ORDER.length];
+      if (want !== 'wander' && used[want] >= spots[want].length) want = 'wander';
+      setRole(n, want, want === 'wander' ? null : spots[want][used[want]++]);
+    });
+  }
+  function setRole(n, role, spot) {
+    if (n.role === role && n.spot === spot) return;
+    if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }
+    if (n.line) { n.obj.remove(n.line); n.line = null; }
+    if (n.bob) { ctx.scene.remove(n.bob); n.bob = null; }
+    n.role = spot || role === 'wander' ? role : 'wander'; n.spot = spot;
+    n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
+    if (spot) { n.x = spot.x; n.z = spot.z; n.obj.rotation.y = spot.face; n.tx = null; }
+    const u = n.obj.userData;
+    if (n.role === 'chop') { n.tool = axe(); u.armR.add(n.tool); }
+    if (n.role === 'build') { n.carry = Math.random() < .35; n.tool = n.carry ? plank() : hammer(); u.armR.add(n.tool); }
+    if (n.role === 'fish') {
+      n.tool = rod(); n.obj.add(n.tool);
+      const lg = new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(new Float32Array(6), 3));
+      n.line = new THREE.Line(lg, new THREE.LineBasicMaterial({ color: '#f0f0f0', transparent: true, opacity: .7 })); n.obj.add(n.line);
+      n.bob = new THREE.Mesh(G.sph, mat('#e8463a')); n.bob.scale.setScalar(.06); ctx.scene.add(n.bob);
+    }
+  }
+
+  // ---------- per frame ----------
+  const tip = new THREE.Vector3();
+  function walkTo(n, tx, tz, dt, speed = 1.5) {
+    const dx = tx - n.x, dz = tz - n.z, d = Math.hypot(dx, dz);
+    if (d < .12) { n.moving = false; return true; }
+    const sp = Math.min(d, speed * dt), vx = dx / d * sp, vz = dz / d * sp;
+    const ox = n.x, oz = n.z;
+    if (ctx.npcWalkable(n.x + vx, n.z)) n.x += vx; if (ctx.npcWalkable(n.x, n.z + vz)) n.z += vz;
+    const prog = Math.hypot(n.x - ox, n.z - oz);
+    n.moving = prog > sp * .25;
+    if (n.moving) n.obj.rotation.y = Math.atan2(n.x - ox, n.z - oz);
+    // stuck detection: no real progress for 2.5 s
+    n.stuck = n.moving ? 0 : (n.stuck || 0) + dt;
+    if (n.stuck > 2.5) {
+      n.stuck = 0;
+      const far = Math.hypot(n.x - ctx.player.x, n.z - ctx.player.z) > 14;
+      if (far || n.state === 'return') { n.x = tx; n.z = tz; return true; } // unseen, or heading home: hop there
+      n.tx = null; return true;
+    }
+    return false;
+  }
+  function strollTarget(n) {
+    const hx = n.spot ? WD.w2cx(n.spot.x) : n.hx, hy = n.spot ? WD.w2cy(n.spot.z) : n.hy, R = n.aru ? 3 : n.spot ? 4 : 8;
+    for (let k = 0; k < 8; k++) {
+      const tx = hx + Math.round((Math.random() * 2 - 1) * R), ty = hy + Math.round((Math.random() * 2 - 1) * R);
+      if (tx > 0 && ty > 0 && tx < W && ty < H && tile[ty * W + tx] >= WD.SAND && ctx.npcWalkable(WD.cx2w(tx), WD.cy2w(ty))) { n.tx = WD.cx2w(tx); n.tz = WD.cy2w(ty); return; }
+    }
+    n.tx = null;
+  }
+  function update(n, dt, T) {
+    const u = n.obj.userData; n.t += dt;
+    if (n.state === 'work') {
+      if (n.t > n.workFor) { n.state = 'break'; n.t = 0; n.breakFor = 6 + Math.random() * 8; strollTarget(n); }
+      n.moving = false; n.obj.rotation.y = n.spot.face;
+      animateWork(n, u, T, dt);
+      return;
+    }
+    // walking states reset the work pose
+    u.body.position.y = 0;
+    if (n.state === 'break' || n.state === 'stroll') {
+      if (n.wait > 0) { n.wait -= dt; n.moving = false; walkPose(u, false, dt); return; }
+      if (n.tx == null) strollTarget(n);
+      if (n.tx == null || walkTo(n, n.tx, n.tz, dt)) { n.tx = null; n.wait = 1 + Math.random() * 3; }
+      if (n.state === 'break' && n.t > n.breakFor) { n.state = 'return'; n.t = 0; }
+    } else if (n.state === 'return') {
+      if (walkTo(n, n.spot.x, n.spot.z, dt)) { n.state = 'work'; n.t = 0; n.workFor = 35 + Math.random() * 50; }
+    }
+    walkPose(u, n.moving, dt);
+    if (n.tool && n.role !== 'fish') n.tool.visible = true;
+  }
+  function walkPose(u, moving, dt) {
+    if (moving) u.phase += dt * 11; else u.phase *= .9;
+    const s = moving ? Math.sin(u.phase) * .7 : 0;
+    u.legL.rotation.x = s; u.legR.rotation.x = -s; u.armL.rotation.x = -s * .8; u.armR.rotation.x = s * .8;
+    u.body.position.y = moving ? Math.abs(Math.cos(u.phase)) * .05 : 0;
+  }
+  function animateWork(n, u, T, dt) {
+    const ph = T + (n.seed || (n.seed = Math.random() * 10));
+    u.legL.rotation.x = 0; u.legR.rotation.x = 0; u.body.position.y = 0; u.body.rotation.x = 0;
+    if (n.role === 'chop') {
+      const c = (ph % 1.3) / 1.3, swing = c < .7 ? -2.7 + c / .7 * .6 : -2.1 + (c - .7) / .3 * 1.6;
+      u.armR.rotation.x = swing; u.armL.rotation.x = swing * .9; u.body.rotation.x = c > .7 ? .12 : 0;
+    } else if (n.role === 'build') {
+      if (n.carry) { u.armR.rotation.x = -1.1; u.armL.rotation.x = -1.1; u.body.position.y = Math.abs(Math.sin(ph * 2)) * .02; }
+      else { const c = (ph * 2.6) % 1; u.armR.rotation.x = -1.7 + Math.abs(Math.sin(c * Math.PI)) * 1.1; u.armL.rotation.x = -.4; u.body.rotation.x = .25; u.body.position.y = -.08; }
+    } else if (n.role === 'sit') {
+      u.body.position.y = -.42; u.legL.rotation.x = -1.45; u.legR.rotation.x = -1.4; u.armL.rotation.x = -.5; u.armR.rotation.x = -.5 + Math.sin(ph * 1.7) * .12;
+      if (Math.sin(ph * .7) > .6) u.armR.rotation.x = -1.1 + Math.sin(ph * 6) * .3; // talking with hands
+    } else if (n.role === 'fish') {
+      const c = (ph % 14) / 14; // a cast every 14 s, a tug now and then
+      u.armR.rotation.x = c < .06 ? -2.4 + c / .06 * 1.4 : -1.0 + Math.sin(ph * 1.3) * .04; u.armL.rotation.x = -.9;
+      const tug = Math.sin(ph * .9) > .985;
+      if (tug) u.armR.rotation.x -= .4;
+      n.tool.rotation.x = 1.15 + (u.armR.rotation.x + 1) * .3;
+      n.tool.updateMatrixWorld(); tip.set(0, 2.1, 0).applyMatrix4(n.tool.matrixWorld);
+      const [wx, wz] = n.spot.water; const by = Math.sin(ph * 2) * .02 - (tug ? .12 : 0);
+      n.bob.position.set(wx, by, wz);
+      const p = n.line.geometry.attributes.position, inv = n.obj.worldToLocal.bind(n.obj);
+      const a = inv(tip.clone()), b = inv(n.bob.position.clone()); p.setXYZ(0, a.x, a.y, a.z); p.setXYZ(1, b.x, b.y, b.z); p.needsUpdate = true;
+    }
+  }
+  return { compute, assign, update, siteCells, get spots() { return spots; } };
+}
+
+export const ROLE_LINES = {
+  fish: ['Sstt, jangan berisik. Ikannya hampir makan umpan.', 'Udah dua jam belum dapat. Tapi pemandangannya bagus, kan?', 'Kata Aru, ikan emas berkilau itu beneran ada.'],
+  chop: ['Kayu ini buat rumah warga baru. Kita butuh banyak!', 'Hati-hati, pohonnya mau rubuh! …Belum deng.', 'Capek juga ya, tapi seru.'],
+  build: ['Kurang dikit lagi atapnya jadi!', 'Siapa yang ambil palu aku?', 'Rumah ini nanti buat siapa ya? Mungkin buat kamu.'],
+  sit: ['Duduk sini, apinya hangat.', 'Kamu dengar cerita soal peti di pulau seberang?', 'Aru tadi meleset nombak ikan lagi, hahaha.'],
+  wander: ['Aku lagi jalan-jalan keliling pulau.', 'Pulau ini makin ramai aja tiap hari.'],
+};

@@ -11,6 +11,7 @@ import { loadState, normalize, store } from './data.js';
 import * as UI from './ui.js';
 import { createFishing } from './fishing.js';
 import * as I2 from './island2.js';
+import { createActivities } from './activities.js';
 import { $, h, toast, fmt, clean } from './ui.js';
 
 const touch = matchMedia('(pointer:coarse)').matches;
@@ -187,6 +188,7 @@ function setPlayerLook() { if (player.obj) scene.remove(player.obj); player.obj 
 let npcs = [];
 const fishHud = h('div', { class: 'plate fishplate', hidden: true }); $('hud-l').appendChild(fishHud);
 function updateFishHud() { const st = fishing.st; fishHud.hidden = !st.active && !st.total; fishHud.replaceChildren(h('span', { class: 'eyebrow' }, 'Tangkapan ikan'), h('b', null, fmt(st.total))); }
+const acts = createActivities({ scene, solid: () => solid, occ: () => occ, npcWalkable: (x, z) => npcWalkable(x, z), groundY, surfaceY: (x, z) => surfaceY(x, z), fireXZ: fpCenter(LM.fire[0], LM.fire[1], 1, 1), player });
 const fishing = createFishing({ scene, player, toast: (...a) => toast(...a), onChange: () => { near = null; updateFishHud(); } });
 const SEED = Math.random(), rankOf = n => { let h = SEED * 4294967296 >>> 0; for (const c of n.toLowerCase()) h = Math.imul(h ^ c.charCodeAt(0), 2654435761) >>> 0; return h; };
 const npcGroup = new THREE.Group(); scene.add(npcGroup);
@@ -205,7 +207,7 @@ function rebuildNpcs() {
     const x = WD.cx2w(home.x), z = WD.cy2w(home.y);
     return { ...w, obj, x, z, hx: home.x, hy: home.y, wait: Math.random() * 3, tx: null, tz: null, moving: false };
   });
-  for (const o of old.values()) npcGroup.remove(o.obj);
+  for (const o of old.values()) { npcGroup.remove(o.obj); if (o.bob) scene.remove(o.bob); }
   npcs = next;
 }
 function walkable(x, z) {
@@ -455,7 +457,7 @@ function frame() {
   player.obj.position.set(player.x, player.y, player.z);
   animateCharacter(player.obj, player.moving, dt);
   fishing.update(dt, T0);
-  for (const n of npcs) { stepNpc(n, dt); n.obj.position.set(n.x, surfaceY(n.x, n.z), n.z); animateCharacter(n.obj, n.moving, dt); }
+  for (const n of npcs) { acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z), n.z); }
   // camera
   if (cam.attract && !$('start').hidden) { cam.yaw += dt * .05; }
   const tgt = new THREE.Vector3(player.x, player.obj.position.y + 1, player.z);
@@ -550,7 +552,7 @@ function thumb(type) {
 
 // ---------- state changes ----------
 const draftKey = 'pulau-aru-draft';
-function applyWorld() { rebuildOcc(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); rebuildNpcs(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
+function applyWorld() { rebuildOcc(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
 function markDirty() { dirty = true; store.set(draftKey, JSON.stringify(S)); applyWorld(); }
 const app = {
   get S() { return S; }, get dirty() { return dirty; }, get base() { try { return JSON.parse(PUB); } catch (e) { return null; } }, role, pop, lamps, curEp,
@@ -604,4 +606,4 @@ requestAnimationFrame(frame);
   }, 90000);
 })();
 
-window.__pulau = { app, LM, fishing, sail, I2, get player() { return player; } };
+window.__pulau = { app, LM, fishing, sail, I2, acts, get npcs() { return npcs; }, get player() { return player; } };
