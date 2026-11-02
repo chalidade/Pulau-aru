@@ -22,6 +22,13 @@ export function initUI(a) {
   $('dialog').addEventListener('click', closeDialog);
   $('b-journal').onclick = openJournal; $('b-letters').onclick = openLetters; $('b-names').onclick = openNames; $('b-map').onclick = openMap;
   $('b-admin').onclick = () => openAdmin();
+  const menu = $('menu'), mb = $('b-menu');
+  const setMenu = on => { menu.hidden = !on; mb.setAttribute('aria-expanded', String(on)); };
+  mb.onclick = e => { e.stopPropagation(); setMenu(menu.hidden); };
+  menu.addEventListener('click', e => { if (e.target.closest('.mi') && e.target.closest('.mi').id !== 'b-time') setMenu(false); });
+  document.addEventListener('pointerdown', e => { if (!menu.hidden && !e.target.closest('#hud-r')) setMenu(false); });
+  const pill = $('hud-pill'), more = $('hud-more');
+  pill.onclick = () => { more.hidden = !more.hidden; pill.setAttribute('aria-expanded', String(!more.hidden)); };
   $('banner-x').onclick = () => { app.endPlace(); openAdmin('bangun'); };
 }
 
@@ -49,6 +56,8 @@ export function refreshHud() {
   if (!bar) { bar = h('div', { id: 'unpub', hidden: true }, h('span', null, 'Perubahan belum terbit. Pengunjung belum melihatnya.'), h('button', { onclick: publishNow }, 'Terbitkan')); document.body.appendChild(bar); }
   bar.hidden = !app.dirty;
   $('letter-dot').hidden = !S.letters.length || (store.get('pulau-aru-seen-letters') | 0) >= S.letters.length;
+  $('menu-dot').hidden = $('letter-dot').hidden && !app.dirty;
+  $('pill-ep').textContent = 'Ep ' + ep;
   document.title = (S.islandName && S.islandName !== 'Pulau Tanpa Nama' ? S.islandName : 'Pulau Aru') + ' · ' + fmt(p) + ' penduduk';
 }
 

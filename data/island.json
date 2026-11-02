@@ -2868,8 +2868,17 @@
    "y": 75,
    "r": 0,
    "label": "",
-   "by": "",
-   "ep": 1
+   "by": "VANZwlee",
+   "ep": 2
+  },
+  {
+   "type": "raktombak",
+   "x": 58,
+   "y": 93,
+   "r": 0,
+   "label": "",
+   "by": "Akai",
+   "ep": 2
   }
  ],
  "episodes": [
@@ -2886,6 +2895,15 @@
     "faaxyz79"
    ],
    "text": "namanya ganti pulau netizen🗿"
+  },
+  {
+   "ep": 2,
+   "date": "2 Nov 2026",
+   "picks": [
+    "VANZwlee",
+    "Akai"
+   ],
+   "text": "Warga membangun piramida raksasa di tengah pulau. Tingginya sekitar sepuluh meter dan puncaknya bisa didaki dengan melompat dari undakan ke undakan.\nAru membuat tombak untuk menangkap ikan. Rak tombak dipasang di pantai dekat Batu Nama, dan sekarang semua warga boleh meminjamnya."
   }
  ],
  "letters": [],

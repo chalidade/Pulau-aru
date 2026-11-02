@@ -155,7 +155,7 @@ function rebuildPosts() {
   cells.forEach((c, i) => { const x = WD.cx2w(c.x) + .3, z = WD.cy2w(c.y) + .3, y = groundY(x, z); m4.makeTranslation(x, y + .7, z); pole.setMatrixAt(i, m4); m4.makeTranslation(x, y + 1.45, z); lamp.setMatrixAt(i, m4); p.set([x, y + 1.45, z], i * 3); });
   posts.add(pole, lamp);
   const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(p, 3));
-  postLights = new THREE.Points(g, new THREE.PointsMaterial({ map: glowTex, size: 2.4, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }));
+  postLights = new THREE.Points(g, new THREE.PointsMaterial({ map: glowTex, size: 1.2, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending }));
   posts.add(postLights);
 }
 
@@ -293,8 +293,7 @@ function tapAt(cx, cy) {
   if (hit && Math.hypot(hit.x - player.x, hit.z - player.z) < 4) { hit.act(); return; }
   player.tx = p.x; player.tz = p.z;
 }
-$('act').addEventListener('click', doAct);
-$('jump').addEventListener('pointerdown', e => { e.preventDefault(); jump(); }); $('prompt').addEventListener('click', doAct);
+$('act').addEventListener('click', doContext); $('prompt').addEventListener('click', doAct);
 
 // ---------- interactions ----------
 function interactables() {
@@ -303,21 +302,30 @@ function interactables() {
   L.push({ ...at(LM.stone[0], LM.stone[1], 2, 1, 1.2), label: 'Baca Batu Nama', act: UI.openNames, r: 2 });
   L.push({ ...at(LM.light[0], LM.light[1], 2, 2, 1.8), label: 'Lihat mercusuar', act: UI.openLight, r: 2 });
   L.push({ ...at(LM.mail[0], LM.mail[1], 1, 1, .8), label: 'Buka kotak surat', act: UI.openLetters, r: 1.5 });
-  L.push({ ...at(LM.board[0], LM.board[1], 2, 1, .9), label: 'Baca papan aturan', act: UI.openRules, r: 1.6 });
-  L.push({ ...at(LM.wreck[0], LM.wreck[1], 3, 2, 1.4), label: 'Periksa perahu rusak', act: UI.openMystery, r: 2.4 });
-  L.push({ ...at(LM.fire[0], LM.fire[1], 1, 1, .9), label: 'Catatan di api unggun', act: UI.openJournal, r: 1.6 });
+  L.push({ ...at(LM.board[0], LM.board[1], 2, 1, .9), label: 'Baca aturan', act: UI.openRules, r: 1.6 });
+  L.push({ ...at(LM.wreck[0], LM.wreck[1], 3, 2, 1.4), label: 'Periksa perahu', act: UI.openMystery, r: 2.4 });
+  L.push({ ...at(LM.fire[0], LM.fire[1], 1, 1, .9), label: 'Baca catatan', act: UI.openJournal, r: 1.6 });
   bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : () => UI.bldDialog(b), r: Math.min(3, Math.max(1.4, f.w * .7)), key: sp ? 'spear' + fishing.st.active : null }); });
-  for (const n of npcs) L.push({ x: n.x, z: n.z, label: 'Bicara dengan ' + n.name, act: () => { n.obj.rotation.y = Math.atan2(player.x - n.x, player.z - n.z); n.wait = 4; UI.talk(n); }, r: 1.3 });
+  for (const n of npcs) L.push({ npc: true, x: n.x, z: n.z, label: 'Bicara dengan ' + n.name, act: () => { n.obj.rotation.y = Math.atan2(player.x - n.x, player.z - n.z); n.wait = 4; UI.talk(n); }, r: 1.3 });
   return L;
 }
 let near = null, nearKey = null, lastThr = false;
 function findNear() { let best = null, bd = 1e9; for (const it of interactables()) { const d = Math.hypot(it.x - player.x, it.z - player.z); if (d < (it.r || 1.5) && d < bd) { bd = d; best = it; } } return best; }
+// one button for everything on phones: interact when something is near, throw when holding a spear over water, otherwise jump
+function doContext() { if (!$('dialog').hidden) { UI.closeDialog(); return; } if (near) near.act(); else if (fishing.canThrow()) fishing.throwAt(); else jump(); }
+const ICO = { jump: '<svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg>', act: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg>', talk: '<svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg>', spear: '<svg viewBox="0 0 24 24"><path d="M4 20 18 6M14 6h4v4"/></svg>' };
 function doAct() { if (!$('dialog').hidden) { UI.closeDialog(); return; } if (near) near.act(); else if (fishing.st.active) fishing.throwAt(); }
 function updatePrompt() {
   const p = $('prompt'), thr = !near && fishing.canThrow();
-  $('act').textContent = thr ? 'LEMPAR' : 'AKSI';
-  if ((!near && !thr) || place) { p.hidden = true; if (touch) $('act').disabled = true; return; }
-  p.replaceChildren(...(touch ? [] : [h('kbd', null, near ? 'E' : 'F')]), near ? near.label : 'Lempar tombak'); p.hidden = false; if (touch) $('act').disabled = false;
+  if (touch) {
+    p.hidden = true;
+    const kind = place ? 'jump' : near ? (near.npc ? 'talk' : 'act') : thr ? 'spear' : 'jump';
+    $('act-ico').innerHTML = ICO[kind]; $('act-t').textContent = place ? 'Lompat' : near ? near.label : thr ? 'Lempar tombak' : 'Lompat';
+    $('act').classList.toggle('talk', kind === 'talk' || kind === 'act');
+    return;
+  }
+  if ((!near && !thr) || place) { p.hidden = true; return; }
+  p.replaceChildren(h('kbd', null, near ? 'E' : 'F'), near ? near.label : 'Lempar tombak'); p.hidden = false;
 }
 
 // ---------- placement (admin) ----------
@@ -363,16 +371,15 @@ const duskAmt = p => { const d = Math.min(Math.abs(p - .58), Math.abs(p - .98), 
 const SKY_DAY = new THREE.Color('#8fd3f0'), SKY_DUSK = new THREE.Color('#f2a463'), SKY_NIGHT = new THREE.Color('#0b1633');
 const SUN_DAY = new THREE.Color('#fff1d6'), SUN_DUSK = new THREE.Color('#ffb070'), MOON = new THREE.Color('#9fb8ff');
 const sky = new THREE.Color();
-$('b-time').onclick = () => { tMode = (tMode + 1) % 3; const n = ['otomatis', 'siang', 'malam'][tMode]; $('b-time').title = 'Waktu: ' + n; toast('Waktu: ' + n); };
+$('b-time').onclick = () => { tMode = (tMode + 1) % 3; const n = ['otomatis', 'siang', 'malam'][tMode]; $('time-label').textContent = 'Waktu: ' + n; toast('Waktu: ' + n); };
 
 // ---------- labels ----------
-const labelPool = []; for (let i = 0; i < 9; i++) { const d = document.createElement('div'); d.className = 'lbl'; d.hidden = true; $('labels').appendChild(d); labelPool.push(d); }
+const labelPool = []; for (let i = 0; i < (touch ? 3 : 6); i++) { const d = document.createElement('div'); d.className = 'lbl'; d.hidden = true; $('labels').appendChild(d); labelPool.push(d); }
 const pv = new THREE.Vector3();
 function updateLabels() {
   const items = [];
   const push = (text, x, y, z, cls, d) => items.push({ text, x, y, z, cls, d });
-  push(role.kind === 'aru' ? 'Aru' : '@' + role.name, player.x, player.obj.position.y + 1.75, player.z, 'gold keep', 0);
-  for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (d < (n.aru ? 14 : 6) && (n.num || n.aru)) push(n.name, n.x, n.obj.position.y + 1.75, n.z, n.aru ? 'gold' : '', d); }
+  for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (d < (n.aru ? 10 : 4.5) && (n.num || n.aru)) push(n.name, n.x, n.obj.position.y + 1.75, n.z, n.aru ? 'gold' : '', d); }
   items.sort((a, b) => a.d - b.d);
   labelPool.forEach((el, i) => {
     const it = items[i]; if (!it) { el.hidden = true; return; }
@@ -440,7 +447,7 @@ function frame() {
   renderer.toneMappingExposure = 1.05 - dk * .15;
   M.windowMat.emissiveIntensity = dk * 2.4;
   M.lanternMat.emissiveIntensity = .3 + dk * 3;
-  bloom.strength = .18 + dk * .95;
+  bloom.strength = .15 + dk * .6;
   water.userData.update(T0);
   // lighthouse
   const L = lamps(), ud = lightObj.userData;
@@ -527,9 +534,9 @@ function begin(kind, name) {
     const i = S.residents.findIndex(r => r.n.toLowerCase() === name.toLowerCase());
     toast(i >= 0 ? `Selamat datang, warga #${i + 1}. Namamu ada di Batu Nama.` : 'Selamat datang. Follow untuk jadi warga, dan namamu diukir di batu.');
   } else toast('Kamu adalah Aru. Jelajahi pulaumu.');
-  $('hint').textContent = touch ? 'Jempol kiri untuk berjalan · geser kanan untuk memutar kamera' : 'WASD jalan · Spasi lompat · geser mouse putar kamera · scroll zoom · E interaksi';
-  $('hint').hidden = false; setTimeout(() => $('hint').hidden = true, 8000);
-  if (touch) { $('act').hidden = false; $('act').disabled = true; $('jump').hidden = false; }
+  $('hint').textContent = touch ? 'Geser kiri untuk jalan, kanan untuk kamera' : 'WASD jalan · Spasi lompat · E interaksi · geser mouse untuk kamera';
+  $('hint').hidden = false; setTimeout(() => $('hint').hidden = true, 5000);
+  if (touch) { $('act').hidden = false; updatePrompt(); }
 }
 $('st-aru').onclick = () => begin('aru', 'Aru');
 const joinFn = () => { const n = clean($('st-user').value); if (!n) { $('st-user').focus(); toast('Tulis username TikTok kamu.'); return; } begin('warga', n); };
