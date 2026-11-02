@@ -2861,6 +2861,15 @@
    "label": "",
    "by": "",
    "ep": 1
+  },
+  {
+   "type": "piramida",
+   "x": 71,
+   "y": 75,
+   "r": 0,
+   "label": "",
+   "by": "",
+   "ep": 1
   }
  ],
  "episodes": [
