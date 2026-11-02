@@ -10,6 +10,7 @@ import { BT, ARU, lookOf, makeCharacter, animateCharacter, buildBuilding } from 
 import { loadState, normalize, store } from './data.js';
 import * as UI from './ui.js';
 import { createFishing } from './fishing.js';
+import * as I2 from './island2.js';
 import { $, h, toast, fmt, clean } from './ui.js';
 
 const touch = matchMedia('(pointer:coarse)').matches;
@@ -53,6 +54,7 @@ addEventListener('resize', () => {
 
 // ---------- world ----------
 const terrain = buildTerrain(); scene.add(terrain);
+const island2 = I2.buildIsland2(scene);
 const { water, floor } = buildWater(); scene.add(water, floor);
 const fpCenter = (x, y, w, hh) => [x - W / 2 + w / 2, y - H / 2 + hh / 2];
 function fpGround(x, y, w, hh) { let m = Infinity; for (let j = 0; j <= hh; j++) for (let i = 0; i <= w; i++) m = Math.min(m, groundY(x - W / 2 + i, y - H / 2 + j)); return m; }
@@ -66,7 +68,11 @@ const fireObj = placeAtFp(M.campfire(new THREE.Group()), LM.fire[0], LM.fire[1],
 const mailObj = placeAtFp(M.mailbox(), LM.mail[0], LM.mail[1], 1, 1);
 const boardObj = placeAtFp(M.rulesBoard(), LM.board[0], LM.board[1], 2, 1);
 const wreckObj = placeAtFp(M.wreck(), LM.wreck[0], LM.wreck[1], 3, 2);
-const shipObj = M.ship(); { const [x, z] = fpCenter(LM.ship[0], LM.ship[1], 5, 2); shipObj.position.set(x, 0, z); shipObj.rotation.y = .3; scene.add(shipObj); }
+const shipObj = M.ship(); shipObj.position.set(WD.MOOR.x, 0, WD.MOOR.z); shipObj.rotation.y = WD.MOOR.ry; scene.add(shipObj);
+const pierObj = new THREE.Group(); scene.add(pierObj);
+{ const x = WD.PIER.x - W / 2 + .5; for (let y = WD.PIER.y0 - 1; y <= WD.PIER.y1; y++) { const z = y - H / 2 + .5; for (let k = 0; k < 3; k++) M.box(pierObj, k % 2 ? '#b07a4a' : '#8a5a34', 1.1, .08, .3, x, .2, z - .33 + k * .33); for (const dx of [-.5, .5]) M.box(pierObj, '#5e3b22', .08, 2, .08, x + dx, -1.6, z); } }
+// sailing state (per visitor): the ship stays where you leave it
+const sail = { on: false, x: WD.MOOR.x, z: WD.MOOR.z, ry: WD.MOOR.ry, speed: 0, told: false };
 const festObj = M.festival(6.5); { const [x, z] = fpCenter(LM.camp[0], LM.camp[1] + 3, 1, 1); festObj.position.set(x, groundY(x, z), z); scene.add(festObj); }
 const lightTop = new THREE.Vector3(); lightObj.updateMatrixWorld(); lightTop.set(0, lightObj.userData.top, 0).applyMatrix4(lightObj.matrixWorld);
 const lhLight = new THREE.PointLight(0xffd27a, 0, 40, 1.6); lhLight.position.copy(lightTop); scene.add(lhLight);
@@ -86,6 +92,7 @@ function rebuildOcc() {
   solid = new Uint8Array(W * H); plank = new Uint8Array(W * H); occ = new Int16Array(W * H).fill(-1);
   for (const l of LMS) for (let dy = 0; dy < l[4]; dy++) for (let dx = 0; dx < l[3]; dx++) occ[(l[2] + dy) * W + l[1] + dx] = -2;
   S.buildings.forEach((b, bi) => { const d = BT[b.type]; if (!d) return; const f = fpOf(b); for (let dy = 0; dy < f.h; dy++) for (let dx = 0; dx < f.w; dx++) { const x = b.x + dx, y = b.y + dy; if (x < 0 || y < 0 || x >= W || y >= H) continue; occ[y * W + x] = bi; if (d.walk && d.water) plank[y * W + x] = 1; } });
+  if (pop() >= 1000) for (let y = WD.PIER.y0 - 1; y <= WD.PIER.y1; y++) plank[y * W + WD.PIER.x] = 1;
   for (let i = 0; i < W * H; i++) {
     let s = tile[i] === WD.DEEP ? 1 : 0;
     if (occ[i] === -2) s = 1;
@@ -175,7 +182,7 @@ function rebuildBuildings() {
 
 // ---------- characters ----------
 const player = { obj: null, x: 0, z: 0, y: 0, vy: 0, grounded: true, tx: null, tz: null, moving: false };
-function jump() { if (player.grounded && $('start').hidden && $('sheet').hidden && !place) { player.vy = 6.3; player.grounded = false; } }
+function jump() { if (!sail.on && player.grounded && $('start').hidden && $('sheet').hidden && !place) { player.vy = 6.3; player.grounded = false; } }
 function setPlayerLook() { if (player.obj) scene.remove(player.obj); player.obj = makeCharacter(role.kind === 'aru' ? ARU : lookOf(role.name + 'me')); scene.add(player.obj); player.obj.traverse(o => { if (o.isMesh) o.castShadow = true; }); }
 let npcs = [];
 const fishHud = h('div', { class: 'plate fishplate', hidden: true }); $('hud-l').appendChild(fishHud);
@@ -202,6 +209,8 @@ function rebuildNpcs() {
   npcs = next;
 }
 function walkable(x, z) {
+  if (I2.inside2(x, z)) return I2.walkable2(x, z);
+  if (Math.abs(x) > W / 2 - .5 || Math.abs(z) > H / 2 - .5) return false;
   for (const [dx, dz] of [[-.28, -.2], [.28, -.2], [-.28, .2], [.28, .2]]) { const cx = WD.w2cx(x + dx), cy = WD.w2cy(z + dz); if (cx < 0 || cy < 0 || cx >= W || cy >= H || solid[cy * W + cx]) return false; }
   return true;
 }
@@ -212,8 +221,10 @@ function climbAt(x, z) { let best = -Infinity; for (const c of climbs) { const d
 const climbCell = i => occ[i] >= 0 && !!BT[S.buildings[occ[i]].type].climb;
 function npcWalkable(x, z) { if (!walkable(x, z)) return false; for (const [dx, dz] of [[-.3, -.3], [.3, -.3], [-.3, .3], [.3, .3]]) { const i = WD.w2cy(z + dz) * W + WD.w2cx(x + dx); if (climbCell(i)) return false; } return true; }
 const playerSurface = (x, z) => Math.max(surfaceY(x, z), climbAt(x, z));
-const shallowAt = (x, z) => { const i = WD.w2cy(z) * W + WD.w2cx(x); return tile[i] === WD.SHALLOW && !plank[i]; };
-const surfaceY = (x, z) => { const i = WD.w2cy(z) * W + WD.w2cx(x); if (plank[i]) return .26; return Math.max(groundY(x, z), -.55); };
+const shallowAt = (x, z) => I2.inside2(x, z) ? I2.shallow2(x, z) : shallowAt1(x, z);
+const shallowAt1 = (x, z) => { const i = WD.w2cy(z) * W + WD.w2cx(x); return tile[i] === WD.SHALLOW && !plank[i]; };
+const surfaceY = (x, z) => I2.inside2(x, z) ? I2.surface2(x, z) : surfaceY1(x, z);
+const surfaceY1 = (x, z) => { const i = WD.w2cy(z) * W + WD.w2cx(x); if (plank[i]) return .26; return Math.max(groundY(x, z), -.55); };
 function stepNpc(n, dt) {
   if (n.wait > 0) { n.wait -= dt; n.moving = false; return; }
   if (n.tx == null) {
@@ -295,9 +306,23 @@ function tapAt(cx, cy) {
 }
 $('act').addEventListener('click', doContext); $('prompt').addEventListener('click', doAct);
 
+// ---------- sailing ----------
+function navigable(x, z) {
+  if (Math.abs(x) > 205 || Math.abs(z) > 205) return false;
+  if (I2.inside2(x, z)) { const cx = I2.c2x(x), cy = I2.c2y(z); return I2.T2(cx, cy) === WD.DEEP && !I2.plank2[cy * I2.W2 + cx]; }
+  const cx = WD.w2cx(x), cy = WD.w2cy(z); if (cx < 0 || cy < 0 || cx >= W || cy >= H) return true;
+  return tile[cy * W + cx] === WD.DEEP && !plank[cy * W + cx];
+}
+const landSpot = () => { let best = null, bd = 1e9; for (let r = 2.6; r <= 5; r += .6) for (let k = 0; k < 20; k++) { const a = k / 20 * Math.PI * 2, x = sail.x + Math.cos(a) * r, z = sail.z + Math.sin(a) * r; if (walkable(x, z) && surfaceY(x, z) > -.3 && r < bd) { bd = r; best = { x, z }; } } return best; };
+function board() { sail.on = true; player.tx = null; if (fishing.st.active) fishing.setActive(false); toast(sail.told ? 'Kembali ke kemudi.' : 'Kamu di kemudi. Arahkan kapal dengan ' + (touch ? 'jempol kiri' : 'WASD') + '. Pulau seberang ada di timur laut, ikuti arah matahari terbit.'); sail.told = true; near = null; }
+function disembark() { const p = landSpot(); if (!p) { toast('Terlalu jauh dari daratan.'); return; } sail.on = false; sail.speed = 0; player.x = p.x; player.z = p.z; player.y = surfaceY(p.x, p.z); player.vy = 0; near = null; toast(I2.inside2(p.x, p.z) ? 'Kamu menginjak pulau seberang. Belum ada yang tinggal di sini…' : 'Kembali ke Pulau Netizen.'); }
+
 // ---------- interactions ----------
 function interactables() {
   const L = [];
+  if (sail.on) { const p = landSpot(); if (p) L.push({ x: player.x, z: player.z, label: 'Turun ke darat', act: disembark, r: 99, key: 'land' }); return L; }
+  if (pop() >= 1000) L.push({ x: sail.x, z: sail.z, label: 'Naik kapal', act: board, r: 4.6, key: 'ship' });
+  if (I2.inside2(player.x, player.z)) { for (const it of I2.interactables2()) L.push({ ...it, act: () => UI.dialog(it.key === 'chest' ? 'Peti tua' : it.key === 'circle' ? 'Lingkaran batu' : 'Pantai seberang', I2.LORE[it.key]) }); return L; }
   const at = (x, y, w, hh, dz) => { const [cx, cz] = fpCenter(x, y, w, hh); return { x: cx, z: cz + dz }; };
   L.push({ ...at(LM.stone[0], LM.stone[1], 2, 1, 1.2), label: 'Baca Batu Nama', act: UI.openNames, r: 2 });
   L.push({ ...at(LM.light[0], LM.light[1], 2, 2, 1.8), label: 'Lihat mercusuar', act: UI.openLight, r: 2 });
@@ -319,6 +344,7 @@ function updatePrompt() {
   const p = $('prompt'), thr = !near && fishing.canThrow();
   if (touch) {
     p.hidden = true;
+    if (sail.on && !near) { $('act-ico').innerHTML = ICO.act; $('act-t').textContent = 'Berlayar'; $('act').classList.remove('talk'); return; }
     const kind = place ? 'jump' : near ? (near.npc ? 'talk' : 'act') : thr ? 'spear' : 'jump';
     $('act-ico').innerHTML = ICO[kind]; $('act-t').textContent = place ? 'Lompat' : near ? near.label : thr ? 'Lempar tombak' : 'Lompat';
     $('act').classList.toggle('talk', kind === 'talk' || kind === 'act');
@@ -407,7 +433,13 @@ function frame() {
   if (mx || my) { player.tx = null; const fx = -Math.sin(cam.yaw), fz = -Math.cos(cam.yaw), rx = Math.cos(cam.yaw), rz = -Math.sin(cam.yaw); wx = rx * mx + fx * -my; wz = rz * mx + fz * -my; }
   else if (player.tx != null) { const dx = player.tx - player.x, dz = player.tz - player.z, d = Math.hypot(dx, dz); if (d < .2) player.tx = null; else { wx = dx / d; wz = dz / d; } }
   const ml = Math.hypot(wx, wz);
-  if (ml > .12 && !blocked) {
+  if (sail.on) {
+    if (ml > .12 && !blocked) { const want = Math.atan2(-wz, wx); let dr = want - sail.ry; dr = Math.atan2(Math.sin(dr), Math.cos(dr)); sail.ry += Math.sign(dr) * Math.min(Math.abs(dr), dt * 1.3); sail.speed = Math.min(10 * Math.min(1, ml), sail.speed + dt * 4 * Math.max(.2, Math.cos(dr))); }
+    else sail.speed = Math.max(0, sail.speed - dt * 3);
+    const cx = Math.cos(sail.ry), cz = -Math.sin(sail.ry), nx = sail.x + cx * sail.speed * dt, nz = sail.z + cz * sail.speed * dt;
+    if (navigable(nx + cx * 3.4, nz + cz * 3.4) && navigable(nx, nz) && navigable(nx - cx * 2.4, nz - cz * 2.4)) { sail.x = nx; sail.z = nz; } else if (sail.speed > 2) { sail.speed = 0; toast('Kapal menyentuh dasar. Putar arah.'); } else sail.speed = 0;
+    player.x = sail.x - cx * .3; player.z = sail.z - cz * .3; player.y = 1.05 + shipObj.position.y; player.obj.rotation.y = sail.ry + Math.PI / 2; player.moving = false; player.grounded = true; player.vy = 0;
+  } else if (ml > .12 && !blocked) {
     const sp = 4.2 * dt * Math.min(1, ml) * (shallowAt(player.x, player.z) ? .55 : 1) * (keys.shift && !place ? 1.6 : 1);
     const vx = wx / ml * sp, vz = wz / ml * sp; let moved = false;
     const okAt = (x, z) => walkable(x, z) && playerSurface(x, z) <= player.y + .32;
@@ -415,7 +447,7 @@ function frame() {
     if (!moved) player.tx = null; player.moving = moved;
     const want = Math.atan2(wx, wz); let dr = want - player.obj.rotation.y; dr = Math.atan2(Math.sin(dr), Math.cos(dr)); player.obj.rotation.y += dr * Math.min(1, dt * 14);
   } else player.moving = false;
-  { // gravity, jumping and stepping onto ledges
+  if (!sail.on) { // gravity, jumping and stepping onto ledges
     const g = playerSurface(player.x, player.z);
     if (!player.grounded || player.vy > 0 || player.y > g + .32) { player.vy -= 16 * dt; player.y += player.vy * dt; if (player.y <= g) { player.y = g; player.vy = 0; player.grounded = true; } else player.grounded = false; }
     else { player.y = g; player.vy = 0; player.grounded = true; }
@@ -428,10 +460,14 @@ function frame() {
   if (cam.attract && !$('start').hidden) { cam.yaw += dt * .05; }
   const tgt = new THREE.Vector3(player.x, player.obj.position.y + 1, player.z);
   if (place && !place.erase && place.hx != null && touch) { const [cx, cz] = fpCenter(place.hx, place.hy, 1, 1); tgt.set(cx, 1, cz); }
+  if (sail.on) tgt.set(sail.x, 1.5, sail.z);
   cam.target.lerp(tgt, Math.min(1, dt * 6));
+  cam.sailDist = (cam.sailDist || 0) + ((sail.on ? 10 : 0) - (cam.sailDist || 0)) * Math.min(1, dt * 2);
   const cp = Math.cos(cam.pitch);
-  camera.position.set(cam.target.x + Math.sin(cam.yaw) * cp * cam.dist, cam.target.y + Math.sin(cam.pitch) * cam.dist, cam.target.z + Math.cos(cam.yaw) * cp * cam.dist);
-  camera.position.y = Math.max(camera.position.y, groundY(camera.position.x, camera.position.z) + 1.2, climbAt(camera.position.x, camera.position.z) + 1);
+  const cd = cam.dist + cam.sailDist;
+  camera.position.set(cam.target.x + Math.sin(cam.yaw) * cp * cd, cam.target.y + Math.sin(cam.pitch) * cd, cam.target.z + Math.cos(cam.yaw) * cp * cd);
+  scene.fog.far = 165 + cam.sailDist * 10; scene.fog.near = 55 + cam.sailDist * 4;
+  camera.position.y = Math.max(camera.position.y, (I2.inside2(camera.position.x, camera.position.z) ? I2.ground2(camera.position.x, camera.position.z) : groundY(camera.position.x, camera.position.z)) + 1.2, climbAt(camera.position.x, camera.position.z) + 1);
   camera.lookAt(cam.target);
   // time of day lighting
   const p = tClock, dk = darkness(p), dusk = duskAmt(p);
@@ -464,7 +500,8 @@ function frame() {
   const sorted = fireSources.map(o => ({ o, d: o.position.distanceToSquared(player.obj.position) })).sort((a, b) => a.d - b.d);
   firePool.forEach((l, i) => { const s = sorted[i]; if (!s) { l.intensity = 0; return; } l.position.set(s.o.position.x, s.o.position.y + .7, s.o.position.z); l.intensity = (1.2 + dk * 9) * fl; });
   // ship, festival, posts
-  shipObj.visible = pop() >= 1000; if (shipObj.visible) { shipObj.position.y = Math.sin(T0 * .9) * .12 - .1; shipObj.rotation.z = Math.sin(T0 * .7) * .03; }
+  shipObj.visible = pierObj.visible = pop() >= 1000;
+  if (shipObj.visible) { shipObj.position.set(sail.x, Math.sin(T0 * .9) * .12 - .1, sail.z); shipObj.rotation.set(Math.sin(T0 * .8) * .02, sail.ry, Math.sin(T0 * .7) * .03 + (sail.on ? Math.min(.06, sail.speed * .006) : 0)); }
   festObj.visible = pop() >= 100;
   if (postLights) postLights.material.opacity = Math.min(1, dk * 1.3);
   for (const o of bObjs) if (o.userData.def.bob) { o.position.y = Math.sin(T0 * 1.2 + o.position.x) * .08; o.rotation.z = Math.sin(T0 + o.position.x) * .04; }
@@ -567,4 +604,4 @@ requestAnimationFrame(frame);
   }, 90000);
 })();
 
-window.__pulau = { app, LM, fishing, get player() { return player; } };
+window.__pulau = { app, LM, fishing, sail, I2, get player() { return player; } };

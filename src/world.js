@@ -81,6 +81,19 @@ LM.mail = [LM.camp[0] + 4, LM.camp[1] + 1];
 LM.board = [LM.camp[0] - 5, LM.camp[1] + 1];
 LM.fire = [LM.camp[0] + 1, LM.camp[1] + 3];
 { let y = LM.stone[1]; while (y < H - 2 && T(CX, y) !== DEEP) y++; LM.ship = [CX - 7, Math.min(H - 6, y + 4)]; }
+// pier from the south beach to where the ship moors (appears at 1.000 residents)
+export const PIER = (() => {
+  let best = null;
+  for (let x = LM.stone[0] - 6; x <= LM.stone[0] + 2; x++) {
+    let y = LM.stone[1]; while (y < H - 1 && T(x, y) >= SAND) y++; const y0 = y;
+    while (y < H - 1 && T(x, y) === SHALLOW) y++;
+    const ok = [1, 2, 3, 4].every(k => T(x, y + k) === DEEP && T(x - 3, y + k) === DEEP && T(x + 3, y + k) === DEEP);
+    if (ok && (!best || y - y0 < best.y1 - best.y0)) best = { x, y0, y1: y + 1 };
+  }
+  return best || { x: LM.stone[0], y0: LM.stone[1] + 2, y1: LM.stone[1] + 4 };
+})();
+// ship centre in world coords, hull parallel to the shore, touching the end of the pier
+export const MOOR = { x: PIER.x - W / 2 + .5, z: PIER.y1 - H / 2 + 2.2, ry: 0 };
 
 // footprints occupied by landmarks [key,x,y,w,h]
 export const LMS = [

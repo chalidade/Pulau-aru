@@ -10,7 +10,8 @@ Satu pulau, satu penghuni. Setiap follower TikTok menjadi warga, dan setiap hari
 - **Kotak surat**: Surat Aru setiap 10 episode.
 - **Perahu rusak**: petunjuk misteri "Bagaimana Aru sampai ke pulau ini?".
 - **Papan aturan**: aturan keamanan program.
-- **Milestone**: festival di 100 penduduk, kapal datang di 1.000, pulau muncul di peta di 10.000.
+- **Milestone**: festival di 100 penduduk, kapal datang di 1.000 (bisa dinaiki dan dikemudikan lewat dermaga di pantai selatan), pulau muncul di peta di 10.000.
+- **Pulau seberang**: pulau kedua di timur laut, hanya bisa dicapai dengan kapal. Ada dermaga tua, reruntuhan rumah dengan peti, dan lingkaran batu.
 - Lampu jalan bertambah satu setiap 20 follower.
 
 ## Mengelola pulau (kreator)
