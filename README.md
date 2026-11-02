@@ -23,8 +23,8 @@ Satu pulau, satu penghuni. Setiap follower TikTok menjadi warga, dan setiap hari
 Tanpa token, gunakan **Unduh island.json** lalu unggah manual ke folder `data/`.
 
 ## Kontrol
-- Desktop: WASD/panah jalan, Shift lari, F lempar tombak (setelah ambil di Rak tombak), geser mouse putar kamera, scroll zoom, E interaksi, M peta, H mode rekam, Q/Z putar kamera.
-- HP: jempol kiri untuk joystick, geser sisi kanan untuk memutar kamera, cubit untuk zoom, tombol AKSI untuk interaksi.
+- Desktop: WASD/panah jalan, Spasi lompat, Shift lari, F lempar tombak (setelah ambil di Rak tombak), geser mouse putar kamera, scroll zoom, E interaksi, M peta, H mode rekam, Q/Z putar kamera.
+- HP: jempol kiri untuk joystick, tombol LOMPAT, geser sisi kanan untuk memutar kamera, cubit untuk zoom, tombol AKSI untuk interaksi.
 
 ## Struktur
 ```

@@ -125,7 +125,7 @@ body.rec .hud,body.rec #prompt,body.rec #act,body.rec #hint{display:none!importa
 .legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
 
 /* Start */
-#start{position:fixed;inset:0;z-index:15;display:grid;place-items:center;background:radial-gradient(ellipse at center, rgba(8,24,30,.15), rgba(8,24,30,.7));padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px));padding-block:16px}
+#start{position:fixed;inset:0;z-index:15;display:grid;place-items:safe center;overflow-y:auto;background:radial-gradient(ellipse at center, rgba(8,24,30,.15), rgba(8,24,30,.7));padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px));padding-block:16px}
 .start-card{width:min(440px,100%);background:var(--ink);border:3px solid var(--sand);border-radius:6px;padding:22px 22px 20px;box-shadow:0 6px 0 rgba(0,0,0,.45)}
 .start-card h1{font-family:var(--f-display);font-size:34px;line-height:1;margin:6px 0 10px;text-wrap:balance}
 .start-card p{margin:0 0 14px;line-height:1.5;color:var(--sand-dim)}
@@ -156,3 +156,5 @@ body.rec #labels .lbl:not(.keep){display:none}
 #unpub{position:fixed;z-index:9;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 84px);display:flex;gap:10px;align-items:center;background:var(--coral);color:var(--ink);font-weight:700;padding:8px 8px 8px 14px;border-radius:4px;box-shadow:0 3px 0 rgba(0,0,0,.4);max-width:calc(100vw - 32px);font-size:13px}
 #unpub button{background:var(--ink);color:var(--sand);border:0;border-radius:3px;padding:7px 12px;font-weight:700;white-space:nowrap}
 body.rec #unpub{display:none!important}
+#jump{position:fixed;z-index:5;right:calc(max(18px, env(safe-area-inset-right,0px)) + 80px);bottom:calc(env(safe-area-inset-bottom,0px) + 18px);width:56px;height:56px;border-radius:50%;background:var(--sand);color:var(--ink);font-family:var(--f-display);font-weight:700;font-size:11px;border:3px solid var(--ink);box-shadow:0 4px 0 rgba(0,0,0,.4);touch-action:none}
+body.rec #jump{display:none!important}

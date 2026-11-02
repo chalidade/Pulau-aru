@@ -89,7 +89,7 @@ function rebuildOcc() {
   for (let i = 0; i < W * H; i++) {
     let s = tile[i] === WD.DEEP ? 1 : 0;
     if (occ[i] === -2) s = 1;
-    else if (occ[i] >= 0) s = BT[S.buildings[occ[i]].type].walk ? 0 : 1;
+    else if (occ[i] >= 0) { const d = BT[S.buildings[occ[i]].type]; s = d.walk || d.climb ? 0 : 1; }
     else if (treeAt[i] >= 0 || rockAt[i] >= 0) s = 1;
     if (plank[i]) s = 0;
     solid[i] = s;
@@ -174,7 +174,8 @@ function rebuildBuildings() {
 }
 
 // ---------- characters ----------
-const player = { obj: null, x: 0, z: 0, tx: null, tz: null, moving: false };
+const player = { obj: null, x: 0, z: 0, y: 0, vy: 0, grounded: true, tx: null, tz: null, moving: false };
+function jump() { if (player.grounded && $('start').hidden && $('sheet').hidden && !place) { player.vy = 6.3; player.grounded = false; } }
 function setPlayerLook() { if (player.obj) scene.remove(player.obj); player.obj = makeCharacter(role.kind === 'aru' ? ARU : lookOf(role.name + 'me')); scene.add(player.obj); player.obj.traverse(o => { if (o.isMesh) o.castShadow = true; }); }
 let npcs = [];
 const fishHud = h('div', { class: 'plate fishplate', hidden: true }); $('hud-l').appendChild(fishHud);
@@ -204,19 +205,26 @@ function walkable(x, z) {
   for (const [dx, dz] of [[-.28, -.2], [.28, -.2], [-.28, .2], [.28, .2]]) { const cx = WD.w2cx(x + dx), cy = WD.w2cy(z + dz); if (cx < 0 || cy < 0 || cx >= W || cy >= H || solid[cy * W + cx]) return false; }
   return true;
 }
+// climbable surfaces (the pyramid): each entry knows its centre, base height and step profile
+let climbs = [];
+function rebuildClimbs() { climbs = bObjs.filter(o => o.userData.def.climb).map(o => ({ cx: o.position.x, cz: o.position.z, base: o.position.y, ...o.userData.def.climb })); }
+function climbAt(x, z) { let best = -Infinity; for (const c of climbs) { const d = Math.max(Math.abs(x - c.cx), Math.abs(z - c.cz)); if (d > c.half) continue; const k = Math.min(c.tiers - 1, Math.floor((c.half - d) / c.inset)); best = Math.max(best, c.base + (k + 1) * c.step); } return best; }
+const climbCell = i => occ[i] >= 0 && !!BT[S.buildings[occ[i]].type].climb;
+function npcWalkable(x, z) { if (!walkable(x, z)) return false; for (const [dx, dz] of [[-.3, -.3], [.3, -.3], [-.3, .3], [.3, .3]]) { const i = WD.w2cy(z + dz) * W + WD.w2cx(x + dx); if (climbCell(i)) return false; } return true; }
+const playerSurface = (x, z) => Math.max(surfaceY(x, z), climbAt(x, z));
 const shallowAt = (x, z) => { const i = WD.w2cy(z) * W + WD.w2cx(x); return tile[i] === WD.SHALLOW && !plank[i]; };
 const surfaceY = (x, z) => { const i = WD.w2cy(z) * W + WD.w2cx(x); if (plank[i]) return .26; return Math.max(groundY(x, z), -.55); };
 function stepNpc(n, dt) {
   if (n.wait > 0) { n.wait -= dt; n.moving = false; return; }
   if (n.tx == null) {
     const R = n.aru ? 3 : 8;
-    for (let k = 0; k < 6; k++) { const tx = n.hx + ((Math.random() * 2 - 1) * R | 0), ty = n.hy + ((Math.random() * 2 - 1) * R | 0); if (tx > 0 && ty > 0 && tx < W && ty < H && !solid[ty * W + tx] && tile[ty * W + tx] >= WD.SAND) { n.tx = WD.cx2w(tx); n.tz = WD.cy2w(ty); break; } }
+    for (let k = 0; k < 6; k++) { const tx = n.hx + ((Math.random() * 2 - 1) * R | 0), ty = n.hy + ((Math.random() * 2 - 1) * R | 0); if (tx > 0 && ty > 0 && tx < W && ty < H && !solid[ty * W + tx] && !climbCell(ty * W + tx) && tile[ty * W + tx] >= WD.SAND) { n.tx = WD.cx2w(tx); n.tz = WD.cy2w(ty); break; } }
     if (n.tx == null) { n.wait = 1; return; }
   }
   const dx = n.tx - n.x, dz = n.tz - n.z, d = Math.hypot(dx, dz);
   if (d < .15) { n.tx = null; n.wait = 1 + Math.random() * 5; n.moving = false; return; }
   const sp = 1.5 * dt, vx = dx / d * sp, vz = dz / d * sp; let moved = false;
-  if (walkable(n.x + vx, n.z)) { n.x += vx; moved = true; } if (walkable(n.x, n.z + vz)) { n.z += vz; moved = true; }
+  if (npcWalkable(n.x + vx, n.z)) { n.x += vx; moved = true; } if (npcWalkable(n.x, n.z + vz)) { n.z += vz; moved = true; }
   if (!moved) { n.tx = null; n.wait = .5; }
   n.moving = moved; if (moved) n.obj.rotation.y = Math.atan2(dx, dz);
 }
@@ -238,7 +246,8 @@ addEventListener('keydown', e => {
   if (!$('sheet').hidden) { if (k === 'escape') UI.closeSheet(); return; }
   if (['arrowup', 'arrowdown', 'arrowleft', 'arrowright', ' '].includes(k)) e.preventDefault();
   keys[k] = true;
-  if (k === 'e' || k === 'enter' || k === ' ') doAct();
+  if (k === 'e' || k === 'enter') doAct();
+  if (k === ' ') jump();
   if (k === 'm') UI.openMap(); if (k === 'h') toggleRec(); if (k === 'escape') { UI.closeDialog(); endPlace(); }
   if (k === 'f') fishing.throwAt();
   if (k === 'r' && place && !place.erase) place.r = ((place.r | 0) + 1) % 4;
@@ -284,7 +293,8 @@ function tapAt(cx, cy) {
   if (hit && Math.hypot(hit.x - player.x, hit.z - player.z) < 4) { hit.act(); return; }
   player.tx = p.x; player.tz = p.z;
 }
-$('act').addEventListener('click', doAct); $('prompt').addEventListener('click', doAct);
+$('act').addEventListener('click', doAct);
+$('jump').addEventListener('pointerdown', e => { e.preventDefault(); jump(); }); $('prompt').addEventListener('click', doAct);
 
 // ---------- interactions ----------
 function interactables() {
@@ -296,7 +306,7 @@ function interactables() {
   L.push({ ...at(LM.board[0], LM.board[1], 2, 1, .9), label: 'Baca papan aturan', act: UI.openRules, r: 1.6 });
   L.push({ ...at(LM.wreck[0], LM.wreck[1], 3, 2, 1.4), label: 'Periksa perahu rusak', act: UI.openMystery, r: 2.4 });
   L.push({ ...at(LM.fire[0], LM.fire[1], 1, 1, .9), label: 'Catatan di api unggun', act: UI.openJournal, r: 1.6 });
-  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : () => UI.bldDialog(b), r: Math.max(1.4, f.w * .7), key: sp ? 'spear' + fishing.st.active : null }); });
+  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : () => UI.bldDialog(b), r: Math.min(3, Math.max(1.4, f.w * .7)), key: sp ? 'spear' + fishing.st.active : null }); });
   for (const n of npcs) L.push({ x: n.x, z: n.z, label: 'Bicara dengan ' + n.name, act: () => { n.obj.rotation.y = Math.atan2(player.x - n.x, player.z - n.z); n.wait = 4; UI.talk(n); }, r: 1.3 });
   return L;
 }
@@ -393,11 +403,17 @@ function frame() {
   if (ml > .12 && !blocked) {
     const sp = 4.2 * dt * Math.min(1, ml) * (shallowAt(player.x, player.z) ? .55 : 1) * (keys.shift && !place ? 1.6 : 1);
     const vx = wx / ml * sp, vz = wz / ml * sp; let moved = false;
-    if (walkable(player.x + vx, player.z)) { player.x += vx; moved = true; } if (walkable(player.x, player.z + vz)) { player.z += vz; moved = true; }
+    const okAt = (x, z) => walkable(x, z) && playerSurface(x, z) <= player.y + .32;
+    if (okAt(player.x + vx, player.z)) { player.x += vx; moved = true; } if (okAt(player.x, player.z + vz)) { player.z += vz; moved = true; }
     if (!moved) player.tx = null; player.moving = moved;
     const want = Math.atan2(wx, wz); let dr = want - player.obj.rotation.y; dr = Math.atan2(Math.sin(dr), Math.cos(dr)); player.obj.rotation.y += dr * Math.min(1, dt * 14);
   } else player.moving = false;
-  player.obj.position.set(player.x, surfaceY(player.x, player.z), player.z);
+  { // gravity, jumping and stepping onto ledges
+    const g = playerSurface(player.x, player.z);
+    if (!player.grounded || player.vy > 0 || player.y > g + .32) { player.vy -= 16 * dt; player.y += player.vy * dt; if (player.y <= g) { player.y = g; player.vy = 0; player.grounded = true; } else player.grounded = false; }
+    else { player.y = g; player.vy = 0; player.grounded = true; }
+  }
+  player.obj.position.set(player.x, player.y, player.z);
   animateCharacter(player.obj, player.moving, dt);
   fishing.update(dt, T0);
   for (const n of npcs) { stepNpc(n, dt); n.obj.position.set(n.x, surfaceY(n.x, n.z), n.z); animateCharacter(n.obj, n.moving, dt); }
@@ -408,7 +424,7 @@ function frame() {
   cam.target.lerp(tgt, Math.min(1, dt * 6));
   const cp = Math.cos(cam.pitch);
   camera.position.set(cam.target.x + Math.sin(cam.yaw) * cp * cam.dist, cam.target.y + Math.sin(cam.pitch) * cam.dist, cam.target.z + Math.cos(cam.yaw) * cp * cam.dist);
-  camera.position.y = Math.max(camera.position.y, groundY(camera.position.x, camera.position.z) + 1.2);
+  camera.position.y = Math.max(camera.position.y, groundY(camera.position.x, camera.position.z) + 1.2, climbAt(camera.position.x, camera.position.z) + 1);
   camera.lookAt(cam.target);
   // time of day lighting
   const p = tClock, dk = darkness(p), dusk = duskAmt(p);
@@ -490,7 +506,7 @@ function thumb(type) {
 
 // ---------- state changes ----------
 const draftKey = 'pulau-aru-draft';
-function applyWorld() { rebuildOcc(); rebuildNature(); rebuildBuildings(); rebuildNpcs(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
+function applyWorld() { rebuildOcc(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); rebuildNpcs(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
 function markDirty() { dirty = true; store.set(draftKey, JSON.stringify(S)); applyWorld(); }
 const app = {
   get S() { return S; }, get dirty() { return dirty; }, get base() { try { return JSON.parse(PUB); } catch (e) { return null; } }, role, pop, lamps, curEp,
@@ -511,9 +527,9 @@ function begin(kind, name) {
     const i = S.residents.findIndex(r => r.n.toLowerCase() === name.toLowerCase());
     toast(i >= 0 ? `Selamat datang, warga #${i + 1}. Namamu ada di Batu Nama.` : 'Selamat datang. Follow untuk jadi warga, dan namamu diukir di batu.');
   } else toast('Kamu adalah Aru. Jelajahi pulaumu.');
-  $('hint').textContent = touch ? 'Jempol kiri untuk berjalan · geser kanan untuk memutar kamera' : 'WASD jalan · geser mouse putar kamera · scroll zoom · E interaksi';
+  $('hint').textContent = touch ? 'Jempol kiri untuk berjalan · geser kanan untuk memutar kamera' : 'WASD jalan · Spasi lompat · geser mouse putar kamera · scroll zoom · E interaksi';
   $('hint').hidden = false; setTimeout(() => $('hint').hidden = true, 8000);
-  if (touch) { $('act').hidden = false; $('act').disabled = true; }
+  if (touch) { $('act').hidden = false; $('act').disabled = true; $('jump').hidden = false; }
 }
 $('st-aru').onclick = () => begin('aru', 'Aru');
 const joinFn = () => { const n = clean($('st-user').value); if (!n) { $('st-user').focus(); toast('Tulis username TikTok kamu.'); return; } begin('warga', n); };
