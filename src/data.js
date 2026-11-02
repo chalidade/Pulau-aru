@@ -33,7 +33,7 @@ export async function loadState() {
 const b64 = s => btoa(unescape(encodeURIComponent(s)));
 export const tokenKey = 'pulau-aru-gh-token';
 
-export async function publishState(state, message) {
+export async function publishState(state, message, base) {
   const token = store.get(tokenKey);
   if (!token) throw Object.assign(new Error('no_token'), { code: 'no_token' });
   const api = `https://api.github.com/repos/${REPO.owner}/${REPO.repo}/contents/${REPO.path}`;
@@ -46,6 +46,11 @@ export async function publishState(state, message) {
     // the TikTok sync owns the follower count: keep the newest synced value instead of the draft's
     try {
       const remote = JSON.parse(decodeURIComponent(escape(atob((j.content || '').replace(/\n/g, '')))));
+      // residents added remotely since this draft was loaded are kept; ones removed in the draft stay removed
+      if (base && Array.isArray(remote.residents)) {
+        const k = r => String(r.n).toLowerCase(), inBase = new Set((base.residents || []).map(k)), inDraft = new Set(state.residents.map(k));
+        for (const r of remote.residents) if (!inBase.has(k(r)) && !inDraft.has(k(r))) { state.residents.push(r); inDraft.add(k(r)); }
+      }
       if (remote.tiktok && (!state.tiktok || remote.tiktok.updatedAt >= state.tiktok.updatedAt)) { state.tiktok = remote.tiktok; state.followers = Math.max(remote.tiktok.followers, state.residents.length); }
     } catch (e) { }
   }

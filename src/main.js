@@ -493,9 +493,9 @@ const draftKey = 'pulau-aru-draft';
 function applyWorld() { rebuildOcc(); rebuildNature(); rebuildBuildings(); rebuildNpcs(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
 function markDirty() { dirty = true; store.set(draftKey, JSON.stringify(S)); applyWorld(); }
 const app = {
-  get S() { return S; }, get dirty() { return dirty; }, role, pop, lamps, curEp,
+  get S() { return S; }, get dirty() { return dirty; }, get base() { try { return JSON.parse(PUB); } catch (e) { return null; } }, role, pop, lamps, curEp,
   markDirty, startPlace, startErase, endPlace, mapCanvas, thumb,
-  markPublished() { PUB = JSON.stringify(S); dirty = false; store.del(draftKey); UI.refreshHud(); },
+  markPublished() { PUB = JSON.stringify(S); dirty = false; store.del(draftKey); applyWorld(); },
   revert() { S = normalize(JSON.parse(PUB)); dirty = false; store.del(draftKey); applyWorld(); },
   replace(d) { S = d; markDirty(); },
 };

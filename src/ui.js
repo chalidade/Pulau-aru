@@ -45,6 +45,9 @@ export function refreshHud() {
   else { $('ms-fill').style.width = '100%'; $('ms-txt').textContent = 'Pulau ini sudah tercatat di peta dunia'; }
   $('st-name').textContent = S.islandName; $('st-pop').textContent = fmt(p); $('st-bld').textContent = S.buildings.length; $('st-ep').textContent = ep;
   $('dirty-dot').hidden = !app.dirty;
+  let bar = $('unpub');
+  if (!bar) { bar = h('div', { id: 'unpub', hidden: true }, h('span', null, 'Perubahan belum terbit. Pengunjung belum melihatnya.'), h('button', { onclick: publishNow }, 'Terbitkan')); document.body.appendChild(bar); }
+  bar.hidden = !app.dirty;
   $('letter-dot').hidden = !S.letters.length || (store.get('pulau-aru-seen-letters') | 0) >= S.letters.length;
   document.title = (S.islandName && S.islandName !== 'Pulau Tanpa Nama' ? S.islandName : 'Pulau Aru') + ' · ' + fmt(p) + ' penduduk';
 }
@@ -144,8 +147,8 @@ async function publishNow() {
   if (!store.get(tokenKey)) { openAdmin('pulau'); toast('Hubungkan GitHub dulu, atau unduh island.json.'); return; }
   try {
     toast('Menerbitkan ke GitHub…');
-    await publishState(S, `Episode ${app.curEp()}: ${fmt(app.pop())} penduduk, ${S.buildings.length} bangunan`);
-    app.markPublished(); toast('Terbit. Pengunjung melihatnya dalam 1–2 menit.'); openAdmin();
+    await publishState(S, `Episode ${app.curEp()}: ${fmt(app.pop())} penduduk, ${S.buildings.length} bangunan`, app.base);
+    app.markPublished(); toast('Terbit. Pengunjung melihatnya dalam 1–2 menit.'); if (!$('sheet').hidden) openAdmin();
   } catch (e) {
     const c = e.code;
     toast(c === 'bad_token' ? 'Token GitHub tidak valid atau kedaluwarsa.' : c === 'forbidden' ? 'Token tidak punya izin menulis ke repo ini.' : c === 'conflict' ? 'File berubah di GitHub. Coba terbitkan lagi.' : 'Gagal menerbitkan. Periksa koneksi lalu coba lagi.');
