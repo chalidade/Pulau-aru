@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kebijakan Privasi · Pulau Aru</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=Rethink+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="src/style.css">
+<style>
+body{overflow:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px;background:var(--ink)}
+main{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+h1{font-family:var(--f-display);font-size:30px;margin:0;text-wrap:balance}
+h2{font-size:18px;margin:12px 0 0}
+p,li{line-height:1.6;color:var(--sand-dim)}
+ul{padding-left:20px;margin:0}
+a{color:var(--lamp)}
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Pulau Aru</div>
+  <h1>Kebijakan Privasi</h1>
+  <p>Berlaku sejak 2 November 2026.</p>
+  <p>Halaman ini menjelaskan data apa yang dipakai Pulau Aru dan bagaimana data itu disimpan.</p>
+  <h2>Pengunjung</h2>
+  <p>Pulau Aru tidak memakai akun, cookie pelacak, atau analitik. Pengaturan game dapat disimpan di penyimpanan lokal peramban kamu dan tidak dikirim ke mana pun. Situs dihosting di GitHub Pages, yang dapat mencatat log teknis seperti alamat IP sesuai kebijakan GitHub.</p>
+  <h2>Kreator yang menghubungkan TikTok</h2>
+  <ul>
+    <li><strong>Data yang diambil:</strong> lewat Login Kit dengan scope <code>user.info.basic</code> dan <code>user.info.stats</code>, Pulau Aru membaca profil dasar dan jumlah follower akun kreator.</li>
+    <li><strong>Data yang dipublikasikan:</strong> hanya jumlah follower, ditulis ke <code>data/island.json</code> dan ditampilkan sebagai jumlah penduduk pulau.</li>
+    <li><strong>Token:</strong> token akses TikTok disimpan sebagai secret terenkripsi di GitHub Actions. Token tidak pernah ditulis ke repositori atau log publik.</li>
+    <li><strong>Pencabutan:</strong> akses dapat dicabut kapan saja dari pengaturan TikTok (Keamanan → Kelola izin aplikasi). Setelah dicabut, sinkron berhenti.</li>
+  </ul>
+  <p>Pulau Aru tidak menjual atau membagikan data kepada pihak lain, dan tidak membaca daftar follower.</p>
+  <h2>Kontak</h2>
+  <p>Pertanyaan atau permintaan penghapusan data dapat diajukan lewat <a href="https://github.com/chalidade/Pulau-aru/issues">GitHub Issues</a>.</p>
+  <p><a href="./">Kembali ke pulau</a> · <a href="terms.html">Ketentuan Layanan</a> · <a href="privacy.html">Kebijakan Privasi</a></p>
+</main>
+</body>
+</html>
