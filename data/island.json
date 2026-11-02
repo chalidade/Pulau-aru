@@ -1,15 +1,44 @@
 {
  "v": 1,
- "islandName": "Pulau Tanpa Nama",
- "followers": 0,
- "residents": [],
+ "islandName": "Pulau Netizen",
+ "followers": 3,
+ "residents": [
+  {
+   "n": "yanzz7384",
+   "ep": 0
+  },
+  {
+   "n": "faaxyz79",
+   "ep": 0
+  },
+  {
+   "n": "perfume016",
+   "ep": 0
+  }
+ ],
  "buildings": [],
  "episodes": [
-  {"ep": 0, "date": "2 Nov 2026", "picks": [], "text": "Aru terbangun di pantai. Tidak ada siapa-siapa. Hanya ombak, sebuah perahu yang rusak, dan batu besar yang masih kosong."}
+  {
+   "ep": 0,
+   "date": "2 Nov 2026",
+   "picks": [],
+   "text": "Aru terbangun di pantai. Tidak ada siapa-siapa. Hanya ombak, sebuah perahu yang rusak, dan batu besar yang masih kosong."
+  },
+  {
+   "ep": 1,
+   "date": "2 Nov 2026",
+   "picks": [
+    "faaxyz79"
+   ],
+   "text": "namanya ganti pulau netizen🗿"
+  }
  ],
  "letters": [],
  "clues": [
-  {"text": "Di sisa perahu ada tali yang terikat rapi. Seseorang sengaja mengikatnya, bukan badai.", "ep": 0}
+  {
+   "text": "Di sisa perahu ada tali yang terikat rapi. Seseorang sengaja mengikatnya, bukan badai.",
+   "ep": 0
+  }
  ],
  "clueTotal": 10
 }
