@@ -2852,7 +2852,80 @@
    "ep": 1
   }
  ],
- "buildings": [],
+ "buildings": [
+  {
+   "type": "piramida",
+   "x": 24,
+   "y": 49,
+   "r": 0,
+   "label": "Penemu Piramida Di Pulau netizen",
+   "by": "-VANZwlee",
+   "ep": 1
+  },
+  {
+   "type": "raktombak",
+   "x": 75,
+   "y": 57,
+   "r": 0,
+   "label": "",
+   "by": "akai",
+   "ep": 1
+  },
+  {
+   "type": "raktombak",
+   "x": 19,
+   "y": 44,
+   "r": 0,
+   "label": "",
+   "by": "",
+   "ep": 1
+  },
+  {
+   "type": "raktombak",
+   "x": 53,
+   "y": 93,
+   "r": 0,
+   "label": "Penemu tombak super",
+   "by": "akai",
+   "ep": 1
+  },
+  {
+   "type": "raktombak",
+   "x": 79,
+   "y": 68,
+   "r": 0,
+   "label": "",
+   "by": "",
+   "ep": 1
+  },
+  {
+   "type": "raktombak",
+   "x": 25,
+   "y": 75,
+   "r": 0,
+   "label": "",
+   "by": "",
+   "ep": 1
+  },
+  {
+   "type": "raktombak",
+   "x": 65,
+   "y": 93,
+   "r": 0,
+   "label": "",
+   "by": "",
+   "ep": 1
+  },
+  {
+   "type": "raktombak",
+   "x": 52,
+   "y": 29,
+   "r": 0,
+   "label": "",
+   "by": "",
+   "ep": 1
+  }
+ ],
  "episodes": [
   {
    "ep": 0,
