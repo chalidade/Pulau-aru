@@ -2854,6 +2854,14 @@
   {
    "n": "Etet_443",
    "ep": 4
+  },
+  {
+   "n": "EGA_91",
+   "ep": 5
+  },
+  {
+   "n": "ザAエル",
+   "ep": 5
   }
  ],
  "buildings": [
@@ -2937,6 +2945,14 @@
    "label": "",
    "by": "",
    "ep": 4
+  },
+  {
+   "type": "kopdesawan",
+   "x": 35,
+   "y": 67,
+   "r": 0,
+   "by": "ザAエル",
+   "ep": 5
   }
  ],
  "episodes": [
@@ -2980,6 +2996,15 @@
     "warning"
    ],
    "text": "Saat Aru masih di pulau seberang, warga melantik presiden pertama Pulau Netizen: @Etet_443, yang memang sudah follow.\nKeputusan pertamanya: pasar tradisional pertama dibangun di lahan baru, lengkap dengan lapak ikan dari perahu nelayan."
+  },
+  {
+   "ep": 5,
+   "date": "3 Nov 2026",
+   "picks": [
+    "EGA_91",
+    "ザAエル"
+   ],
+   "text": "Penduduk tembus 3.209. @EGA_91 dilantik jadi wakil presiden, \"udah paket lengkap\".\nUsulan ザAエル: Kopdes (koperasi desa) pertama dibangun di atas awan, dengan tangga awan dari puncak piramida. Banyak warga jatuh di anak tangga ketujuh.\nDi pulau seberang, Aru menemukan gambar mercusuar di balik petanya, dan melihat awan aneh di atas Pulau Netizen."
   }
  ],
  "letters": [],
@@ -2987,6 +3012,10 @@
   {
    "text": "Di sisa perahu ada tali yang terikat rapi. Seseorang sengaja mengikatnya, bukan badai.",
    "ep": 0
+  },
+  {
+   "text": "Di balik peta lama Aru ada gambar mercusuar dengan tiga lampu. Hanya satu yang diwarnai menyala.",
+   "ep": 5
   }
  ],
  "clueTotal": 10,
@@ -2998,5 +3027,9 @@
  "president": {
   "n": "Etet_443",
   "ep": 4
+ },
+ "vicePresident": {
+  "n": "EGA_91",
+  "ep": 5
  }
 }

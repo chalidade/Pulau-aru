@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import * as WD from './world.js';
 import { W, H, tile, treeAt, LM, village } from './world.js';
-import { mat, box, G, presidentKit } from './models.js';
+import { mat, box, G, presidentKit, vicePresidentKit } from './models.js';
 
 // ---------- props ----------
 function axe() { const g = new THREE.Group(); box(g, '#7a5432', .04, .5, .04, 0, -.95, .02); box(g, '#9aa3a8', .04, .14, .2, 0, -.97, .12); return g; }
@@ -36,13 +36,13 @@ const FIRE_SEATS = 7;
 export function createActivities(ctx) {
   // ctx: { scene, solid(), occ(), npcWalkable, groundY, surfaceY, fireXZ, player }
   const deco = new THREE.Group(); ctx.scene.add(deco);
-  let spots = { fish: [], chop: [], build: [], sit: [], sell: [], shop: [], listen: [], pres: [] }, sites = [];
+  let spots = { fish: [], chop: [], build: [], sit: [], sell: [], shop: [], listen: [], pres: [], vp: [] }, sites = [];
   const free = i => ctx.occ()[i] === -1 && !ctx.solid()[i];
   const spaced = (list, x, y, d) => list.every(s => Math.abs(s.cx - x) >= d || Math.abs(s.cy - y) >= d);
 
   function compute() {
-    deco.clear(); spots = { fish: [], chop: [], build: [], sit: [], sell: [], shop: [], listen: [], pres: [] }; sites = [];
-    const ex = ctx.extraSpots ? ctx.extraSpots() : {}; for (const k of ['sell', 'shop', 'listen', 'pres']) spots[k] = ex[k] || [];
+    deco.clear(); spots = { fish: [], chop: [], build: [], sit: [], sell: [], shop: [], listen: [], pres: [], vp: [] }; sites = [];
+    const ex = ctx.extraSpots ? ctx.extraSpots() : {}; for (const k of ['sell', 'shop', 'listen', 'pres', 'vp']) spots[k] = ex[k] || [];
     const cx0 = LM.camp[0], cy0 = LM.camp[1];
     const cells = [];
     for (let y = 2; y < H - 2; y++) for (let x = 2; x < W - 2; x++) { const d = Math.hypot(x - cx0, y - cy0); if (d < 34) cells.push({ x, y, d }); }
@@ -88,6 +88,7 @@ export function createActivities(ctx) {
     npcs.forEach((n, i) => {
       if (n.aru) { setRole(n, 'sit', spots.sit[used.sit++] || null); return; }
       if (n.pres) { setRole(n, 'president', spots.pres[0] || null); return; }
+      if (n.vp) { setRole(n, 'vicepresident', spots.vp[0] || null); return; }
       // market sellers and the crowd at the stage come first, then the usual jobs
       for (const r of ['sell', 'listen', 'shop']) if (used[r] < spots[r].length) { setRole(n, r, spots[r][used[r]++]); return; }
       let want = ROLE_ORDER[k++ % ROLE_ORDER.length];
@@ -103,11 +104,12 @@ export function createActivities(ctx) {
     if (n.bob) { ctx.scene.remove(n.bob); n.bob = null; }
     n.role = spot || role === 'wander' ? role : 'wander'; n.spot = spot;
     n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
-    if (n.role === 'president') n.workFor = Infinity;
+    if (n.role === 'president' || n.role === 'vicepresident') n.workFor = Infinity;
     if (n.role === 'listen') n.workFor = 60 + Math.random() * 90;
     if (n.role === 'shop') { n.workFor = 4 + Math.random() * 6; n.t = 0; }
     n.yOff = spot && spot.y || 0;
     if (n.role === 'president') { const before = n.obj.userData.body.children.length; presidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
+    if (n.role === 'vicepresident') { const before = n.obj.userData.body.children.length; vicePresidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
     if (spot) { n.x = spot.x; n.z = spot.z; n.obj.rotation.y = spot.face; n.tx = null; }
     const u = n.obj.userData;
     if (n.role === 'chop') { n.tool = axe(); u.armR.add(n.tool); }
@@ -207,6 +209,13 @@ export function createActivities(ctx) {
       const c = (T % 12) / 12, cheer = window.__cheer != null ? window.__cheer : c > .82;
       u.armR.rotation.x = cheer ? -3.0 : -1.4 + Math.sin(T * 3.1) * .5; u.armR.rotation.z = cheer ? 0 : -.2;
       u.armL.rotation.x = -.6 + Math.sin(T * 1.7) * .15; u.body.rotation.y = Math.sin(T * .7) * .25;
+    } else if (n.role === 'vicepresident') {
+      // thumbs up for the crowd, clapping along when they cheer
+      const c = (T % 12) / 12, cheer = window.__cheer != null ? window.__cheer : c > .82, talk = window.__vpTalk;
+      if (cheer) { const k = Math.sin(T * 16) * .25; u.armR.rotation.x = -1.35 + k; u.armL.rotation.x = -1.35 - k; u.armR.rotation.z = .35; u.armL.rotation.z = -.35; }
+      else if (talk) { u.armR.rotation.x = -2.2 + Math.sin(T * 7) * .45; u.armL.rotation.x = -1.2 + Math.sin(T * 5) * .3; u.armR.rotation.z = 0; u.armL.rotation.z = 0; u.body.position.y = Math.abs(Math.sin(T * 6)) * .05; }
+      else { u.armR.rotation.x = -1.55; u.armR.rotation.z = -.1; u.armL.rotation.x = -.2; u.armL.rotation.z = 0; }
+      u.body.rotation.y = Math.sin(T * .9 + 1) * .3;
     } else if (n.role === 'fish') {
       const c = (ph % 14) / 14; // a cast every 14 s, a tug now and then
       u.armR.rotation.x = c < .06 ? -2.4 + c / .06 * 1.4 : -1.0 + Math.sin(ph * 1.3) * .04; u.armL.rotation.x = -.9;
@@ -225,6 +234,9 @@ export function createActivities(ctx) {
 
 export const ROLE_LINES = {
   president: ['Warga sekalian, pasar sudah buka. Belanja yang banyak, ya!', 'Saya sudah follow, jadi saya presiden. Begitu aturannya.', 'Keputusan kedua? Tunggu komentar kalian.'],
+  vicepresident: ['Saya wakil presiden. Udah paket lengkap!', 'Pak Presiden kerja, saya yang tepuk tangan.', 'Sudah ke Kopdes di atas awan? Tangganya lewat puncak piramida.'],
+  kopdes: ['Antre dulu ya, mau setor ikan ke Kopdes.', 'Capek naiknya, tapi pemandangannya juara.', 'Jangan lihat ke bawah. Pokoknya jangan.'],
+  climb: ['Lompat… lompat… jangan lihat ke bawah!', 'Awan ini empuk, tapi licin.', 'Tadi aku jatuh dua kali. Coba lagi!'],
   sell: ['Ikan segar, ikan segar! Baru ditangkap perahu nelayan!', 'Mangga manis, murah meriah!', 'Mampir dulu, kak. Lihat-lihat boleh.'],
   shop: ['Lagi cari bahan masak buat nanti malam.', 'Pasarnya rame banget, ya.', 'Kata presiden, belanja di pasar sendiri itu keren.'],
   listen: ['Hidup Pak Presiden!', 'Pidatonya seru. Aku nunggu bagian pembagian kelapa.', 'Aru belum tahu kita punya presiden, hehe.'],

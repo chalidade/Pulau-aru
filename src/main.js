@@ -93,7 +93,7 @@ const fpOf = b => { const d = BT[b.type]; return (b.r | 0) % 2 ? { w: d.h, h: d.
 function rebuildOcc() {
   solid = new Uint8Array(W * H); plank = new Uint8Array(W * H); occ = new Int16Array(W * H).fill(-1);
   for (const l of LMS) for (let dy = 0; dy < l[4]; dy++) for (let dx = 0; dx < l[3]; dx++) occ[(l[2] + dy) * W + l[1] + dx] = -2;
-  S.buildings.forEach((b, bi) => { const d = BT[b.type]; if (!d) return; const f = fpOf(b); for (let dy = 0; dy < f.h; dy++) for (let dx = 0; dx < f.w; dx++) { const x = b.x + dx, y = b.y + dy; if (x < 0 || y < 0 || x >= W || y >= H) continue; occ[y * W + x] = bi; if (d.walk && d.water) plank[y * W + x] = 1; } });
+  S.buildings.forEach((b, bi) => { const d = BT[b.type]; if (!d || d.float) return; const f = fpOf(b); for (let dy = 0; dy < f.h; dy++) for (let dx = 0; dx < f.w; dx++) { const x = b.x + dx, y = b.y + dy; if (x < 0 || y < 0 || x >= W || y >= H) continue; occ[y * W + x] = bi; if (d.walk && d.water) plank[y * W + x] = 1; } });
   if (pop() >= 1000) for (let y = WD.PIER.y0 - 1; y <= WD.PIER.y1; y++) plank[y * W + WD.PIER.x] = 1;
   for (let i = 0; i < W * H; i++) {
     let s = tile[i] === WD.DEEP ? 1 : 0;
@@ -170,7 +170,7 @@ function rebuildPosts() {
 
 // ---------- buildings ----------
 const bGroup = new THREE.Group(); scene.add(bGroup);
-let bObjs = [];
+let bObjs = [], platforms = [], clouds = [];
 function rebuildBuildings() {
   bGroup.clear(); bObjs = [];
   S.buildings.forEach((b, i) => {
@@ -180,6 +180,20 @@ function rebuildBuildings() {
     o.position.set(cx, d.water ? 0 : fpGround(b.x, b.y, f.w, f.h), cz); o.rotation.y = -(b.r | 0) * Math.PI / 2;
     o.userData.b = b; bGroup.add(o); bObjs.push(o);
   });
+  // floating builds (the cloud Kopdes) hang above the nearest climbable pyramid's apex
+  platforms = []; clouds = [];
+  for (const o of bObjs) {
+    const d = o.userData.def; if (!d.float) continue;
+    let best = null, bd = Infinity; for (const p of bObjs) { const c = p.userData.def.climb; if (!c) continue; const dd = Math.hypot(p.position.x - o.position.x, p.position.z - o.position.z); if (dd < bd) { bd = dd; best = p; } }
+    if (best) { const c = best.userData.def.climb; o.position.set(best.position.x, best.position.y + c.tiers * c.step, best.position.z); }
+    o.updateMatrixWorld(true);
+    const L = d.layout, wp = (lx, ly, lz) => new THREE.Vector3(lx, ly, lz).applyMatrix4(o.matrixWorld);
+    const path = [wp(0, 0, 0)];
+    for (const [lx, lz, ly] of L.steps) { const v = wp(lx, ly, lz); platforms.push({ x: v.x, z: v.z, r: .78, top: v.y }); path.push(v); }
+    const ic = wp(L.island.x, L.island.top, L.island.z); platforms.push({ x: ic.x, z: ic.z, r: L.island.r - .15, top: ic.y });
+    path.push(wp(L.island.x, L.island.top, L.island.z + L.island.r - 1.2));
+    clouds.push({ obj: o, path, top: ic.y, queue: L.queue.map(([lx, lz, f]) => { const v = wp(lx, L.island.top, lz); return { x: v.x, z: v.z, y: v.y, face: f + o.rotation.y }; }), carry: L.carry.map(([lx, lz, f]) => { const v = wp(lx, L.island.top, lz); return { x: v.x, z: v.z, y: v.y, face: f + o.rotation.y }; }) });
+  }
   boats.sync(bObjs.filter(o => o.userData.b.type === 'perahu'), S.residents.slice(-40).map(r => r.n));
 }
 const boats = createBoats({ scene, navigable: (x, z) => navigable(x, z) });
@@ -193,7 +207,7 @@ const fishHud = h('div', { class: 'plate fishplate', hidden: true }); $('hud-l')
 function updateFishHud() { const st = fishing.st; fishHud.hidden = !st.active && !st.total; fishHud.replaceChildren(h('span', { class: 'eyebrow' }, 'Tangkapan ikan'), h('b', null, fmt(st.total))); }
 // market stalls and the president's stage give the residents somewhere to be
 function extraSpots() {
-  const out = { sell: [], shop: [], listen: [], pres: [] };
+  const out = { sell: [], shop: [], listen: [], pres: [], vp: [] };
   const tr = (o, lx, lz) => { const r = o.rotation.y, c = Math.cos(r), s_ = Math.sin(r); return [o.position.x + lx * c + lz * s_, o.position.z - lx * s_ + lz * c]; };
   for (const o of bObjs) {
     const d = o.userData.def, sp = d.spots; if (!sp) continue;
@@ -204,6 +218,7 @@ function extraSpots() {
     if (sp.pres) {
       const [lx, lz, f, y] = sp.pres, [x, z] = tr(o, lx, lz), face = f + o.rotation.y;
       out.pres.push({ x, z, face, y: y + (o.position.y - surfaceY(x, z)) });
+      if (sp.vp) { const [vx, vz2] = tr(o, sp.vp[0], sp.vp[1]); out.vp.push({ x: vx, z: vz2, face: sp.vp[2] + o.rotation.y, y: sp.vp[3] + (o.position.y - surfaceY(vx, vz2)) }); }
       // the crowd: rows in front of the stage, facing it
       const fx = Math.sin(face), fz = Math.cos(face);
       for (let row = 0; row < 3; row++) for (let k = -3; k <= 3; k++) {
@@ -228,8 +243,10 @@ function rebuildNpcs() {
   if (role.kind !== 'aru') want.push({ key: 'aru', name: 'Aru', aru: true });
   const pres = S.president && S.president.n ? clean(S.president.n) : null;
   if (pres && !(role.kind === 'warga' && role.name.toLowerCase() === pres.toLowerCase())) want.push({ key: 'r:' + pres.toLowerCase(), name: '@' + pres, num: (S.residents.findIndex(r => r.n.toLowerCase() === pres.toLowerCase()) + 1) || null, pres: true });
-  for (let i = 0; i < N; i++) { const r = i < res.length ? res[i] : null; const key = r ? 'r:' + r.n.toLowerCase() : 'a:' + i; if (role.kind === 'warga' && key === 'r:' + role.name.toLowerCase()) continue; if (pres && key === 'r:' + pres.toLowerCase()) continue; want.push(r ? { key, name: '@' + r.n, num: r.num } : { key, name: 'Warga', num: null }); }
-  const old = new Map(npcs.map(n => [n.key, n]));
+  const vp = S.vicePresident && S.vicePresident.n ? clean(S.vicePresident.n) : null;
+  if (vp && pres && vp.toLowerCase() !== pres.toLowerCase() && !(role.kind === 'warga' && role.name.toLowerCase() === vp.toLowerCase())) want.push({ key: 'r:' + vp.toLowerCase(), name: '@' + vp, num: (S.residents.findIndex(r => r.n.toLowerCase() === vp.toLowerCase()) + 1) || null, vp: true });
+  for (let i = 0; i < N; i++) { const r = i < res.length ? res[i] : null; const key = r ? 'r:' + r.n.toLowerCase() : 'a:' + i; if (role.kind === 'warga' && key === 'r:' + role.name.toLowerCase()) continue; if (pres && key === 'r:' + pres.toLowerCase()) continue; if (vp && key === 'r:' + vp.toLowerCase()) continue; want.push(r ? { key, name: '@' + r.n, num: r.num } : { key, name: 'Warga', num: null }); }
+  const old = new Map(npcs.map(n => [n.key, n])); for (const o of old.values()) { delete o.pres; delete o.vp; }
   const next = want.map((w, i) => {
     const o = old.get(w.key); if (o) { old.delete(w.key); Object.assign(o, w); return o; }
     const home = w.aru ? { x: LM.camp[0] + 1, y: LM.camp[1] + 2 } : village[(i * 13 + 5) % Math.min(village.length, 1600)];
@@ -239,6 +256,50 @@ function rebuildNpcs() {
   });
   for (const o of old.values()) { npcGroup.remove(o.obj); if (o.bob) scene.remove(o.bob); }
   npcs = next;
+}
+// residents on the cloud: a queue at the Kopdes, porters with baskets, and climbers hopping up the steps (one falls now and then)
+function assignCloud() {
+  for (const n of npcs) if (n.cloud) { n.cloud = null; n.obj.userData.body.position.y = 0; if (n.basket) { n.basket.parent && n.basket.parent.remove(n.basket); n.basket = null; } }
+  const cl = clouds[0]; if (!cl) return;
+  const pool = npcs.filter(n => !n.aru && !n.pres && !n.vp && n.num && (n.role === 'wander' || n.role === 'chop' || n.role === 'build')).slice(0, 14);
+  let k = 0;
+  const take = (kind, spot, extra = {}) => { const n = pool[k++]; if (!n) return; n.cloud = { kind, spot, ...extra }; n.role = kind === 'climb' ? 'climb' : 'kopdes'; if (n.kit) { n.obj.userData.body.remove(...n.kit); n.kit = null; } if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }
+    if (kind !== 'climb') { const b = new THREE.Mesh(M.G.cyl8, M.mat(kind === 'carry' ? '#b08850' : '#c9a36a')); b.scale.set(.16, .18, .16); b.position.set(0, .62, .26); b.castShadow = true; n.obj.userData.body.add(b); n.basket = b; } };
+  cl.queue.forEach(s => take('queue', s));
+  cl.carry.forEach(s => take('carry', s));
+  for (let i = 0; i < 5; i++) take('climb', null, { i: 0, t: -i * 1.7 - .4, fallAt: i === 1 ? 6 : -1, n: i, cl });
+}
+function stepCloud(n, dt, T) {
+  const c = n.cloud, u = n.obj.userData;
+  if (c.kind !== 'climb') {
+    const s = c.spot, ph = T + (n.seed || (n.seed = Math.random() * 10));
+    n.x = s.x; n.z = s.z; n.obj.rotation.y = s.face + Math.sin(ph * .4) * .2;
+    u.legL.rotation.x = 0; u.legR.rotation.x = 0; u.body.position.y = 0;
+    u.armL.rotation.x = -1.0; u.armR.rotation.x = c.kind === 'carry' ? -1.0 : -.3 + (Math.sin(ph * .8) > .7 ? -1.2 : 0);
+    if (c.kind === 'carry') u.body.position.y = Math.abs(Math.sin(ph * 2)) * .02;
+    n.obj.position.set(s.x, s.y, s.z); return;
+  }
+  const P = c.cl.path, HOP = .82;
+  c.t += dt * (window.__climbSpeed || 1);
+  const restart = () => { c.i = 0; c.t = -1.5 - Math.random(); c.fell = false; c.cycle = (c.cycle || 0) + 1; };
+  if (c.fell) { // tumbling down to the ground
+    c.vy -= 16 * dt; c.y += c.vy * dt; c.x += c.vx * dt; c.z += c.vz * dt;
+    const g = surfaceY(c.x, c.z);
+    if (c.y <= g) { c.y = g; c.vx = c.vz = 0; u.body.rotation.x = -1.45; u.body.position.y = .1; if (c.t > 3.2) { u.body.rotation.x = 0; u.body.position.y = 0; restart(); } }
+    else { u.body.rotation.x += dt * 7; }
+    n.x = c.x; n.z = c.z; n.obj.position.set(c.x, c.y, c.z); return;
+  }
+  if (c.t < 0) { const a = P[0]; n.x = a.x; n.z = a.z; n.obj.position.set(a.x, a.y, a.z); n.obj.visible = true; u.legL.rotation.x = u.legR.rotation.x = 0; u.armL.rotation.x = u.armR.rotation.x = -.2; n.obj.rotation.y = Math.atan2(P[1].x - a.x, P[1].z - a.z); return; }
+  if (c.t >= HOP) { c.t -= HOP; c.i++; }
+  if (c.i >= P.length - 1) { const e = P[P.length - 1]; n.x = e.x; n.z = e.z; n.obj.position.set(e.x, e.y, e.z); u.armR.rotation.x = -2.8; u.armL.rotation.x = -2.8; if (c.t > .7) restart(); return; }
+  const a = P[c.i], b = P[c.i + 1], f = Math.min(1, c.t / (HOP * .62));
+  const falls = c.fallAt === c.i && (window.__fallEvery ? (c.cycle || 0) % window.__fallEvery === 0 : (c.cycle || 0) % 2 === 0);
+  if (falls && f > .55) { // slipped off the cloud
+    c.fell = true; c.t = 0; c.x = n.x; c.z = n.z; c.y = n.obj.position.y; const ox = b.x - P[0].x, oz = b.z - P[0].z, ol = Math.hypot(ox, oz) || 1; c.vx = ox / ol * 2.4; c.vz = oz / ol * 2.4; c.vy = 1.5; return;
+  }
+  const x = a.x + (b.x - a.x) * f, z = a.z + (b.z - a.z) * f, y = a.y + (b.y - a.y) * f + Math.sin(f * Math.PI) * .9;
+  n.x = x; n.z = z; n.obj.position.set(x, y, z); n.obj.rotation.y = Math.atan2(b.x - a.x, b.z - a.z);
+  const air = f < 1; u.legL.rotation.x = air ? -.9 : 0; u.legR.rotation.x = air ? -.5 : 0; u.armL.rotation.x = air ? -2.4 : -.3; u.armR.rotation.x = air ? -2.4 : -.3; u.body.position.y = 0; u.body.rotation.x = 0;
 }
 function walkable(x, z) {
   if (I2.inside2(x, z)) return I2.walkable2(x, z);
@@ -252,7 +313,8 @@ function rebuildClimbs() { climbs = bObjs.filter(o => o.userData.def.climb).map(
 function climbAt(x, z) { let best = -Infinity; for (const c of climbs) { const d = Math.max(Math.abs(x - c.cx), Math.abs(z - c.cz)); if (d > c.half) continue; const k = Math.min(c.tiers - 1, Math.floor((c.half - d) / c.inset)); best = Math.max(best, c.base + (k + 1) * c.step); } return best; }
 const climbCell = i => occ[i] >= 0 && !!BT[S.buildings[occ[i]].type].climb;
 function npcWalkable(x, z) { if (!walkable(x, z)) return false; for (const [dx, dz] of [[-.3, -.3], [.3, -.3], [-.3, .3], [.3, .3]]) { const i = WD.w2cy(z + dz) * W + WD.w2cx(x + dx); if (climbCell(i)) return false; } return true; }
-const playerSurface = (x, z) => Math.max(surfaceY(x, z), climbAt(x, z));
+function platformAt(x, z, y) { let best = -Infinity; for (const p of platforms) if (p.top <= y + .35 && p.top > best && (x - p.x) ** 2 + (z - p.z) ** 2 < p.r * p.r) best = p.top; return best; }
+const playerSurface = (x, z, y = Infinity) => Math.max(surfaceY(x, z), climbAt(x, z), platformAt(x, z, y));
 const shallowAt = (x, z) => I2.inside2(x, z) ? I2.shallow2(x, z) : shallowAt1(x, z);
 const shallowAt1 = (x, z) => { const i = WD.w2cy(z) * W + WD.w2cx(x); return tile[i] === WD.SHALLOW && !plank[i]; };
 const surfaceY = (x, z) => I2.inside2(x, z) ? I2.surface2(x, z) : surfaceY1(x, z);
@@ -440,7 +502,7 @@ const pv = new THREE.Vector3();
 function updateLabels() {
   const items = [];
   const push = (text, x, y, z, cls, d) => items.push({ text, x, y, z, cls, d });
-  for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (d < (n.aru || n.pres ? 12 : 4.5) && (n.num || n.aru || n.pres)) push(n.pres ? 'Presiden ' + n.name : n.name, n.x, n.obj.position.y + 1.75, n.z, n.aru || n.pres ? 'gold' : '', d); }
+  for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (d < (n.aru || n.pres || n.vp ? 12 : 4.5) && (n.num || n.aru || n.pres || n.vp)) push(n.pres ? 'Presiden ' + n.name : n.vp ? 'Wakil Presiden ' + n.name : n.name, n.x, n.obj.position.y + 1.75, n.z, n.aru || n.pres || n.vp ? 'gold' : '', d); }
   items.sort((a, b) => a.d - b.d);
   labelPool.forEach((el, i) => {
     const it = items[i]; if (!it) { el.hidden = true; return; }
@@ -478,20 +540,20 @@ function frame() {
   } else if (ml > .12 && !blocked) {
     const sp = 4.2 * dt * Math.min(1, ml) * (shallowAt(player.x, player.z) ? .55 : 1) * (keys.shift && !place ? 1.6 : 1);
     const vx = wx / ml * sp, vz = wz / ml * sp; let moved = false;
-    const okAt = (x, z) => walkable(x, z) && playerSurface(x, z) <= player.y + .32;
+    const okAt = (x, z) => walkable(x, z) ? playerSurface(x, z, player.y) <= player.y + .32 : platformAt(x, z, player.y) > -Infinity && Math.abs(x) < W / 2 && Math.abs(z) < H / 2;
     if (okAt(player.x + vx, player.z)) { player.x += vx; moved = true; } if (okAt(player.x, player.z + vz)) { player.z += vz; moved = true; }
     if (!moved) player.tx = null; player.moving = moved;
     const want = Math.atan2(wx, wz); let dr = want - player.obj.rotation.y; dr = Math.atan2(Math.sin(dr), Math.cos(dr)); player.obj.rotation.y += dr * Math.min(1, dt * 14);
   } else player.moving = false;
   if (!sail.on) { // gravity, jumping and stepping onto ledges
-    const g = playerSurface(player.x, player.z);
+    const g = playerSurface(player.x, player.z, player.y);
     if (!player.grounded || player.vy > 0 || player.y > g + .32) { player.vy -= 16 * dt; player.y += player.vy * dt; if (player.y <= g) { player.y = g; player.vy = 0; player.grounded = true; } else player.grounded = false; }
     else { player.y = g; player.vy = 0; player.grounded = true; }
   }
   player.obj.position.set(player.x, player.y, player.z);
   animateCharacter(player.obj, player.moving, dt);
   fishing.update(dt, T0);
-  for (const n of npcs) { acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z) + (n.state === 'work' ? n.yOff || 0 : 0), n.z); }
+  for (const n of npcs) { if (n.cloud) { stepCloud(n, dt, T0); continue; } acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z) + (n.state === 'work' ? n.yOff || 0 : 0), n.z); }
   // camera
   if (cam.attract && !$('start').hidden) { cam.yaw += dt * .05; }
   const tgt = new THREE.Vector3(player.x, player.obj.position.y + 1, player.z);
@@ -603,7 +665,7 @@ function syncExpansion(animate) {
   if (animate && want > WD.expansion) { expAnim = { from: WD.expansion, to: want, t: 0 }; return; }
   expAnim = null; WD.setExpansion(want, 1); terrain.userData.refresh();
 }
-function applyWorld(animate = false) { syncExpansion(animate); rebuildOcc(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
+function applyWorld(animate = false) { syncExpansion(animate); rebuildOcc(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); assignCloud(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
 function markDirty() { dirty = true; store.set(draftKey, JSON.stringify(S)); applyWorld(true); }
 const app = {
   get S() { return S; }, get dirty() { return dirty; }, get base() { try { return JSON.parse(PUB); } catch (e) { return null; } }, role, pop, lamps, curEp,

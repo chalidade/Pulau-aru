@@ -11,6 +11,11 @@ export function mat(color, o = {}) {
 export const windowMat = new THREE.MeshStandardMaterial({ color: '#2f4a5a', emissive: '#ffcc66', emissiveIntensity: 0, flatShading: true, roughness: .4 });
 export const lampOnMat = new THREE.MeshStandardMaterial({ color: '#ffd56a', emissive: '#ffc34a', emissiveIntensity: 2.2, flatShading: true });
 export const lampOffMat = mat('#6d6a62');
+export function vicePresidentKit(ch) {
+  const b = ch.userData.body;
+  box(b, '#141414', .4, .17, .38, 0, 1.34, -.01);
+  const s1 = box(b, '#e6b84a', .09, .66, .03, 0, .48, .16); s1.rotation.z = -.62; s1.position.y = .76;
+}
 export function presidentKit(ch) {
   const b = ch.userData.body;
   box(b, '#141414', .4, .17, .38, 0, 1.34, -.01);
@@ -161,7 +166,7 @@ export const BT = {
     } },
   // speaking stage for the island's president
   mimbar: { n: 'Mimbar', w: 3, h: 3, land: true, stage: .55,
-    spots: { pres: [0, -.25, 0, .55] },
+    spots: { pres: [0, -.25, 0, .55], vp: [.95, -.45, -.25, .55] },
     build(g) {
       box(g, '#8a5a34', 2.8, .55, 2.4, 0, 0, -.1); box(g, '#6b4a2b', 2.85, .06, 2.45, 0, .55, -.1);
       for (let i = 0; i < 3; i++) box(g, '#9a6a3e', 1.0, .18 * (i + 1), .3, 0, 0, 1.25 + (2 - i) * .3);
@@ -171,6 +176,57 @@ export const BT = {
       box(g, '#c4473a', 2.82, .5, .12, 0, 1.95, -1.28); box(g, '#f4eee0', 2.82, .5, .12, 0, 1.45, -1.28);
       box(g, '#cfd3cc', .05, 3.6, .05, 1.25, 0, -1.2);
       box(g, '#d0302a', .7, .22, .02, 1.6, 3.32, -1.2); box(g, '#f8f6f0', .7, .22, .02, 1.6, 3.1, -1.2);
+    } },
+  // a village cooperative on a floating cloud island, reached by a spiral of cloud steps from the pyramid top
+  kopdesawan: { n: 'Kopdes di atas awan', w: 1, h: 1, land: true, float: true,
+    layout: (() => {
+      const rise = .62, steps = [];
+      for (let k = 1; k <= 9; k++) { const a = Math.PI + (k - 9) * .62, r = 1.25 + k * .2; steps.push([Math.sin(a) * r, Math.cos(a) * r, rise * k]); }
+      for (let j = 1; j <= 3; j++) steps.push([0, -3.05 - j * 1.05, rise * (9 + j)]);
+      const island = { x: 0, z: -11.6, r: 5.2, top: rise * 13 };
+      const queue = []; for (let i = 0; i < 6; i++) queue.push([-2.6 + i * 1.05, -9.2 + (i % 2) * .25, Math.PI]);
+      const carry = [[-3.6, -8.2, Math.PI * .8], [3.7, -8.6, -Math.PI * .8], [0, -7.4, Math.PI]];
+      return { steps, island, queue, carry, kopdes: [0, -12.6] };
+    })(),
+    build(g) {
+      const L = BT.kopdesawan.layout;
+      const cloudMat = new THREE.MeshStandardMaterial({ color: '#ffffff', emissive: '#dfe9f2', emissiveIntensity: .25, roughness: 1, flatShading: true });
+      const puff = (parent, x, y, z, s, n = 5, seed = 1) => { for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2 + seed, r = s * (.35 + ((seed * 7 + i * 3) % 5) / 12); const m = new THREE.Mesh(G.ico, cloudMat); const k = s * (.55 + ((seed + i) % 3) * .15); m.scale.set(k, k * .6, k); m.position.set(x + Math.cos(a) * r, y + ((i % 2) - .5) * s * .15, z + Math.sin(a) * r); m.castShadow = true; parent.add(m); } };
+      const steps = new THREE.Group(); g.add(steps); g.userData.steps = steps;
+      L.steps.forEach(([x, z, y], k) => { const st = new THREE.Group(); st.position.set(x, y, z); steps.add(st); puff(st, 0, -.28, 0, .8, 4, k + 1); const top = new THREE.Mesh(G.cyl8, cloudMat); top.scale.set(.78, .14, .78); top.position.y = -.07; top.receiveShadow = true; st.add(top); });
+      const isl = new THREE.Group(); isl.position.set(L.island.x, L.island.top, L.island.z); g.add(isl); g.userData.island = isl;
+      for (let ring = 0; ring < 3; ring++) for (let i = 0; i < 9 + ring * 3; i++) { const a = i / (9 + ring * 3) * Math.PI * 2 + ring; const r = L.island.r * (.25 + ring * .33); puff(isl, Math.cos(a) * r, -1.0 - ring * .35 + (ring === 0 ? -.4 : 0), Math.sin(a) * r, 1.6 - ring * .25, 3, i + ring * 5); }
+      const grass = new THREE.Mesh(G.cyl8, mat('#7cc25a')); grass.scale.set(L.island.r, .4, L.island.r); grass.position.y = -.2; grass.receiveShadow = true; isl.add(grass);
+      const soil = new THREE.Mesh(G.cyl8, mat('#8a6a4a')); soil.scale.set(L.island.r * .96, .5, L.island.r * .96); soil.position.y = -.6; isl.add(soil);
+      // the Kopdes building, modelled on the real village cooperatives: long, white, red shutters, red roof, grey sign wall
+      const kb = new THREE.Group(); kb.position.set(L.kopdes[0] - L.island.x, 0, L.kopdes[1] - L.island.z); isl.add(kb);
+      const W_ = 7.2, D = 2.6, Hh = 1.9;
+      box(kb, '#b9bcbd', W_ + .4, .22, D + .7, 0, 0, .15);
+      box(kb, '#efede8', W_, Hh, D, 0, .22, 0);
+      const roofM = mat('#b3202a');
+      for (const sgn of [-1, 1]) { const r = new THREE.Mesh(G.box, roofM); r.scale.set(W_ + .7, .08, D / 2 + .55); r.rotation.x = sgn * .26; r.position.set(0, .22 + Hh + .28, sgn * (D / 4 + .1)); r.castShadow = true; kb.add(r); }
+      box(kb, '#efede8', W_ - .05, .32, .06, 0, .22 + Hh, D / 2 - .02);
+      const canopy = new THREE.Mesh(G.box, roofM); canopy.scale.set(W_ - 1.6, .05, .65); canopy.rotation.x = .3; canopy.position.set(-.7, .22 + 1.62, D / 2 + .26); canopy.castShadow = true; kb.add(canopy);
+      const doors = 5, dw = (W_ - 1.9) / doors;
+      for (let i = 0; i < doors; i++) {
+        const x = -W_ / 2 + .15 + dw * (i + .5);
+        box(kb, '#c61e2a', dw - .14, 1.32, .05, x, .26, D / 2 + .01);
+        for (let j = 0; j < 6; j++) box(kb, '#9d1620', dw - .14, .02, .055, x, .4 + j * .2, D / 2 + .015);
+        box(kb, '#fbfaf6', .1, 1.5, .1, x + dw / 2, .22, D / 2 + .03);
+      }
+      box(kb, '#7d8287', 1.55, Hh, .06, W_ / 2 - .8, .22, D / 2 + .02);
+      const c = document.createElement('canvas'); c.width = 256; c.height = 256; const x2 = c.getContext('2d');
+      x2.fillStyle = '#7d8287'; x2.fillRect(0, 0, 256, 256);
+      x2.fillStyle = '#d72630'; x2.beginPath(); x2.moveTo(40, 92); x2.lineTo(98, 40); x2.lineTo(156, 92); x2.lineTo(140, 92); x2.lineTo(98, 56); x2.lineTo(56, 92); x2.fill();
+      x2.fillRect(58, 90, 12, 50); x2.fillRect(126, 90, 12, 50); x2.fillRect(58, 132, 80, 10);
+      x2.fillStyle = '#ffffff'; x2.fillRect(84, 104, 12, 12); x2.fillRect(100, 104, 12, 12);
+      x2.font = '700 46px "Pixelify Sans", sans-serif'; x2.fillStyle = '#d72630'; x2.textAlign = 'left'; x2.fillText('KOP', 150, 88); x2.fillText('DES', 150, 132);
+      x2.font = '700 30px sans-serif'; x2.fillStyle = '#ffffff'; x2.textAlign = 'center'; x2.fillText('KOPERASI DESA', 128, 196);
+      const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.3, 1.3), new THREE.MeshStandardMaterial({ map: tex, roughness: .9 })); sign.position.set(W_ / 2 - .8, 1.15, D / 2 + .06); kb.add(sign);
+      // goods waiting to be weighed
+      for (let i = 0; i < 4; i++) { const bk = new THREE.Mesh(G.cyl8, mat('#b08850')); bk.scale.set(.22, .24, .22); bk.position.set(-2.4 + i * .5, .12, D / 2 + .9); bk.castShadow = true; kb.add(bk); const f = new THREE.Mesh(G.sph, mat(['#7f97ad', '#6b4a2b', '#ffd24a', '#6fbf4a'][i])); f.scale.setScalar(.12); f.position.set(-2.4 + i * .5, .3, D / 2 + .9); kb.add(f); }
+      for (const [lx, lz] of [[-4.2, 1.6], [4.1, 1.2]]) { box(kb, '#5e3b22', .06, 1.3, .06, lx, 0, lz); const l = new THREE.Mesh(G.sph, lanternMat); l.scale.set(.12, .16, .12); l.position.set(lx, 1.35, lz); kb.add(l); }
     } },
   papan: { n: 'Papan nama', w: 1, h: 1, land: true, sign: true, build(g, b) { box(g, '#5e3b22', .08, 1, .08, 0, 0, 0); const board = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(splitLabel(b && b.label || 'Pulau'), { size: 46, grain: true }), flatShading: true }), mat('#8a5a34')]); board.scale.set(.95, .48, .06); board.position.set(0, 1, .05); board.castShadow = true; g.add(board); } },
 };
