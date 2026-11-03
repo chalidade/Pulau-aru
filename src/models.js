@@ -177,6 +177,52 @@ export const BT = {
       box(g, '#cfd3cc', .05, 3.6, .05, 1.25, 0, -1.2);
       box(g, '#d0302a', .7, .22, .02, 1.6, 3.32, -1.2); box(g, '#f8f6f0', .7, .22, .02, 1.6, 3.1, -1.2);
     } },
+  // the president's decree (episode 6): a mosque with a green dome, a minaret and a small courtyard
+  masjid: { n: 'Masjid', w: 4, h: 4, land: true,
+    build(g) {
+      const wall = '#f3eee2', trim = '#2f8a5a', dome = mat('#2e9a63'); dome.flatShading = false;
+      box(g, '#cfc8b6', 3.9, .14, 3.9, 0, 0, 0);                                     // courtyard floor
+      box(g, wall, 2.8, 1.7, 2.6, 0, .14, -.35);                                     // prayer hall
+      box(g, trim, 2.9, .14, 2.7, 0, 1.84, -.35);
+      for (const [x, z] of [[-1.38, .97], [1.38, .97]]) box(g, wall, .18, 1.7, .18, x, .14, z);
+      box(g, wall, 1.1, 2.1, .25, 0, .14, .95);                                      // entrance portal
+      const arch = new THREE.Mesh(new THREE.CircleGeometry(.36, 16, 0, Math.PI), mat('#3b2a1e')); arch.position.set(0, 1.05, 1.085); g.add(arch);
+      box(g, '#3b2a1e', .72, .91, .02, 0, .14, 1.075);
+      for (const x of [-.95, .95]) { box(g, windowMat, .32, .55, .04, x, .7, .96); const w = new THREE.Mesh(new THREE.CircleGeometry(.16, 12, 0, Math.PI), windowMat); w.position.set(x, 1.25, .985); g.add(w); }
+      box(g, wall, .9, .45, .9, 0, 1.98, -.35);                                      // drum
+      const dm = new THREE.Mesh(new THREE.SphereGeometry(.62, 16, 10, 0, Math.PI * 2, 0, Math.PI / 2), dome); dm.position.set(0, 2.42, -.35); dm.scale.y = 1.15; dm.castShadow = true; g.add(dm);
+      const fin = (x, y, z, k = 1) => { add(g, G.cyl6, '#e5c06a', .025 * k, .3 * k, .025 * k, x, y + .15 * k, z); const c1 = new THREE.Mesh(new THREE.TorusGeometry(.09 * k, .025 * k, 6, 14, Math.PI * 1.4), mat('#e5c06a')); c1.position.set(x, y + .4 * k, z); c1.rotation.z = Math.PI * .8; g.add(c1); };
+      fin(0, 3.12, -.35);
+      for (const [x, z] of [[-1.15, -1.45], [1.15, -1.45]]) { const sm = new THREE.Mesh(new THREE.SphereGeometry(.26, 12, 8, 0, Math.PI * 2, 0, Math.PI / 2), dome); sm.position.set(x, 1.98, z + .55); g.add(sm); }
+      // minaret
+      const mx = 1.55, mz = -1.55;
+      add(g, G.cyl8, wall, .26, 3.6, .26, mx, 1.94, mz);
+      add(g, G.cyl8, trim, .36, .1, .36, mx, 2.6, mz); add(g, G.cyl8, trim, .34, .1, .34, mx, 3.5, mz);
+      add(g, G.cyl8, wall, .2, .5, .2, mx, 4.0, mz);
+      add(g, G.cone6, trim, .26, .6, .26, mx, 4.55, mz); fin(mx, 4.83, mz, .7);
+      for (const [x, z] of [[-1.6, 1.7], [1.6, 1.7]]) { box(g, '#5e3b22', .06, .9, .06, x, .14, z); const l = new THREE.Mesh(G.sph, lanternMat); l.scale.set(.1, .13, .1); l.position.set(x, 1.1, z); g.add(l); }
+      for (const [x, z] of [[-1.7, -1.5], [-1.7, 0], [1.7, .1]]) add(g, G.ico, '#4f9b45', .32, .34, .32, x, .45, z);
+    } },
+  // a small neighbourhood pharmacy: white walls, a green cross sign and a glass front
+  apotik: { n: 'Apotik', w: 2, h: 2, land: true,
+    build(g) {
+      box(g, '#bfc4c0', 1.9, .12, 1.8, 0, 0, .05);
+      box(g, '#f6f6f2', 1.7, 1.25, 1.3, 0, .12, -.15);
+      box(g, '#2f9a5b', 1.8, .12, 1.4, 0, 1.37, -.15);
+      box(g, '#2f9a5b', 1.75, .06, .5, 0, 1.12, .7);
+      box(g, windowMat, 1.1, .75, .03, -.15, .2, .515); box(g, '#3d4a46', .05, .75, .04, .4, .2, .52);
+      box(g, '#e8f4ec', .3, .8, .03, .62, .2, .515);
+      const c = document.createElement('canvas'); c.width = 256; c.height = 96; const x = c.getContext('2d');
+      x.fillStyle = '#ffffff'; x.fillRect(0, 0, 256, 96); x.fillStyle = '#2f9a5b';
+      x.fillRect(22, 38, 50, 20); x.fillRect(37, 23, 20, 50);
+      x.font = '700 44px "Pixelify Sans", sans-serif'; x.textBaseline = 'middle'; x.fillText('APOTIK', 86, 50);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.2, .45), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.62, .56); g.add(sign);
+      box(g, '#2f9a5b', 1.24, .5, .04, 0, 1.39, .53);
+      const cross = new THREE.Group(); cross.position.set(.95, 1.25, .62); g.add(cross);
+      const gm = new THREE.MeshStandardMaterial({ color: '#35c46e', emissive: '#1f8a4a', emissiveIntensity: .6 });
+      for (const [w, h] of [[.36, .12], [.12, .36]]) { const m = new THREE.Mesh(G.box, gm); m.scale.set(w, h, .06); cross.add(m); }
+    } },
   // a village cooperative on a floating cloud island, reached by a spiral of cloud steps from the pyramid top
   kopdesawan: { n: 'Kopdes di atas awan', w: 1, h: 1, land: true, float: true,
     layout: (() => {

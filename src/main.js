@@ -5,6 +5,7 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import * as WD from './world.js';
 import { trackVisit, trackPlay } from './analytics.js';
+import { planRoads, buildRoadMesh } from './roads.js';
 import { W, H, LM, LMS, tile, trees, rocks, tufts, flowers, treeAt, rockAt, village, groundY, buildTerrain, buildWater } from './world.js';
 import * as M from './models.js';
 import { BT, ARU, lookOf, makeCharacter, animateCharacter, buildBuilding } from './models.js';
@@ -96,16 +97,45 @@ function rebuildOcc() {
   for (const l of LMS) for (let dy = 0; dy < l[4]; dy++) for (let dx = 0; dx < l[3]; dx++) occ[(l[2] + dy) * W + l[1] + dx] = -2;
   S.buildings.forEach((b, bi) => { const d = BT[b.type]; if (!d || d.float) return; const f = fpOf(b); for (let dy = 0; dy < f.h; dy++) for (let dx = 0; dx < f.w; dx++) { const x = b.x + dx, y = b.y + dy; if (x < 0 || y < 0 || x >= W || y >= H) continue; occ[y * W + x] = bi; if (d.walk && d.water) plank[y * W + x] = 1; } });
   if (pop() >= 1000) for (let y = WD.PIER.y0 - 1; y <= WD.PIER.y1; y++) plank[y * W + WD.PIER.x] = 1;
+  roadPlan = S.roads ? planRoadNet() : null;
+  if (WD.oldPath !== !S.roads) { WD.setOldPath(!S.roads); terrain.userData.refresh(); }
+  cleared = new Uint8Array(W * H);
+  S.buildings.forEach(b => { const d = BT[b.type]; if (!d || d.water || d.float || d.walk) return; const f = fpOf(b); if (f.w * f.h < 9) return; for (let y = b.y - 1; y <= b.y + f.h; y++) for (let x = b.x - 1; x <= b.x + f.w; x++) if (x >= 0 && y >= 0 && x < W && y < H) cleared[y * W + x] = 1; });
   for (let i = 0; i < W * H; i++) {
     let s = tile[i] === WD.DEEP ? 1 : 0;
     if (occ[i] === -2) s = 1;
+    else if (occ[i] === -3) s = 0;
     else if (occ[i] >= 0) { const d = BT[S.buildings[occ[i]].type]; s = d.walk || d.climb ? 0 : 1; }
-    else if (treeAt[i] >= 0 || rockAt[i] >= 0) s = 1;
+    else if ((treeAt[i] >= 0 || rockAt[i] >= 0) && !cleared[i]) s = 1;
     if (plank[i]) s = 0;
     solid[i] = s;
   }
 }
+let cleared = new Uint8Array(W * H);
 const free = i => occ[i] === -1;
+const wild = i => occ[i] === -1 && !cleared[i];
+// ---------- asphalt roads ----------
+let roadPlan = null, roadHub = null;
+const roadGroup = new THREE.Group(); scene.add(roadGroup);
+function planRoadNet() {
+  const ring = (x, y, w, h) => { const out = []; for (let j = y - 1; j <= y + h; j++) for (let i = x - 1; i <= x + w; i++) if (i < x || j < y || i >= x + w || j >= y + h) out.push([i, j]); return out; };
+  const stage = S.buildings.find(b => BT[b.type] && BT[b.type].stage);
+  let hub = [LM.camp[0] + 1, LM.camp[1] + 4];
+  if (stage) { const f = fpOf(stage), r = (stage.r | 0) % 4; hub = r === 0 ? [stage.x + 1, stage.y + f.h + 2] : r === 2 ? [stage.x + 1, stage.y - 3] : r === 1 ? [stage.x - 3, stage.y + 1] : [stage.x + f.w + 2, stage.y + 1]; }
+  roadHub = hub;
+  const goals = [];
+  for (const [k, x, y, w, h] of LMS) if (k !== 'wreck' && k !== 'fire') goals.push(ring(x, y, w, h));
+  if (pop() >= 1000) goals.push([[WD.PIER.x, WD.PIER.y0 - 2], [WD.PIER.x - 1, WD.PIER.y0 - 2], [WD.PIER.x + 1, WD.PIER.y0 - 2]]);
+  for (const b of S.buildings) { const d = BT[b.type]; if (!d || d.water || d.float || d.walk || d.stage) continue; const f = fpOf(b); goals.push(ring(b.x, b.y, f.w, f.h)); }
+  return planRoads(occ, hub, goals);
+}
+function rebuildRoadMesh() {
+  roadGroup.clear();
+  if (!roadPlan || !roadPlan.cells.length) return;
+  const m = buildRoadMesh(roadPlan, roadHub); roadGroup.add(m); roadGroup.userData.reveal = m.userData.reveal;
+  if (window.__roadReveal != null) m.userData.reveal(window.__roadReveal);
+}
+const onRoad = (x, z) => { const cx = WD.w2cx(x), cy = WD.w2cy(z); return cx >= 0 && cy >= 0 && cx < W && cy < H && occ[cy * W + cx] === -3; };
 
 // ---------- nature (instanced) ----------
 const nature = new THREE.Group(); scene.add(nature);
@@ -114,7 +144,7 @@ const pineCols = ['#2c7344', '#2a6b4a', '#336f3c'].map(c => new THREE.Color(c));
 function rebuildNature() {
   nature.clear();
   const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), v = new THREE.Vector3(), sc = new THREE.Vector3();
-  const round = trees.filter(t => t.kind === 'round' && free(t.y * W + t.x)), pines = trees.filter(t => t.kind === 'pine' && free(t.y * W + t.x)), palms = trees.filter(t => t.kind === 'palm' && free(t.y * W + t.x));
+  const round = trees.filter(t => t.kind === 'round' && wild(t.y * W + t.x)), pines = trees.filter(t => t.kind === 'pine' && wild(t.y * W + t.x)), palms = trees.filter(t => t.kind === 'palm' && wild(t.y * W + t.x));
   const trunkGeo = new THREE.CylinderGeometry(.1, .16, 1, 5);
   const trunks = M.makeInstanced(trunkGeo, M.mat('#6b4a2b'), round.length + pines.length);
   const canopy = M.makeInstanced(new THREE.IcosahedronGeometry(1, 0), new THREE.MeshStandardMaterial({ flatShading: true, roughness: .9 }), round.length * 2);
@@ -135,7 +165,7 @@ function rebuildNature() {
   }
   for (const m of [trunks, canopy, cones]) { m.instanceMatrix.needsUpdate = true; if (m.instanceColor) m.instanceColor.needsUpdate = true; nature.add(m); }
   for (const t of palms) { const g = new THREE.Group(); BT.kelapa.build(g); const x = WD.cx2w(t.x), z = WD.cy2w(t.y); g.position.set(x, groundY(x, z), z); g.rotation.y = t.x * 1.3; g.scale.setScalar(t.s); nature.add(g); }
-  const rk = rocks.filter(r => free(r.y * W + r.x));
+  const rk = rocks.filter(r => wild(r.y * W + r.x));
   const rockMesh = M.makeInstanced(new THREE.DodecahedronGeometry(1, 0), M.mat('#959a8e'), rk.length);
   rk.forEach((r, i) => { const x = WD.cx2w(r.x), z = WD.cy2w(r.y); set(rockMesh, i, x, groundY(x, z) + .15 * r.s, z, .55 * r.s, .4 * r.s, .5 * r.s, r.x, .2); });
   rockMesh.instanceMatrix.needsUpdate = true; nature.add(rockMesh);
@@ -232,7 +262,7 @@ function extraSpots() {
   }
   return out;
 }
-const acts = createActivities({ scene, extraSpots, solid: () => solid, occ: () => occ, npcWalkable: (x, z) => npcWalkable(x, z), groundY, surfaceY: (x, z) => surfaceY(x, z), fireXZ: fpCenter(LM.fire[0], LM.fire[1], 1, 1), player });
+const acts = createActivities({ scene, extraSpots, plans: () => S.construct || [], solid: () => solid, occ: () => occ, npcWalkable: (x, z) => npcWalkable(x, z), groundY, surfaceY: (x, z) => surfaceY(x, z), fireXZ: fpCenter(LM.fire[0], LM.fire[1], 1, 1), player });
 const fishing = createFishing({ scene, player, toast: (...a) => toast(...a), onChange: () => { near = null; updateFishHud(); } });
 const SEED = Math.random(), rankOf = n => { let h = SEED * 4294967296 >>> 0; for (const c of n.toLowerCase()) h = Math.imul(h ^ c.charCodeAt(0), 2654435761) >>> 0; return h; };
 const npcGroup = new THREE.Group(); scene.add(npcGroup);
@@ -540,7 +570,7 @@ function frame() {
     if (navigable(nx + cx * fr, nz + cz * fr) && navigable(nx, nz) && navigable(nx - cx * bk, nz - cz * bk)) { v.x = nx; v.z = nz; } else if (v.speed > 2) { v.speed = 0; toast(small ? 'Perahu menyentuh dasar. Putar arah.' : 'Kapal menyentuh dasar. Putar arah.'); } else v.speed = 0;
     player.x = v.x - cx * (small ? .15 : .3); player.z = v.z - cz * (small ? .15 : .3); player.y = small ? .12 : 1.05 + shipObj.position.y; player.obj.rotation.y = v.ry + Math.PI / 2; player.moving = false; player.grounded = true; player.vy = 0;
   } else if (ml > .12 && !blocked) {
-    const sp = 4.2 * dt * Math.min(1, ml) * (shallowAt(player.x, player.z) ? .55 : 1) * (keys.shift && !place ? 1.6 : 1);
+    const sp = 4.2 * dt * Math.min(1, ml) * (shallowAt(player.x, player.z) ? .55 : onRoad(player.x, player.z) ? 1.2 : 1) * (keys.shift && !place ? 1.6 : 1);
     const vx = wx / ml * sp, vz = wz / ml * sp; let moved = false;
     const okAt = (x, z) => walkable(x, z) ? playerSurface(x, z, player.y) <= player.y + .32 : platformAt(x, z, player.y) > -Infinity && Math.abs(x) < W / 2 && Math.abs(z) < H / 2;
     if (okAt(player.x + vx, player.z)) { player.x += vx; moved = true; } if (okAt(player.x, player.z + vz)) { player.z += vz; moved = true; }
@@ -680,7 +710,7 @@ function padsFor() {
   return out;
 }
 let padKey = '';
-function applyWorld(animate = false) { const pads = padsFor(), pk = JSON.stringify(pads); if (pk !== padKey) { padKey = pk; WD.setPads(pads); terrain.userData.refresh(); } syncExpansion(animate); rebuildOcc(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); assignCloud(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
+function applyWorld(animate = false) { const pads = padsFor(), pk = JSON.stringify(pads); if (pk !== padKey) { padKey = pk; WD.setPads(pads); terrain.userData.refresh(); } syncExpansion(animate); rebuildOcc(); rebuildRoadMesh(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); assignCloud(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
 function markDirty() { dirty = true; store.set(draftKey, JSON.stringify(S)); applyWorld(true); }
 const app = {
   get S() { return S; }, get dirty() { return dirty; }, get base() { try { return JSON.parse(PUB); } catch (e) { return null; } }, role, pop, lamps, curEp,
@@ -735,5 +765,5 @@ requestAnimationFrame(frame);
   }, 90000);
 })();
 
-window.__pulau = { app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
+window.__pulau = { roads: roadGroup,  app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
 trackVisit();

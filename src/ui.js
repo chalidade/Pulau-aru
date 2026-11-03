@@ -323,6 +323,13 @@ function adPulau() {
   const connected = !!store.get(tokenKey);
   return h('div', null,
     fld('Nama pulau (biar warga yang memilih)', nm), h('button', { class: 'btn ghost', onclick: () => { S.islandName = nm.value.trim() || 'Pulau Tanpa Nama'; app.markDirty(); openAdmin(); } }, 'Ganti nama'),
+    h('div', { class: 'eyebrow', style: 'margin-top:18px;margin-bottom:6px' }, 'Jalan aspal'),
+    h('p', { class: 'lede' }, 'Jalan dua lajur dari mimbar ke semua bangunan dan tempat penting. Pohon di jalurnya ditebang otomatis.'),
+    h('button', { class: 'btn ghost', onclick: () => { S.roads = S.roads ? null : { ep: app.curEp() }; app.markDirty(); openAdmin('pulau'); toast(S.roads ? 'Jalan aspal dibangun' : 'Jalan aspal dibongkar'); } }, S.roads ? 'Bongkar jalan aspal' : 'Bangun jalan aspal'),
+    h('div', { class: 'eyebrow', style: 'margin-top:18px;margin-bottom:6px' }, 'Yang sedang dibangun tukang'),
+    h('p', { class: 'lede' }, 'Dua lokasi bangunan diberi papan "Segera dibangun". Kalau sudah jadi, bangun lewat tab Bangun lalu kosongkan di sini.'),
+    h('div', { class: 'row' }, ...[0, 1].map(k => h('select', { class: 'inp', id: 'ad-plan' + k, onchange: e => { const v = e.target.value; S.construct = (S.construct || []).slice(0, 2); while (S.construct.length < 2) S.construct.push(null); S.construct[k] = v ? { type: v, ep: app.curEp() } : null; S.construct = S.construct.filter(Boolean).length ? S.construct.map(c => c || { type: 'rumah', ep: app.curEp() }) : []; app.markDirty(); } },
+      h('option', { value: '' }, 'Rumah warga'), Object.entries(BT).filter(([t, d]) => d.land && !d.float && t !== 'rumah').map(([t, d]) => h('option', { value: t, selected: S.construct && S.construct[k] && S.construct[k].type === t }, d.n))))),
     h('div', { class: 'eyebrow', style: 'margin-top:18px;margin-bottom:6px' }, `Luas pulau: tahap ${S.expand | 0} dari 3`),
     h('p', { class: 'lede' }, 'Setiap tahap memunculkan daratan baru yang naik dari laut, tanpa pohon, siap untuk rumah warga.'),
     h('div', { class: 'row' }, h('button', { class: 'btn ghost', disabled: (S.expand | 0) >= 3, onclick: () => { S.expand = (S.expand | 0) + 1; closeSheet(); app.markDirty(); toast('Daratan baru muncul. Jangan lupa terbitkan.'); } }, 'Perluas pulau'),

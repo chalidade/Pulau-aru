@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import * as WD from './world.js';
 import { W, H, tile, treeAt, LM, village } from './world.js';
-import { mat, box, G, presidentKit, vicePresidentKit } from './models.js';
+import { mat, box, G, presidentKit, vicePresidentKit, textTexture, BT } from './models.js';
 
 // ---------- props ----------
 function axe() { const g = new THREE.Group(); box(g, '#7a5432', .04, .5, .04, 0, -.95, .02); box(g, '#9aa3a8', .04, .14, .2, 0, -.97, .12); return g; }
@@ -65,6 +65,16 @@ export function createActivities(ctx) {
       if (!ok || sites.some(s => Math.hypot(s.cx - c.x, s.cy - c.y) < 10)) continue;
       const x = WD.cx2w(c.x), z = WD.cy2w(c.y), site = constructionSite();
       site.position.set(x, ctx.groundY(x, z), z); site.rotation.y = (sites.length ? 1 : 0) * Math.PI / 2; deco.add(site);
+      // a planned building gets a signboard ("SEGERA DIBANGUN · SEKOLAH")
+      const plan = (ctx.plans ? ctx.plans() : [])[sites.length];
+      if (plan && BT[plan.type] && plan.type !== 'rumah') {
+        const sg = new THREE.Group(); sg.position.set(x + 1.7, ctx.groundY(x + 1.7, z + 1.7), z + 1.7); sg.rotation.y = .5; deco.add(sg);
+        for (const px of [-.55, .55]) box(sg, '#5e3b22', .07, 1.5, .07, px, 0, 0);
+        const bd = new THREE.Mesh(new THREE.PlaneGeometry(1.4, .75), new THREE.MeshStandardMaterial({ map: textTexture(['SEGERA DIBANGUN', BT[plan.type].n.toUpperCase()], { w: 512, h: 274, bg: '#f4ead2', color: '#1f4f3a', size: 58 }), roughness: .9, side: THREE.DoubleSide }));
+        bd.position.y = 1.2; bd.castShadow = true; sg.add(bd);
+        sg.userData.plan = plan.type;
+      }
+      site.userData.plan = plan && plan.type;
       sites.push({ cx: c.x, cy: c.y });
       for (const [dx, dz] of [[0, 2.1], [2.1, 0], [-2.1, 0], [0, -2.1]]) spots.build.push({ x: x + dx, z: z + dz, face: Math.atan2(-dx, -dz), cx: c.x, cy: c.y });
     }

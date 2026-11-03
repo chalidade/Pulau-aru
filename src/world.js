@@ -192,6 +192,8 @@ const PAL = {
   seabed: col('#1d5f73'), seabed2: col('#3b8a8c'), wet: col('#cdb57c'), sand: col('#ecd59c'), sand2: col('#e2c88a'),
   grass: col('#7cc25a'), grass2: col('#68b04e'), grass3: col('#8fce62'), hill: col('#5e9b4a'), rock: col('#9aa08e'), rock2: col('#878c7c'), path: col('#cfae73'),
 };
+export let oldPath = true;
+export function setOldPath(v) { oldPath = v; }
 const pathCells = new Uint8Array(W * H);
 for (let i = 0; i <= 40; i++) {
   const x = Math.round(LM.camp[0] + (LM.stone[0] + 1 - LM.camp[0]) * i / 40 + Math.sin(i / 5) * 0.8), y = Math.round(LM.camp[1] + 2 + (LM.stone[1] - LM.camp[1] - 2) * i / 40);
@@ -220,7 +222,7 @@ function fillTerrain(geo) {
       if (avg < -1.0) c.copy(PAL.seabed).lerp(PAL.seabed2, n * .5);
       else if (avg < -0.05) c.copy(PAL.seabed2).lerp(PAL.wet, Math.min(1, (avg + 1) / 0.95));
       else if (avg < 0.62) c.copy(n > .5 ? PAL.sand : PAL.sand2);
-      else if (avg < 3.4) { c.copy(n < .33 ? PAL.grass : n < .66 ? PAL.grass2 : PAL.grass3); if (pathCells[y * W + x]) c.copy(PAL.path).lerp(PAL.sand2, n * .3); }
+      else if (avg < 3.4) { c.copy(n < .33 ? PAL.grass : n < .66 ? PAL.grass2 : PAL.grass3); if (oldPath && pathCells[y * W + x]) c.copy(PAL.path).lerp(PAL.sand2, n * .3); }
       else if (avg < 4.6) c.copy(PAL.hill).lerp(PAL.rock, (avg - 3.4) / 1.2 * .6);
       else c.copy(n > .5 ? PAL.rock : PAL.rock2);
       c.offsetHSL(0, 0, (n - .5) * 0.04);
