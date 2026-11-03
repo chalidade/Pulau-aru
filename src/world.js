@@ -115,7 +115,8 @@ function nearest(x, y, want) {
   return [x, y];
 }
 export const LM = {};
-LM.camp = nearest(CX, CY + 5, GRASS);
+// the camp sits east of the main boulevard (episode 6 replanning), in an open clearing
+LM.camp = nearest(CX + 10, CY + 10, GRASS);
 { let y = H - 1; while (y > 0 && !isLand(CX, y)) y--; LM.stone = [CX - 1, y - 2]; }
 {
   let x = W - 1; while (x > 0 && !isLand(x, CY - 2)) x--; x -= 2;
@@ -139,6 +140,9 @@ export const PIER = (() => {
   return best || { x: LM.stone[0], y0: LM.stone[1] + 2, y1: LM.stone[1] + 4 };
 })();
 // ship centre in world coords, hull parallel to the shore, touching the end of the pier
+// the name stone steps aside so the boulevard runs straight onto the pier
+{ const ok = x => [0, 1].every(d => isLand(x + d, LM.stone[1]) && isLand(x + d, LM.stone[1] - 1));
+  const nx = [PIER.x + 3, PIER.x + 4, PIER.x - 5, PIER.x - 6].find(ok); if (nx != null) LM.stone = [nx, LM.stone[1] - 1]; }
 export const MOOR = { x: PIER.x - W / 2 + .5, z: PIER.y1 - H / 2 + 2.2, ry: 0 };
 
 // footprints occupied by landmarks [key,x,y,w,h]

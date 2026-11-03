@@ -100,7 +100,9 @@ function rebuildOcc() {
   roadPlan = S.roads ? planRoadNet() : null;
   if (WD.oldPath !== !S.roads) { WD.setOldPath(!S.roads); terrain.userData.refresh(); }
   cleared = new Uint8Array(W * H);
-  S.buildings.forEach(b => { const d = BT[b.type]; if (!d || d.water || d.float || d.walk) return; const f = fpOf(b); if (f.w * f.h < 9) return; for (let y = b.y - 1; y <= b.y + f.h; y++) for (let x = b.x - 1; x <= b.x + f.w; x++) if (x >= 0 && y >= 0 && x < W && y < H) cleared[y * W + x] = 1; });
+  for (const p of padsFor()) for (let y = Math.max(0, p.y0); y < Math.min(H, p.y1); y++) for (let x = Math.max(0, p.x0); x < Math.min(W, p.x1); x++) cleared[y * W + x] = 1;
+  for (const c of S.construct || []) if (c && c.x != null) for (let y = c.y - 2; y <= c.y + 2; y++) for (let x = c.x - 2; x <= c.x + 2; x++) cleared[y * W + x] = 1;
+  S.buildings.forEach(b => { const d = BT[b.type]; if (!d || d.water || d.float || d.walk) return; const f = fpOf(b); if (f.w * f.h < 4) return; for (let y = b.y - 1; y <= b.y + f.h; y++) for (let x = b.x - 1; x <= b.x + f.w; x++) if (x >= 0 && y >= 0 && x < W && y < H) cleared[y * W + x] = 1; });
   for (let i = 0; i < W * H; i++) {
     let s = tile[i] === WD.DEEP ? 1 : 0;
     if (occ[i] === -2) s = 1;
@@ -127,7 +129,7 @@ function planRoadNet() {
   for (const [k, x, y, w, h] of LMS) if (k !== 'wreck' && k !== 'fire') goals.push(ring(x, y, w, h));
   if (pop() >= 1000) goals.push([[WD.PIER.x, WD.PIER.y0 - 2], [WD.PIER.x - 1, WD.PIER.y0 - 2], [WD.PIER.x + 1, WD.PIER.y0 - 2]]);
   for (const b of S.buildings) { const d = BT[b.type]; if (!d || d.water || d.float || d.walk || d.stage) continue; const f = fpOf(b); goals.push(ring(b.x, b.y, f.w, f.h)); }
-  return planRoads(occ, hub, goals);
+  return planRoads(occ, hub, goals, S.roads && S.roads.segments);
 }
 function rebuildRoadMesh() {
   roadGroup.clear();
@@ -701,11 +703,11 @@ function syncExpansion(animate) {
 function padsFor() {
   const out = [];
   for (const b of S.buildings) {
-    const d = BT[b.type]; if (!d || !(d.stage || d.market)) continue;
+    const d = BT[b.type]; if (!d || d.water || d.float || d.walk) continue;
     const f = fpOf(b), r = (b.r | 0) % 4;
     let x0 = b.x - 1, y0 = b.y - 1, x1 = b.x + f.w + 1, y1 = b.y + f.h + 1;
     if (d.stage) { const ext = 7; if (r === 0) y1 += ext; else if (r === 2) y0 -= ext; else if (r === 1) x0 -= ext; else x1 += ext; x0 -= 2; x1 += 2; }
-    out.push({ x0, y0, x1, y1, margin: 3 });
+    out.push({ x0, y0, x1, y1, margin: d.stage || d.market ? 3 : 2 });
   }
   return out;
 }

@@ -56,13 +56,15 @@ export function createActivities(ctx) {
         for (const [dx, dy] of [[0, 1], [1, 0], [-1, 0], [0, -1]]) { const j = (c.y + dy) * W + c.x + dx; if (treeAt[j] >= 0 && ctx.occ()[j] === -1 && spaced(spots.chop, c.x, c.y, 3)) { spots.chop.push({ cx: c.x, cy: c.y, x: WD.cx2w(c.x) + dx * .15, z: WD.cy2w(c.y) + dy * .15, face: Math.atan2(dx, dy), tree: j }); break; } }
       }
     }
-    // two construction sites: open 3x3 grass a little away from the camp
-    for (const c of cells) {
+    // two construction sites: planned spots first, otherwise open 3x3 grass a little away from the camp
+    const planned = (ctx.plans ? ctx.plans() : []).filter(p => p && p.x != null);
+    const want = planned.length ? planned.map(p => ({ x: p.x, y: p.y, d: 10 })) : [];
+    for (const c of [...want, ...cells]) {
       if (sites.length >= 2) break;
-      if (c.d < 9 || c.d > 20) continue;
+      if (!want.includes(c) && (c.d < 9 || c.d > 20 || want.length)) continue;
       let ok = true;
-      for (let dy = -2; dy <= 2 && ok; dy++) for (let dx = -2; dx <= 2 && ok; dx++) { const i = (c.y + dy) * W + c.x + dx; if (tile[i] < WD.GRASS || !free(i)) ok = false; }
-      if (!ok || sites.some(s => Math.hypot(s.cx - c.x, s.cy - c.y) < 10)) continue;
+      const pl = want.includes(c), R = pl ? 1 : 2; for (let dy = -R; dy <= R && ok; dy++) for (let dx = -R; dx <= R && ok; dx++) { const i = (c.y + dy) * W + c.x + dx; if (pl ? (tile[i] < WD.SAND || ctx.occ()[i] >= 0 || ctx.occ()[i] === -2) : (tile[i] < WD.GRASS || !free(i))) ok = false; }
+      if (!ok || (!pl && sites.some(s => Math.hypot(s.cx - c.x, s.cy - c.y) < 10))) continue;
       const x = WD.cx2w(c.x), z = WD.cy2w(c.y), site = constructionSite();
       site.position.set(x, ctx.groundY(x, z), z); site.rotation.y = (sites.length ? 1 : 0) * Math.PI / 2; deco.add(site);
       // a planned building gets a signboard ("SEGERA DIBANGUN · SEKOLAH")

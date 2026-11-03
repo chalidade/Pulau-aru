@@ -112,7 +112,7 @@ function palm(g, x, z, s = 1) {
   add(trunk, G.sph, '#6b4a2b', .14 * s, .14 * s, .14 * s, px, py - .08, .08);
 }
 export const BT = {
-  rumah: { n: 'Rumah', w: 2, h: 2, land: true, build(g) { box(g, '#e3c49a', 1.6, 1.1, 1.4, 0, 0, 0); roof4(g, '#b8523c', 2.1, 1, 1.9, 0, 1.1, 0); box(g, '#5e3b22', .36, .66, .05, 0, 0, .71); box(g, windowMat, .3, .3, .05, -.5, .5, .71); box(g, windowMat, .3, .3, .05, .5, .5, .71); box(g, '#9a9b94', .22, .5, .22, .45, 1.3, -.3); } },
+  rumah: { n: 'Rumah', w: 3, h: 3, land: true, scale: 1.55, build(g) { box(g, '#e3c49a', 1.6, 1.1, 1.4, 0, 0, 0); roof4(g, '#b8523c', 2.1, 1, 1.9, 0, 1.1, 0); box(g, '#5e3b22', .36, .66, .05, 0, 0, .71); box(g, windowMat, .3, .3, .05, -.5, .5, .71); box(g, windowMat, .3, .3, .05, .5, .5, .71); box(g, '#9a9b94', .22, .5, .22, .45, 1.3, -.3); } },
   tenda: { n: 'Tenda', w: 2, h: 2, land: true, build(g) { add(g, G.cone4, '#d9763f', 1, 1.4, 1, 0, .7, 0, Math.PI / 4); box(g, '#3a2a20', .3, .5, .05, 0, 0, .55); add(g, G.cyl6, '#5e3b22', .03, .3, .03, 0, 1.5, 0); } },
   kebun: { n: 'Kebun', w: 3, h: 2, land: true, walk: true, build(g) { box(g, '#7a5534', 2.8, .12, 1.8, 0, 0, 0); for (let r = 0; r < 4; r++) { box(g, '#5d3e24', 2.6, .06, .14, 0, .12, -.6 + r * .4); for (let c = 0; c < 7; c++) add(g, G.cone6, r % 2 ? '#62bd73' : '#e0a84a', .09, .28, .09, -1.1 + c * .36, .3, -.6 + r * .4); } } },
   sumur: { n: 'Sumur', w: 1, h: 1, land: true, build(g) { cyl(g, '#9a9b94', .38, .5, 0, 0, 0, 8); add(g, G.cyl8, '#2b6a85', .3, .02, .3, 0, .45, 0, 0, false); box(g, '#5e3b22', .06, 1.1, .06, -.34, .5, 0); box(g, '#5e3b22', .06, 1.1, .06, .34, .5, 0); roof4(g, '#b8523c', .95, .4, .7, 0, 1.55, 0); } },
@@ -178,7 +178,7 @@ export const BT = {
       box(g, '#d0302a', .7, .22, .02, 1.6, 3.32, -1.2); box(g, '#f8f6f0', .7, .22, .02, 1.6, 3.1, -1.2);
     } },
   // the president's decree (episode 6): a mosque with a green dome, a minaret and a small courtyard
-  masjid: { n: 'Masjid', w: 4, h: 4, land: true,
+  masjid: { n: 'Masjid', w: 7, h: 7, land: true, scale: 1.8,
     build(g) {
       const wall = '#f3eee2', trim = '#2f8a5a', dome = mat('#2e9a63'); dome.flatShading = false;
       box(g, '#cfc8b6', 3.9, .14, 3.9, 0, 0, 0);                                     // courtyard floor
@@ -283,7 +283,7 @@ export function spearMesh(parent) {
   return parent;
 }
 function splitLabel(s) { s = String(s).slice(0, 40); if (s.length <= 16) return [s]; const i = s.lastIndexOf(' ', 20); return i > 0 ? [s.slice(0, i), s.slice(i + 1)] : [s.slice(0, 18), s.slice(18)]; }
-export function buildBuilding(b) { const d = BT[b.type]; const g = new THREE.Group(); d.build(g, b); g.userData.def = d; return g; }
+export function buildBuilding(b) { const d = BT[b.type]; const g = new THREE.Group(); if (d.scale) { const inner = new THREE.Group(); inner.scale.setScalar(d.scale); g.add(inner); d.build(inner, b); } else d.build(g, b); g.userData.def = d; return g; }
 
 // ---------- landmarks ----------
 export function campfire(g) {
