@@ -374,7 +374,7 @@ export function nameStone() {
     carve('WARGA PULAU', 256, 34, 34);
     if (!names.length) { carve('menunggu', 256, 180, 28); carve('warga pertama', 256, 216, 28); }
     else {
-      const show = names.slice(-30); const cols = 3, rowH = 30;
+      const show = names.slice(-27); const cols = 3, rowH = 30;
       show.forEach((n, i) => { const col = i % cols, row = (i / cols) | 0; let t = '@' + n; if (t.length > 14) t = t.slice(0, 13) + '…'; carve(t, 90 + col * 166, 82 + row * rowH, 20); });
       carve(total.toLocaleString('id-ID') + ' nama', 256, 362, 22);
     }
