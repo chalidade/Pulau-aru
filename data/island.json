@@ -2850,6 +2850,10 @@
   {
    "n": "bgrambe860",
    "ep": 1
+  },
+  {
+   "n": "Etet_443",
+   "ep": 4
   }
  ],
  "buildings": [
@@ -2915,6 +2919,24 @@
    "label": "",
    "by": "Pinjam seratus",
    "ep": 3
+  },
+  {
+   "type": "mimbar",
+   "x": 51,
+   "y": 51,
+   "r": 0,
+   "label": "",
+   "by": "Etet_443",
+   "ep": 4
+  },
+  {
+   "type": "pasartrad",
+   "x": 90,
+   "y": 77,
+   "r": 0,
+   "label": "",
+   "by": "warning",
+   "ep": 4
   }
  ],
  "episodes": [
@@ -2949,6 +2971,15 @@
     "riski"
    ],
    "text": "Kapal pertama datang dan Aru berlayar ke pulau seberang. Di sana ada peti berisi peta: \"Untuk Aru, kalau aku tidak kembali.\"\nWarga juga mendapat perahu nelayan untuk mencari ikan dan menjelajah, dan pulau diperluas dengan lahan baru di sisi timur untuk rumah warga."
+  },
+  {
+   "ep": 4,
+   "date": "3 Nov 2026",
+   "picks": [
+    "Etet_443",
+    "warning"
+   ],
+   "text": "Saat Aru masih di pulau seberang, warga melantik presiden pertama Pulau Netizen: @Etet_443, yang memang sudah follow.\nKeputusan pertamanya: pasar tradisional pertama dibangun di lahan baru, lengkap dengan lapak ikan dari perahu nelayan."
   }
  ],
  "letters": [],
@@ -2963,5 +2994,9 @@
   "followers": 3088,
   "updatedAt": "2026-11-03T02:55:05.368Z"
  },
- "expand": 1
+ "expand": 1,
+ "president": {
+  "n": "Etet_443",
+  "ep": 4
+ }
 }
