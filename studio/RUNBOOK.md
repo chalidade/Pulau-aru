@@ -53,6 +53,11 @@ step really cannot be done.
     titah dari langit". The island's one rule still holds for them: nothing hurtful, sexual, hateful or targeting
     a real person. If a request breaks it, adapt it into something harmless and say so in the report.
 
+- `studio/traktir.json` (filled hourly by the **Trakteer** workflow): `requests` with `done: false` are paid requests
+  (Rp5.000 = 1 request, `qty` = how many). Realise them in this episode, **without a draw**, before or alongside the two
+  comments (if there are many, do up to 2 per episode, oldest first). Thank the supporter by name in the episode, then set
+  `done: true`. `data/island.json → supporters` (ranking, Monumen Dermawan) is updated by the workflow itself.
+
 ## 2. Pick two comments
 
 Use **Claude in Chrome**. Load the `chrome-browser` skill, then use Chalid's logged-in Chrome.
@@ -70,6 +75,23 @@ Use **Claude in Chrome**. Load the `chrome-browser` skill, then use Chalid's log
 - **Order of sources:** queued items in `komentar.md` come first.
 - **If Chrome is not connected:** use `komentar.md`. If that is empty as well, re-use an open thread from
   `state.json` as the episode's driver. Say in the report that no new comments could be read.
+
+## 2b. Community and money (every episode, lightly)
+
+The account is not eligible for TikTok's pay-per-view programme in Indonesia, so the plan is: grow the audience, then earn
+from Trakteer requests, TikTok LIVE gifts, and small-business (UMKM) features. Keep it warm, never pushy:
+- **Supporters:** when someone traktir'd, thank them on screen ("Terima kasih @nama!") and show their request happening.
+  The Monumen Dermawan (east of the stage, (57,46)) and the "Papan Dermawan" ranking update automatically.
+- **Call to action:** every 2nd–3rd episode, close with ONE of these on the end card (rotate, never all at once):
+  "Request tanpa undian: traktir Rp5.000 di teer.id/chalidade" · "Punya usaha? Komentar #UMKMPulauAru nama - jenis - link"
+  · "Ikut LIVE bangun pulau" (only if Chalid has announced a LIVE time in komentar.md).
+- **UMKM:** collect comments containing `#UMKMPulauAru` (and entries in komentar.md). Accept only real small businesses with
+  a shop / Instagram / WhatsApp business / website link; reject gambling, illegal loans, investment schemes, adult or
+  prohibited goods, and anything that looks like a scam. Add at most 1–2 per episode to `island.json → umkm` as
+  `{name, kind, link, by, ep, place: "pasar" | "kopdes"}`; give them a short moment in the episode ("Lapak baru di pasar:
+  …"). They appear on the Papan UMKM board (by the market, (86,75)) and in the "Etalase UMKM" menu. Free while the island
+  is starting out; never promise sales or results.
+- Caption: always include `pulau-aru.web.id`; add `teer.id/chalidade` when the episode shows a supporter's request.
 
 ## 3. Write the episode
 

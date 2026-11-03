@@ -177,6 +177,54 @@ export const BT = {
       box(g, '#cfd3cc', .05, 3.6, .05, 1.25, 0, -1.2);
       box(g, '#d0302a', .7, .22, .02, 1.6, 3.32, -1.2); box(g, '#f8f6f0', .7, .22, .02, 1.6, 3.1, -1.2);
     } },
+  // the supporters' monument: a golden statue on a stepped plinth; the top three supporters on the steps,
+  // everyone else carved on the wall behind (names come from live.supporters, set by main before building)
+  monumen: { n: 'Monumen Dermawan', w: 4, h: 4, land: true, open: 'dermawan',
+    build(g) {
+      const sup = [...live.supporters].sort((a, b) => (b.count || 0) - (a.count || 0) || (b.total || 0) - (a.total || 0));
+      box(g, '#d8d2c2', 3.9, .12, 3.9, 0, 0, 0);
+      box(g, '#bfb7a3', 2.2, .35, 2.2, 0, .12, -.2); box(g, '#cfc8b4', 1.6, .35, 1.6, 0, .47, -.2); box(g, '#ddd6c4', 1.0, .5, 1.0, 0, .82, -.2);
+      const gold = new THREE.MeshStandardMaterial({ color: '#e6b84a', metalness: .6, roughness: .35, emissive: '#7a5a10', emissiveIntensity: .25, flatShading: true });
+      const st = new THREE.Group(); st.position.set(0, 1.32, -.2); g.add(st);
+      const part = (sx, sy, sz, x, y, z, rz = 0) => { const m = new THREE.Mesh(G.box, gold); m.scale.set(sx, sy, sz); m.position.set(x, y + sy / 2, z); m.rotation.z = rz; m.castShadow = true; st.add(m); return m; };
+      part(.16, .55, .16, -.1, 0, 0); part(.16, .55, .16, .1, 0, 0); part(.46, .6, .26, 0, .55, 0); part(.3, .3, .3, 0, 1.15, 0);
+      part(.12, .5, .12, -.3, .6, 0, .2); const arm = part(.12, .55, .12, .3, 1.0, 0, -.15);
+      const torch = new THREE.Mesh(G.cone6, mat('#ffb347')); torch.scale.set(.12, .3, .12); torch.position.set(.38, 1.75, 0); st.add(torch);
+      const plaque = (lines, w, h, x, y, z, ry = 0, big = false) => {
+        const c = document.createElement('canvas'); c.width = 512; c.height = Math.round(512 * h / w); const x2 = c.getContext('2d');
+        x2.fillStyle = '#3b2f22'; x2.fillRect(0, 0, c.width, c.height); x2.strokeStyle = '#e6b84a'; x2.lineWidth = 10; x2.strokeRect(5, 5, c.width - 10, c.height - 10);
+        x2.fillStyle = '#f2d27a'; x2.textAlign = 'center'; x2.textBaseline = 'middle';
+        const fs = big ? 64 : Math.min(40, (c.height - 30) / (lines.length + .5)); x2.font = `700 ${fs}px "Pixelify Sans", monospace`;
+        lines.forEach((t, i) => x2.fillText(t, c.width / 2, c.height / 2 + (i - (lines.length - 1) / 2) * fs * 1.2));
+        const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+        const p = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: tex, roughness: .8 })); p.position.set(x, y, z); p.rotation.y = ry; g.add(p); return p;
+      };
+      const nm = s => s ? '@' + (s.n.length > 14 ? s.n.slice(0, 13) + '…' : s.n) : '…';
+      plaque(['DERMAWAN', 'PULAU ARU'], 1.0, .4, 0, .58, .31, 0);
+      plaque(['#1', nm(sup[0])], .9, .28, 0, .97, .305, 0);
+      plaque(['#2', nm(sup[1])], 1.0, .3, -.65, .28, .91, 0);
+      plaque(['#3', nm(sup[2])], 1.0, .3, .65, .28, .91, 0);
+      // name wall
+      box(g, '#8c8472', 3.6, 1.7, .25, 0, .12, -1.7);
+      const rest = sup.slice(3, 27).map(nm); const cols = [rest.slice(0, 12), rest.slice(12, 24)];
+      plaque(['TERIMA KASIH'].concat(rest.length ? [] : ['traktir di teer.id/chalidade', 'namamu diukir di sini']), 3.3, .5, 0, 1.55, -1.56, 0);
+      if (rest.length) cols.forEach((cl, k) => cl.length && plaque(cl, 1.6, 1.0, k ? .82 : -.82, .78, -1.56, 0));
+      for (const [x, z] of [[-1.7, 1.6], [1.7, 1.6]]) { box(g, '#5e3b22', .06, 1.0, .06, x, .12, z); const l = new THREE.Mesh(G.sph, lanternMat); l.scale.set(.1, .13, .1); l.position.set(x, 1.2, z); g.add(l); }
+    } },
+  // a notice board listing the island's small businesses (UMKM); names from live.umkm
+  papanumkm: { n: 'Papan UMKM', w: 2, h: 1, land: true, open: 'umkm',
+    build(g) {
+      const list = live.umkm.slice(-8).map(u => u.name.length > 22 ? u.name.slice(0, 21) + '…' : u.name);
+      for (const x of [-.85, .85]) box(g, '#5e3b22', .08, 1.9, .08, x, 0, 0);
+      box(g, '#c4473a', 2.0, .12, .4, 0, 1.9, 0);
+      const c = document.createElement('canvas'); c.width = 512; c.height = 360; const x2 = c.getContext('2d');
+      x2.fillStyle = '#f4ead2'; x2.fillRect(0, 0, 512, 360); x2.fillStyle = '#c4473a'; x2.fillRect(0, 0, 512, 62);
+      x2.fillStyle = '#fff'; x2.textAlign = 'center'; x2.textBaseline = 'middle'; x2.font = '700 40px "Pixelify Sans", monospace'; x2.fillText('ETALASE UMKM', 256, 32);
+      x2.fillStyle = '#3a2412'; x2.font = '700 26px "Pixelify Sans", monospace';
+      (list.length ? list : ['Daftarkan usahamu!', 'cek menu Etalase UMKM', 'di pulau-aru.web.id']).forEach((t, i) => x2.fillText(t, 256, 92 + i * 34));
+      const tex = new THREE.CanvasTexture(c); tex.colorSpace = THREE.SRGBColorSpace;
+      const p = new THREE.Mesh(new THREE.PlaneGeometry(1.6, 1.12), new THREE.MeshStandardMaterial({ map: tex, roughness: .9, side: THREE.DoubleSide })); p.position.set(0, 1.2, .05); p.castShadow = true; g.add(p);
+    } },
   // the president's decree (episode 6): a mosque with a green dome, a minaret and a small courtyard
   masjid: { n: 'Masjid', w: 7, h: 7, land: true, scale: 1.8,
     build(g) {
@@ -283,6 +331,8 @@ export function spearMesh(parent) {
   return parent;
 }
 function splitLabel(s) { s = String(s).slice(0, 40); if (s.length <= 16) return [s]; const i = s.lastIndexOf(' ', 20); return i > 0 ? [s.slice(0, i), s.slice(i + 1)] : [s.slice(0, 18), s.slice(18)]; }
+// data some buildings draw from (supporters, small businesses); main sets it before rebuilding
+export const live = { supporters: [], umkm: [] };
 export function buildBuilding(b) { const d = BT[b.type]; const g = new THREE.Group(); if (d.scale) { const inner = new THREE.Group(); inner.scale.setScalar(d.scale); g.add(inner); d.build(inner, b); } else d.build(g, b); g.userData.def = d; return g; }
 
 // ---------- landmarks ----------

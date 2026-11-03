@@ -22,7 +22,7 @@ export function initUI(a) {
   $('sheet-x').onclick = closeSheet;
   $('sheet').addEventListener('pointerdown', e => { if (e.target.id === 'sheet') closeSheet(); });
   $('dialog').addEventListener('click', closeDialog);
-  $('b-join').onclick = openJoin; $('b-journal').onclick = openJournal; $('b-letters').onclick = openLetters; $('b-names').onclick = openNames; $('b-map').onclick = openMap;
+  $('b-join').onclick = openJoin; $('b-dermawan').onclick = openDermawan; $('b-umkm').onclick = openUmkm; $('b-journal').onclick = openJournal; $('b-letters').onclick = openLetters; $('b-names').onclick = openNames; $('b-map').onclick = openMap;
   $('b-admin').onclick = () => openAdmin();
   const menu = $('menu'), mb = $('b-menu');
   const setMenu = on => { menu.hidden = !on; mb.setAttribute('aria-expanded', String(on)); };
@@ -93,6 +93,30 @@ export function openLetters() {
       : h('div', { class: 'empty' }, 'Kotak surat masih kosong. Surat pertama datang di episode 10.'));
 }
 export const TREAT_URL = 'https://teer.id/chalidade';
+export const openPanel = k => ({ dermawan: openDermawan, umkm: openUmkm })[k]();
+export function openDermawan() {
+  const S = app.S, sup = [...(S.supporters || [])].sort((a, b) => (b.count || 0) - (a.count || 0) || (b.total || 0) - (a.total || 0));
+  const medal = ['🥇', '🥈', '🥉'];
+  sheet('Papan Dermawan',
+    h('p', { class: 'lede' }, 'Warga yang mentraktir pulau. Setiap traktiran Rp5.000 = satu permintaan yang langsung diwujudkan, tanpa undian. Tiga teratas diukir di Monumen Dermawan, yang lain di dinding namanya.'),
+    sup.length ? h('ol', { class: 'rank' }, sup.map((s, i) => h('li', null, h('span', { class: 'rk' }, medal[i] || String(i + 1)), h('b', null, '@' + s.n), h('span', { class: 'rq' }, `${s.count || 1} permintaan`))))
+      : h('div', { class: 'empty' }, 'Belum ada dermawan. Jadilah yang pertama, namamu langsung di puncak.'),
+    h('a', { class: 'btn treat', href: TREAT_URL, target: '_blank', rel: 'noopener' }, 'Traktir Rp5.000 = 1 permintaan · teer.id/chalidade'),
+    h('p', { class: 'lede', style: 'margin-top:10px;font-size:13px' }, 'Nama yang kamu pakai di Trakteer yang diukir, jadi pakai nama samaran kalau mau. Tulis permintaanmu di pesan traktiran; permintaan tetap mengikuti aturan pulau.'));
+}
+export function openUmkm() {
+  const S = app.S, list = S.umkm || [];
+  sheet('Etalase UMKM',
+    h('p', { class: 'lede' }, 'Usaha kecil warga Pulau Aru. Setiap usaha yang terdaftar dapat tempat di Pasar Tradisional atau di Kopdes, dan namanya tampil di Papan UMKM.'),
+    list.length ? h('div', { class: 'list' }, list.map(u => h('div', { class: 'li umkm' }, h('div', null, h('b', null, u.name), h('div', { class: 'umkm-k' }, [u.kind, u.place === 'kopdes' ? 'Kopdes' : 'Pasar', u.by ? '@' + u.by : ''].filter(Boolean).join(' · '))), u.link ? h('a', { class: 'mini', href: u.link, target: '_blank', rel: 'noopener sponsored' }, 'Kunjungi') : null)))
+      : h('div', { class: 'empty' }, 'Etalase masih kosong. Lapak pertama menunggu kamu.'),
+    h('div', { class: 'eyebrow', style: 'margin:14px 0 8px' }, 'Cara daftar (gratis selama masa perintisan)'),
+    h('ol', { class: 'rules' },
+      h('li', null, 'Komentar di video TikTok @kita.berkembang dengan format: ', h('b', null, '#UMKMPulauAru nama usaha - jenis - link'), '.'),
+      h('li', null, 'Link boleh toko online, Instagram, WhatsApp bisnis, atau website usahamu.'),
+      h('li', null, 'Beberapa usaha dipilih setiap minggu, dibuatkan lapak di pulau, dan diperkenalkan di episode.')),
+    h('p', { class: 'lede', style: 'margin-top:10px;font-size:13px' }, 'Kami tidak menerima judi, pinjol ilegal, investasi bodong, produk dewasa, atau barang terlarang.'));
+}
 export function openJoin() {
   const S = app.S, li = (b, t) => h('li', null, h('b', null, b), ' ', t);
   sheet('Cara ikut & request',

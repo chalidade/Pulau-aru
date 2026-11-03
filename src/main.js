@@ -206,6 +206,7 @@ const bGroup = new THREE.Group(); scene.add(bGroup);
 let bObjs = [], platforms = [], clouds = [];
 function rebuildBuildings() {
   bGroup.clear(); bObjs = [];
+  M.live.supporters = S.supporters || []; M.live.umkm = S.umkm || [];
   S.buildings.forEach((b, i) => {
     if (!BT[b.type]) return;
     const o = buildBuilding(b); const f = fpOf(b); const d = BT[b.type];
@@ -461,7 +462,7 @@ function interactables() {
   L.push({ ...at(LM.board[0], LM.board[1], 2, 1, .9), label: 'Baca aturan', act: UI.openRules, r: 1.6 });
   L.push({ ...at(LM.wreck[0], LM.wreck[1], 3, 2, 1.4), label: 'Periksa perahu', act: UI.openMystery, r: 2.4 });
   L.push({ ...at(LM.fire[0], LM.fire[1], 1, 1, .9), label: 'Baca catatan', act: UI.openJournal, r: 1.6 });
-  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); if (b.type === 'perahu') return; const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : () => UI.bldDialog(b), r: Math.min(3, Math.max(1.4, f.w * .7)), key: sp ? 'spear' + fishing.st.active : null }); });
+  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); if (b.type === 'perahu') return; const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : BT[b.type].open ? 'Baca ' + BT[b.type].n : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : BT[b.type].open ? () => UI.openPanel(BT[b.type].open) : () => UI.bldDialog(b), r: Math.min(3, Math.max(1.4, f.w * .7)), key: sp ? 'spear' + fishing.st.active : null }); });
   for (const n of npcs) L.push({ npc: true, x: n.x, z: n.z, label: 'Bicara dengan ' + n.name, act: () => { n.obj.rotation.y = Math.atan2(player.x - n.x, player.z - n.z); n.wait = 4; UI.talk(n); }, r: 1.3 });
   return L;
 }
@@ -590,6 +591,7 @@ function frame() {
   for (const n of npcs) { if (n.cloud) { stepCloud(n, dt, T0); continue; } acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z) + (n.state === 'work' ? n.yOff || 0 : 0), n.z); }
   // camera
   if (cam.attract && !$('start').hidden) { cam.yaw += dt * .05; }
+  if (liveOn) cam.yaw += dt * .06;
   const tgt = new THREE.Vector3(player.x, player.obj.position.y + 1, player.z);
   if (place && !place.erase && place.hx != null && touch) { const [cx, cz] = fpCenter(place.hx, place.hy, 1, 1); tgt.set(cx, 1, cz); }
   if (sail.on) tgt.set(V().x, 1.5, V().z);
@@ -724,6 +726,49 @@ const app = {
 UI.initUI(app);
 
 // ---------- start ----------
+// ---------- LIVE mode (pulau-aru.web.id/?live): a self-running tour for TikTok LIVE screen sharing ----------
+const LIVE = new URLSearchParams(location.search).has('live');
+let liveOn = false;
+function startLive() {
+  begin('aru', 'Aru'); liveOn = true; document.body.classList.add('live');
+  player.obj.visible = false; $('hint').hidden = true;
+  const tour = () => {
+    const out = [], S_ = S, at = b => { const f = fpOf(b); return fpCenter(b.x, b.y, f.w, f.h); };
+    const pres = npcs.find(n => n.pres); if (pres) out.push({ x: pres.x, z: pres.z + 2, pitch: .8, dist: 11, t: 'Mimbar presiden' });
+    for (const [type, t, pitch, dist] of [['monumen', 'Monumen Dermawan', .45, 9], ['pasartrad', 'Pasar tradisional', .6, 14], ['masjid', 'Masjid', .4, 15], ['papanumkm', 'Etalase UMKM', .35, 6]]) { const b = S_.buildings.find(b => b.type === type); if (b) { const [x, z] = at(b); out.push({ x, z, pitch, dist, t }); } }
+    if (clouds[0]) { const o = clouds[0].queue[2]; out.push({ x: o.x, z: o.z, y: clouds[0].top, pitch: .3, dist: 16, t: 'Kopdes di atas awan' }); }
+    { const [x, z] = fpCenter(LM.camp[0], LM.camp[1], 1, 1); out.push({ x, z: z + 2, pitch: .5, dist: 10, t: 'Perkemahan Aru' }); }
+    out.push({ x: 2, z: 10, pitch: 1.05, dist: 70, t: 'Pulau Netizen dari atas' });
+    return out;
+  };
+  let i = 0;
+  const go = () => { const L = tour(), s = L[i++ % L.length]; player.x = s.x; player.z = s.z; player.tx = null; player.y = s.y != null ? s.y : surfaceY(s.x, s.z); cam.pitch = s.pitch; cam.dist = s.dist; window.__camTarget = s.y != null ? new THREE.Vector3(s.x, s.y + 1, s.z) : null; $('live-where').textContent = s.t; };
+  go(); setInterval(go, 18000);
+  // overlay: request queue (kept on this device), how to request, top supporters
+  const key = 'pulau-aru-live-queue', load = () => { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch { return []; } };
+  const save = q => { try { localStorage.setItem(key, JSON.stringify(q)); } catch {} };
+  const draw = () => {
+    const q = load(), sup = [...(S.supporters || [])].sort((a, b) => (b.count || 0) - (a.count || 0)).slice(0, 3);
+    $('live-q').replaceChildren(...(q.length ? q.slice(0, 6).map((r, k) => h('li', { class: k ? '' : 'now' }, r)) : [h('li', { class: 'muted' }, 'Kirim gift atau traktir untuk request!')]));
+    $('live-top').replaceChildren(...(sup.length ? sup.map((s, k) => h('li', null, ['🥇', '🥈', '🥉'][k] + ' @' + s.n)) : [h('li', { class: 'muted' }, 'Belum ada, jadilah yang pertama')]));
+    $('live-pop').textContent = fmt(pop());
+  };
+  document.body.append(h('div', { id: 'live-ov' },
+    h('div', { class: 'live-top' }, h('span', { class: 'live-dot' }, 'LIVE'), h('b', null, S.islandName || 'Pulau Aru'), h('span', null, h('b', { id: 'live-pop' }), ' warga')),
+    h('div', { class: 'live-where', id: 'live-where' }),
+    h('div', { class: 'live-card' }, h('div', { class: 'eyebrow' }, 'Antrean request LIVE'), h('ol', { id: 'live-q' })),
+    h('div', { class: 'live-card' }, h('div', { class: 'eyebrow' }, 'Top dermawan'), h('ol', { id: 'live-top', class: 'plain' })),
+    h('div', { class: 'live-cta' }, h('b', null, 'Request tanpa undian'), h('span', null, 'Gift di LIVE atau traktir Rp5.000 di '), h('b', null, 'teer.id/chalidade')),
+    h('div', { class: 'live-help' }, 'Operator: L tambah request · X selesai · N pindah lokasi')));
+  draw(); setInterval(draw, 5000);
+  addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT') return;
+    const k = e.key.toLowerCase();
+    if (k === 'l') { const r = prompt('Request LIVE (contoh: @nama: bangun kolam renang)'); if (r && r.trim()) { const q = load(); q.push(r.trim().slice(0, 80)); save(q); draw(); } }
+    if (k === 'x') { const q = load(); q.shift(); save(q); draw(); }
+    if (k === 'n') go();
+  });
+}
 function begin(kind, name) {
   trackPlay();
   role.kind = kind; role.name = name || 'Aru'; store.set('pulau-aru-role', JSON.stringify(role));
@@ -759,6 +804,7 @@ requestAnimationFrame(frame);
   }
   applyWorld();
   $('st-aru').disabled = false; $('st-aru').textContent = 'Main sebagai Aru'; $('st-join').disabled = false;
+  if (LIVE) startLive();
   // visitors pick up new published versions without reloading
   setInterval(async () => {
     if (dirty || document.hidden) return;
