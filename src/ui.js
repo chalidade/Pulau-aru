@@ -1,6 +1,7 @@
 // HUD, panels and the creator's admin tools.
 import { BT } from './models.js';
 import { ROLE_LINES } from './activities.js';
+import { loadStats, ignoreMe, ignored } from './analytics.js';
 import { store, tokenKey, publishState, downloadState, normalize, REPO } from './data.js';
 
 export const $ = id => document.getElementById(id);
@@ -142,10 +143,10 @@ let adminTab = 'warga';
 const adState = { sel: 'rumah', comments: '', skip: [], pre: null };
 export function openAdmin(tab) {
   if (tab) adminTab = tab;
-  const tabs = [['warga', 'Warga'], ['bangun', 'Bangun'], ['undian', 'Undian'], ['episode', 'Episode'], ['surat', 'Surat'], ['misteri', 'Misteri'], ['pulau', 'Pulau & GitHub']];
+  const tabs = [['warga', 'Warga'], ['bangun', 'Bangun'], ['undian', 'Undian'], ['episode', 'Episode'], ['surat', 'Surat'], ['misteri', 'Misteri'], ['stat', 'Pengunjung'], ['pulau', 'Pulau & GitHub']];
   const body = h('div');
   body.append(h('div', { class: 'tabs', role: 'tablist' }, tabs.map(([k, l]) => h('button', { class: 'tab', role: 'tab', 'aria-selected': String(k === adminTab), onclick: () => openAdmin(k) }, l))));
-  body.append(({ warga: adWarga, bangun: adBangun, undian: adUndian, episode: adEpisode, surat: adSurat, misteri: adMisteri, pulau: adPulau })[adminTab]());
+  body.append(({ warga: adWarga, bangun: adBangun, undian: adUndian, episode: adEpisode, surat: adSurat, misteri: adMisteri, stat: adStat, pulau: adPulau })[adminTab]());
   const hasToken = !!store.get(tokenKey);
   body.append(h('div', { class: 'savebar' },
     h('span', null, app.dirty ? (hasToken ? 'Ada perubahan yang belum diterbitkan.' : 'Ada perubahan. Hubungkan GitHub di tab "Pulau & GitHub" untuk menerbitkan.') : 'Semua perubahan sudah terbit.'),
@@ -278,6 +279,32 @@ function adSurat() {
   const list = h('div', { class: 'list' }, S.letters.map((l, i) => h('div', { class: 'li' }, h('span', null, `Ep ${l.ep}: ${l.title || 'Untuk warga pulau'}`), h('button', { class: 'mini', onclick: () => { S.letters.splice(i, 1); app.markDirty(); openAdmin(); } }, 'Hapus'))));
   return h('div', null, h('p', { class: 'lede' }, `Surat ditulis setiap 10 episode. Episode sekarang: ${app.curEp()}.`), h('div', { class: 'row' }, fld('Episode', ep), fld('Judul', ti)), fld('Isi surat', bd),
     h('button', { class: 'btn', onclick: () => { if (!bd.value.trim()) return toast('Isi suratnya dulu.'); S.letters.push({ ep: parseInt(ep.value) || 0, date: today(), title: ti.value.trim().slice(0, 80), body: bd.value.trim().slice(0, 4000) }); app.markDirty(); toast('Surat masuk kotak surat'); openAdmin(); } }, 'Kirim ke kotak surat'), list);
+}
+let statCache = null;
+function adStat() {
+  const box = h('div', { class: 'stat-box' }, h('p', { class: 'lede' }, 'Memuat angka pengunjung…'));
+  const fmtN = n => n.toLocaleString('id-ID');
+  const draw = st => {
+    const max = Math.max(1, ...st.daily.map(x => x.visits));
+    const tot = st.src.reduce((a, b) => a + b.n, 0) || 1;
+    box.replaceChildren(
+      h('div', { class: 'stat-grid' },
+        [['Kunjungan', st.visits], ['Pengunjung unik', st.visitors], ['Mulai main', st.plays]].map(([l, n]) => h('div', { class: 'stat-tile' }, h('b', null, fmtN(n)), h('span', null, l)))),
+      h('div', { class: 'eyebrow', style: 'margin:16px 0 8px' }, '7 hari terakhir (WIB)'),
+      h('div', { class: 'stat-days' }, st.daily.map(x => h('div', { class: 'stat-day', title: `${x.visits} kunjungan, ${x.visitors} pengunjung` },
+        h('i', null, fmtN(x.visits)), h('div', { class: 'stat-bar' }, h('div', { style: `height:${Math.round(x.visits / max * 100)}%` })),
+        h('span', null, x.d.slice(6) + '/' + x.d.slice(4, 6)), h('small', null, fmtN(x.visitors) + ' org')))),
+      h('div', { class: 'eyebrow', style: 'margin:16px 0 8px' }, 'Datang dari mana (pengunjung per hari)'),
+      h('div', { class: 'list' }, st.src.filter(x => x.n).sort((a, b) => b.n - a.n).map(x => h('div', { class: 'li stat-src' }, h('span', null, x.l), h('div', { class: 'stat-srcbar' }, h('div', { style: `width:${Math.round(x.n / tot * 100)}%` })), h('b', null, fmtN(x.n))))),
+      h('p', { class: 'lede', style: 'margin-top:12px' }, 'Satu pengunjung dihitung sekali per hari per perangkat. Tanpa cookie dan tanpa data pribadi. Mulai dihitung sejak 3 Nov 2026.'),
+    );
+  };
+  const load = force => { if (statCache && !force && Date.now() - statCache.t < 60e3) { draw(statCache.st); return; } box.replaceChildren(h('p', { class: 'lede' }, 'Memuat angka pengunjung…')); loadStats().then(st => { statCache = { st, t: Date.now() }; draw(st); }).catch(() => box.replaceChildren(h('p', { class: 'lede' }, 'Angka belum bisa dimuat. Coba lagi sebentar.'))); };
+  load(false);
+  const me = h('input', { type: 'checkbox', id: 'ad-nostat' }); me.checked = ignored(); me.onchange = () => ignoreMe(me.checked);
+  return h('div', null, box,
+    h('div', { class: 'row', style: 'margin-top:8px' }, h('button', { class: 'btn ghost', onclick: () => load(true) }, 'Muat ulang'),
+      h('label', { class: 'stat-me' }, me, ' Jangan hitung kunjunganku di perangkat ini')));
 }
 function adMisteri() {
   const S = app.S;

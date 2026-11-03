@@ -4,6 +4,7 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import * as WD from './world.js';
+import { trackVisit, trackPlay } from './analytics.js';
 import { W, H, LM, LMS, tile, trees, rocks, tufts, flowers, treeAt, rockAt, village, groundY, buildTerrain, buildWater } from './world.js';
 import * as M from './models.js';
 import { BT, ARU, lookOf, makeCharacter, animateCharacter, buildBuilding } from './models.js';
@@ -692,6 +693,7 @@ UI.initUI(app);
 
 // ---------- start ----------
 function begin(kind, name) {
+  trackPlay();
   role.kind = kind; role.name = name || 'Aru'; store.set('pulau-aru-role', JSON.stringify(role));
   if (fishing.st.active) fishing.setActive(false);
   $('start').hidden = true; cam.attract = false; setPlayerLook(); rebuildNpcs(); updateFishHud();
@@ -734,3 +736,4 @@ requestAnimationFrame(frame);
 })();
 
 window.__pulau = { app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
+trackVisit();
