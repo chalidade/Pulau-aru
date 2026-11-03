@@ -7,12 +7,12 @@ const key = process.env.TRAKTEER_API_KEY;
 const out = (k, v) => process.env.GITHUB_OUTPUT && fs.appendFileSync(process.env.GITHUB_OUTPUT, `${k}=${v}\n`);
 if (!key) { console.log('::notice::TRAKTEER_API_KEY belum diisi, lewati.'); out('changed', 'false'); process.exit(0); }
 const all = [];
-for (let page = 1; page <= 20; page++) {
-  const r = await fetch(`https://api.trakteer.id/v1/public/supports?limit=50&page=${page}&include=order_id`, { headers: { key, Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' } });
+for (let page = 1; page <= 40; page++) {
+  const r = await fetch(`https://api.trakteer.id/v1/public/supports?limit=25&page=${page}&include=order_id`, { headers: { key, Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' } });
   if (!r.ok) { console.log(`::error::Trakteer ${r.status}: ${(await r.text()).slice(0, 200)}`); process.exit(1); }
   const j = await r.json(), data = j?.result?.data || j?.data || [];
   all.push(...data);
-  if (data.length < 50) break;
+  if (data.length < 25) break;
 }
 console.log(`[trakteer] ${all.length} dukungan`);
 const clean = s => String(s || '').replace(/^@/, '').replace(/[^\p{L}\p{N}._\- ]/gu, '').trim().slice(0, 40) || 'Seseorang';
