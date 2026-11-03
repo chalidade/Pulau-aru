@@ -225,7 +225,7 @@ a.btn.treat{display:block;text-align:center;text-decoration:none;margin-top:12px
 a.mini{text-decoration:none}
 
 /* LIVE overlay (?live) */
-body.live #hud-r, body.live #act, body.live #joy, body.live #hint, body.live #unpub{display:none!important}
+body.live #hud-r, body.live #hud-l, body.live #prompt, body.live #act, body.live #joy, body.live #hint, body.live #unpub{display:none!important}
 #live-ov{position:fixed;inset:0;pointer-events:none;z-index:6;font-family:var(--f-body)}
 #live-ov .live-top{position:absolute;top:14px;left:50%;transform:translateX(-50%);display:flex;gap:10px;align-items:center;background:color-mix(in srgb,var(--ink) 85%,transparent);border:2px solid var(--ink-3);border-radius:999px;padding:6px 14px;font-size:15px;white-space:nowrap}
 #live-ov .live-dot{background:#e8343f;color:#fff;font-weight:700;border-radius:4px;padding:1px 7px;font-size:12px}

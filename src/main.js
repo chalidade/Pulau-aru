@@ -743,7 +743,6 @@ function startLive() {
   };
   let i = 0;
   const go = () => { const L = tour(), s = L[i++ % L.length]; player.x = s.x; player.z = s.z; player.tx = null; player.y = s.y != null ? s.y : surfaceY(s.x, s.z); cam.pitch = s.pitch; cam.dist = s.dist; window.__camTarget = s.y != null ? new THREE.Vector3(s.x, s.y + 1, s.z) : null; $('live-where').textContent = s.t; };
-  go(); setInterval(go, 18000);
   // overlay: request queue (kept on this device), how to request, top supporters
   const key = 'pulau-aru-live-queue', load = () => { try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch { return []; } };
   const save = q => { try { localStorage.setItem(key, JSON.stringify(q)); } catch {} };
@@ -761,6 +760,7 @@ function startLive() {
     h('div', { class: 'live-cta' }, h('b', null, 'Request tanpa undian'), h('span', null, 'Gift di LIVE atau traktir Rp5.000 di '), h('b', null, 'teer.id/chalidade')),
     h('div', { class: 'live-help' }, 'Operator: L tambah request · X selesai · N pindah lokasi')));
   draw(); setInterval(draw, 5000);
+  go(); setInterval(go, 18000);
   addEventListener('keydown', e => {
     if (e.target.tagName === 'INPUT') return;
     const k = e.key.toLowerCase();
