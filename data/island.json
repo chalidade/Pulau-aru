@@ -2862,6 +2862,14 @@
   {
    "n": "ザAエル",
    "ep": 5
+  },
+  {
+   "n": "EN17",
+   "ep": 6
+  },
+  {
+   "n": "junaa_yuds",
+   "ep": 6
   }
  ],
  "buildings": [
@@ -2953,6 +2961,30 @@
    "r": 0,
    "by": "ザAエル",
    "ep": 5
+  },
+  {
+   "type": "rumah",
+   "x": 55,
+   "y": 69,
+   "r": 0,
+   "by": "",
+   "ep": 6
+  },
+  {
+   "type": "rumah",
+   "x": 64,
+   "y": 59,
+   "r": 0,
+   "by": "",
+   "ep": 6
+  },
+  {
+   "type": "masjid",
+   "x": 59,
+   "y": 45,
+   "r": 0,
+   "by": "Etet_443",
+   "ep": 6
   }
  ],
  "episodes": [
@@ -3005,6 +3037,15 @@
     "ザAエル"
    ],
    "text": "Penduduk tembus 3.209. @EGA_91 dilantik jadi wakil presiden, \"udah paket lengkap\".\nUsulan ザAエル: Kopdes (koperasi desa) pertama dibangun di atas awan, dengan tangga awan dari puncak piramida. Banyak warga jatuh di anak tangga ketujuh.\nDi pulau seberang, Aru menemukan gambar mercusuar di balik petanya, dan melihat awan aneh di atas Pulau Netizen."
+  },
+  {
+   "ep": 6,
+   "date": "3 Nov 2026",
+   "picks": [
+    "EN17",
+    "junaa_yuds"
+   ],
+   "text": "Penduduk tembus 3.560. Presiden @Etet_443 merapikan pulau: jalan setapak diganti jalan aspal dua lajur (usulan @EN17).\nDua rumah yang lama dibangun akhirnya selesai. Para tukang pindah ke lahan baru untuk sekolah dan apotik (usulan @junaa_yuds).\nKeputusan presiden tanpa undian: masjid berkubah hijau.\nKata warga: siapa pun boleh menggulingkan presiden, asal punya cara."
   }
  ],
  "letters": [],
@@ -3031,5 +3072,21 @@
  "vicePresident": {
   "n": "EGA_91",
   "ep": 5
- }
+ },
+ "roads": {
+  "by": "EN17",
+  "ep": 6
+ },
+ "construct": [
+  {
+   "type": "sekolah",
+   "by": "junaa_yuds",
+   "ep": 6
+  },
+  {
+   "type": "apotik",
+   "by": "junaa_yuds",
+   "ep": 6
+  }
+ ]
 }
