@@ -22,7 +22,7 @@ export function initUI(a) {
   $('sheet-x').onclick = closeSheet;
   $('sheet').addEventListener('pointerdown', e => { if (e.target.id === 'sheet') closeSheet(); });
   $('dialog').addEventListener('click', closeDialog);
-  $('b-journal').onclick = openJournal; $('b-letters').onclick = openLetters; $('b-names').onclick = openNames; $('b-map').onclick = openMap;
+  $('b-join').onclick = openJoin; $('b-journal').onclick = openJournal; $('b-letters').onclick = openLetters; $('b-names').onclick = openNames; $('b-map').onclick = openMap;
   $('b-admin').onclick = () => openAdmin();
   const menu = $('menu'), mb = $('b-menu');
   const setMenu = on => { menu.hidden = !on; mb.setAttribute('aria-expanded', String(on)); };
@@ -92,10 +92,41 @@ export function openLetters() {
     L.length ? h('div', { class: 'feed' }, L.map(l => h('article', { class: 'letter' }, h('h3', null, l.title || 'Untuk warga pulau'), h('div', { style: 'font-size:14px;opacity:.7;margin:-4px 0 8px' }, `Episode ${l.ep} · ${l.date}`), l.body, h('div', { class: 'sign' }, 'Aru'))))
       : h('div', { class: 'empty' }, 'Kotak surat masih kosong. Surat pertama datang di episode 10.'));
 }
+export const TREAT_URL = 'https://teer.id/chalidade';
+export function openJoin() {
+  const S = app.S, li = (b, t) => h('li', null, h('b', null, b), ' ', t);
+  sheet('Cara ikut & request',
+    h('p', { class: 'lede' }, 'Pulau ini dibangun bersama: semua yang diminta warga benar-benar muncul di pulau, dan bisa kamu kunjungi di sini, di pulau-aru.web.id.'),
+    h('div', { class: 'eyebrow', style: 'margin:4px 0 8px' }, 'Jadi warga'),
+    h('ol', { class: 'rules' },
+      li('Follow akun TikTok Pulau Aru.', 'Setiap follower otomatis jadi warga, dan jumlah penduduk ikut naik.'),
+      li('Namamu diukir di Batu Nama.', 'Semua nama follower pasti ditulis di batu. Cari namamu lewat menu Batu Nama.'),
+      li('Masuk ke pulau dengan username-mu.', 'Kamu bisa jalan-jalan sebagai dirimu sendiri dan ketemu warga lain.')),
+    h('div', { class: 'eyebrow', style: 'margin:14px 0 8px' }, 'Siapa yang bisa mengubah pulau'),
+    h('ol', { class: 'rules' },
+      li('Warga: 2 komentar acak setiap hari.', 'Tulis usulanmu di kolom komentar, dua di antaranya diundi dan diwujudkan.'),
+      li(`Presiden${S.president && S.president.n ? ' @' + S.president.n : ''}: 3 permintaan sehari, tanpa undian.`, 'Bisa digulingkan, asal punya cara.'),
+      li(`Wakil presiden${S.vicePresident && S.vicePresident.n ? ' @' + S.vicePresident.n : ''}: 2 permintaan sehari, tanpa undian.`, ''),
+      li('Yang mentraktir: permintaannya langsung jadi, tanpa undian.', 'Seperti titah dari langit, apa pun itu.')),
+    h('a', { class: 'btn treat', href: TREAT_URL, target: '_blank', rel: 'noopener' }, 'Traktir & kirim request di teer.id/chalidade'),
+    h('p', { class: 'lede', style: 'margin-top:10px;font-size:13px' }, 'Tulis permintaanmu di pesan traktiran. Semua permintaan tetap mengikuti aturan pulau: tidak menyakiti dan tidak menyinggung siapa pun.'),
+    h('div', { class: 'eyebrow', style: 'margin:14px 0 8px' }, 'Yang bisa dilakukan di pulau sekarang'),
+    h('ul', { class: 'rules can' },
+      ['Jalan-jalan di jalan aspal, mampir ke masjid, pasar tradisional, dan rumah warga',
+       'Melompat, memanjat piramida raksasa, lalu naik tangga awan ke Kopdes di atas awan',
+       'Menombak ikan di air dangkal',
+       'Naik kapal ke pulau seberang, atau mengemudikan perahu nelayan',
+       'Menonton presiden dan wakil presiden berpidato di mimbar',
+       'Ngobrol dengan warga yang memancing, menebang, membangun, dan berjualan',
+       'Membaca Catatan pulau, Surat Aru, dan petunjuk misteri kedatangan Aru',
+       'Menemukan namamu di Batu Nama'].map(t => h('li', null, t))));
+}
 export function openRules() {
   sheet('Papan Aturan Pulau', h('p', { class: 'lede' }, 'Aturan ini dipasang Aru sejak hari pertama supaya pulau tetap hangat.'),
     h('ol', { class: 'rules' },
       h('li', null, 'Setiap hari dua komentar dipilih acak untuk mengatur jalan cerita: membangun, berkegiatan, atau apa pun.'),
+      h('li', null, 'Presiden boleh mewujudkan 3 permintaan sehari dan wakil presiden 2 permintaan, tanpa undian.'),
+      h('li', null, 'Yang mentraktir di teer.id/chalidade: permintaannya langsung diwujudkan, tanpa undian.'),
       h('li', null, 'Usulan yang menyakiti atau tidak pantas dilewati, lalu komentar diundi ulang.'),
       h('li', null, 'Undian benar-benar acak dan ditampilkan di video. Tidak ada hadiah.'),
       h('li', null, 'Hanya username yang disebut. Minta namamu dihapus kapan saja.'),

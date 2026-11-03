@@ -205,3 +205,10 @@ body.rec #jump{display:none!important}
 .stat-srcbar{height:8px;background:var(--ink-2);border-radius:4px;overflow:hidden}
 .stat-srcbar div{height:100%;background:var(--leaf)}
 .stat-me{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--sand-dim)}
+
+/* support / request link */
+.st-treat{display:block;margin:12px 0 2px;font-size:13px;color:var(--sand-dim);text-decoration:none}
+.st-treat b{color:var(--lamp)}
+.st-treat:hover b{text-decoration:underline}
+a.btn.treat{display:block;text-align:center;text-decoration:none;margin-top:12px}
+.rules.can li{margin-bottom:4px}
