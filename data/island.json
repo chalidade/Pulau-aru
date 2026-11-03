@@ -2867,15 +2867,6 @@
    "ep": 1
   },
   {
-   "type": "piramida",
-   "x": 71,
-   "y": 75,
-   "r": 0,
-   "label": "",
-   "by": "VANZwlee",
-   "ep": 2
-  },
-  {
    "type": "raktombak",
    "x": 58,
    "y": 93,
@@ -2936,6 +2927,15 @@
    "r": 0,
    "label": "",
    "by": "warning",
+   "ep": 4
+  },
+  {
+   "type": "piramida",
+   "x": 29,
+   "y": 61,
+   "r": 0,
+   "label": "",
+   "by": "",
    "ep": 4
   }
  ],
