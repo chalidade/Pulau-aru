@@ -665,7 +665,20 @@ function syncExpansion(animate) {
   if (animate && want > WD.expansion) { expAnim = { from: WD.expansion, to: want, t: 0 }; return; }
   expAnim = null; WD.setExpansion(want, 1); terrain.userData.refresh();
 }
-function applyWorld(animate = false) { syncExpansion(animate); rebuildOcc(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); assignCloud(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
+// stages and markets get a level plaza; the stage's plaza reaches out front where the crowd gathers
+function padsFor() {
+  const out = [];
+  for (const b of S.buildings) {
+    const d = BT[b.type]; if (!d || !(d.stage || d.market)) continue;
+    const f = fpOf(b), r = (b.r | 0) % 4;
+    let x0 = b.x - 1, y0 = b.y - 1, x1 = b.x + f.w + 1, y1 = b.y + f.h + 1;
+    if (d.stage) { const ext = 7; if (r === 0) y1 += ext; else if (r === 2) y0 -= ext; else if (r === 1) x0 -= ext; else x1 += ext; x0 -= 2; x1 += 2; }
+    out.push({ x0, y0, x1, y1, margin: 3 });
+  }
+  return out;
+}
+let padKey = '';
+function applyWorld(animate = false) { const pads = padsFor(), pk = JSON.stringify(pads); if (pk !== padKey) { padKey = pk; WD.setPads(pads); terrain.userData.refresh(); } syncExpansion(animate); rebuildOcc(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); assignCloud(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
 function markDirty() { dirty = true; store.set(draftKey, JSON.stringify(S)); applyWorld(true); }
 const app = {
   get S() { return S; }, get dirty() { return dirty; }, get base() { try { return JSON.parse(PUB); } catch (e) { return null; } }, role, pop, lamps, curEp,

@@ -69,6 +69,24 @@ export function setExpansion(level, t = 1, from = 0) {
     const k = j * VW + i, b = baseV[k], lo = Math.max(b, lobeA(i - .5, j - .5, from)), hi = Math.max(b, lobeA(i - .5, j - .5, level));
     Hv[k] = elev(lo + (hi - lo) * t);
   }
+  applyPads();
+}
+// level ground under stages and markets (and the space in front where the crowd stands), easing back into the slope
+let pads = [];
+export function setPads(list) { pads = list || []; setExpansion(expansion, 1, expansion); }
+function applyPads() {
+  for (const p of pads) {
+    let sum = 0, n = 0;
+    for (let j = p.y0; j <= p.y1; j++) for (let i = p.x0; i <= p.x1; i++) if (i >= 0 && j >= 0 && i <= W && j <= H) { sum += Hv[j * VW + i]; n++; }
+    if (!n) continue;
+    const h = Math.max(.7, sum / n), m = p.margin || 3;
+    for (let j = p.y0 - m; j <= p.y1 + m; j++) for (let i = p.x0 - m; i <= p.x1 + m; i++) {
+      if (i < 0 || j < 0 || i > W || j > H) continue;
+      const k = j * VW + i; if (Hv[k] < .3) continue;   // never pull the shore or the sea
+      const d = Math.max(p.x0 - i, i - p.x1, p.y0 - j, j - p.y1, 0), w = d === 0 ? 1 : 1 - d / (m + 1), s = w * w * (3 - 2 * w);
+      Hv[k] = Hv[k] + (h - Hv[k]) * s;
+    }
+  }
 }
 
 export const T = (x, y) => (x < 0 || y < 0 || x >= W || y >= H) ? DEEP : tile[y * W + x];
