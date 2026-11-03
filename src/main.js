@@ -261,13 +261,14 @@ function rebuildNpcs() {
 function assignCloud() {
   for (const n of npcs) if (n.cloud) { n.cloud = null; n.obj.userData.body.position.y = 0; if (n.basket) { n.basket.parent && n.basket.parent.remove(n.basket); n.basket = null; } }
   const cl = clouds[0]; if (!cl) return;
-  const pool = npcs.filter(n => !n.aru && !n.pres && !n.vp && n.num && (n.role === 'wander' || n.role === 'chop' || n.role === 'build')).slice(0, 14);
+  // only idle strollers go up, so the fishers, woodcutters and builders keep their jobs
+  const pool = npcs.filter(n => !n.aru && !n.pres && !n.vp && n.num && n.role === 'wander').slice(0, 6);
   let k = 0;
   const take = (kind, spot, extra = {}) => { const n = pool[k++]; if (!n) return; n.cloud = { kind, spot, ...extra }; n.role = kind === 'climb' ? 'climb' : 'kopdes'; if (n.kit) { n.obj.userData.body.remove(...n.kit); n.kit = null; } if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }
     if (kind !== 'climb') { const b = new THREE.Mesh(M.G.cyl8, M.mat(kind === 'carry' ? '#b08850' : '#c9a36a')); b.scale.set(.16, .18, .16); b.position.set(0, .62, .26); b.castShadow = true; n.obj.userData.body.add(b); n.basket = b; } };
-  cl.queue.forEach(s => take('queue', s));
-  cl.carry.forEach(s => take('carry', s));
-  for (let i = 0; i < 5; i++) take('climb', null, { i: 0, t: -i * 1.7 - .4, fallAt: i === 1 ? 6 : -1, n: i, cl });
+  for (let i = 0; i < 2; i++) take('climb', null, { i: 0, t: -i * 4.2 - .4, fallAt: i === 1 ? 6 : -1, n: i, cl });
+  [cl.queue[1], cl.queue[2], cl.queue[4]].forEach(s => s && take('queue', s));
+  take('carry', cl.carry[0]);
 }
 function stepCloud(n, dt, T) {
   const c = n.cloud, u = n.obj.userData;
