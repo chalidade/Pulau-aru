@@ -16,6 +16,7 @@ export function normalize(d) {
   const s = Object.assign(JSON.parse(JSON.stringify(DEFAULT_STATE)), d || {});
   for (const k of ['residents', 'buildings', 'episodes', 'letters', 'clues']) if (!Array.isArray(s[k])) s[k] = [];
   s.followers = Math.max(0, s.followers | 0);
+  s.expand = Math.max(0, Math.min(3, s.expand | 0));
   for (const b of s.buildings) if (b.type === 'piramida' && !b.big) { b.x -= 5; b.y -= 5; b.big = true; }
   return s;
 }

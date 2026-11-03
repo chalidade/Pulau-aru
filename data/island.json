@@ -2879,6 +2879,42 @@
    "label": "",
    "by": "Akai",
    "ep": 2
+  },
+  {
+   "type": "perahu",
+   "x": 45,
+   "y": 101,
+   "r": 0,
+   "label": "",
+   "by": "Pinjam seratus",
+   "ep": 3
+  },
+  {
+   "type": "perahu",
+   "x": 49,
+   "y": 99,
+   "r": 0,
+   "label": "",
+   "by": "Pinjam seratus",
+   "ep": 3
+  },
+  {
+   "type": "perahu",
+   "x": 45,
+   "y": 104,
+   "r": 0,
+   "label": "",
+   "by": "Pinjam seratus",
+   "ep": 3
+  },
+  {
+   "type": "perahu",
+   "x": 49,
+   "y": 103,
+   "r": 0,
+   "label": "",
+   "by": "Pinjam seratus",
+   "ep": 3
   }
  ],
  "episodes": [
@@ -2904,6 +2940,15 @@
     "Akai"
    ],
    "text": "Warga membangun piramida raksasa di tengah pulau. Tingginya sekitar sepuluh meter dan puncaknya bisa didaki dengan melompat dari undakan ke undakan.\nAru membuat tombak untuk menangkap ikan. Rak tombak dipasang di pantai dekat Batu Nama, dan sekarang semua warga boleh meminjamnya."
+  },
+  {
+   "ep": 3,
+   "date": "3 Nov 2026",
+   "picks": [
+    "Pinjam seratus",
+    "riski"
+   ],
+   "text": "Kapal pertama datang dan Aru berlayar ke pulau seberang. Di sana ada peti berisi peta: \"Untuk Aru, kalau aku tidak kembali.\"\nWarga juga mendapat perahu nelayan untuk mencari ikan dan menjelajah, dan pulau diperluas dengan lahan baru di sisi timur untuk rumah warga."
   }
  ],
  "letters": [],
@@ -2917,5 +2962,6 @@
  "tiktok": {
   "followers": 2905,
   "updatedAt": "2026-11-02T20:53:08.431Z"
- }
+ },
+ "expand": 1
 }

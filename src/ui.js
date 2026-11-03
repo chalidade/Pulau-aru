@@ -291,6 +291,10 @@ function adPulau() {
   const connected = !!store.get(tokenKey);
   return h('div', null,
     fld('Nama pulau (biar warga yang memilih)', nm), h('button', { class: 'btn ghost', onclick: () => { S.islandName = nm.value.trim() || 'Pulau Tanpa Nama'; app.markDirty(); openAdmin(); } }, 'Ganti nama'),
+    h('div', { class: 'eyebrow', style: 'margin-top:18px;margin-bottom:6px' }, `Luas pulau: tahap ${S.expand | 0} dari 3`),
+    h('p', { class: 'lede' }, 'Setiap tahap memunculkan daratan baru yang naik dari laut, tanpa pohon, siap untuk rumah warga.'),
+    h('div', { class: 'row' }, h('button', { class: 'btn ghost', disabled: (S.expand | 0) >= 3, onclick: () => { S.expand = (S.expand | 0) + 1; closeSheet(); app.markDirty(); toast('Daratan baru muncul. Jangan lupa terbitkan.'); } }, 'Perluas pulau'),
+      (S.expand | 0) > 0 ? h('button', { class: 'btn ghost', onclick: () => { S.expand = (S.expand | 0) - 1; app.markDirty(); openAdmin('pulau'); } }, 'Kembalikan satu tahap') : null),
     h('div', { class: 'eyebrow', style: 'margin-top:18px;margin-bottom:6px' }, connected ? 'GitHub terhubung' : 'Hubungkan GitHub'),
     fld('Token GitHub (disimpan hanya di peramban ini)', tok),
     h('div', { class: 'row' },

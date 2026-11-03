@@ -12,6 +12,7 @@ import * as UI from './ui.js';
 import { createFishing } from './fishing.js';
 import * as I2 from './island2.js';
 import { createActivities } from './activities.js';
+import { createBoats } from './boats.js';
 import { $, h, toast, fmt, clean } from './ui.js';
 
 const touch = matchMedia('(pointer:coarse)').matches;
@@ -179,7 +180,9 @@ function rebuildBuildings() {
     o.position.set(cx, d.water ? 0 : fpGround(b.x, b.y, f.w, f.h), cz); o.rotation.y = -(b.r | 0) * Math.PI / 2;
     o.userData.b = b; bGroup.add(o); bObjs.push(o);
   });
+  boats.sync(bObjs.filter(o => o.userData.b.type === 'perahu'), S.residents.slice(-40).map(r => r.n));
 }
+const boats = createBoats({ scene, navigable: (x, z) => navigable(x, z) });
 
 // ---------- characters ----------
 const player = { obj: null, x: 0, z: 0, y: 0, vy: 0, grounded: true, tx: null, tz: null, moving: false };
@@ -315,15 +318,18 @@ function navigable(x, z) {
   const cx = WD.w2cx(x), cy = WD.w2cy(z); if (cx < 0 || cy < 0 || cx >= W || cy >= H) return true;
   return tile[cy * W + cx] === WD.DEEP && !plank[cy * W + cx];
 }
-const landSpot = () => { let best = null, bd = 1e9; for (let r = 2.6; r <= 5; r += .6) for (let k = 0; k < 20; k++) { const a = k / 20 * Math.PI * 2, x = sail.x + Math.cos(a) * r, z = sail.z + Math.sin(a) * r; if (walkable(x, z) && surfaceY(x, z) > -.3 && r < bd) { bd = r; best = { x, z }; } } return best; };
+const V = () => sail.boat || sail;
+const landSpot = () => { const v = V(); let best = null, bd = 1e9; for (let r = sail.boat ? 1.4 : 2.6; r <= 5; r += .6) for (let k = 0; k < 20; k++) { const a = k / 20 * Math.PI * 2, x = v.x + Math.cos(a) * r, z = v.z + Math.sin(a) * r; if (walkable(x, z) && surfaceY(x, z) > -.3 && r < bd) { bd = r; best = { x, z }; } } return best; };
 function board() { sail.on = true; player.tx = null; if (fishing.st.active) fishing.setActive(false); toast(sail.told ? 'Kembali ke kemudi.' : 'Kamu di kemudi. Arahkan kapal dengan ' + (touch ? 'jempol kiri' : 'WASD') + '. Pulau seberang ada di timur laut, ikuti arah matahari terbit.'); sail.told = true; near = null; }
-function disembark() { const p = landSpot(); if (!p) { toast('Terlalu jauh dari daratan.'); return; } sail.on = false; sail.speed = 0; player.x = p.x; player.z = p.z; player.y = surfaceY(p.x, p.z); player.vy = 0; near = null; toast(I2.inside2(p.x, p.z) ? 'Kamu menginjak pulau seberang. Belum ada yang tinggal di sini…' : 'Kembali ke Pulau Netizen.'); }
+function boardBoat(b) { sail.on = true; sail.boat = b; b.mode = 'player'; b.speed = 0; player.tx = null; if (fishing.st.active) fishing.setActive(false); toast('Perahu nelayan siap. Arahkan dengan ' + (touch ? 'jempol kiri' : 'WASD') + ', cari ikan atau jelajahi laut.'); near = null; }
+function disembark() { const p = landSpot(); if (!p) { toast('Terlalu jauh dari daratan.'); return; } if (sail.boat) { sail.boat.mode = 'wait'; sail.boat.t = 8; sail.boat.speed = 0; sail.boat = null; } sail.on = false; sail.speed = 0; player.x = p.x; player.z = p.z; player.y = surfaceY(p.x, p.z); player.vy = 0; near = null; toast(I2.inside2(p.x, p.z) ? 'Kamu menginjak pulau seberang. Belum ada yang tinggal di sini…' : 'Kembali ke Pulau Netizen.'); }
 
 // ---------- interactions ----------
 function interactables() {
   const L = [];
   if (sail.on) { const p = landSpot(); if (p) L.push({ x: player.x, z: player.z, label: 'Turun ke darat', act: disembark, r: 99, key: 'land' }); return L; }
   if (pop() >= 1000) L.push({ x: sail.x, z: sail.z, label: 'Naik kapal', act: board, r: 4.6, key: 'ship' });
+  { const b = boats.nearest(player.x, player.z, 2.6); if (b) L.push({ x: b.x, z: b.z, label: 'Naik perahu', act: () => boardBoat(b), r: 2.6, key: 'boat' }); }
   if (I2.inside2(player.x, player.z)) { for (const it of I2.interactables2()) L.push({ ...it, act: () => UI.dialog(it.key === 'chest' ? 'Peti tua' : it.key === 'circle' ? 'Lingkaran batu' : 'Pantai seberang', I2.LORE[it.key]) }); return L; }
   const at = (x, y, w, hh, dz) => { const [cx, cz] = fpCenter(x, y, w, hh); return { x: cx, z: cz + dz }; };
   L.push({ ...at(LM.stone[0], LM.stone[1], 2, 1, 1.2), label: 'Baca Batu Nama', act: UI.openNames, r: 2 });
@@ -332,7 +338,7 @@ function interactables() {
   L.push({ ...at(LM.board[0], LM.board[1], 2, 1, .9), label: 'Baca aturan', act: UI.openRules, r: 1.6 });
   L.push({ ...at(LM.wreck[0], LM.wreck[1], 3, 2, 1.4), label: 'Periksa perahu', act: UI.openMystery, r: 2.4 });
   L.push({ ...at(LM.fire[0], LM.fire[1], 1, 1, .9), label: 'Baca catatan', act: UI.openJournal, r: 1.6 });
-  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : () => UI.bldDialog(b), r: Math.min(3, Math.max(1.4, f.w * .7)), key: sp ? 'spear' + fishing.st.active : null }); });
+  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); if (b.type === 'perahu') return; const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : () => UI.bldDialog(b), r: Math.min(3, Math.max(1.4, f.w * .7)), key: sp ? 'spear' + fishing.st.active : null }); });
   for (const n of npcs) L.push({ npc: true, x: n.x, z: n.z, label: 'Bicara dengan ' + n.name, act: () => { n.obj.rotation.y = Math.atan2(player.x - n.x, player.z - n.z); n.wait = 4; UI.talk(n); }, r: 1.3 });
   return L;
 }
@@ -436,11 +442,12 @@ function frame() {
   else if (player.tx != null) { const dx = player.tx - player.x, dz = player.tz - player.z, d = Math.hypot(dx, dz); if (d < .2) player.tx = null; else { wx = dx / d; wz = dz / d; } }
   const ml = Math.hypot(wx, wz);
   if (sail.on) {
-    if (ml > .12 && !blocked) { const want = Math.atan2(-wz, wx); let dr = want - sail.ry; dr = Math.atan2(Math.sin(dr), Math.cos(dr)); sail.ry += Math.sign(dr) * Math.min(Math.abs(dr), dt * 1.3); sail.speed = Math.min(10 * Math.min(1, ml), sail.speed + dt * 4 * Math.max(.2, Math.cos(dr))); }
-    else sail.speed = Math.max(0, sail.speed - dt * 3);
-    const cx = Math.cos(sail.ry), cz = -Math.sin(sail.ry), nx = sail.x + cx * sail.speed * dt, nz = sail.z + cz * sail.speed * dt;
-    if (navigable(nx + cx * 3.4, nz + cz * 3.4) && navigable(nx, nz) && navigable(nx - cx * 2.4, nz - cz * 2.4)) { sail.x = nx; sail.z = nz; } else if (sail.speed > 2) { sail.speed = 0; toast('Kapal menyentuh dasar. Putar arah.'); } else sail.speed = 0;
-    player.x = sail.x - cx * .3; player.z = sail.z - cz * .3; player.y = 1.05 + shipObj.position.y; player.obj.rotation.y = sail.ry + Math.PI / 2; player.moving = false; player.grounded = true; player.vy = 0;
+    const v = V(), small = !!sail.boat, vmax = small ? 7 : 10, fr = small ? 1.3 : 3.4, bk = small ? 1.0 : 2.4;
+    if (ml > .12 && !blocked) { const want = Math.atan2(-wz, wx); let dr = want - v.ry; dr = Math.atan2(Math.sin(dr), Math.cos(dr)); v.ry += Math.sign(dr) * Math.min(Math.abs(dr), dt * (small ? 2.2 : 1.3)); v.speed = Math.min(vmax * Math.min(1, ml), v.speed + dt * 4 * Math.max(.2, Math.cos(dr))); }
+    else v.speed = Math.max(0, v.speed - dt * 3);
+    const cx = Math.cos(v.ry), cz = -Math.sin(v.ry), nx = v.x + cx * v.speed * dt, nz = v.z + cz * v.speed * dt;
+    if (navigable(nx + cx * fr, nz + cz * fr) && navigable(nx, nz) && navigable(nx - cx * bk, nz - cz * bk)) { v.x = nx; v.z = nz; } else if (v.speed > 2) { v.speed = 0; toast(small ? 'Perahu menyentuh dasar. Putar arah.' : 'Kapal menyentuh dasar. Putar arah.'); } else v.speed = 0;
+    player.x = v.x - cx * (small ? .15 : .3); player.z = v.z - cz * (small ? .15 : .3); player.y = small ? .12 : 1.05 + shipObj.position.y; player.obj.rotation.y = v.ry + Math.PI / 2; player.moving = false; player.grounded = true; player.vy = 0;
   } else if (ml > .12 && !blocked) {
     const sp = 4.2 * dt * Math.min(1, ml) * (shallowAt(player.x, player.z) ? .55 : 1) * (keys.shift && !place ? 1.6 : 1);
     const vx = wx / ml * sp, vz = wz / ml * sp; let moved = false;
@@ -462,9 +469,9 @@ function frame() {
   if (cam.attract && !$('start').hidden) { cam.yaw += dt * .05; }
   const tgt = new THREE.Vector3(player.x, player.obj.position.y + 1, player.z);
   if (place && !place.erase && place.hx != null && touch) { const [cx, cz] = fpCenter(place.hx, place.hy, 1, 1); tgt.set(cx, 1, cz); }
-  if (sail.on) tgt.set(sail.x, 1.5, sail.z);
+  if (sail.on) tgt.set(V().x, 1.5, V().z);
   cam.target.lerp(tgt, Math.min(1, dt * 6));
-  cam.sailDist = (cam.sailDist || 0) + ((sail.on ? 10 : 0) - (cam.sailDist || 0)) * Math.min(1, dt * 2);
+  cam.sailDist = (cam.sailDist || 0) + ((sail.on ? (sail.boat ? 4 : 10) : 0) - (cam.sailDist || 0)) * Math.min(1, dt * 2);
   const cp = Math.cos(cam.pitch);
   const cd = cam.dist + cam.sailDist;
   camera.position.set(cam.target.x + Math.sin(cam.yaw) * cp * cd, cam.target.y + Math.sin(cam.pitch) * cd, cam.target.z + Math.cos(cam.yaw) * cp * cd);
@@ -487,6 +494,12 @@ function frame() {
   M.lanternMat.emissiveIntensity = .3 + dk * 3;
   bloom.strength = .15 + dk * .6;
   water.userData.update(T0);
+  if (expAnim) { // the new land rises out of the sea
+    expAnim.t = Math.min(1, expAnim.t + dt / 4);
+    const k = expAnim.t < .5 ? 4 * expAnim.t ** 3 : 1 - (-2 * expAnim.t + 2) ** 3 / 2;
+    WD.setExpansion(expAnim.to, k, expAnim.from); terrain.userData.refresh();
+    if (expAnim.t >= 1) { expAnim = null; rebuildOcc(); for (const i of acts.siteCells()) solid[i] = 1; }
+  }
   // lighthouse
   const L = lamps(), ud = lightObj.userData;
   ud.lamps.forEach((m, i) => { const on = i < L; if ((m.material === M.lampOnMat) !== on) m.material = on ? M.lampOnMat : M.lampOffMat; });
@@ -502,11 +515,12 @@ function frame() {
   const sorted = fireSources.map(o => ({ o, d: o.position.distanceToSquared(player.obj.position) })).sort((a, b) => a.d - b.d);
   firePool.forEach((l, i) => { const s = sorted[i]; if (!s) { l.intensity = 0; return; } l.position.set(s.o.position.x, s.o.position.y + .7, s.o.position.z); l.intensity = (1.2 + dk * 9) * fl; });
   // ship, festival, posts
+  boats.update(dt, T0);
   shipObj.visible = pierObj.visible = pop() >= 1000;
   if (shipObj.visible) { shipObj.position.set(sail.x, Math.sin(T0 * .9) * .12 - .1, sail.z); shipObj.rotation.set(Math.sin(T0 * .8) * .02, sail.ry, Math.sin(T0 * .7) * .03 + (sail.on ? Math.min(.06, sail.speed * .006) : 0)); }
   festObj.visible = pop() >= 100;
   if (postLights) postLights.material.opacity = Math.min(1, dk * 1.3);
-  for (const o of bObjs) if (o.userData.def.bob) { o.position.y = Math.sin(T0 * 1.2 + o.position.x) * .08; o.rotation.z = Math.sin(T0 + o.position.x) * .04; }
+  for (const o of bObjs) if (o.userData.def.bob && o.userData.b.type !== 'perahu') { o.position.y = Math.sin(T0 * 1.2 + o.position.x) * .08; o.rotation.z = Math.sin(T0 + o.position.x) * .04; }
   mailObj.userData.flag.rotation.x = S.letters.length && (store.get('pulau-aru-seen-letters') | 0) < S.letters.length ? -Math.PI / 2 : 0;
   updateGhost();
   // prompt + labels
@@ -514,7 +528,9 @@ function frame() {
   const thr = !nn && fishing.canThrow();
   if (nn !== near || (nn && nn.key !== nearKey) || thr !== lastThr || (nn && $('prompt').hidden)) { near = nn; nearKey = nn && nn.key; lastThr = thr; updatePrompt(); }
   if (player.obj) updateLabels();
+  if (window.__beforeRender) window.__beforeRender(dt, T0);
   composer.render();
+  if (window.__afterRender) window.__afterRender(renderer.domElement);
   requestAnimationFrame(frame);
 }
 
@@ -552,8 +568,15 @@ function thumb(type) {
 
 // ---------- state changes ----------
 const draftKey = 'pulau-aru-draft';
-function applyWorld() { rebuildOcc(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
-function markDirty() { dirty = true; store.set(draftKey, JSON.stringify(S)); applyWorld(); }
+let expAnim = null;
+function syncExpansion(animate) {
+  const want = S.expand | 0;
+  if (want === WD.expansion && !expAnim) return;
+  if (animate && want > WD.expansion) { expAnim = { from: WD.expansion, to: want, t: 0 }; return; }
+  expAnim = null; WD.setExpansion(want, 1); terrain.userData.refresh();
+}
+function applyWorld(animate = false) { syncExpansion(animate); rebuildOcc(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
+function markDirty() { dirty = true; store.set(draftKey, JSON.stringify(S)); applyWorld(true); }
 const app = {
   get S() { return S; }, get dirty() { return dirty; }, get base() { try { return JSON.parse(PUB); } catch (e) { return null; } }, role, pop, lamps, curEp,
   markDirty, startPlace, startErase, endPlace, mapCanvas, thumb,
@@ -602,8 +625,8 @@ requestAnimationFrame(frame);
   setInterval(async () => {
     if (dirty || document.hidden) return;
     const n = await loadState(); const js = JSON.stringify(n);
-    if (js !== PUB && n.v) { S = n; PUB = js; applyWorld(); toast('Pulau baru saja diperbarui.'); }
+    if (js !== PUB && n.v) { S = n; PUB = js; applyWorld(true); toast('Pulau baru saja diperbarui.'); }
   }, 90000);
 })();
 
-window.__pulau = { app, LM, fishing, sail, I2, acts, get npcs() { return npcs; }, get player() { return player; } };
+window.__pulau = { app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };

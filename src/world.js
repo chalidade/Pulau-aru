@@ -33,15 +33,43 @@ function elev(a) {
   return 0.45 + (a - 0.41) * 6 + Math.max(0, a - 0.7) * 18;
 }
 
+const tileOf = a => a < 0.30 ? DEEP : a < 0.36 ? SHALLOW : a < 0.41 ? SAND : a < 0.76 ? GRASS : HILL;
 export const tile = new Uint8Array(W * H);
-for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
-  const a = hgtAt(x, y);
-  tile[y * W + x] = a < 0.30 ? DEEP : a < 0.36 ? SHALLOW : a < 0.41 ? SAND : a < 0.76 ? GRASS : HILL;
-}
+const baseA = new Float32Array(W * H);
+for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const a = hgtAt(x, y); baseA[y * W + x] = a; tile[y * W + x] = tileOf(a); }
 // vertex heights at cell corners
 const VW = W + 1;
 export const Hv = new Float32Array(VW * (H + 1));
-for (let j = 0; j <= H; j++) for (let i = 0; i <= W; i++) Hv[j * VW + i] = elev(hgtAt(i - 0.5, j - 0.5));
+const baseV = new Float32Array(VW * (H + 1));
+for (let j = 0; j <= H; j++) for (let i = 0; i <= W; i++) { const a = hgtAt(i - 0.5, j - 0.5); baseV[j * VW + i] = a; Hv[j * VW + i] = elev(a); }
+
+// ---------- expansion: new land the residents asked for, one lobe per level ----------
+// Each lobe joins the coast and rises to open grassland (no trees: room for new houses).
+export const LOBES = [{ x: 93, y: 80, rx: 13.5, ry: 11 }, { x: 22, y: 92, rx: 12, ry: 9 }, { x: 60, y: 22, rx: 14, ry: 8 }];
+function lobeA(x, y, level) {
+  let best = -1;
+  for (let k = 0; k < Math.min(level, LOBES.length); k++) {
+    const L = LOBES[k], q = ((x - L.x) / L.rx) ** 2 + ((y - L.y) / L.ry) ** 2;
+    if (q >= 1) continue;
+    const s = Math.pow(1 - q, .55);
+    best = Math.max(best, .24 + s * .44 + (fbm(x / 6 + 70, y / 6 + 70, SEED + 31) - .5) * .12 * s);
+  }
+  return best;
+}
+export let expansion = 0;
+export const expandedCells = new Uint8Array(W * H);
+/** Raise land for `level` lobes; t (0..1) blends from the old shore to the new one for the rising animation. */
+export function setExpansion(level, t = 1, from = 0) {
+  expansion = level;
+  for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+    const i = y * W + x, b = baseA[i], lo = Math.max(b, lobeA(x, y, from)), hi = Math.max(b, lobeA(x, y, level));
+    const a = lo + (hi - lo) * t; tile[i] = tileOf(a); expandedCells[i] = hi > b + .02 ? 1 : 0;
+  }
+  for (let j = 0; j <= H; j++) for (let i = 0; i <= W; i++) {
+    const k = j * VW + i, b = baseV[k], lo = Math.max(b, lobeA(i - .5, j - .5, from)), hi = Math.max(b, lobeA(i - .5, j - .5, level));
+    Hv[k] = elev(lo + (hi - lo) * t);
+  }
+}
 
 export const T = (x, y) => (x < 0 || y < 0 || x >= W || y >= H) ? DEEP : tile[y * W + x];
 export const isLand = (x, y) => T(x, y) >= SAND;
@@ -153,6 +181,15 @@ for (let i = 0; i <= 40; i++) {
 }
 
 export function buildTerrain() {
+  const geo = new THREE.BufferGeometry();
+  fillTerrain(geo);
+  const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: .95, metalness: 0 }));
+  mesh.receiveShadow = true;
+  mesh.name = 'terrain';
+  mesh.userData.refresh = () => { fillTerrain(geo); geo.computeBoundingSphere(); geo.computeBoundingBox(); };
+  return mesh;
+}
+function fillTerrain(geo) {
   const pos = [], cols = [];
   const c = new THREE.Color();
   for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
@@ -172,14 +209,9 @@ export function buildTerrain() {
       for (const v of tri) { pos.push(v[0], v[1], v[2]); cols.push(c.r, c.g, c.b); }
     });
   }
-  const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   geo.setAttribute('color', new THREE.Float32BufferAttribute(cols, 3));
   geo.computeVertexNormals();
-  const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: .95, metalness: 0 }));
-  mesh.receiveShadow = true;
-  mesh.name = 'terrain';
-  return mesh;
 }
 
 export function buildWater() {
