@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import * as WD from './world.js';
 import { W, H, tile, treeAt, LM, village } from './world.js';
-import { mat, box, G } from './models.js';
+import { mat, box, G, presidentKit } from './models.js';
 
 // ---------- props ----------
 function axe() { const g = new THREE.Group(); box(g, '#7a5432', .04, .5, .04, 0, -.95, .02); box(g, '#9aa3a8', .04, .14, .2, 0, -.97, .12); return g; }
@@ -36,12 +36,13 @@ const FIRE_SEATS = 7;
 export function createActivities(ctx) {
   // ctx: { scene, solid(), occ(), npcWalkable, groundY, surfaceY, fireXZ, player }
   const deco = new THREE.Group(); ctx.scene.add(deco);
-  let spots = { fish: [], chop: [], build: [], sit: [] }, sites = [];
+  let spots = { fish: [], chop: [], build: [], sit: [], sell: [], shop: [], listen: [], pres: [] }, sites = [];
   const free = i => ctx.occ()[i] === -1 && !ctx.solid()[i];
   const spaced = (list, x, y, d) => list.every(s => Math.abs(s.cx - x) >= d || Math.abs(s.cy - y) >= d);
 
   function compute() {
-    deco.clear(); spots = { fish: [], chop: [], build: [], sit: [] }; sites = [];
+    deco.clear(); spots = { fish: [], chop: [], build: [], sit: [], sell: [], shop: [], listen: [], pres: [] }; sites = [];
+    const ex = ctx.extraSpots ? ctx.extraSpots() : {}; for (const k of ['sell', 'shop', 'listen', 'pres']) spots[k] = ex[k] || [];
     const cx0 = LM.camp[0], cy0 = LM.camp[1];
     const cells = [];
     for (let y = 2; y < H - 2; y++) for (let x = 2; x < W - 2; x++) { const d = Math.hypot(x - cx0, y - cy0); if (d < 34) cells.push({ x, y, d }); }
@@ -82,21 +83,31 @@ export function createActivities(ctx) {
   // ---------- roles ----------
   const ROLE_ORDER = ['fish', 'chop', 'build', 'sit', 'chop', 'fish', 'build', 'wander', 'sit', 'build', 'wander', 'fish'];
   function assign(npcs) {
-    const used = { fish: 0, chop: 0, build: 0, sit: 0 };
+    const used = { fish: 0, chop: 0, build: 0, sit: 0, sell: 0, shop: 0, listen: 0 };
+    let k = 0;
     npcs.forEach((n, i) => {
       if (n.aru) { setRole(n, 'sit', spots.sit[used.sit++] || null); return; }
-      let want = ROLE_ORDER[i % ROLE_ORDER.length];
+      if (n.pres) { setRole(n, 'president', spots.pres[0] || null); return; }
+      // market sellers and the crowd at the stage come first, then the usual jobs
+      for (const r of ['sell', 'listen', 'shop']) if (used[r] < spots[r].length) { setRole(n, r, spots[r][used[r]++]); return; }
+      let want = ROLE_ORDER[k++ % ROLE_ORDER.length];
       if (want !== 'wander' && used[want] >= spots[want].length) want = 'wander';
       setRole(n, want, want === 'wander' ? null : spots[want][used[want]++]);
     });
   }
   function setRole(n, role, spot) {
     if (n.role === role && n.spot === spot) return;
+    if (n.kit) { n.obj.userData.body.remove(...n.kit); n.kit = null; }
     if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }
     if (n.line) { n.obj.remove(n.line); n.line = null; }
     if (n.bob) { ctx.scene.remove(n.bob); n.bob = null; }
     n.role = spot || role === 'wander' ? role : 'wander'; n.spot = spot;
     n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
+    if (n.role === 'president') n.workFor = Infinity;
+    if (n.role === 'listen') n.workFor = 60 + Math.random() * 90;
+    if (n.role === 'shop') { n.workFor = 4 + Math.random() * 6; n.t = 0; }
+    n.yOff = spot && spot.y || 0;
+    if (n.role === 'president') { const before = n.obj.userData.body.children.length; presidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
     if (spot) { n.x = spot.x; n.z = spot.z; n.obj.rotation.y = spot.face; n.tx = null; }
     const u = n.obj.userData;
     if (n.role === 'chop') { n.tool = axe(); u.armR.add(n.tool); }
@@ -141,7 +152,10 @@ export function createActivities(ctx) {
   function update(n, dt, T) {
     const u = n.obj.userData; n.t += dt;
     if (n.state === 'work') {
-      if (n.t > n.workFor) { n.state = 'break'; n.t = 0; n.breakFor = 6 + Math.random() * 8; strollTarget(n); }
+      if (n.t > n.workFor) {
+        if (n.role === 'shop' && spots.shop.length) { n.spot = spots.shop[(Math.random() * spots.shop.length) | 0]; n.state = 'return'; n.t = 0; }
+        else { n.state = 'break'; n.t = 0; n.breakFor = 6 + Math.random() * 8; strollTarget(n); }
+      }
       n.moving = false; n.obj.rotation.y = n.spot.face;
       animateWork(n, u, T, dt);
       return;
@@ -154,7 +168,7 @@ export function createActivities(ctx) {
       if (n.tx == null || walkTo(n, n.tx, n.tz, dt)) { n.tx = null; n.wait = 1 + Math.random() * 3; }
       if (n.state === 'break' && n.t > n.breakFor) { n.state = 'return'; n.t = 0; }
     } else if (n.state === 'return') {
-      if (walkTo(n, n.spot.x, n.spot.z, dt)) { n.state = 'work'; n.t = 0; n.workFor = 35 + Math.random() * 50; }
+      if (walkTo(n, n.spot.x, n.spot.z, dt)) { n.state = 'work'; n.t = 0; n.workFor = n.role === 'shop' ? 4 + Math.random() * 6 : n.role === 'listen' ? 60 + Math.random() * 90 : 35 + Math.random() * 50; }
     }
     walkPose(u, n.moving, dt);
     if (n.tool && n.role !== 'fish') n.tool.visible = true;
@@ -177,6 +191,22 @@ export function createActivities(ctx) {
     } else if (n.role === 'sit') {
       u.body.position.y = -.42; u.legL.rotation.x = -1.45; u.legR.rotation.x = -1.4; u.armL.rotation.x = -.5; u.armR.rotation.x = -.5 + Math.sin(ph * 1.7) * .12;
       if (Math.sin(ph * .7) > .6) u.armR.rotation.x = -1.1 + Math.sin(ph * 6) * .3; // talking with hands
+    } else if (n.role === 'sell') {
+      // calling out to buyers, now and then holding up the goods
+      const c = (ph % 5) / 5;
+      u.armR.rotation.x = c < .35 ? -1.6 + Math.sin(ph * 9) * .35 : -.4; u.armL.rotation.x = c < .35 ? -.3 : -1.0;
+      u.body.position.y = Math.abs(Math.sin(ph * 2.2)) * .02;
+    } else if (n.role === 'shop') {
+      u.armL.rotation.x = -.9; u.armR.rotation.x = -.5 + Math.sin(ph * 2) * .25; u.body.rotation.x = .12;
+    } else if (n.role === 'listen') {
+      // the whole crowd cheers together every 12 s
+      const c = (T % 12) / 12, cheer = window.__cheer != null ? window.__cheer : c > .82;
+      u.armR.rotation.x = cheer ? -2.9 + Math.sin(T * 14 + n.seed) * .25 : -.15; u.armL.rotation.x = cheer && n.seed > 5 ? -2.9 : -.15;
+      u.body.position.y = cheer ? Math.abs(Math.sin(T * 8 + n.seed)) * .22 : 0;
+    } else if (n.role === 'president') {
+      const c = (T % 12) / 12, cheer = window.__cheer != null ? window.__cheer : c > .82;
+      u.armR.rotation.x = cheer ? -3.0 : -1.4 + Math.sin(T * 3.1) * .5; u.armR.rotation.z = cheer ? 0 : -.2;
+      u.armL.rotation.x = -.6 + Math.sin(T * 1.7) * .15; u.body.rotation.y = Math.sin(T * .7) * .25;
     } else if (n.role === 'fish') {
       const c = (ph % 14) / 14; // a cast every 14 s, a tug now and then
       u.armR.rotation.x = c < .06 ? -2.4 + c / .06 * 1.4 : -1.0 + Math.sin(ph * 1.3) * .04; u.armL.rotation.x = -.9;
@@ -194,6 +224,10 @@ export function createActivities(ctx) {
 }
 
 export const ROLE_LINES = {
+  president: ['Warga sekalian, pasar sudah buka. Belanja yang banyak, ya!', 'Saya sudah follow, jadi saya presiden. Begitu aturannya.', 'Keputusan kedua? Tunggu komentar kalian.'],
+  sell: ['Ikan segar, ikan segar! Baru ditangkap perahu nelayan!', 'Mangga manis, murah meriah!', 'Mampir dulu, kak. Lihat-lihat boleh.'],
+  shop: ['Lagi cari bahan masak buat nanti malam.', 'Pasarnya rame banget, ya.', 'Kata presiden, belanja di pasar sendiri itu keren.'],
+  listen: ['Hidup Pak Presiden!', 'Pidatonya seru. Aku nunggu bagian pembagian kelapa.', 'Aru belum tahu kita punya presiden, hehe.'],
   fish: ['Sstt, jangan berisik. Ikannya hampir makan umpan.', 'Udah dua jam belum dapat. Tapi pemandangannya bagus, kan?', 'Kata Aru, ikan emas berkilau itu beneran ada.'],
   chop: ['Kayu ini buat rumah warga baru. Kita butuh banyak!', 'Hati-hati, pohonnya mau rubuh! …Belum deng.', 'Capek juga ya, tapi seru.'],
   build: ['Kurang dikit lagi atapnya jadi!', 'Siapa yang ambil palu aku?', 'Rumah ini nanti buat siapa ya? Mungkin buat kamu.'],

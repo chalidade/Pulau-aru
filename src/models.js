@@ -11,6 +11,12 @@ export function mat(color, o = {}) {
 export const windowMat = new THREE.MeshStandardMaterial({ color: '#2f4a5a', emissive: '#ffcc66', emissiveIntensity: 0, flatShading: true, roughness: .4 });
 export const lampOnMat = new THREE.MeshStandardMaterial({ color: '#ffd56a', emissive: '#ffc34a', emissiveIntensity: 2.2, flatShading: true });
 export const lampOffMat = mat('#6d6a62');
+export function presidentKit(ch) {
+  const b = ch.userData.body;
+  box(b, '#141414', .4, .17, .38, 0, 1.34, -.01);
+  const s1 = box(b, '#c4473a', .1, .66, .03, 0, .48, .16); s1.rotation.z = .62; s1.position.y = .76;
+  const s2 = box(b, '#f4eee0', .05, .66, .031, 0, .48, .163); s2.rotation.z = .62; s2.position.set(.03, .78, .163);
+}
 export const flameMat = new THREE.MeshBasicMaterial({ color: '#ffb347' });
 export const flameMat2 = new THREE.MeshBasicMaterial({ color: '#ff6a2a' });
 export const lanternMat = new THREE.MeshStandardMaterial({ color: '#ffcf70', emissive: '#ffb347', emissiveIntensity: 0.4, flatShading: true });
@@ -125,6 +131,47 @@ export const BT = {
     box(g, '#3e3122', 1.2, 1.6, .1, 0, 0, 6.52); box(g, '#a8844a', 1.6, .2, .14, 0, 1.6, 6.53);
   } },
   raktombak: { n: 'Rak tombak', w: 1, h: 1, land: true, spear: true, build(g) { box(g, '#5e3b22', .08, 1.3, .08, -.38, 0, 0); box(g, '#5e3b22', .08, 1.3, .08, .38, 0, 0); box(g, '#8a5a34', .9, .07, .1, 0, .45, 0); box(g, '#8a5a34', .9, .07, .1, 0, 1.15, 0); for (let i = 0; i < 3; i++) { const sp = new THREE.Group(); sp.position.set(-.24 + i * .24, .05, .06); sp.rotation.z = .08 - i * .08; g.add(sp); spearMesh(sp); } } },
+  // traditional market: two rows of three stalls under striped awnings, a gate with a sign, an aisle in between
+  pasartrad: { n: 'Pasar tradisional', w: 6, h: 5, land: true, walk: true, market: true,
+    spots: (() => { const sell = [], shop = []; for (const [row, z, f] of [[0, -1.55, 0], [1, 1.25, Math.PI]]) for (const x of [-1.95, 0, 1.95]) { sell.push([x, z + (row ? .55 : -.55), f]); shop.push([x + (Math.random() - .5) * .5, z + (row ? -.95 : .95), f + Math.PI]); } return { sell, shop }; })(),
+    build(g) {
+      box(g, '#a88a62', 5.9, .05, 4.9, 0, 0, 0);
+      const AW = [['#d0483a', '#f4eee0'], ['#3f9a5a', '#f4eee0'], ['#e6a23a', '#f7d774'], ['#3a7fc2', '#f4eee0'], ['#c2508f', '#f4eee0'], ['#e07a3a', '#f7e6b0']];
+      const GOODS = [['#ffd24a', '#ff9b52', '#e8463a'], ['#7f97ad', '#7f97ad', '#9fb4c4'], ['#6fbf4a', '#3f9a5a', '#e8463a'], ['#ffb347', '#c9a24b', '#8a5a34'], ['#f06b8a', '#b48cf0', '#ffd25a'], ['#e9dcc0', '#d0483a', '#6fbf4a']];
+      let k = 0;
+      for (const [row, zc] of [[0, -1.55], [1, 1.25]]) for (const x of [-1.95, 0, 1.95]) {
+        const st = new THREE.Group(); st.position.set(x, 0, zc); if (row) st.rotation.y = Math.PI; g.add(st);
+        box(st, '#8a5a34', 1.5, .7, .7, 0, 0, 0); box(st, '#6b4a2b', 1.55, .06, .75, 0, .7, 0);
+        for (const [px, pz] of [[-.72, -.6], [.72, -.6], [-.72, .32], [.72, .32]]) box(st, '#5e3b22', .07, 1.75, .07, px, 0, pz);
+        const [c1, c2] = AW[k % AW.length];
+        for (let i = 0; i < 6; i++) { const b = box(st, i % 2 ? c2 : c1, .27, .05, 1.15, -.68 + i * .272, 1.72, -.12); b.rotation.x = .28; }
+        box(st, c1, 1.62, .16, .04, 0, 1.6, .45);
+        const gd = GOODS[k % GOODS.length];
+        for (let i = 0; i < 7; i++) { const m = new THREE.Mesh(i % 3 === 1 && k % 6 === 1 ? G.ico : G.sph, mat(gd[i % 3])); m.scale.setScalar(i % 3 === 1 && k % 6 === 1 ? .1 : .085); m.scale.z *= k % 6 === 1 ? 2 : 1; m.position.set(-.55 + i * .18, .82, .12 + (i % 2) * .12); m.castShadow = true; st.add(m); }
+        const bk = new THREE.Mesh(G.cyl8, mat('#b08850')); bk.scale.set(.2, .22, .2); bk.position.set(.55, .11, .55); bk.castShadow = true; st.add(bk);
+        for (let i = 0; i < 3; i++) { const f = new THREE.Mesh(G.sph, mat(gd[i])); f.scale.setScalar(.07); f.position.set(.5 + (i - 1) * .08, .26, .55); st.add(f); }
+        k++;
+      }
+      // gate with the market's name
+      for (const x of [-2.75, 2.75]) box(g, '#6b4a2b', .16, 2.5, .16, x, 0, 2.35);
+      box(g, '#6b4a2b', 5.8, .14, .18, 0, 2.45, 2.35);
+      const sign = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(['PASAR'], { size: 120, bg: '#c4473a', color: '#fff3d0' }), flatShading: true }), mat('#8a5a34')]);
+      sign.scale.set(2.2, .55, .08); sign.position.set(0, 2.25, 2.38); sign.castShadow = true; g.add(sign);
+      for (let i = 0; i < 9; i++) { const l = new THREE.Mesh(G.sph, lanternMat); l.scale.set(.1, .13, .1); l.position.set(-2.6 + i * .65, 2.3 - Math.sin(i / 8 * Math.PI) * .25, 2.35); g.add(l); }
+    } },
+  // speaking stage for the island's president
+  mimbar: { n: 'Mimbar', w: 3, h: 3, land: true, stage: .55,
+    spots: { pres: [0, -.25, 0, .55] },
+    build(g) {
+      box(g, '#8a5a34', 2.8, .55, 2.4, 0, 0, -.1); box(g, '#6b4a2b', 2.85, .06, 2.45, 0, .55, -.1);
+      for (let i = 0; i < 3; i++) box(g, '#9a6a3e', 1.0, .18 * (i + 1), .3, 0, 0, 1.25 + (2 - i) * .3);
+      box(g, '#c4473a', 2.8, .28, .04, 0, .26, 1.1); box(g, '#f4eee0', 2.8, .27, .04, 0, 0, 1.1);
+      box(g, '#5e3b22', .6, 1.0, .35, 0, .55, .45); box(g, '#c4473a', .62, .14, .37, 0, 1.45, .45);
+      box(g, '#6b4a2b', 2.8, 1.9, .1, 0, .55, -1.3);
+      box(g, '#c4473a', 2.82, .5, .12, 0, 1.95, -1.28); box(g, '#f4eee0', 2.82, .5, .12, 0, 1.45, -1.28);
+      box(g, '#cfd3cc', .05, 3.6, .05, 1.25, 0, -1.2);
+      box(g, '#d0302a', .7, .22, .02, 1.6, 3.32, -1.2); box(g, '#f8f6f0', .7, .22, .02, 1.6, 3.1, -1.2);
+    } },
   papan: { n: 'Papan nama', w: 1, h: 1, land: true, sign: true, build(g, b) { box(g, '#5e3b22', .08, 1, .08, 0, 0, 0); const board = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(splitLabel(b && b.label || 'Pulau'), { size: 46, grain: true }), flatShading: true }), mat('#8a5a34')]); board.scale.set(.95, .48, .06); board.position.set(0, 1, .05); board.castShadow = true; g.add(board); } },
 };
 export function spearMesh(parent) {

@@ -191,7 +191,32 @@ function setPlayerLook() { if (player.obj) scene.remove(player.obj); player.obj 
 let npcs = [];
 const fishHud = h('div', { class: 'plate fishplate', hidden: true }); $('hud-l').appendChild(fishHud);
 function updateFishHud() { const st = fishing.st; fishHud.hidden = !st.active && !st.total; fishHud.replaceChildren(h('span', { class: 'eyebrow' }, 'Tangkapan ikan'), h('b', null, fmt(st.total))); }
-const acts = createActivities({ scene, solid: () => solid, occ: () => occ, npcWalkable: (x, z) => npcWalkable(x, z), groundY, surfaceY: (x, z) => surfaceY(x, z), fireXZ: fpCenter(LM.fire[0], LM.fire[1], 1, 1), player });
+// market stalls and the president's stage give the residents somewhere to be
+function extraSpots() {
+  const out = { sell: [], shop: [], listen: [], pres: [] };
+  const tr = (o, lx, lz) => { const r = o.rotation.y, c = Math.cos(r), s_ = Math.sin(r); return [o.position.x + lx * c + lz * s_, o.position.z - lx * s_ + lz * c]; };
+  for (const o of bObjs) {
+    const d = o.userData.def, sp = d.spots; if (!sp) continue;
+    if (d.market) {
+      for (const [lx, lz, f] of sp.sell) { const [x, z] = tr(o, lx, lz); out.sell.push({ x, z, face: f + o.rotation.y }); }
+      for (const [lx, lz, f] of sp.shop) { const [x, z] = tr(o, lx, lz); out.shop.push({ x, z, face: f + o.rotation.y }); }
+    }
+    if (sp.pres) {
+      const [lx, lz, f, y] = sp.pres, [x, z] = tr(o, lx, lz), face = f + o.rotation.y;
+      out.pres.push({ x, z, face, y: y + (o.position.y - surfaceY(x, z)) });
+      // the crowd: rows in front of the stage, facing it
+      const fx = Math.sin(face), fz = Math.cos(face);
+      for (let row = 0; row < 3; row++) for (let k = -3; k <= 3; k++) {
+        const dist = 3.4 + row * 1.1, side = k * .95 + (row % 2) * .45;
+        const px = x + fx * dist + fz * side, pz = z + fz * dist - fx * side;
+        if (!npcWalkable(px, pz)) continue;
+        out.listen.push({ x: px + (Math.random() - .5) * .2, z: pz + (Math.random() - .5) * .2, face: Math.atan2(x - px, z - pz) });
+      }
+    }
+  }
+  return out;
+}
+const acts = createActivities({ scene, extraSpots, solid: () => solid, occ: () => occ, npcWalkable: (x, z) => npcWalkable(x, z), groundY, surfaceY: (x, z) => surfaceY(x, z), fireXZ: fpCenter(LM.fire[0], LM.fire[1], 1, 1), player });
 const fishing = createFishing({ scene, player, toast: (...a) => toast(...a), onChange: () => { near = null; updateFishHud(); } });
 const SEED = Math.random(), rankOf = n => { let h = SEED * 4294967296 >>> 0; for (const c of n.toLowerCase()) h = Math.imul(h ^ c.charCodeAt(0), 2654435761) >>> 0; return h; };
 const npcGroup = new THREE.Group(); scene.add(npcGroup);
@@ -201,7 +226,9 @@ function rebuildNpcs() {
   const extra = Math.max(0, lamps() - res.length), N = Math.min(touch ? 60 : 100, res.length + extra);
   const want = [];
   if (role.kind !== 'aru') want.push({ key: 'aru', name: 'Aru', aru: true });
-  for (let i = 0; i < N; i++) { const r = i < res.length ? res[i] : null; const key = r ? 'r:' + r.n.toLowerCase() : 'a:' + i; if (role.kind === 'warga' && key === 'r:' + role.name.toLowerCase()) continue; want.push(r ? { key, name: '@' + r.n, num: r.num } : { key, name: 'Warga', num: null }); }
+  const pres = S.president && S.president.n ? clean(S.president.n) : null;
+  if (pres && !(role.kind === 'warga' && role.name.toLowerCase() === pres.toLowerCase())) want.push({ key: 'r:' + pres.toLowerCase(), name: '@' + pres, num: (S.residents.findIndex(r => r.n.toLowerCase() === pres.toLowerCase()) + 1) || null, pres: true });
+  for (let i = 0; i < N; i++) { const r = i < res.length ? res[i] : null; const key = r ? 'r:' + r.n.toLowerCase() : 'a:' + i; if (role.kind === 'warga' && key === 'r:' + role.name.toLowerCase()) continue; if (pres && key === 'r:' + pres.toLowerCase()) continue; want.push(r ? { key, name: '@' + r.n, num: r.num } : { key, name: 'Warga', num: null }); }
   const old = new Map(npcs.map(n => [n.key, n]));
   const next = want.map((w, i) => {
     const o = old.get(w.key); if (o) { old.delete(w.key); Object.assign(o, w); return o; }
@@ -413,7 +440,7 @@ const pv = new THREE.Vector3();
 function updateLabels() {
   const items = [];
   const push = (text, x, y, z, cls, d) => items.push({ text, x, y, z, cls, d });
-  for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (d < (n.aru ? 10 : 4.5) && (n.num || n.aru)) push(n.name, n.x, n.obj.position.y + 1.75, n.z, n.aru ? 'gold' : '', d); }
+  for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (d < (n.aru || n.pres ? 12 : 4.5) && (n.num || n.aru || n.pres)) push(n.pres ? 'Presiden ' + n.name : n.name, n.x, n.obj.position.y + 1.75, n.z, n.aru || n.pres ? 'gold' : '', d); }
   items.sort((a, b) => a.d - b.d);
   labelPool.forEach((el, i) => {
     const it = items[i]; if (!it) { el.hidden = true; return; }
@@ -464,12 +491,13 @@ function frame() {
   player.obj.position.set(player.x, player.y, player.z);
   animateCharacter(player.obj, player.moving, dt);
   fishing.update(dt, T0);
-  for (const n of npcs) { acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z), n.z); }
+  for (const n of npcs) { acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z) + (n.state === 'work' ? n.yOff || 0 : 0), n.z); }
   // camera
   if (cam.attract && !$('start').hidden) { cam.yaw += dt * .05; }
   const tgt = new THREE.Vector3(player.x, player.obj.position.y + 1, player.z);
   if (place && !place.erase && place.hx != null && touch) { const [cx, cz] = fpCenter(place.hx, place.hy, 1, 1); tgt.set(cx, 1, cz); }
   if (sail.on) tgt.set(V().x, 1.5, V().z);
+  if (window.__camTarget) tgt.copy(window.__camTarget);
   cam.target.lerp(tgt, Math.min(1, dt * 6));
   cam.sailDist = (cam.sailDist || 0) + ((sail.on ? (sail.boat ? 4 : 10) : 0) - (cam.sailDist || 0)) * Math.min(1, dt * 2);
   const cp = Math.cos(cam.pitch);

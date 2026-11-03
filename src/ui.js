@@ -131,7 +131,7 @@ export function talk(n) {
     const lines = [`Selamat datang. Kita sekarang ${fmt(app.pop())} orang di pulau ini.`, e ? `Catatan terakhir, episode ${e.ep}: ${e.text}` : 'Aku masih menunggu warga pertama.', `Mercusuar sudah punya ${fmt(app.lamps())} lampu menyala.`, 'Kadang aku masih ingat ombak malam itu. Belum semuanya bisa kuceritakan.'];
     dialog('Aru', lines[(Math.random() * lines.length) | 0]); return;
   }
-  if (n.role && ROLE_LINES[n.role] && Math.random() < .65) { const L = ROLE_LINES[n.role]; dialog(n.name, L[(Math.random() * L.length) | 0]); return; }
+  if (n.role && ROLE_LINES[n.role] && (n.pres || Math.random() < .65)) { const L = ROLE_LINES[n.role]; dialog(n.pres ? 'Presiden ' + n.name : n.name, L[(Math.random() * L.length) | 0]); return; }
   const b = S.buildings[S.buildings.length - 1];
   const pool = [n.num ? `Aku warga ke-${n.num}. Namaku terukir di batu dekat pantai.` : 'Aku baru datang. Namaku belum sempat diukir.', b ? `Sudah lihat ${BT[b.type].n.toLowerCase()} yang baru dibangun? Aku suka.` : 'Pulau ini masih sepi. Kira-kira besok kita bangun apa ya?', `Kata Aru, mercusuar sudah punya ${fmt(app.lamps())} lampu.`, 'Kalau malam, coba lihat ke arah mercusuar.', S.clues.length > 1 ? 'Aku dengar di perahu rusak ada petunjuk baru.' : 'Menurutmu, bagaimana Aru bisa sampai ke sini?'];
   dialog(n.name, pool[(Math.random() * pool.length) | 0]);
@@ -178,6 +178,9 @@ function adWarga() {
     h('div', { class: 'row' }, fld('Jumlah follower', f), h('button', { class: 'btn ghost', onclick: () => { S.followers = Math.max(S.residents.length, parseInt(f.value) || 0); app.markDirty(); openAdmin(); } }, 'Pakai')),
     fld('Ukir nama warga baru di Batu Nama', ta),
     h('button', { class: 'btn ghost', onclick: () => { const have = new Set(S.residents.map(r => r.n.toLowerCase())); let added = 0; for (const raw of ta.value.split(/[\n,]+/)) { const n = clean(raw); if (!n || have.has(n.toLowerCase())) continue; have.add(n.toLowerCase()); S.residents.push({ n, ep: app.curEp() }); added++; } if (S.followers < S.residents.length) S.followers = S.residents.length; app.markDirty(); toast(added + ' nama diukir'); openAdmin(); } }, 'Ukir nama'),
+    h('div', { class: 'eyebrow', style: 'margin-top:18px;margin-bottom:6px' }, 'Presiden pulau'),
+    h('div', { class: 'row' }, fld('Username presiden', h('input', { id: 'ad-pres', value: (S.president && S.president.n) || '', placeholder: '@username' })),
+      h('button', { class: 'btn ghost', onclick: () => { const v = clean($('ad-pres').value); S.president = v ? { n: v, ep: app.curEp() } : null; if (v && !S.residents.some(r => r.n.toLowerCase() === v.toLowerCase())) S.residents.push({ n: v, ep: app.curEp() }); app.markDirty(); toast(v ? 'Presiden dilantik: @' + v : 'Jabatan presiden dikosongkan'); openAdmin('warga'); } }, 'Lantik')),
     h('div', { class: 'eyebrow', style: 'margin-top:18px;margin-bottom:6px' }, 'Impor dari data TikTok'),
     h('p', { class: 'lede' }, 'Pilih file user_data_tiktok.json (atau Follower.txt) dari unduhan data akun TikTok-mu. Nama follower baru langsung diukir, urut dari yang paling lama follow.'),
     h('input', { id: 'ad-ttfile', type: 'file', accept: '.json,.txt,application/json,text/plain', class: 'inp', onchange: e => importFollowers(e.target.files[0]) }),
