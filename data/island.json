@@ -11806,6 +11806,10 @@
   {
    "n": "fahmi_bocilff",
    "ep": 2
+  },
+  {
+   "n": "javaz53",
+   "ep": 7
   }
  ],
  "buildings": [
@@ -11937,6 +11941,46 @@
    "r": 0,
    "by": "",
    "ep": 6
+  },
+  {
+   "type": "sekolah",
+   "x": 50,
+   "y": 70,
+   "r": 3,
+   "by": "junaa_yuds",
+   "ep": 7
+  },
+  {
+   "type": "apotik",
+   "x": 57,
+   "y": 70,
+   "r": 1,
+   "by": "junaa_yuds",
+   "ep": 7
+  },
+  {
+   "type": "warteg",
+   "x": 59,
+   "y": 79,
+   "r": 2,
+   "by": "javaz53",
+   "ep": 7
+  },
+  {
+   "type": "rumahsakit",
+   "x": 62,
+   "y": 79,
+   "r": 2,
+   "by": "yan.dipanggil.nen3",
+   "ep": 7
+  },
+  {
+   "type": "rumahpresiden",
+   "x": 49,
+   "y": 47,
+   "r": 3,
+   "by": "Etet_443",
+   "ep": 7
   }
  ],
  "episodes": [
@@ -11998,6 +12042,15 @@
     "junaa_yuds"
    ],
    "text": "Penduduk tembus 3.560. Presiden @Etet_443 merapikan pulau: jalan setapak diganti jalan aspal dua lajur (usulan @EN17).\nDua rumah yang lama dibangun akhirnya selesai. Para tukang pindah ke lahan baru untuk sekolah dan apotik (usulan @junaa_yuds).\nKeputusan presiden tanpa undian: masjid berkubah hijau.\nKata warga: siapa pun boleh menggulingkan presiden, asal punya cara."
+  },
+  {
+   "ep": 7,
+   "date": "4 Nov 2026",
+   "picks": [
+    "javaz53",
+    "yan.dipanggil.nen3"
+   ],
+   "text": "Undian komentar: warteg (usulan @javaz53) buka di jalan timur, dan di sebelahnya rumah sakit (usulan @yan.dipanggil.nen3) \"biar nggak ada yang sakit\". Pasiennya nol.\nPresiden @Etet_443, tanpa undian: \"Aku mau rumah!\" Rumah Presiden berdiri di samping panggung.\nSekolah dan apotik usulan @junaa_yuds akhirnya selesai.\nPasien pertama rumah sakit datang dari warteg sebelah: kekenyangan."
   }
  ],
  "letters": [],
@@ -12049,22 +12102,7 @@
    ]
   ]
  },
- "construct": [
-  {
-   "type": "sekolah",
-   "by": "junaa_yuds",
-   "ep": 6,
-   "x": 50,
-   "y": 70
-  },
-  {
-   "type": "apotik",
-   "by": "junaa_yuds",
-   "ep": 6,
-   "x": 59,
-   "y": 70
-  }
- ],
+ "construct": [],
  "supporters": [],
  "umkm": []
 }

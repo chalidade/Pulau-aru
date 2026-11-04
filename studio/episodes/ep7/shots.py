@@ -28,8 +28,8 @@ C4 = f"""() => {{ const P = window.__pulau; window.__look(6.5, 23, 2.6, .55, 13,
 C5 = f"""() => {{ const P = window.__pulau, n = P.npcs.find(n => n.pres); window.__cheer = false;
   window.__look(n.x, n.z, n.spot.face + .3, .9, 6.0, false); window.__camTarget = {V}(n.x, n.obj.position.y + .9, n.z + .5);
   window.__beforeRender = (dt) => {{ window.__camTarget.set(n.x, n.obj.position.y + .9, n.z + .5); P.cam.dist -= dt * .3; }}; }}"""
-C6 = f"""() => {{ const P = window.__pulau; window.__look(-3.5, -6.5, 1.25, .6, 11, false); window.__camTarget = {V}(-5, P.WD.groundY(-5, -6.5) + 1.6, -6.5);
-  window.__beforeRender = (dt) => {{ P.cam.yaw += dt * .14; P.cam.dist -= dt * .5; }}; }}"""
+C6 = f"""() => {{ const P = window.__pulau; window.__look(-4, -6.5, 1.3, .5, 17, false); window.__camTarget = {V}(-5, P.WD.groundY(-5, -6.5) + 1.6, -6.5);
+  window.__beforeRender = (dt) => {{ P.cam.yaw += dt * .12; P.cam.dist -= dt * .9; }}; }}"""
 C7 = f"""() => {{ const P = window.__pulau; window.__look(-1.5, 15.5, 1.57, .85, 17, false); window.__beforeRender = (dt) => {{ P.cam.yaw += dt * .06; P.cam.dist -= dt * .9; }}; }}"""
 C8 = f"""() => {{ const P = window.__pulau, W = window.__W(), a = W[1], b = W[2]; window.__look(4.3, 22.6, 2.9, .25, 4.6, false); window.__camTarget = {V}(4.3, P.WD.groundY(4.3, 22.8) + 1.0, 22.9);
   window.__beforeRender = (dt, T) => {{ window.__hideNear(4, 22.5, 3.6, [a, b]); window.__pose(a, 4.3, 22.8, Math.PI + .2, 'belly', T); window.__pose(b, 6.5, 23.2, Math.PI - .3, 'eat', T); P.cam.dist -= dt * .12; }}; }}"""
