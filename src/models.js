@@ -413,8 +413,8 @@ export const BT = {
   papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,
     build(g, b) {
       const name = (b && b.label) || 'SEMANGAT!';
-      for (const x of [-.75, .75]) box(g, '#5e3b22', .1, 1.6, .1, x, 0, 0);
-      box(g, '#e6b84a', 2.0, 1.0, .08, 0, 1.25, -.02);
+      for (const x of [-.75, .75]) box(g, '#5e3b22', .1, 1.6, .1, x, 0, -.13);
+      box(g, '#e6b84a', 2.0, 1.0, .08, 0, 1.25, -.03);
       const c = document.createElement('canvas'); c.width = 512; c.height = 256; const x = c.getContext('2d');
       x.fillStyle = '#fff4dc'; x.fillRect(0, 0, 512, 256); x.fillStyle = '#d0483a'; x.fillRect(0, 0, 512, 14); x.fillRect(0, 242, 512, 14);
       x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#d0483a'; x.font = '700 84px "Pixelify Sans", sans-serif'; x.fillText('SEMANGAT!', 256, 100, 480);
