@@ -108,13 +108,13 @@ export function openUmkm() {
   const S = app.S, list = S.umkm || [];
   sheet('Etalase UMKM',
     h('p', { class: 'lede' }, 'Usaha kecil warga Pulau Aru. Setiap usaha yang terdaftar dapat tempat di Pasar Tradisional atau di Kopdes, dan namanya tampil di Papan UMKM.'),
-    list.length ? h('div', { class: 'list' }, list.map(u => h('div', { class: 'li umkm' }, h('div', null, h('b', null, u.name), h('div', { class: 'umkm-k' }, [u.kind, u.place === 'kopdes' ? 'Kopdes' : 'Pasar', u.by ? '@' + u.by : ''].filter(Boolean).join(' · '))), u.link ? h('a', { class: 'mini', href: u.link, target: '_blank', rel: 'noopener sponsored' }, 'Kunjungi') : null)))
+    list.length ? h('div', { class: 'list' }, list.map(u => h('div', { class: 'li umkm' }, h('div', null, h('b', null, u.name), h('div', { class: 'umkm-k' }, [u.kind, u.place === 'kopdes' ? 'Kopdes' : 'Pasar', u.by ? '@' + u.by : ''].filter(Boolean).join(' · '))), safeLink(u.link) ? h('a', { class: 'mini', href: safeLink(u.link), target: '_blank', rel: 'noopener sponsored' }, 'Kunjungi') : null)))
       : h('div', { class: 'empty' }, 'Etalase masih kosong. Lapak pertama menunggu kamu.'),
     h('div', { class: 'eyebrow', style: 'margin:14px 0 8px' }, 'Cara daftar (gratis selama masa perintisan)'),
     h('ol', { class: 'rules' },
-      h('li', null, 'Komentar di video TikTok @kita.berkembang dengan format: ', h('b', null, '#UMKMPulauAru nama usaha - jenis - link'), '.'),
-      h('li', null, 'Link boleh toko online, Instagram, WhatsApp bisnis, atau website usahamu.'),
-      h('li', null, 'Beberapa usaha dipilih setiap minggu, dibuatkan lapak di pulau, dan diperkenalkan di episode.')),
+      h('li', null, 'Komentar di video TikTok @kita.berkembang dengan format: ', h('b', null, '#UMKMPulauAru nama usaha - jenis - kontak'), ' (contoh: #UMKMPulauAru Seblak Bunda Arsy - seblak - IG: seblakbundaarsy).'),
+      h('li', null, 'Kontaknya boleh Instagram (tulis IG: namaakun, tanpa @), WhatsApp pemesanan (WA: 08xxxx), toko online, atau website. TikTok sering menyembunyikan komentar berisi link, jadi lebih aman tulis nama akun atau nomornya saja.'),
+      h('li', null, 'Usaha yang terpilih dibuatkan warung dengan papan namanya sendiri di pulau dan diperkenalkan di episode. Siapa pun yang mengetuk warungnya langsung diarahkan ke Instagram, WhatsApp pemesanan, atau website usahanya.')),
     h('p', { class: 'lede', style: 'margin-top:10px;font-size:13px' }, 'Kami tidak menerima judi, pinjol ilegal, investasi bodong, produk dewasa, atau barang terlarang.'));
 }
 export function openJoin() {
@@ -174,6 +174,16 @@ export function openMap() {
   sheet('Peta ' + (app.S.islandName || 'pulau'), h('p', { class: 'lede' }, onMap ? 'Pulau ini sudah muncul di peta dunia.' : `Pulau ini belum ada di peta dunia. Ia akan muncul saat penduduk mencapai 10.000 (sekarang ${fmt(p)}).`),
     h('div', { class: 'mapwrap' }, c),
     h('div', { class: 'legend' }, ...[['#ffffff', 'Kamu'], ['#ff8a72', 'Kemah Aru'], ['#ffc94a', 'Mercusuar'], ['#cfd3cc', 'Batu Nama'], ['#8a5a34', 'Perahu rusak'], ['#e3c49a', 'Bangunan warga']].map(([c, l]) => h('span', null, h('i', { style: 'background:' + c }), l))));
+}
+export const safeLink = u => { try { const x = new URL(u); return x.protocol === 'https:' ? x.href : null; } catch (e) { return null; } };
+export const linkLabel = u => /instagram\.com/.test(u) ? 'Buka Instagram' : /(wa\.me|whatsapp\.com)/.test(u) ? 'Pesan lewat WhatsApp' : /(tokopedia|shopee|lazada|tiktok\.com)/.test(u) ? 'Buka toko online' : 'Buka website';
+export function shopDialog(b) {
+  const link = safeLink(b.link), u = (app.S.umkm || []).find(u => u.name === b.label) || {};
+  sheet(b.label || 'Warung UMKM',
+    h('p', { class: 'lede' }, [u.kind || b.kind, b.by ? 'milik @' + clean(b.by) : '', b.ep != null && b.ep !== '' ? 'buka sejak episode ' + b.ep : ''].filter(Boolean).join(' · ') || 'Usaha warga Pulau Aru.'),
+    link ? h('a', { class: 'btn', href: link, target: '_blank', rel: 'noopener sponsored', style: 'display:block;text-align:center;margin:12px 0' }, linkLabel(link)) : h('div', { class: 'empty' }, 'Link usaha belum tersedia.'),
+    h('p', { class: 'lede', style: 'font-size:13px' }, 'Link ini menuju situs di luar Pulau Aru. Pulau Aru tidak menjamin produk atau transaksi; cek sendiri sebelum membeli.'),
+    h('p', { class: 'lede', style: 'font-size:13px' }, 'Punya usaha juga? Komentar di TikTok @kita.berkembang: ', h('b', null, '#UMKMPulauAru nama usaha - jenis - IG: namaakun / WA: 08xxxx / website'), '.'));
 }
 export function bldDialog(b) {
   const d = BT[b.type], parts = [];

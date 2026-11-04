@@ -330,6 +330,32 @@ export const BT = {
       box(g, '#d0483a', .5, .16, .02, 1.8, 2.36, 1.15); box(g, '#f4eee0', .5, .16, .02, 1.8, 2.2, 1.15);
       for (const xx of [-1.55, 1.1]) add(g, G.ico, '#4f9b45', .28, .3, .28, xx, .55, 1.15);
     } },
+  // a small business stall for a real UMKM chosen from the comments (#UMKMPulauAru): the sign shows b.label,
+  // the awning colour comes from the name, and tapping it opens the business link (b.link) after a confirmation sheet
+  warungumkm: { n: 'Warung UMKM', w: 2, h: 2, land: true,
+    build(g, b) {
+      const name = (b && b.label) || 'Warung', hue = [...name].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7) % 6;
+      const [c1, c2] = [['#d0483a', '#f4eee0'], ['#2f8a6a', '#f4eee0'], ['#e6b84a', '#5e3b22'], ['#4e7a9a', '#f4eee0'], ['#b06ab3', '#f4eee0'], ['#e07b39', '#fff4dc']][hue];
+      box(g, '#c9bfa8', 1.9, .1, 1.85, 0, 0, 0);
+      box(g, '#b07a4a', 1.7, 1.15, .1, 0, .1, -.75); box(g, '#9a6a3e', .1, 1.15, 1.1, -.8, .1, -.25); box(g, '#9a6a3e', .1, 1.15, 1.1, .8, .1, -.25);
+      for (const [x, z] of [[-.82, .7], [.82, .7]]) box(g, '#5e3b22', .08, 1.35, .08, x, .1, z);
+      box(g, c1, 1.85, .08, 1.6, 0, 1.25, -.05);
+      for (let i = 0; i < 7; i++) { const a = box(g, i % 2 ? c2 : c1, .27, .05, .5, -.81 + i * .27, 1.18, .82); a.rotation.x = .38; }
+      box(g, '#8a5a34', 1.4, .6, .4, 0, .1, .3);                                       // counter
+      box(g, c2, 1.42, .06, .42, 0, .7, .3);
+      const goods = ['#d0483a', '#e6b84a', '#f2e6c8', '#62bd73', '#c4473a'];
+      for (let i = 0; i < 5; i++) add(g, G.cyl8, goods[(i + hue) % 5], .09, .1, .09, -.5 + i * .25, .8, .3);
+      box(g, '#8a5a34', 1.3, .06, .3, 0, .9, -.6); for (let i = 0; i < 4; i++) add(g, G.sph, goods[(i + 2) % 5], .1, .1, .1, -.45 + i * .3, 1.0, -.6);
+      const c = document.createElement('canvas'); c.width = 512; c.height = 128; const x = c.getContext('2d');
+      x.fillStyle = c2; x.fillRect(0, 0, 512, 128); x.fillStyle = c1; x.fillRect(0, 0, 512, 10); x.fillRect(0, 118, 512, 10);
+      let fs = 64; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`;
+      while (fs > 26 && x.measureText(name).width > 480) { fs -= 2; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; }
+      x.fillStyle = c1 === '#e6b84a' ? '#5e3b22' : c1; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(name, 256, 66);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.7, .42), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.6, .55); g.add(sign);
+      box(g, '#5e3b22', 1.76, .48, .04, 0, 1.36, .52);
+      const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.09, .12, .09); lamp.position.set(.75, 1.05, .78); g.add(lamp);
+    } },
   // a village cooperative on a floating cloud island, reached by a spiral of cloud steps from the pyramid top
   kopdesawan: { n: 'Kopdes di atas awan', w: 1, h: 1, land: true, float: true,
     layout: (() => {

@@ -91,14 +91,24 @@ from Trakteer requests, TikTok LIVE gifts, and small-business (UMKM) features. K
 - **Supporters:** when someone traktir'd, thank them on screen ("Terima kasih @nama!") and show their request happening.
   The Monumen Dermawan (east of the stage, (57,46)) and the "Papan Dermawan" ranking update automatically.
 - **Call to action:** every 2nd–3rd episode, close with ONE of these on the end card (rotate, never all at once):
-  "Request tanpa undian: traktir Rp5.000 di teer.id/chalidade" · "Punya usaha? Komentar #UMKMPulauAru nama - jenis - link"
+  "Request tanpa undian: traktir Rp5.000 di teer.id/chalidade" · "Punya usaha? Komentar #UMKMPulauAru nama - jenis - IG/WA"
   · "Ikut LIVE bangun pulau" (only if Chalid has announced a LIVE time in komentar.md).
-- **UMKM:** collect comments containing `#UMKMPulauAru` (and entries in komentar.md). Accept only real small businesses with
-  a shop / Instagram / WhatsApp business / website link; reject gambling, illegal loans, investment schemes, adult or
-  prohibited goods, and anything that looks like a scam. Add at most 1–2 per episode to `island.json → umkm` as
-  `{name, kind, link, by, ep, place: "pasar" | "kopdes"}`; give them a short moment in the episode ("Lapak baru di pasar:
-  …"). They appear on the Papan UMKM board (by the market, (86,75)) and in the "Etalase UMKM" menu. Free while the island
-  is starting out; never promise sales or results.
+- **UMKM (warung milik usaha sungguhan, permintaan Chalid 4 Nov 2026):** people with a small business comment
+  `#UMKMPulauAru nama usaha - jenis - kontak` (contact = `IG: namaakun`, `WA: 08xxxx`, a shop link or a website; also
+  entries in komentar.md). Pick at most 1–2 per episode. Accept only real small businesses; reject gambling, illegal loans,
+  investment schemes, adult or prohibited goods, and anything that looks like a scam.
+  - Turn the contact into an **https** link: `IG: seblakbundaarsy` → `https://www.instagram.com/seblakbundaarsy/`,
+    `WA: 0812…` → `https://wa.me/62812…` (drop the leading 0), shop or website links as given (https only).
+  - Build it on the island as its own stall: `island.json → buildings` gets
+    `{type: "warungumkm", x, y, r, label: "<nama usaha>", link: "<https link>", kind: "<jenis>", by: "<username>", ep}`,
+    in a row along a street near the market (east street `y 77–78`) or the main street. The sign shows `label`.
+  - Also add `{name, kind, link, by, ep, place: "pasar"}` to `island.json → umkm` (Papan UMKM board and Etalase UMKM menu).
+  - **Any building with a `link`** (not only `warungumkm`) is clickable on pulau-aru.web.id: tapping it, or walking up and
+    pressing the action button, opens a sheet with a button to the Instagram, WhatsApp order chat or website.
+  - In the episode: a short moment ("Lapak baru: Seblak Bunda Arsy! Ketuk warungnya di pulau-aru.web.id untuk pesan"),
+    a `title` card with the business name and `@username`. Free while the island is starting out; never promise sales.
+  - CTA rotation (end card, every 2nd–3rd episode): "Punya usaha? Komentar #UMKMPulauAru nama - jenis - IG/WA, warungmu
+    kami bangun di pulau".
 - Caption: always include `pulau-aru.web.id`; add `teer.id/chalidade` when the episode shows a supporter's request.
 
 ## 2c. Retention rules (most important; viewers were leaving at 0:01–0:02)

@@ -428,6 +428,8 @@ cvs.addEventListener('contextmenu', e => e.preventDefault());
 function tapAt(cx, cy) {
   const p = pickGround(cx, cy); if (!p) return;
   if (place) { placeAt(WD.w2cx(p.x), WD.w2cy(p.z)); return; }
+  { const shops = bObjs.filter(o => o.userData.b.link); if (shops.length) { ndc.set(cx / innerWidth * 2 - 1, -(cy / innerHeight) * 2 + 1); raycaster.setFromCamera(ndc, camera);
+    const hit = raycaster.intersectObjects(shops, true)[0]; if (hit) { let o = hit.object; while (o && !(o.userData && o.userData.b)) o = o.parent; if (o) { UI.shopDialog(o.userData.b); return; } } } }
   if (fishing.st.active && fishing.isWater(p.x, p.z) && Math.hypot(p.x - player.x, p.z - player.z) < 5.5) { fishing.throwAt({ x: p.x, z: p.z }); return; }
   let hit = null, bd = 1.6; for (const it of interactables()) { const d = Math.hypot(it.x - p.x, it.z - p.z); if (d < bd) { bd = d; hit = it; } }
   if (hit && Math.hypot(hit.x - player.x, hit.z - player.z) < 4) { hit.act(); return; }
@@ -462,7 +464,7 @@ function interactables() {
   L.push({ ...at(LM.board[0], LM.board[1], 2, 1, .9), label: 'Baca aturan', act: UI.openRules, r: 1.6 });
   L.push({ ...at(LM.wreck[0], LM.wreck[1], 3, 2, 1.4), label: 'Periksa perahu', act: UI.openMystery, r: 2.4 });
   L.push({ ...at(LM.fire[0], LM.fire[1], 1, 1, .9), label: 'Baca catatan', act: UI.openJournal, r: 1.6 });
-  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); if (b.type === 'perahu') return; const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : BT[b.type].open ? 'Baca ' + BT[b.type].n : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : BT[b.type].open ? () => UI.openPanel(BT[b.type].open) : () => UI.bldDialog(b), r: Math.min(3, Math.max(1.4, f.w * .7)), key: sp ? 'spear' + fishing.st.active : null }); });
+  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); if (b.type === 'perahu') return; const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : b.link ? 'Mampir ke ' + (b.label || 'warung') : BT[b.type].open ? 'Baca ' + BT[b.type].n : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : b.link ? () => UI.shopDialog(b) : BT[b.type].open ? () => UI.openPanel(BT[b.type].open) : () => UI.bldDialog(b), r: Math.min(3, Math.max(1.4, f.w * .7)), key: sp ? 'spear' + fishing.st.active : null }); });
   for (const n of npcs) L.push({ npc: true, x: n.x, z: n.z, label: 'Bicara dengan ' + n.name, act: () => { n.obj.rotation.y = Math.atan2(player.x - n.x, player.z - n.z); n.wait = 4; UI.talk(n); }, r: 1.3 });
   return L;
 }
