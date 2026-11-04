@@ -5,8 +5,7 @@ and posts it to TikTok **@kita.berkembang**. There are two runs a day (10:00 and
 steps in order. Write everything the audience sees or hears in Indonesian, in the same voice as earlier episodes:
 casual, funny, a little anime (jokes, small sad or warm beats, and a hook at the end).
 
-The person who owns all this is Chalid. Message him with `SendUserMessage` only for the final report, or when a
-step really cannot be done.
+The person who owns all this is Chalid. Message him with `SendUserMessage` for the posting hand-off and final report, or when a step really cannot be done.
 
 ---
 
@@ -60,21 +59,26 @@ step really cannot be done.
 
 ## 2. Pick two comments
 
-Use **Claude in Chrome**. Load the `chrome-browser` skill, then use Chalid's logged-in Chrome.
+The scheduled runs work **without Chalid's laptop** (cloud mode, chosen by Chalid on 2026-11-04). Sources, in order:
+1. `studio/komentar.md`: anything Chalid queued comes first.
+2. `studio/traktir.json`: paid requests (see 1).
+3. **Fresh TikTok comments via Apify:** dispatch the workflow and wait for it (2–5 min):
+   ```
+   gh api -X POST repos/chalidade/Pulau-aru/actions/workflows/tiktok-comments.yml/dispatches -f ref=main
+   ```
+   Poll `gh api repos/chalidade/Pulau-aru/actions/workflows/tiktok-comments.yml/runs?per_page=1` until it completes,
+   then `git pull` and read `studio/comments.json` (`comments[]`: user, name, text, likes, video). If the run fails
+   because `APIFY_TOKEN` is not set (or Apify errors), say so in the report and carry on with the next source.
+4. Claude in Chrome, **only if** its tools are present and connected in this session (Chalid's laptop happens to be on):
+   `https://www.tiktok.com/tiktokstudio/comment`, read with `get_page_text`.
+5. Nothing new available: drive the episode from an open thread in `state.json` and ask Chalid in the report to
+   queue comments in `komentar.md` (he can edit it on GitHub from his phone).
 
-- **Where to read comments:** open `https://www.tiktok.com/tiktokstudio/comment`, or the latest videos on
-  `https://www.tiktok.com/@kita.berkembang`. Read the comments on the 1–3 newest videos with `get_page_text`,
-  scrolling to load more.
-- **What to choose:** two comments that are unique, funny, surprising or random. They do not need to make sense.
-  - Prefer comments that answer the previous episode's question.
-  - Never reuse anything in `usedComments`.
-  - Skip comments that are hateful, sexual, about minors, doxxing, or political about real people.
-- **Credit:** use the commenter's display handle exactly as shown.
-- **Screenshots:** take one of each chosen comment if possible (`computer` with `zoom` and `save_to_disk`).
-  Otherwise the compositor draws the card from text.
-- **Order of sources:** queued items in `komentar.md` come first.
-- **If Chrome is not connected:** use `komentar.md`. If that is empty as well, re-use an open thread from
-  `state.json` as the episode's driver. Say in the report that no new comments could be read.
+Choosing:
+- Two comments that are unique, funny, surprising or random; they do not need to make sense. Prefer ones answering
+  the previous episode's question, and ones with likes.
+- Never reuse anything in `usedComments`. Skip hateful, sexual, about-minors, doxxing, or real-politics comments.
+- Credit the commenter's handle exactly. The compositor draws the comment cards from text.
 
 ## 2b. Community and money (every episode, lightly)
 
@@ -215,27 +219,22 @@ Everything the episode shows must really exist at pulau-aru.web.id afterwards.
 - Check four or five frames of the final MP4 before posting: text not clipped, nothing covering faces,
   the comment cards readable.
 
-## 7. Post to TikTok (public)
+## 7. Deliver for posting (Chalid posts it from his phone)
 
-1. Make an upload copy under 10 MB:
+Cloud mode has no access to TikTok, so Chalid posts by hand. Make that a 30-second job for him:
+1. Make a phone-friendly copy (under ~15 MB):
    ```
-   ffmpeg -i final.mp4 -c:v libx264 -preset medium -crf 26 -maxrate 1200k -bufsize 2400k -c:a aac -b:a 128k -movflags +faststart /mnt/user-data/outputs/pulau-aru-ep<N>.mp4
+   ffmpeg -i final.mp4 -c:v libx264 -preset medium -crf 25 -maxrate 1500k -bufsize 3000k -c:a aac -b:a 128k -movflags +faststart $STUDIO_WORK/pulau-aru-ep<N>.mp4
    ```
-2. In Chrome, open `https://www.tiktok.com/tiktokstudio/upload`.
-   - Use `find` to locate the file input, then `file_upload` with the path above. Never click the input itself.
-   - Wait for processing.
-3. Write the caption in Indonesian, under ~300 characters:
-   - one line about what happened
-   - credit `@user1 @user2`
-   - "Komentar = nasib pulau. Kunjungi pulau-aru.web.id"
-   - hashtags `#pulauaru #pulaunetizen #fyp`
-4. Set visibility to **Everyone**. Turn on the **AI-generated content** label: the voices are AI.
-5. Click Post, then confirm on the profile that the video appears.
-   - This posting is authorised by Chalid's standing instruction for this workflow. Do not post anything else.
-   - Never change account settings.
-6. If Chrome is unavailable or the upload fails twice:
-   - Send the file with `SendUserFile` and push a notification.
-   - Give the ready-to-paste caption in the report, so Chalid can post by hand.
+2. Send it with `SendUserFile` (status `proactive`).
+3. Send a `SendUserMessage` that starts with **"Episode <N> siap diposting"**, followed by the caption in a code block
+   ready to paste. Caption: Indonesian, under ~300 characters, one line about what happened, credit `@user1 @user2`,
+   "Komentar = nasib pulau. Kunjungi pulau-aru.web.id", hashtags `#pulauaru #pulaunetizen #fyp`. Add one line
+   reminding him to turn on the AI-generated content label.
+4. If Claude in Chrome happens to be connected in this run, you may post it yourself through TikTok Studio upload
+   instead (file_upload needs a file under 10 MB in /mnt/user-data/outputs; visibility Everyone; AI label on), then
+   still send the file and link. This posting is authorised by Chalid for this workflow; post nothing else, change
+   no settings.
 
 ## 8. Wrap up
 
