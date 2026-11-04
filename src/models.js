@@ -271,6 +271,65 @@ export const BT = {
       const gm = new THREE.MeshStandardMaterial({ color: '#35c46e', emissive: '#1f8a4a', emissiveIntensity: .6 });
       for (const [w, h] of [[.36, .12], [.12, .36]]) { const m = new THREE.Mesh(G.box, gm); m.scale.set(w, h, .06); cross.add(m); }
     } },
+  // a warung tegal: open front with a glass food display, wooden benches and a striped awning (ep 7, usulan @javaz53)
+  warteg: { n: 'Warteg', w: 2, h: 2, land: true,
+    build(g) {
+      box(g, '#c9bfa8', 1.9, .1, 1.85, 0, 0, 0);
+      box(g, '#7fb3a0', 1.75, 1.2, .12, 0, .1, -.75); box(g, '#7fb3a0', .12, 1.2, 1.2, -.82, .1, -.2); box(g, '#7fb3a0', .12, 1.2, 1.2, .82, .1, -.2);
+      box(g, '#2f6f5a', 1.85, .1, 1.45, 0, 1.3, -.1);
+      for (let i = 0; i < 7; i++) { const a = box(g, i % 2 ? '#f4eee0' : '#2f8a6a', .27, .05, .55, -.81 + i * .27, 1.22, .75); a.rotation.x = .35; }
+      box(g, '#8a5a34', 1.3, .55, .45, 0, .1, -.3);                                   // counter
+      box(g, '#dfeef0', 1.2, .3, .38, 0, .65, -.3).material = new THREE.MeshStandardMaterial({ color: '#cfe8ee', transparent: true, opacity: .55 });
+      const food = ['#f2e6c8', '#e0a84a', '#c4473a', '#62bd73', '#8a5a34', '#ffd25a'];
+      for (let i = 0; i < 6; i++) add(g, G.cyl8, food[i], .09, .06, .09, -.47 + i * .19, .7, -.3);
+      for (const z of [.25, .6]) { box(g, '#8a5a34', 1.4, .06, .22, 0, .38, z); for (const x of [-.6, .6]) box(g, '#5e3b22', .06, .38, .06, x, 0, z); }
+      const c = document.createElement('canvas'); c.width = 256; c.height = 80; const x = c.getContext('2d');
+      x.fillStyle = '#f4eee0'; x.fillRect(0, 0, 256, 80); x.fillStyle = '#2f6f5a';
+      x.font = '700 52px "Pixelify Sans", sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('WARTEG', 128, 42);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.1, .34), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.62, .52); g.add(sign);
+      box(g, '#2f6f5a', 1.16, .4, .04, 0, 1.42, .49);
+    } },
+  // a small island hospital: two storeys, white with a teal band, an "H" sign and an ambulance bay (ep 7, usulan @yan.dipanggil.nen3)
+  rumahsakit: { n: 'Rumah sakit', w: 4, h: 3, land: true, scale: 1.25,
+    build(g) {
+      box(g, '#bfc4c0', 3.3, .1, 2.6, 0, 0, 0);
+      box(g, '#f7f7f3', 3.0, 2.1, 1.7, 0, .1, -.35);
+      box(g, '#3aa6a0', 3.06, .12, 1.76, 0, 1.05, -.35); box(g, '#3aa6a0', 3.1, .14, 1.8, 0, 2.2, -.35);
+      for (const yy of [.45, 1.45]) for (const xx of [-1.15, -.65, .65, 1.15]) box(g, windowMat, .32, .38, .04, xx, yy, .51);
+      box(g, '#f7f7f3', .9, 1.3, .5, 0, .1, .7); box(g, '#3aa6a0', 1.1, .1, .75, 0, 1.4, .72);
+      box(g, windowMat, .6, .8, .03, 0, .1, .955);
+      for (const xx of [-.48, .48]) box(g, '#d8dad6', .08, 1.3, .08, xx, .1, .9);
+      const c = document.createElement('canvas'); c.width = 384; c.height = 96; const x = c.getContext('2d');
+      x.fillStyle = '#ffffff'; x.fillRect(0, 0, 384, 96); x.fillStyle = '#1f7a76'; x.fillRect(14, 14, 68, 68);
+      x.fillStyle = '#ffffff'; x.font = '700 60px "Pixelify Sans", sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('H', 48, 50);
+      x.fillStyle = '#1f7a76'; x.font = '700 40px "Pixelify Sans", sans-serif'; x.fillText('RUMAH SAKIT', 236, 50);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.8, .45), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 2.62, -.02); g.add(sign); box(g, '#1f7a76', 1.86, .52, .04, 0, 2.35, -.06); box(g, '#9a9b94', .05, .2, .05, -.7, 2.24, -.1); box(g, '#9a9b94', .05, .2, .05, .7, 2.24, -.1);
+      const hm = new THREE.MeshStandardMaterial({ color: '#46d0c8', emissive: '#1f8a84', emissiveIntensity: .7 });
+      const roofH = new THREE.Group(); roofH.position.set(.9, 2.36, -.7); g.add(roofH);
+      for (const [w, h, xx] of [[.08, .5, -.16], [.08, .5, .16], [.4, .08, 0]]) { const m = new THREE.Mesh(G.box, hm); m.scale.set(w, .04, h); m.position.x = xx; roofH.add(m); }
+      // ambulance (generic, unbranded)
+      const amb = new THREE.Group(); amb.position.set(-1.05, .1, .75); amb.rotation.y = .15; g.add(amb);
+      box(amb, '#f4f4f0', .42, .36, .78, 0, .08, 0); box(amb, '#f4f4f0', .42, .24, .26, 0, .08, .5); box(amb, windowMat, .38, .14, .04, 0, .26, .64);
+      box(amb, '#3aa6a0', .43, .07, .79, 0, .25, 0); add(amb, G.box, lampOnMat, .1, .06, .08, 0, .47, .3);
+      for (const [wx, wz] of [[-.2, -.25], [.2, -.25], [-.2, .45], [.2, .45]]) add(amb, G.cyl8, '#222222', .08, .06, .08, wx, .08, wz).rotation.z = Math.PI / 2;
+    } },
+  // the president's house: white walls, columns on a raised porch, a red roof and a flag pole (ep 7, permintaan presiden @Etet_443)
+  rumahpresiden: { n: 'Rumah Presiden', w: 4, h: 3, land: true, scale: 1.35,
+    build(g) {
+      box(g, '#b8b2a2', 3.4, .22, 2.7, 0, 0, 0);
+      box(g, '#f4efe2', 2.9, 1.3, 1.6, 0, .22, -.4);
+      box(g, '#f4efe2', 3.0, .1, .7, 0, 1.52, .45);
+      for (const xx of [-1.2, -.6, 0, .6, 1.2]) cyl(g, '#ffffff', .07, 1.3, xx, .22, .7);
+      roof4(g, '#b8523c', 3.6, .9, 2.6, 0, 1.52, -.15);
+      box(g, '#5e3b22', .42, .8, .05, 0, .22, .41); box(g, '#e5c06a', .05, .05, .03, .12, .6, .44);
+      for (const xx of [-.95, -.5, .5, .95]) box(g, windowMat, .28, .4, .05, xx, .65, .41);
+      for (let i = 0; i < 3; i++) box(g, '#cfc8b6', 1.0 - i * .1, .07, .18, 0, i * .07, 1.3 - i * .14);
+      add(g, G.cyl6, '#cfcfc8', .03, 2.6, .03, 1.55, 1.3, 1.15);
+      box(g, '#d0483a', .5, .16, .02, 1.8, 2.36, 1.15); box(g, '#f4eee0', .5, .16, .02, 1.8, 2.2, 1.15);
+      for (const xx of [-1.55, 1.1]) add(g, G.ico, '#4f9b45', .28, .3, .28, xx, .55, 1.15);
+    } },
   // a village cooperative on a floating cloud island, reached by a spiral of cloud steps from the pyramid top
   kopdesawan: { n: 'Kopdes di atas awan', w: 1, h: 1, land: true, float: true,
     layout: (() => {
