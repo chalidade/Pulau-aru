@@ -38,7 +38,8 @@ def frames_in(s):
 
 def seg_len(s, i=None):
     if s.get('undian'): return s['dur']
-    base = len(frames_in(s)) / FPS or 4.0
+    if s.get('dur'): return round(s['dur'] * FPS) / FPS
+    base = max(0, len(frames_in(s)) - s.get('from', 0)) / FPS or 4.0
     need = max([t + RES[l]['duration'] + .25 for t, l in s.get('lines', [])] + [0])
     L = max(base, need)
     if s is SEGS[-1]:   # the last shot holds under the end card so the episode lands on 60 s
@@ -100,7 +101,7 @@ def narrator_caption(text, shown, tl, dur):
 # the two chosen comments: key = a word the narrator says when the card should pop (from line n2),
 # value = (username, comment text, tag). A value may also be (path to a screenshot, tag).
 COMMENTS = {'aspal': ('EN17', 'buat jalan aspal', 'TERPILIH'), 'sekolah': ('junaa_yuds', 'kak bikin sekolah,apotik', 'TERPILIH')}
-CARD_T = {}
+CARD_T = {'aspal': .4}   # first card early; others pop on their keyword
 UNDIAN_BG = 'e6c2'     # capture folder whose last frame, blurred, sits behind the comment cards
 DECREE = ('Etet_443', 'Aku kan udah jadi presiden aku minta masjid')   # (username, text) for a 'decree' segment, or None
 def comment_card(user, text, width=900):
@@ -238,6 +239,7 @@ def map_card(t, t0, t1):
     layer.alpha_composite(cc, (60 + (int(c.width * .72) - cc.width) // 2, 140 + (int(c.height * .72) - cc.height) // 2))
     return layer
 
+_BADGE = {}
 _D = {}
 def decree_card(t, t0, t1):
     layer = Image.new('RGBA', (W, H), (0, 0, 0, 0)); k = t - t0
@@ -259,8 +261,63 @@ def decree_card(t, t0, t1):
         layer.alpha_composite(st, (W - 110 - st.width, y + c.height + 30))
     return layer
 
+# ---------------------------------------------------------------- retention helpers
+CAPTIONS = 'pop'          # 'pop' = big word-by-word captions in the middle (TikTok style); 'box' = old boxes
+BADGE = f'EP {EP} · PULAU ARU'
+F_POP = font(PIX, 74); F_POPN = font(BOLD, 34); F_HOOK = font(PIX, 92); F_BADGE = font(BOLD, 30)
+def pop_caption(line_id, tl, who):
+    """3-word chunks timed to the voice, current word in yellow, big and centred (never a slow typewriter)"""
+    layer = Image.new('RGBA', (W, H), (0, 0, 0, 0)); r = RES[line_id]; words = r['words']
+    if not words or tl > r['duration'] + .35: return layer
+    i = 0
+    for k, w in enumerate(words):
+        if w['start'] <= tl: i = k
+    c0 = (i // 3) * 3; chunk = words[c0:c0 + 3]
+    d = ImageDraw.Draw(layer); texts = [w['text'] for w in chunk]
+    size = 74
+    while size > 46 and d.textlength(' '.join(texts), font=font(PIX, size)) > W - 120: size -= 4
+    F = font(PIX, size); total = d.textlength(' '.join(texts), font=F); x = (W - total) / 2; y = 1250
+    if who != 'narrator':
+        name = NAME.get(who, who.upper()); tw = d.textlength(name, font=F_POPN) + 36
+        d.rounded_rectangle((W / 2 - tw / 2, y - 112, W / 2 + tw / 2, y - 58), 10, fill=INK + (235,)); d.text((W / 2, y - 85), name, font=F_POPN, fill=LAMP, anchor='mm')
+    for k, tx in enumerate(texts):
+        cur = c0 + k == i; pop = 1 + .12 * max(0, 1 - (tl - chunk[k]['start']) / .15) if cur else 1
+        Fk = font(PIX, int(size * pop)) if pop > 1.001 else F
+        d.text((x, y), tx, font=Fk, fill=LAMP if cur else (255, 255, 255), anchor='lm', stroke_width=7, stroke_fill=INK)
+        x += d.textlength(tx + ' ', font=F)
+    return layer
+
+def hook_layer(l1, l2, t, t0, t1):
+    """the first-second hook: two big lines on a slanted yellow band, popping in immediately"""
+    layer = Image.new('RGBA', (W, H), (0, 0, 0, 0)); k = t - t0
+    if k < 0 or t > t1: return layer
+    out = max(0, (t - (t1 - .2)) / .2); a = int(255 * (1 - out)); d = ImageDraw.Draw(layer)
+    p = min(1, .7 + k / .12 * .3)
+    for j, ln in enumerate([l1, l2]):
+        if not ln: continue
+        size = int(92 * p)
+        while size > 50 and d.textlength(ln, font=font(PIX, size)) > W - 140: size -= 4
+        F = font(PIX, size); tw = d.textlength(ln, font=F); y = 300 + j * (size + 34)
+        band = Image.new('RGBA', (int(tw + 60), size + 30), LAMP + (a,) if j == 0 else (255, 255, 255, a)); band = band.rotate(-2 if j == 0 else 1.5, expand=True, resample=Image.BICUBIC)
+        layer.alpha_composite(band, (int((W - band.width) / 2), int(y - band.height / 2)))
+        d.text((W // 2, y), ln, font=F, fill=INK + (a,), anchor='mm')
+    return layer
+
+def badge_layer():
+    layer = Image.new('RGBA', (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(layer); tw = d.textlength(BADGE, font=F_BADGE)
+    d.rounded_rectangle((40, 40, 40 + tw + 32, 92), 26, fill=INK + (190,)); d.text((56, 66), BADGE, font=F_BADGE, fill=SAND, anchor='lm')
+    return layer
+
+def punch(img, t, amount=.08, dur=.28):
+    """quick zoom-in settle on every cut: a small pattern interrupt that keeps the eye"""
+    if t >= dur: return img
+    z = 1 + amount * (1 - t / dur) ** 2; w, h = img.size; cw, ch = int(w / z), int(h / z)
+    return img.crop(((w - cw) // 2, (h - ch) // 2, (w - cw) // 2 + cw, (h - ch) // 2 + ch)).resize((w, h), Image.BILINEAR)
+
 def compose(s, t, base):
+    if s.get('punch', True) and not s.get('undian'): base = punch(base, t)
     img = base.convert('RGBA')
+    if 'hook' in s: img.alpha_composite(hook_layer(*s['hook'][:2], t, *s['hook'][2:]))
     if 'title' in s: img.alpha_composite(title_fit(*s['title'][:2], t, *s['title'][2:]))
     if 'stat' in s: img.alpha_composite(B.stat_layer(*s['stat'][:2], t, *s['stat'][2:]))
     if 'decree' in s: img.alpha_composite(decree_card(t, *s['decree']))
@@ -270,11 +327,13 @@ def compose(s, t, base):
     ec = s.get('endcard')
     if active and not (ec and t >= ec):
         t0, l = active[-1]; r = RES[l]; tl = t - t0
-        if r['who'] == 'narrator':
+        if CAPTIONS == 'pop': img.alpha_composite(pop_caption(l, tl, r['who']))
+        elif r['who'] == 'narrator':
             if tl < r['duration'] + .8: img.alpha_composite(narrator_caption(r['text'], shown_chars(l, tl), tl, r['duration']))
         else:
             img.alpha_composite(speaker_box(NAME[r['who']], r['text'], shown_chars(l, tl), tl))
     if ec: img.alpha_composite(end_layer(t, ec))
+    if not ec or t < ec: img.alpha_composite(_BADGE.setdefault('b', badge_layer()))
     out = img.convert('RGB')
     L = seg_len(s); fi = s.get('fade_in', 0); fo = s.get('fade_out', 0); k = 1.0
     if fi and t < fi: k = t / fi
@@ -284,7 +343,7 @@ def compose(s, t, base):
 
 def base_frame(s, f):
     if s.get('undian'): return undian_frame(f / FPS)
-    fs = frames_in(s)
+    fs = frames_in(s)[s.get('from', 0):]
     return Image.open(CAP + s['seq'] + '/' + fs[min(f, len(fs) - 1)]).convert('RGB').resize((W, H), Image.LANCZOS)
 
 def render_seg(s):

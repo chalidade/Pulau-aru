@@ -93,9 +93,28 @@ from Trakteer requests, TikTok LIVE gifts, and small-business (UMKM) features. K
   is starting out; never promise sales or results.
 - Caption: always include `pulau-aru.web.id`; add `teer.id/chalidade` when the episode shows a supporter's request.
 
+## 2c. Retention rules (most important; viewers were leaving at 0:01–0:02)
+
+TikTok decides in the first 1–2 seconds. Every episode must follow these:
+1. **Cold open, no intro.** Second 0 shows the most surprising, funny or dramatic moment of THIS episode (a flash-forward),
+   with a voice line starting at 0.0–0.1 s and a two-line **`hook`** text on screen from frame 0
+   (e.g. `('KOMENTAR KALIAN', 'JADI JALAN ASPAL!', 0, 2.9)`). Never open on a slow aerial, a fade-in, a title card or
+   "Episode N"; the episode number is a small badge (automatic). No `fade_in` on the first segment.
+2. **The first frame must be readable on a phone**: a close shot of a character or the new thing, never a tiny landscape.
+   Never start the cold open on a camera cut (skip the first frames after a cut with `from`).
+3. **Promise a payoff** in the hook or the first line ("…tapi lihat apa yang terjadi di akhir", "siapa yang jatuh?"), and
+   deliver it near the end. The end card asks a question that makes people comment.
+4. **Shorter:** 35–50 s total (`TOTAL`). Cut dead air: lines start at 0.1 s into each segment, no segment longer than
+   ~7 s, most 2.5–5 s. Skip the population stat unless it is a milestone.
+5. **Something changes every 2–3 s**: a cut, a pop-in card, a title, a reaction, the crowd cheering. Captions are big
+   word-by-word (`CAPTIONS = 'pop'`, default) and every cut gets a small zoom punch (automatic).
+6. **Show the viewers' comments early** (people stay to see their own): the draw segment comes within the first ~10 s,
+   first card at ~0.4 s (`CARD_T`).
+7. Write lines short and spoken: one idea per line, max ~12 words, humour over exposition.
+
 ## 3. Write the episode
 
-- About 60 s, in 7–9 segments. Roughly:
+- 35–50 s, in 7–9 segments, starting with the cold open (see 2c). Roughly:
   - hook or stat (population from `island.json`)
   - a character beat with the president or vice president, Aru, or residents
   - the comment draw (`undian`) with the two comments
