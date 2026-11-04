@@ -20,7 +20,7 @@ NAME = {'warga': 'WARGA', 'warga2': 'WARGA', 'presiden': 'PRESIDEN @Etet_443', '
 
 # seg: footage (seq dir or 'undian'), mood, voiced lines [(start, line id)], overlays
 SEGS = [
-    dict(id='h0', seq='e6c4', **{'from': 114}, dur=3.6, mood='hype', hook=('KOMENTAR KALIAN', 'JADI JALAN ASPAL!', 0, 2.9), lines=[(0.05, 'w1')]),
+    dict(id='h0', seq='e6c4', **{'from': 126}, dur=3.6, mood='hype', hook=('KOMENTAR KALIAN', 'JADI JALAN ASPAL!', 0, 2.9), lines=[(0.05, 'w1')]),
     dict(id='e2', seq='e6c2', mood='hype', cheer=5.0, lines=[(.1, 'p1')]),
     dict(id='e3', undian=True, dur=5.6, mood='cheer', lines=[(.1, 'n2')]),
     dict(id='e4', seq='e6c4', dur=3.3, mood='cheer', title=('+ JALAN ASPAL', 'usulan @EN17', .1, 3.1)),
@@ -101,7 +101,7 @@ def narrator_caption(text, shown, tl, dur):
 # the two chosen comments: key = a word the narrator says when the card should pop (from line n2),
 # value = (username, comment text, tag). A value may also be (path to a screenshot, tag).
 COMMENTS = {'aspal': ('EN17', 'buat jalan aspal', 'TERPILIH'), 'sekolah': ('junaa_yuds', 'kak bikin sekolah,apotik', 'TERPILIH')}
-CARD_T = {}
+CARD_T = {'aspal': .4}
 UNDIAN_BG = 'e6c2'     # capture folder whose last frame, blurred, sits behind the comment cards
 DECREE = ('Etet_443', 'Aku kan udah jadi presiden aku minta masjid')   # (username, text) for a 'decree' segment, or None
 def comment_card(user, text, width=900):
