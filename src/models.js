@@ -330,6 +330,100 @@ export const BT = {
       box(g, '#d0483a', .5, .16, .02, 1.8, 2.36, 1.15); box(g, '#f4eee0', .5, .16, .02, 1.8, 2.2, 1.15);
       for (const xx of [-1.55, 1.1]) add(g, G.ico, '#4f9b45', .28, .3, .28, xx, .55, 1.15);
     } },
+  // a small waterpark: tiled deck, a blue pool, a tower with a spiral slide and a giant rubber duck (ep 8, usulan warga)
+  // slide path in local metres (used by the episode camera too): centre (-1, -.2), r 1.25, angle pi..2.25pi, y 2.4..0.35
+  waterpark: { n: 'Waterpark', w: 6, h: 4, land: true,
+    slide: { cx: -1, cz: -.2, r: 1.25, a0: Math.PI, a1: Math.PI * 2.25, y0: 2.4, y1: .35 },
+    build(g) {
+      box(g, '#e9e2d0', 5.9, .12, 3.9, 0, 0, 0);
+      for (let i = 0; i < 12; i++) box(g, i % 2 ? '#d9d0ba' : '#e9e2d0', .45, .005, 3.85, -2.7 + i * .49, .12, 0);
+      box(g, '#2f7fa8', 3.1, .14, 2.6, 1.25, .04, .15);                                          // pool rim inner
+      const wm = new THREE.MeshStandardMaterial({ color: '#46c2e6', emissive: '#1c7fa8', emissiveIntensity: .25, transparent: true, opacity: .88, roughness: .15, flatShading: true });
+      box(g, wm, 2.9, .04, 2.4, 1.25, .14, .15).receiveShadow = true;
+      for (const [w, d, x, z] of [[3.3, .12, 1.25, -1.1], [3.3, .12, 1.25, 1.4], [.12, 2.6, -.4, .15], [.12, 2.6, 2.9, .15]]) box(g, '#f7f7f3', w, .2, d, x, .12, z);
+      // tower + ladder
+      for (const [x, z] of [[-2.65, -.55], [-1.85, -.55], [-2.65, .15], [-1.85, .15]]) box(g, '#f2c94c', .1, 2.4, .1, x, .12, z);
+      box(g, '#e8573f', 1.0, .1, .9, -2.25, 2.42, -.2);
+      for (const x of [-2.72, -1.78]) box(g, '#f7f7f3', .05, .45, .9, x, 2.52, -.2);
+      box(g, '#f7f7f3', 1.0, .45, .05, -2.25, 2.52, -.66);
+      for (let i = 0; i < 8; i++) box(g, '#c9c2b0', .5, .05, .06, -2.25, .35 + i * .28, .45);
+      for (const x of [-2.5, -2.0]) box(g, '#c9c2b0', .05, 2.4, .05, x, .12, .45);
+      roof4(g, '#e8573f', 1.3, .5, 1.2, -2.25, 4.45, -.2); for (const [x, z] of [[-2.7, -.6], [-1.8, -.6], [-2.7, .2], [-1.8, .2]]) box(g, '#f2c94c', .05, 1.5, .05, x, 2.95, z);
+      // spiral slide: short tilted pieces along the helix
+      const S = BT.waterpark.slide, N = 26, sm = mat('#2fa36b'), sm2 = mat('#f2c94c');
+      const at = t => { const a = S.a0 + (S.a1 - S.a0) * t; return [S.cx + Math.cos(a) * S.r, S.y0 + (S.y1 - S.y0) * t, S.cz + Math.sin(a) * S.r]; };
+      for (let i = 0; i < N; i++) {
+        const p = at(i / N), q = at((i + 1) / N), dx = q[0] - p[0], dy = q[1] - p[1], dz = q[2] - p[2], L = Math.hypot(dx, dy, dz);
+        const seg = new THREE.Group(); seg.position.set((p[0] + q[0]) / 2, (p[1] + q[1]) / 2, (p[2] + q[2]) / 2); g.add(seg);
+        seg.lookAt(seg.position.x + dx, seg.position.y + dy, seg.position.z + dz);
+        const base = new THREE.Mesh(G.box, sm); base.scale.set(.5, .06, L + .03); base.castShadow = true; seg.add(base);
+        for (const sx of [-.25, .25]) { const w = new THREE.Mesh(G.box, i % 2 ? sm : sm2); w.scale.set(.06, .2, L + .03); w.position.set(sx, .1, 0); seg.add(w); }
+        if (i % 4 === 2 && p[1] > .6) { const post = new THREE.Mesh(G.cyl6, mat('#c9c2b0')); post.scale.set(.04, p[1], .04); post.position.y = -p[1] / 2; seg.add(post); }
+      }
+      // giant rubber duck
+      const duck = new THREE.Group(); duck.position.set(1.95, .16, .45); duck.rotation.y = -.6; g.add(duck);
+      add(duck, G.sph, '#ffd23f', .5, .36, .6, 0, .22, 0); add(duck, G.sph, '#ffd23f', .3, .3, .3, 0, .62, .28);
+      add(duck, G.box, '#f08a24', .2, .07, .2, 0, .58, .58); for (const x of [-.12, .12]) add(duck, G.sph, '#1c1c24', .04, .05, .04, x, .7, .5);
+      add(duck, G.cone4, '#ffd23f', .18, .28, .1, 0, .38, -.58).rotation.x = -1.1;
+      // rings floating
+      for (const [x, z, c] of [[.4, -.5, '#e8573f'], [2.4, -.6, '#f7f7f3'], [.8, 1.0, '#3a7fc2']]) { const r = new THREE.Mesh(new THREE.TorusGeometry(.22, .08, 6, 12), mat(c)); r.rotation.x = Math.PI / 2; r.position.set(x, .2, z); g.add(r); }
+      // umbrellas and loungers on the front-left deck
+      for (const [x, z, c] of [[-2.3, 1.35, '#e8573f'], [-1.1, 1.35, '#3a7fc2']]) {
+        cyl(g, '#f7f7f3', .03, 1.3, x, .12, z); add(g, G.cone6, c, .6, .3, .6, x, 1.45, z);
+        const l = box(g, '#f7f7f3', .35, .08, .75, x + .35, .2, z - .1); box(g, '#c9c2b0', .3, .08, .05, x + .35, .12, z - .4);
+        box(g, '#f7f7f3', .35, .06, .3, x + .35, .3, z - .45).rotation.x = .6;
+      }
+      // sign on the back
+      const c = document.createElement('canvas'); c.width = 512; c.height = 128; const x = c.getContext('2d');
+      const gr = x.createLinearGradient(0, 0, 512, 0); gr.addColorStop(0, '#2fa6d8'); gr.addColorStop(1, '#2fa36b'); x.fillStyle = gr; x.fillRect(0, 0, 512, 128);
+      x.fillStyle = '#ffffff'; x.font = '700 70px "Pixelify Sans", sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('WATERPARK', 256, 68);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      for (const xx of [.2, 2.4]) box(g, '#c9c2b0', .08, 2.0, .08, xx, .12, -1.75);
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(2.4, .6), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(1.3, 2.0, -1.7); g.add(sign);
+      box(g, '#1f6f8a', 2.5, .7, .05, 1.3, 1.65, -1.75);
+    } },
+  // a fish grill stall near the pier: brick grill with flames, fish on the grate, smoke, a bench (ep 8, usulan warga)
+  bakarikan: { n: 'Pembakaran ikan', w: 2, h: 2, land: true, fire: true,
+    build(g) {
+      box(g, '#c9bfa8', 1.9, .08, 1.85, 0, 0, 0);
+      for (const [x, z] of [[-.85, -.8], [.85, -.8], [-.85, .8], [.85, .8]]) box(g, '#6b4a2b', .08, 1.45, .08, x, .08, z);
+      roof4(g, '#7a5a3a', 2.3, .45, 2.2, 0, 1.53, 0); box(g, '#5e3b22', 1.9, .06, 1.9, 0, 1.5, 0);
+      box(g, '#a0523c', 1.3, .55, .5, 0, .08, -.35);                                               // brick grill
+      for (let i = 0; i < 4; i++) box(g, '#8a3f2e', 1.31, .02, .51, 0, .18 + i * .12, -.35);
+      box(g, '#2b2b2b', 1.2, .05, .42, 0, .63, -.35);
+      const fl = new THREE.Group(); fl.position.set(0, .6, -.35); g.add(fl);
+      for (let i = 0; i < 6; i++) { const f = new THREE.Mesh(G.cone4, i % 2 ? flameMat2 : flameMat); f.scale.set(.09, .22, .09); f.position.set(-.45 + i * .18, .02, (i % 2 - .5) * .12); fl.add(f); }
+      g.userData.flames = fl;
+      for (let i = 0; i < 4; i++) { add(g, G.box, '#2b2b2b', .03, .02, .4, -.45 + i * .3, .68, -.35);
+        const fish = new THREE.Group(); fish.position.set(-.45 + i * .3, .74, -.35); fish.rotation.y = Math.PI / 2; g.add(fish);
+        add(fish, G.ico, i % 2 ? '#b8743a' : '#c98a4a', .1, .06, .2, 0, 0, 0); add(fish, G.cone4, '#8a5a34', .08, .1, .03, 0, 0, -.24).rotation.x = -Math.PI / 2; }
+      const sm = new THREE.MeshStandardMaterial({ color: '#eeeeea', transparent: true, opacity: .28, flatShading: true, depthWrite: false });
+      for (let i = 0; i < 3; i++) { const s = new THREE.Mesh(G.ico, sm); s.scale.setScalar(.08 + i * .03); s.position.set(-.25 + i * .22, .9 + i * .18, -.35); g.add(s); }
+      box(g, '#8a5a34', 1.3, .06, .4, 0, .45, .45); for (const x of [-.55, .55]) box(g, '#5e3b22', .06, .45, .3, x, .0, .45);
+      for (const x of [-.35, .05, .4]) { add(g, G.cyl8, '#f4eee0', .13, .02, .13, x, .52, .45); add(g, G.ico, '#c98a4a', .06, .04, .12, x, .55, .45); }
+      add(g, G.cyl8, '#c4473a', .06, .06, .06, .58, .54, .38);
+      const c = document.createElement('canvas'); c.width = 384; c.height = 96; const x = c.getContext('2d');
+      x.fillStyle = '#f4e3c0'; x.fillRect(0, 0, 384, 96); x.fillStyle = '#a0523c'; x.font = '700 54px "Pixelify Sans", sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('IKAN BAKAR', 192, 50);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.3, .33), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.32, .97); g.add(sign);
+      box(g, '#5e3b22', 1.36, .38, .04, 0, 1.13, .94);
+      const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.08, .11, .08); lamp.position.set(.8, 1.25, .85); g.add(lamp);
+    } },
+  // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
+  papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,
+    build(g, b) {
+      const name = (b && b.label) || 'SEMANGAT!';
+      for (const x of [-.75, .75]) box(g, '#5e3b22', .1, 1.6, .1, x, 0, 0);
+      box(g, '#e6b84a', 2.0, 1.0, .08, 0, 1.25, -.02);
+      const c = document.createElement('canvas'); c.width = 512; c.height = 256; const x = c.getContext('2d');
+      x.fillStyle = '#fff4dc'; x.fillRect(0, 0, 512, 256); x.fillStyle = '#d0483a'; x.fillRect(0, 0, 512, 14); x.fillRect(0, 242, 512, 14);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#d0483a'; x.font = '700 84px "Pixelify Sans", sans-serif'; x.fillText('SEMANGAT!', 256, 100, 480);
+      let fs = 44; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; while (fs > 22 && x.measureText(name).width > 470) { fs -= 2; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; }
+      x.fillStyle = '#3a2412'; x.fillText(name, 256, 186);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.9, .92), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.75, .03); g.add(sign);
+      for (const x2 of [-.95, -.48, 0, .48, .95]) { const l = new THREE.Mesh(G.sph, lanternMat); l.scale.setScalar(.06); l.position.set(x2, 2.28, .06); g.add(l); }
+    } },
   // a small business stall for a real UMKM chosen from the comments (#UMKMPulauAru): the sign shows b.label,
   // the awning colour comes from the name, and tapping it opens the business link (b.link) after a confirmation sheet
   warungumkm: { n: 'Warung UMKM', w: 2, h: 2, land: true,
