@@ -11981,6 +11981,31 @@
    "r": 3,
    "by": "Etet_443",
    "ep": 7
+  },
+  {
+   "type": "waterpark",
+   "x": 62,
+   "y": 47,
+   "r": 0,
+   "by": "",
+   "ep": 8
+  },
+  {
+   "type": "bakarikan",
+   "x": 56,
+   "y": 89,
+   "r": 1,
+   "by": "",
+   "ep": 8
+  },
+  {
+   "type": "papansemangat",
+   "x": 58,
+   "y": 42,
+   "r": 0,
+   "label": "untuk Kak Chalid, dari warga",
+   "by": "Chalid Ade Rahman",
+   "ep": 8
   }
  ],
  "episodes": [
@@ -12051,6 +12076,15 @@
     "yan.dipanggil.nen3"
    ],
    "text": "Undian komentar: warteg (usulan @javaz53) buka di jalan timur, dan di sebelahnya rumah sakit (usulan @yan.dipanggil.nen3) \"biar nggak ada yang sakit\". Pasiennya nol.\nPresiden @Etet_443, tanpa undian: \"Aku mau rumah!\" Rumah Presiden berdiri di samping panggung.\nSekolah dan apotik usulan @junaa_yuds akhirnya selesai.\nPasien pertama rumah sakit datang dari warteg sebelah: kekenyangan."
+  },
+  {
+   "ep": 8,
+   "date": "4 Nov 2026",
+   "picks": [
+    "kotak usulan warga",
+    "kotak usulan warga"
+   ],
+   "text": "Kotak usulan lama dikocok: waterpark dengan perosotan spiral dan bebek karet raksasa di utara jalan silang, dan pembakaran ikan dekat dermaga.\nTraktiran Chalid \"semangat\": warga memasang Papan Semangat di dekat panggung.\nPresiden @Etet_443 diam-diam lebih suka ikan bakar daripada warteg. Di pulau seberang, lampu kedua di gambar mercusuar Aru menyala.\nWapres @EGA_91 meluncur duluan. Byur! Rapat kabinet ditunda."
   }
  ],
  "letters": [],
@@ -12062,6 +12096,10 @@
   {
    "text": "Di balik peta lama Aru ada gambar mercusuar dengan tiga lampu. Hanya satu yang diwarnai menyala.",
    "ep": 5
+  },
+  {
+   "text": "Di gambar mercusuar milik Aru, lampu kedua ikut menyala sendiri. Tinggal satu lampu lagi. Pulau awan itu makin dekat.",
+   "ep": 8
   }
  ],
  "clueTotal": 10,
