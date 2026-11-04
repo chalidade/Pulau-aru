@@ -1,5 +1,5 @@
 {
- "nextEp": 7,
+ "nextEp": 8,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -11,7 +11,7 @@
  "president": {
   "n": "Etet_443",
   "since": "2026-11-03",
-  "requestsUsed": 1,
+  "requestsUsed": 2,
   "requestsMax": 3
  },
  "vicePresident": {
@@ -21,17 +21,22 @@
   "requestsMax": 2
  },
  "openThreads": [
-  "Sekolah dan apotik (usulan @junaa_yuds) sedang dibangun di lahan berpapan 'Segera dibangun' di kiri-kanan jalan utama; bisa selesai di episode berikut.",
-  "Episode 6 menutup dengan pertanyaan: 'Apa caramu menggulingkan presiden?' Komentar cara menggulingkan presiden layak jadi bahan cerita.",
-  "Aru masih di pulau seberang. Petunjuk: gambar mercusuar dengan 1 dari 3 lampu menyala. Dari jauh Aru melihat pulau awan di atas Pulau Netizen.",
-  "Kopdes di atas awan buka; pertanyaan 'apa yang dijual pertama di Kopdes?' belum terjawab."
+  "Episode 7 menutup dengan pertanyaan: 'Menu apa yang wajib ada di warteg Pulau Aru?' Jawaban komentar bisa jadi menu warteg.",
+  "Rumah sakit baru punya satu pasien: warga kekenyangan dari warteg sebelah. Dokter bosan; bisa jadi bahan lucu.",
+  "Episode 6: 'Apa caramu menggulingkan presiden?' belum dijawab di cerita. Presiden @Etet_443 sisa 1 permintaan tanpa undian (masa jabatan sampai ~10 Nov).",
+  "Aru masih di pulau seberang. Petunjuk: gambar mercusuar dengan 1 dari 3 lampu menyala; Aru melihat pulau awan di atas Pulau Netizen. (tidak muncul di ep 7, sebaiknya muncul di ep 8)",
+  "Kopdes di atas awan buka; pertanyaan 'apa yang dijual pertama di Kopdes?' belum terjawab.",
+  "Usulan komentar yang belum dipakai: bengkel, bank/mata uang, hotel, apartemen, waterpark, pembakaran ikan, toilet."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
   "junaa_yuds: kak bikin sekolah,apotik",
   "Etet_443: aku minta masjid",
   "EGA_91: wakil presiden",
-  "ザAエル: Kopdes di atas awan"
+  "ザAエル: Kopdes di atas awan",
+  "javaz53: warteg kak",
+  "yan.dipanggil.nen3: rumah sakit biar ga ada yang sakit",
+  "etet_443.bakhtiar (presiden): Aku kan udah jadi presiden aku mau rumah"
  ],
  "episodes": [
   {
@@ -39,11 +44,20 @@
    "title": "Jalan Baru",
    "posted": "manual",
    "summary": "Presiden @Etet_443 merapikan pulau: jalan aspal (usulan @EN17), dua rumah selesai, tukang mulai membangun sekolah dan apotik (usulan @junaa_yuds), masjid tanpa undian atas permintaan presiden. Warga berbisik soal menggulingkan presiden."
+  },
+  {
+   "ep": 7,
+   "title": "Warteg & Rumah Sakit",
+   "posted": "https://www.tiktok.com/@kita.berkembang/video/7704165208012377352",
+   "summary": "Undian: warteg (@javaz53) dan rumah sakit \"biar nggak ada yang sakit\" (@yan.dipanggil.nen3) di jalan timur. Presiden minta rumah tanpa undian: Rumah Presiden di samping panggung. Sekolah dan apotik selesai. Pasien pertama rumah sakit: warga kekenyangan dari warteg."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
-  "lastCta": null
+  "lastCta": {
+   "ep": 7,
+   "cta": "traktir"
+  }
  }
 }
