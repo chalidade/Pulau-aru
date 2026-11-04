@@ -1,5 +1,9 @@
 # Pulau Aru: daily episode runbook
 
+> **Catatan Chalid (4 Nov 2026):** durasi video tetap **sekitar 1 menit (55–60 s)** mulai episode 8. Ini menggantikan
+> "35–50 s" di bagian 2c dan 3. Aturan retensi lainnya (cold open, hook di detik 0, caption besar, segmen pendek) tetap berlaku:
+> isi menit penuh dengan lebih banyak momen, jangan dengan jeda kosong.
+
 Each scheduled run makes **one** episode (about 60 s, portrait 1080×1920), builds what it promises into the game,
 and posts it to TikTok **@kita.berkembang**. There are two runs a day (10:00 and 17:00 WIB). Work through the
 steps in order. Write everything the audience sees or hears in Indonesian, in the same voice as earlier episodes:
@@ -108,7 +112,7 @@ TikTok decides in the first 1–2 seconds. Every episode must follow these:
    Never start the cold open on a camera cut (skip the first frames after a cut with `from`).
 3. **Promise a payoff** in the hook or the first line ("…tapi lihat apa yang terjadi di akhir", "siapa yang jatuh?"), and
    deliver it near the end. The end card asks a question that makes people comment.
-4. **Shorter:** 35–50 s total (`TOTAL`). Cut dead air: lines start at 0.1 s into each segment, no segment longer than
+4. **Tight, about 1 minute:** 55–60 s total (`TOTAL`, see Chalid's note at the top). Cut dead air: lines start at 0.1 s into each segment, no segment longer than
    ~7 s, most 2.5–5 s. Skip the population stat unless it is a milestone.
 5. **Something changes every 2–3 s**: a cut, a pop-in card, a title, a reaction, the crowd cheering. Captions are big
    word-by-word (`CAPTIONS = 'pop'`, default) and every cut gets a small zoom punch (automatic).
@@ -118,7 +122,7 @@ TikTok decides in the first 1–2 seconds. Every episode must follow these:
 
 ## 3. Write the episode
 
-- 35–50 s, in 7–9 segments, starting with the cold open (see 2c). Roughly:
+- 55–60 s, in 10–13 segments, starting with the cold open (see 2c). Roughly:
   - hook or stat (population from `island.json`)
   - a character beat with the president or vice president, Aru, or residents
   - the comment draw (`undian`) with the two comments
