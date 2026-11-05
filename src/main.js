@@ -30,9 +30,11 @@ const role = { kind: 'aru', name: 'Aru' };
 
 // ---------- renderer ----------
 const renderer = new THREE.WebGLRenderer({ antialias: !touch, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(devicePixelRatio, touch ? 1.5 : 2));
+renderer.setPixelRatio(Math.min(devicePixelRatio, touch ? 1.25 : 1.5));
 renderer.setSize(innerWidth, innerHeight);
-renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.shadowMap.enabled = true; renderer.shadowMap.type = touch ? THREE.PCFShadowMap : THREE.PCFSoftShadowMap;
+// shadows are redrawn every few frames, not every frame (the sun moves slowly); see the render loop
+renderer.shadowMap.autoUpdate = false; let shadowTick = 0;
 renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
 $('game').appendChild(renderer.domElement);
 const scene = new THREE.Scene();
@@ -50,7 +52,7 @@ const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
 const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .4, .6, .82);
 composer.addPass(bloom); composer.addPass(new OutputPass());
-if (touch) composer.setPixelRatio(1);
+if (touch) { composer.setPixelRatio(1); bloom.enabled = false; }   // phones: no bloom pass (the costliest full-screen effect)
 
 addEventListener('resize', () => {
   camera.aspect = innerWidth / innerHeight; camera.fov = touch && innerWidth < innerHeight ? 55 : 42; camera.updateProjectionMatrix();
@@ -274,7 +276,7 @@ const npcGroup = new THREE.Group(); scene.add(npcGroup);
 function rebuildNpcs() {
   // a random pick of named residents, reshuffled per page load but stable while the page is open
   const res = S.residents.map((r, i) => ({ ...r, num: i + 1 })).sort((a, b) => rankOf(a.n) - rankOf(b.n));
-  const extra = Math.max(0, lamps() - res.length), N = Math.min(touch ? 60 : 100, res.length + extra);
+  const extra = Math.max(0, lamps() - res.length), N = Math.min(touch ? 36 : 64, res.length + extra);
   const want = [];
   if (role.kind !== 'aru') want.push({ key: 'aru', name: 'Aru', aru: true });
   const pres = S.president && S.president.n ? clean(S.president.n) : null;
@@ -660,6 +662,7 @@ function frame() {
   if (nn !== near || (nn && nn.key !== nearKey) || thr !== lastThr || (nn && $('prompt').hidden)) { near = nn; nearKey = nn && nn.key; lastThr = thr; updatePrompt(); }
   if (player.obj) updateLabels();
   if (window.__beforeRender) window.__beforeRender(dt, T0);
+  if (++shadowTick % (touch ? 3 : 2) === 0 || window.__step) renderer.shadowMap.needsUpdate = true;
   composer.render();
   if (window.__afterRender) window.__afterRender(renderer.domElement);
   requestAnimationFrame(frame);

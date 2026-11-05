@@ -88,6 +88,7 @@ export function makeCharacter(lk) {
   if (lk.style === 1) { box(head, lk.hair, .06, .22, .3, -.19, .1, -.02); box(head, lk.hair, .06, .22, .3, .19, .1, -.02); }
   if (lk.style === 2) box(head, lk.hair, .2, .1, .2, 0, .4, -.05);
   box(head, '#1d1410', .05, .06, .02, -.08, .17, .175); box(head, '#1d1410', .05, .06, .02, .08, .17, .175);
+  bake(head);   // head never animates on its own: one mesh per colour
   root.userData = { legL, legR, armL, armR, body, phase: Math.random() * 6 };
   return root;
 }
@@ -665,9 +666,9 @@ export const BT = {
       const L = BT.kopdesawan.layout;
       const cloudMat = new THREE.MeshStandardMaterial({ color: '#ffffff', emissive: '#dfe9f2', emissiveIntensity: .25, roughness: 1, flatShading: true });
       const puff = (parent, x, y, z, s, n = 5, seed = 1) => { for (let i = 0; i < n; i++) { const a = i / n * Math.PI * 2 + seed, r = s * (.35 + ((seed * 7 + i * 3) % 5) / 12); const m = new THREE.Mesh(G.ico, cloudMat); const k = s * (.55 + ((seed + i) % 3) * .15); m.scale.set(k, k * .6, k); m.position.set(x + Math.cos(a) * r, y + ((i % 2) - .5) * s * .15, z + Math.sin(a) * r); m.castShadow = true; parent.add(m); } };
-      const steps = new THREE.Group(); g.add(steps); g.userData.steps = steps;
+      const steps = new THREE.Group(); g.add(steps);
       L.steps.forEach(([x, z, y], k) => { const st = new THREE.Group(); st.position.set(x, y, z); steps.add(st); puff(st, 0, -.28, 0, .8, 4, k + 1); const top = new THREE.Mesh(G.cyl8, cloudMat); top.scale.set(.78, .14, .78); top.position.y = -.07; top.receiveShadow = true; st.add(top); });
-      const isl = new THREE.Group(); isl.position.set(L.island.x, L.island.top, L.island.z); g.add(isl); g.userData.island = isl;
+      const isl = new THREE.Group(); isl.position.set(L.island.x, L.island.top, L.island.z); g.add(isl);
       for (let ring = 0; ring < 3; ring++) for (let i = 0; i < 9 + ring * 3; i++) { const a = i / (9 + ring * 3) * Math.PI * 2 + ring; const r = L.island.r * (.25 + ring * .33); puff(isl, Math.cos(a) * r, -1.0 - ring * .35 + (ring === 0 ? -.4 : 0), Math.sin(a) * r, 1.6 - ring * .25, 3, i + ring * 5); }
       const grass = new THREE.Mesh(G.cyl8, mat('#7cc25a')); grass.scale.set(L.island.r, .4, L.island.r); grass.position.y = -.2; grass.receiveShadow = true; isl.add(grass);
       const soil = new THREE.Mesh(G.cyl8, mat('#8a6a4a')); soil.scale.set(L.island.r * .96, .5, L.island.r * .96); soil.position.y = -.6; isl.add(soil);
@@ -712,7 +713,51 @@ export function spearMesh(parent) {
 function splitLabel(s) { s = String(s).slice(0, 40); if (s.length <= 16) return [s]; const i = s.lastIndexOf(' ', 20); return i > 0 ? [s.slice(0, i), s.slice(i + 1)] : [s.slice(0, 18), s.slice(18)]; }
 // data some buildings draw from (supporters, small businesses); main sets it before rebuilding
 export const live = { supporters: [], umkm: [] };
-export function buildBuilding(b) { const d = BT[b.type]; const g = new THREE.Group(); if (d.scale) { const inner = new THREE.Group(); inner.scale.setScalar(d.scale); g.add(inner); d.build(inner, b); } else d.build(g, b); g.userData.def = d; return g; }
+// Performance: a building is built from dozens of small boxes; draw calls (not triangles) are what make the island
+// heavy, so after building we bake every plain mesh into one mesh per material. Textured, transparent or animated
+// parts (anything reachable from g.userData, e.g. flames, cloud steps) stay as they are.
+const _m = new THREE.Matrix4(), _inv = new THREE.Matrix4();
+function bake(root) {
+  root.updateMatrixWorld(true); _inv.copy(root.matrixWorld).invert();
+  const keep = new Set();
+  for (const v of Object.values(root.userData)) if (v && v.isObject3D) v.traverse(o => keep.add(o));
+  const groups = new Map(), done = [];
+  root.traverse(o => {
+    if (!o.isMesh || o.isInstancedMesh || keep.has(o) || !o.visible) return;
+    const m = o.material; if (Array.isArray(m) || m.map || m.transparent || m.side === THREE.DoubleSide) return;
+    let k = groups.get(m); if (!k) groups.set(m, k = { list: [], cast: false, recv: false });
+    k.list.push(o); k.cast = k.cast || o.castShadow; k.recv = k.recv || o.receiveShadow;
+  });
+  for (const [mat, k] of groups) {
+    if (k.list.length < 2) continue;
+    let n = 0; const parts = [];
+    for (const o of k.list) {
+      const geo = o.geometry.index ? o.geometry.toNonIndexed() : o.geometry;
+      _m.multiplyMatrices(_inv, o.matrixWorld);
+      const pos = geo.attributes.position, nor = geo.attributes.normal; parts.push({ pos, nor, mat4: _m.clone(), nm: new THREE.Matrix3().getNormalMatrix(_m) }); n += pos.count;
+      if (geo !== o.geometry) geo.dispose();
+    }
+    const P = new Float32Array(n * 3), N = new Float32Array(n * 3), v = new THREE.Vector3(); let off = 0;
+    for (const { pos, nor, mat4, nm } of parts) {
+      for (let i = 0; i < pos.count; i++, off++) {
+        v.fromBufferAttribute(pos, i).applyMatrix4(mat4); P.set([v.x, v.y, v.z], off * 3);
+        if (nor) { v.fromBufferAttribute(nor, i).applyMatrix3(nm).normalize(); N.set([v.x, v.y, v.z], off * 3); }
+      }
+    }
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(P, 3)); geo.setAttribute('normal', new THREE.BufferAttribute(N, 3));
+    geo.computeBoundingSphere();
+    const mesh = new THREE.Mesh(geo, mat); mesh.castShadow = k.cast; mesh.receiveShadow = k.recv; mesh.userData.baked = true;
+    for (const o of k.list) o.parent.remove(o);
+    root.add(mesh); done.push(mesh);
+  }
+  return done.length;
+}
+export function buildBuilding(b) {
+  const d = BT[b.type]; const g = new THREE.Group();
+  if (d.scale) { const inner = new THREE.Group(); inner.scale.setScalar(d.scale); g.add(inner); d.build(inner, b); } else d.build(g, b);
+  if (!d.noBake && !d.water) bake(g);
+  g.userData.def = d; return g;
+}
 
 // ---------- landmarks ----------
 export function campfire(g) {
