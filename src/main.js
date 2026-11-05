@@ -543,7 +543,7 @@ const pv = new THREE.Vector3();
 function updateLabels() {
   const items = [];
   const push = (text, x, y, z, cls, d) => items.push({ text, x, y, z, cls, d });
-  for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (d < (n.aru || n.pres || n.vp ? 12 : 4.5) && (n.num || n.aru || n.pres || n.vp)) push(n.pres ? 'Presiden ' + n.name : n.vp ? 'Wakil Presiden ' + n.name : n.name, n.x, n.obj.position.y + 1.75, n.z, n.aru || n.pres || n.vp ? 'gold' : '', d); }
+  for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (d < (n.aru || n.pres || n.vp ? 12 : 4.5) && (n.num || n.aru || n.pres || n.vp)) push(n.pres ? 'Presiden ' + n.name : n.vp ? 'Wakil Presiden ' + n.name : n.name, n.x, n.obj.position.y + 1.6, n.z, n.aru || n.pres || n.vp ? 'gold' : '', d); }
   items.sort((a, b) => a.d - b.d);
   labelPool.forEach((el, i) => {
     const it = items[i]; if (!it) { el.hidden = true; return; }

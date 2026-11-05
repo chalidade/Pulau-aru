@@ -25,7 +25,7 @@ export function createBoats({ scene, navigable, home }) {
       // the building object is rebuilt on every world change: re-dress it
       s.obj = o;
       const r = makeCharacter(lookOf((names[i % Math.max(1, names.length)] || 'nelayan') + i));
-      r.scale.setScalar(.8); r.position.set(-.25, .05, 0); r.rotation.y = Math.PI / 2;
+      r.scale.setScalar(.8 * .9); r.position.set(-.25, .05, 0); r.rotation.y = Math.PI / 2;
       const u = r.userData; u.legL.rotation.x = -1.4; u.legR.rotation.x = -1.4; u.body.position.y = -.38; u.armL.rotation.x = -.8; u.armR.rotation.x = -1;
       o.add(r); s.rider = r;
       const rd = rod(); r.add(rd); s.rod = rd;

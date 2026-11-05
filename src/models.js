@@ -71,6 +71,7 @@ export function lookOf(name) {
 }
 export const ARU = { skin: '#c68a5b', hair: '#2b1d14', shirt: '#ece4d2', pants: '#3a5a7a', style: 1, scarf: '#e2733a' };
 
+export const CHAR_SCALE = .9;
 export function makeCharacter(lk) {
   const root = new THREE.Group();
   const body = new THREE.Group(); root.add(body);
@@ -89,6 +90,7 @@ export function makeCharacter(lk) {
   if (lk.style === 2) box(head, lk.hair, .2, .1, .2, 0, .4, -.05);
   box(head, '#1d1410', .05, .06, .02, -.08, .17, .175); box(head, '#1d1410', .05, .06, .02, .08, .17, .175);
   bake(head);   // head never animates on its own: one mesh per colour
+  root.scale.setScalar(CHAR_SCALE);   // people are 10% smaller than built, so buildings read at a realistic size
   root.userData = { legL, legR, armL, armR, body, phase: Math.random() * 6 };
   return root;
 }
