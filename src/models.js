@@ -470,14 +470,14 @@ export const BT = {
   kedaikopi: { n: 'Kedai Kopi', w: 3, h: 2, land: true, scale: 1.2,
     build(g) {
       box(g, '#b9a88a', 2.9, .1, 1.9, 0, 0, 0);
-      box(g, '#6b4a30', 1.9, 1.3, .1, -.45, .1, -.8); box(g, '#5a3c26', .1, 1.3, 1.2, -1.36, .1, -.25); box(g, '#5a3c26', .1, 1.3, 1.2, .46, .1, -.25);
-      for (const [x, z] of [[-1.38, .72], [.48, .72]]) box(g, '#3a2618', .08, 1.45, .08, x, .1, z);
-      box(g, '#2f2a26', 2.0, .08, 1.7, -.45, 1.4, -.05);                                                   // dark roof
-      for (let i = 0; i < 7; i++) { const a = box(g, i % 2 ? '#f2e6d0' : '#7a4a2a', .29, .05, .48, -1.32 + i * .29, 1.33, .86); a.rotation.x = .38; }
+      box(g, '#6b4a30', 1.9, 1.65, .1, -.45, .1, -.8); box(g, '#5a3c26', .1, 1.65, 1.2, -1.36, .1, -.25); box(g, '#5a3c26', .1, 1.65, 1.2, .46, .1, -.25);
+      for (const [x, z] of [[-1.38, .72], [.48, .72]]) box(g, '#3a2618', .08, 1.8, .08, x, .1, z);
+      box(g, '#2f2a26', 2.0, .08, 1.7, -.45, 1.75, -.05);                                                   // dark roof
+      for (let i = 0; i < 7; i++) { const a = box(g, i % 2 ? '#f2e6d0' : '#7a4a2a', .29, .05, .48, -1.32 + i * .29, 1.68, .86); a.rotation.x = .38; }
       box(g, '#7a5232', 1.6, .64, .42, -.45, .1, .28); box(g, '#e8d8bc', 1.62, .06, .44, -.45, .74, .28);      // bar counter
       box(g, '#9a9b94', .34, .36, .28, -1.0, .8, .25); box(g, '#2b2b2b', .08, .1, .08, -1.0, .78, .42);       // espresso machine
       for (let i = 0; i < 4; i++) { add(g, G.cyl8, '#f4eee0', .055, .1, .055, -.6 + i * .2, .85, .32); add(g, G.cyl8, '#4a2a16', .045, .01, .045, -.6 + i * .2, .9, .32, 0, false); }
-      box(g, '#5a3c26', 1.5, .05, .25, -.45, .95, -.65); for (let i = 0; i < 6; i++) add(g, G.cyl8, ['#c98a3a', '#3a2618', '#e8d8bc'][i % 3], .07, .16, .07, -1.05 + i * .24, 1.08, -.65);
+      box(g, '#5a3c26', 1.5, .05, .25, -.45, 1.15, -.65); for (let i = 0; i < 6; i++) add(g, G.cyl8, ['#c98a3a', '#3a2618', '#e8d8bc'][i % 3], .07, .16, .07, -1.05 + i * .24, 1.28, -.65);
       box(g, '#c2a476', .38, .42, .3, .2, .1, -.5); box(g, '#a88a5c', .36, .1, .28, .2, .52, -.5);           // coffee sack
       // outdoor table with two stools on the right
       add(g, G.cyl8, '#5a3c26', .05, .55, .05, .95, .38, .25); add(g, G.cyl8, '#8a5a34', .32, .04, .32, .95, .66, .25);
@@ -488,19 +488,19 @@ export const BT = {
       x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#f2e6d0'; x.font = '700 62px "Pixelify Sans", sans-serif'; x.fillText('KEDAI KOPI', 256, 62, 490);
       x.fillStyle = '#e6b84a'; x.font = '700 28px "Pixelify Sans", sans-serif'; x.fillText('selamat menikmati kopinya', 256, 120, 490);
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
-      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.8, .56), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(-.45, 1.74, .56); g.add(sign);
-      box(g, '#3a2618', 1.86, .62, .04, -.45, 1.43, .53);
-      const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.09, .12, .09); lamp.position.set(.4, 1.12, .8); g.add(lamp);
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.8, .56), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(-.45, 2.09, .56); g.add(sign);
+      box(g, '#3a2618', 1.86, .62, .04, -.45, 1.78, .53);
+      const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.09, .12, .09); lamp.position.set(.4, 1.45, .8); g.add(lamp);
     } },
   // a night-watch hut ("pos ronda") with a kentongan, from the traktiran "warga saling jaga" (ep 10)
   posronda: { n: 'Pos Ronda', w: 2, h: 2, land: true,
     build(g) {
-      for (const [x, z] of [[-.8, -.7], [.8, -.7], [-.8, .7], [.8, .7]]) box(g, '#5e3b22', .1, 1.75, .1, x, 0, z);
+      for (const [x, z] of [[-.8, -.7], [.8, -.7], [-.8, .7], [.8, .7]]) box(g, '#5e3b22', .1, 2.2, .1, x, 0, z);
       box(g, '#a8844e', 1.7, .08, 1.5, 0, .45, 0);                                                          // bamboo platform
       for (let i = 0; i < 9; i++) box(g, i % 2 ? '#c9a868' : '#b8955a', .17, .02, 1.48, -.76 + i * .19, .53, 0, 0);
       box(g, '#8a6a3a', 1.7, .35, .06, 0, .55, -.72);                                                       // back rail
-      roof4(g, '#8c6a3a', 2.4, .75, 2.1, 0, 1.75, 0);                                                       // thatched roof
-      add(g, G.cone4, '#a07c46', 2.25 * .72, .1, 1.95 * .72, 0, 1.78, 0, Math.PI / 4);
+      roof4(g, '#8c6a3a', 2.4, .75, 2.1, 0, 2.2, 0);                                                       // thatched roof
+      add(g, G.cone4, '#a07c46', 2.25 * .72, .1, 1.95 * .72, 0, 2.23, 0, Math.PI / 4);
       // kentongan: a hollow log hanging from the front-right post, with a mallet
       const k = add(g, G.cyl8, '#7a4a28', .09, .55, .09, .92, 1.15, .72); add(g, G.box, '#2b1a10', .02, .3, .05, .92, 1.15, .81);
       box(g, '#3a2618', .02, .14, .02, .92, 1.42, .72);
@@ -509,14 +509,14 @@ export const BT = {
       add(g, G.cyl8, '#d0483a', .07, .26, .07, -.5, .66, -.35); add(g, G.cyl8, '#f4eee0', .04, .07, .04, -.32, .58, -.3); add(g, G.cyl8, '#f4eee0', .04, .07, .04, -.22, .58, -.4);
       box(g, '#e8dcc4', .36, .02, .36, .25, .55, -.1); for (let i = 0; i < 6; i++) add(g, G.cyl8, i % 2 ? '#d0483a' : '#2b2b2b', .03, .02, .03, .13 + (i % 3) * .12, .58, -.2 + (i >> 1) * .1, 0, false);
       box(g, '#4e7a9a', .5, .05, .3, .45, .55, .35);
-      const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.09, .12, .09); lamp.position.set(0, 1.55, .3); g.add(lamp);
-      box(g, '#3a2618', .02, .2, .02, 0, 1.62, .3);
+      const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.09, .12, .09); lamp.position.set(0, 2.0, .3); g.add(lamp);
+      box(g, '#3a2618', .02, .2, .02, 0, 2.07, .3);
       const c = document.createElement('canvas'); c.width = 512; c.height = 160; const x = c.getContext('2d');
       x.fillStyle = '#fff4dc'; x.fillRect(0, 0, 512, 160); x.fillStyle = '#d0483a'; x.fillRect(0, 0, 512, 10); x.fillRect(0, 150, 512, 10);
       x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#5e3b22'; x.font = '700 64px "Pixelify Sans", sans-serif'; x.fillText('POS RONDA', 256, 62, 490);
       x.fillStyle = '#d0483a'; x.font = '700 32px "Pixelify Sans", sans-serif'; x.fillText('warga saling jaga', 256, 120, 490);
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
-      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.3, .4), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.5, .78); g.add(sign);
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.3, .4), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.98, .78); g.add(sign);
     } },
   warungumkm: { n: 'Warung UMKM', w: 2, h: 2, land: true,
     build(g, b) {
