@@ -15,6 +15,7 @@ import { createFishing } from './fishing.js';
 import * as I2 from './island2.js';
 import { createActivities } from './activities.js';
 import { createBoats } from './boats.js';
+import * as kebun from './kebun.js';
 import { $, h, toast, fmt, clean } from './ui.js';
 
 const touch = matchMedia('(pointer:coarse)').matches;
@@ -214,6 +215,7 @@ function rebuildBuildings() {
     o.position.set(cx, d.water ? 0 : fpGround(b.x, b.y, f.w, f.h), cz); o.rotation.y = -(b.r | 0) * Math.PI / 2;
     o.userData.b = b; bGroup.add(o); bObjs.push(o);
   });
+  kebun.attach(bObjs.find(o => o.userData.b.type === 'ladang'));
   // floating builds (the cloud Kopdes) hang above the nearest climbable pyramid's apex
   platforms = []; clouds = [];
   for (const o of bObjs) {
@@ -464,7 +466,7 @@ function interactables() {
   L.push({ ...at(LM.board[0], LM.board[1], 2, 1, .9), label: 'Baca aturan', act: UI.openRules, r: 1.6 });
   L.push({ ...at(LM.wreck[0], LM.wreck[1], 3, 2, 1.4), label: 'Periksa perahu', act: UI.openMystery, r: 2.4 });
   L.push({ ...at(LM.fire[0], LM.fire[1], 1, 1, .9), label: 'Baca catatan', act: UI.openJournal, r: 1.6 });
-  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); if (b.type === 'perahu') return; const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : b.link ? 'Mampir ke ' + (b.label || 'warung') : BT[b.type].open ? 'Baca ' + BT[b.type].n : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : b.link ? () => UI.shopDialog(b) : BT[b.type].open ? () => UI.openPanel(BT[b.type].open) : () => UI.bldDialog(b), r: Math.min(3, Math.max(1.4, f.w * .7)), key: sp ? 'spear' + fishing.st.active : null }); });
+  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); if (b.type === 'perahu') return; const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : b.link ? 'Mampir ke ' + (b.label || 'warung') : BT[b.type].open ? (BT[b.type].openLabel || 'Baca ' + BT[b.type].n) : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : b.link ? () => UI.shopDialog(b) : BT[b.type].open ? () => UI.openPanel(BT[b.type].open) : () => UI.bldDialog(b), r: Math.min(3, Math.max(1.4, f.w * .7)), key: sp ? 'spear' + fishing.st.active : null }); });
   for (const n of npcs) L.push({ npc: true, x: n.x, z: n.z, label: 'Bicara dengan ' + n.name, act: () => { n.obj.rotation.y = Math.atan2(player.x - n.x, player.z - n.z); n.wait = 4; UI.talk(n); }, r: 1.3 });
   return L;
 }
@@ -590,6 +592,7 @@ function frame() {
   player.obj.position.set(player.x, player.y, player.z);
   animateCharacter(player.obj, player.moving, dt);
   fishing.update(dt, T0);
+  kebun.update(dt, T0);
   for (const n of npcs) { if (n.cloud) { stepCloud(n, dt, T0); continue; } acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z) + (n.state === 'work' ? n.yOff || 0 : 0), n.z); }
   // camera
   if (cam.attract && !$('start').hidden) { cam.yaw += dt * .05; }
@@ -726,6 +729,7 @@ const app = {
   replace(d) { S = d; markDirty(); },
 };
 UI.initUI(app);
+kebun.init(); $('b-kebun').onclick = () => kebun.open();
 
 // ---------- start ----------
 // ---------- LIVE mode (pulau-aru.web.id/?live): a self-running tour for TikTok LIVE screen sharing ----------
@@ -815,5 +819,5 @@ requestAnimationFrame(frame);
   }, 90000);
 })();
 
-window.__pulau = { roads: roadGroup,  app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
+window.__pulau = { kebun, roads: roadGroup,  app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
 trackVisit();

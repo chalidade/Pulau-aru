@@ -93,7 +93,8 @@ export function openLetters() {
       : h('div', { class: 'empty' }, 'Kotak surat masih kosong. Surat pertama datang di episode 10.'));
 }
 export const TREAT_URL = 'https://teer.id/chalidade';
-export const openPanel = k => ({ dermawan: openDermawan, umkm: openUmkm })[k]();
+export const panels = { dermawan: () => openDermawan(), umkm: () => openUmkm() };
+export const openPanel = k => panels[k] && panels[k]();
 export function openDermawan() {
   const S = app.S, sup = [...(S.supporters || [])].sort((a, b) => (b.count || 0) - (a.count || 0) || (b.total || 0) - (a.total || 0));
   const medal = ['🥇', '🥈', '🥉'];

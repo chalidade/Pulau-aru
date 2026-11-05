@@ -241,3 +241,9 @@ body.live #hud-r, body.live #hud-l, body.live #prompt, body.live #act, body.live
 #live-ov .live-cta b{font-size:17px}
 #live-ov .live-help{position:absolute;left:12px;bottom:8px;font-size:11px;color:var(--sand-dim);opacity:.6}
 @media (max-width:600px){#live-ov .live-card{width:46vw;font-size:12px}#live-ov .live-card:nth-of-type(4){top:260px}}
+
+/* Kebunku (ep 11) */
+.li.kebun{align-items:center}
+.kebun-list{max-height:none}
+.mini.ready{background:var(--leaf);color:var(--ink);font-weight:700}
+.mini:disabled{opacity:.5}

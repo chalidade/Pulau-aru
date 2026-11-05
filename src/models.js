@@ -464,6 +464,113 @@ export const BT = {
         const p = new THREE.Mesh(new THREE.PlaneGeometry(.56, .21), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); p.position.set(0, 1.15, .06); g.add(p);
       }
     } },
+  // the vice president's fruit farm: mango and banana trees, a watermelon patch, a scarecrow, a seed kiosk and six
+  // soil beds where every visitor grows their own plants (src/kebun.js, saved on their device) (ep 11, wapres @EGA_91)
+  ladang: { n: 'Ladang Buah', w: 8, h: 6, land: true, open: 'kebun', openLabel: 'Berkebun',
+    plots: [[.9, -.55], [2.0, -.55], [3.1, -.55], [.9, .65], [2.0, .65], [3.1, .65]],
+    build(g) {
+      box(g, '#8a6a44', 7.9, .06, 5.9, 0, 0, 0);
+      // fence with a gate at the front
+      const fm = mat('#a07a4a');
+      for (let x = -3.9; x <= 3.91; x += .65) for (const z of [-2.9, 2.9]) if (z < 0 || Math.abs(x) > .7) box(g, fm, .07, .55, .07, x, .06, z);
+      for (let z = -2.9; z <= 2.91; z += .58) for (const x of [-3.9, 3.9]) box(g, fm, .07, .55, .07, x, .06, z);
+      for (const y of [.25, .48]) { box(g, fm, 7.8, .05, .04, 0, y, -2.9); box(g, fm, .04, .05, 5.8, -3.9, y, 0); box(g, fm, .04, .05, 5.8, 3.9, y, 0);
+        for (const sx of [-1, 1]) box(g, fm, 3.2, .05, .04, sx * 2.3, y, 2.9); }
+      const c0 = document.createElement('canvas'); c0.width = 512; c0.height = 112; const x0 = c0.getContext('2d');
+      x0.fillStyle = '#f4e3c0'; x0.fillRect(0, 0, 512, 112); x0.fillStyle = '#3f7a2e'; x0.font = '700 62px "Pixelify Sans", sans-serif'; x0.textAlign = 'center'; x0.textBaseline = 'middle'; x0.fillText('LADANG BUAH', 256, 60, 490);
+      const t0 = new THREE.CanvasTexture(c0); t0.colorSpace = THREE.SRGBColorSpace;
+      for (const x of [-.75, .75]) box(g, '#6b4a2b', .1, 1.6, .1, x, .06, 2.95);
+      const arch = new THREE.Mesh(new THREE.PlaneGeometry(1.6, .35), new THREE.MeshStandardMaterial({ map: t0, roughness: .8 })); arch.position.set(0, 1.5, 3.02); g.add(arch);
+      box(g, '#6b4a2b', 1.7, .42, .05, 0, 1.29, 2.97);
+      // mango trees (back left) and banana plants (back right)
+      for (const [x, z] of [[-3.2, -2.2], [-1.9, -2.3], [-.6, -2.2]]) {
+        add(g, G.cyl6, '#6b4a2b', .1, 1.1, .1, x, .6, z);
+        add(g, G.dode, '#3f8a3a', .75, .6, .75, x, 1.45, z); add(g, G.dode, '#4f9b45', .5, .45, .5, x + .3, 1.75, z + .1);
+        for (let i = 0; i < 6; i++) add(g, G.sph, i % 2 ? '#f0a030' : '#e8c040', .09, .12, .09, x + Math.cos(i * 1.1) * .55, 1.15 + (i % 3) * .2, z + Math.sin(i * 1.1) * .5);
+      }
+      for (const [x, z] of [[1.0, -2.3], [2.2, -2.2], [3.3, -2.3]]) {
+        add(g, G.cyl6, '#7a9a3a', .09, 1.0, .09, x, .55, z);
+        for (let i = 0; i < 5; i++) { const l = add(g, G.box, '#4fa040', .9, .03, .26, x + Math.cos(i * 1.26) * .42, 1.1, z + Math.sin(i * 1.26) * .42); l.rotation.y = -i * 1.26; l.rotation.z = .35; }
+        for (let i = 0; i < 4; i++) add(g, G.cyl6, '#ffd84a', .045, .22, .045, x + .12 + (i % 2) * .07, .82 - Math.floor(i / 2) * .12, z + .12 + (i % 2) * .05);
+      }
+      // watermelon patch (front left of the middle)
+      box(g, '#6e4f2e', 3.0, .08, 1.7, -2.2, .06, -.1);
+      for (let i = 0; i < 9; i++) { const x = -3.3 + (i % 3) * 1.05 + (i % 2) * .15, z = -.6 + Math.floor(i / 3) * .55;
+        add(g, G.sph, '#2f7a32', .2, .16, .25, x, .26, z).rotation.y = i; add(g, G.box, '#57b04a', .35, .02, .12, x - .2, .16, z + .12).rotation.y = i * .7; }
+      // scarecrow
+      const sc = new THREE.Group(); sc.position.set(-.35, .06, 1.3); g.add(sc);
+      box(sc, '#6b4a2b', .06, 1.3, .06, 0, 0, 0); box(sc, '#6b4a2b', .9, .05, .05, 0, .95, 0);
+      box(sc, '#c4473a', .4, .45, .22, 0, .65, 0); add(sc, G.sph, '#e8d6a0', .17, .17, .17, 0, 1.25, 0);
+      add(sc, G.cone6, '#d8b04a', .32, .22, .32, 0, 1.45, 0); box(sc, '#e8c87a', .12, .2, .06, -.45, .78, 0); box(sc, '#e8c87a', .12, .2, .06, .45, .78, 0);
+      // the visitors' beds (plants are added at runtime by kebun.js)
+      for (const [x, z] of BT.ladang.plots) { box(g, '#5a3d22', .85, .12, .85, x, .06, z); box(g, '#6e4f2e', .7, .04, .7, x, .18, z); }
+      const c1 = document.createElement('canvas'); c1.width = 384; c1.height = 96; const x1 = c1.getContext('2d');
+      x1.fillStyle = '#fff4dc'; x1.fillRect(0, 0, 384, 96); x1.fillStyle = '#3f7a2e'; x1.font = '700 50px "Pixelify Sans", sans-serif'; x1.textAlign = 'center'; x1.textBaseline = 'middle'; x1.fillText('KEBUN WARGA', 192, 50, 370);
+      const t1 = new THREE.CanvasTexture(c1); t1.colorSpace = THREE.SRGBColorSpace;
+      box(g, '#6b4a2b', .06, .8, .06, 2.0, .06, 1.6);
+      const s1 = new THREE.Mesh(new THREE.PlaneGeometry(.9, .23), new THREE.MeshStandardMaterial({ map: t1, roughness: .8 })); s1.position.set(2.0, .85, 1.64); g.add(s1);
+      // seed kiosk (front left)
+      const k = new THREE.Group(); k.position.set(-2.6, .06, 1.9); g.add(k);
+      box(k, '#8a5a34', 1.1, .5, .45, 0, 0, 0); for (const x of [-.5, .5]) box(k, '#6b4a2b', .06, 1.2, .06, x, 0, -.2);
+      box(k, '#57b04a', 1.25, .06, .7, 0, 1.2, -.05);
+      const seedC = ['#d0483a', '#f2c94c', '#2f8a3a', '#ffd84a', '#f0a030'];
+      for (let i = 0; i < 5; i++) box(k, seedC[i], .14, .14, .16, -.4 + i * .2, .5, .05);
+      const c2 = document.createElement('canvas'); c2.width = 256; c2.height = 80; const x2 = c2.getContext('2d');
+      x2.fillStyle = '#57b04a'; x2.fillRect(0, 0, 256, 80); x2.fillStyle = '#ffffff'; x2.font = '700 48px "Pixelify Sans", sans-serif'; x2.textAlign = 'center'; x2.textBaseline = 'middle'; x2.fillText('BIBIT', 128, 42);
+      const t2 = new THREE.CanvasTexture(c2); t2.colorSpace = THREE.SRGBColorSpace;
+      const s2 = new THREE.Mesh(new THREE.PlaneGeometry(.8, .25), new THREE.MeshStandardMaterial({ map: t2, roughness: .8 })); s2.position.set(0, 1.0, .25); k.add(s2);
+    } },
+  // a school sports field, "paket lengkap": flag pole, goals, a small library and a swing (ep 11, usulan @by5m4)
+  lapangansekolah: { n: 'Lapangan Sekolah', w: 5, h: 4, land: true,
+    build(g) {
+      box(g, '#6fbf5a', 4.9, .05, 3.9, 0, 0, 0);
+      for (const [w, d, x, z] of [[4.4, .04, 0, -1.5], [4.4, .04, 0, 1.5], [.04, 3.0, -2.2, 0], [.04, 3.0, 2.2, 0], [.04, 3.0, 0, 0]]) box(g, '#f7f7f3', w, .01, d, x, .05, z);
+      for (const sx of [-1, 1]) { const x = sx * 2.15; box(g, '#f7f7f3', .05, .7, .05, x, .05, -.5); box(g, '#f7f7f3', .05, .7, .05, x, .05, .5); box(g, '#f7f7f3', .05, .05, 1.05, x, .73, 0); }
+      // flag pole with red-white flag
+      add(g, G.cyl6, '#d8dad6', .035, 3.0, .035, -1.0, 1.55, -1.75); box(g, '#cfc8b6', .5, .12, .5, -1.0, .05, -1.75);
+      box(g, '#d0483a', .6, .2, .02, -.68, 2.75, -1.75); box(g, '#f7f7f3', .6, .2, .02, -.68, 2.55, -1.75);
+      // small library
+      const lb = new THREE.Group(); lb.position.set(1.2, .05, -1.45); g.add(lb);
+      box(lb, '#e7d7b0', 1.4, .9, .8, 0, 0, 0); roof4(lb, '#4e7a9a', 1.7, .45, 1.1, 0, .9, 0);
+      box(lb, '#5e3b22', .35, .6, .04, 0, 0, .41); for (const x of [-.45, .45]) box(lb, windowMat, .25, .25, .04, x, .45, .41);
+      const c = document.createElement('canvas'); c.width = 384; c.height = 80; const x = c.getContext('2d');
+      x.fillStyle = '#ffffff'; x.fillRect(0, 0, 384, 80); x.fillStyle = '#4e7a9a'; x.font = '700 46px "Pixelify Sans", sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('PERPUSTAKAAN', 192, 42, 370);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const s = new THREE.Mesh(new THREE.PlaneGeometry(1.1, .23), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); s.position.set(0, .8, .43); lb.add(s);
+      // swing
+      const sw = new THREE.Group(); sw.position.set(-1.6, .05, 1.65); g.add(sw);
+      for (const x of [-.45, .45]) { const a = box(sw, '#d0483a', .06, 1.2, .06, x, 0, -.15); a.rotation.x = .15; const b = box(sw, '#d0483a', .06, 1.2, .06, x, 0, .15); b.rotation.x = -.15; }
+      box(sw, '#d0483a', 1.0, .06, .06, 0, 1.15, 0);
+      for (const x of [-.2, .2]) { box(sw, '#9a9b94', .02, .8, .02, x - .08, .37, 0); box(sw, '#9a9b94', .02, .8, .02, x + .08, .37, 0); box(sw, '#e6b84a', .25, .04, .15, x, .35, 0); }
+    } },
+  // beach guard post: a small police post with a blue light and a lifeguard tower facing the sea (ep 11, penjaga @RANUUGLL)
+  pospantai: { n: 'Pos Penjaga Pantai', w: 3, h: 2, land: true,
+    build(g, b) {
+      box(g, '#d9cfb4', 2.9, .08, 1.9, 0, 0, 0);
+      // police post (left)
+      box(g, '#f4f4f0', 1.2, 1.15, 1.0, -.75, .08, -.35); box(g, '#2c4f86', 1.25, .12, 1.05, -.75, .65, -.35); box(g, '#2c4f86', 1.35, .1, 1.15, -.75, 1.23, -.35);
+      box(g, windowMat, .5, .35, .04, -.95, .55, .16); box(g, '#3b3b3b', .3, .75, .04, -.35, .08, .16);
+      const lt = new THREE.MeshStandardMaterial({ color: '#4aa8ff', emissive: '#2a7fff', emissiveIntensity: 1.6 }); add(g, G.box, lt, .22, .12, .14, -.75, 1.4, -.35);
+      const c = document.createElement('canvas'); c.width = 256; c.height = 72; const x = c.getContext('2d');
+      x.fillStyle = '#2c4f86'; x.fillRect(0, 0, 256, 72); x.fillStyle = '#ffffff'; x.font = '700 46px "Pixelify Sans", sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('POLISI', 128, 38);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const s = new THREE.Mesh(new THREE.PlaneGeometry(.75, .21), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); s.position.set(-.75, 1.02, .17); g.add(s);
+      // lifeguard tower (right): red and white, ladder in front, flag on top
+      for (const [px, pz] of [[.65, -.6], [1.25, -.6], [.65, 0], [1.25, 0]]) box(g, '#f4f4f0', .08, 1.4, .08, px, .08, pz);
+      box(g, '#d0483a', .9, .08, .9, .95, 1.48, -.3); for (const px of [.52, 1.38]) box(g, '#f4f4f0', .05, .35, .9, px, 1.56, -.3); box(g, '#f4f4f0', .9, .35, .05, .95, 1.56, -.73);
+      for (const [px, pz] of [[.55, -.72], [1.35, -.72], [.55, .12], [1.35, .12]]) box(g, '#d0483a', .04, .7, .04, px, 1.56, pz);
+      roof4(g, '#d0483a', 1.15, .3, 1.15, .95, 2.26, -.3);
+      for (let i = 0; i < 6; i++) box(g, '#c9c2b0', .4, .04, .05, .95, .25 + i * .22, .25 + i * .0);
+      for (const px of [.77, 1.13]) box(g, '#c9c2b0', .04, 1.45, .04, px, .08, .25);
+      add(g, G.cyl6, '#d8dad6', .02, .7, .02, 1.35, 2.75, -.7); box(g, '#ffd23f', .32, .2, .02, 1.53, 2.9, -.7);
+      const rb = new THREE.Mesh(new THREE.TorusGeometry(.17, .06, 6, 12), mat('#ff7a2a')); rb.position.set(1.32, .75, .05); g.add(rb);
+      // name board: the guard on duty
+      const name = (b && b.label) || 'Penjaga Pantai';
+      const c2 = document.createElement('canvas'); c2.width = 384; c2.height = 72; const x2 = c2.getContext('2d');
+      x2.fillStyle = '#ffd23f'; x2.fillRect(0, 0, 384, 72); x2.fillStyle = '#1c1c24'; x2.font = '700 36px "Pixelify Sans", sans-serif'; x2.textAlign = 'center'; x2.textBaseline = 'middle'; x2.fillText(name, 192, 38, 370);
+      const t2 = new THREE.CanvasTexture(c2); t2.colorSpace = THREE.SRGBColorSpace;
+      const s2 = new THREE.Mesh(new THREE.PlaneGeometry(.95, .18), new THREE.MeshStandardMaterial({ map: t2, roughness: .8 })); s2.position.set(.95, 1.45, .17); g.add(s2);
+    } },
   // a small business stall for a real UMKM chosen from the comments (#UMKMPulauAru): the sign shows b.label,
   // the awning colour comes from the name, and tapping it opens the business link (b.link) after a confirmation sheet
   // a small coffee house on the cross street, from Kak Alfi's traktiran "selamat menikmati kopinya" (ep 10)

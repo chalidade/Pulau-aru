@@ -78,6 +78,7 @@ export function createFishing({ scene, player, toast, onChange }) {
       st.caught.push({ g: hit.g, t: 0, x: to.x, z: to.z, spear: sp });
       st.total++; st.best[hit.sp.n] = (st.best[hit.sp.n] | 0) + 1;
       store.set(statsKey, JSON.stringify({ total: st.total, best: st.best }));
+      try { window.dispatchEvent(new CustomEvent('pulau-fish', { detail: hit.sp.n })); } catch (e) { }
       toast(`${hit.sp.rare ? 'Langka! ' : ''}Dapat ${hit.sp.n}! Total tangkapanmu: ${st.total}`);
       onChange && onChange();
     } else {
