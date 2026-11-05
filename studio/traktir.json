@@ -31,7 +31,8 @@
    "qty": 10,
    "message": "Semangat!",
    "at": "2026-11-04 22:02:54",
-   "done": false
+   "done": true,
+   "ep": 9
   },
   {
    "id": "d4fe0ee7-393e-5fe4-a0a2-fb31e228830c",
@@ -39,7 +40,9 @@
    "qty": 4,
    "message": "",
    "at": "2026-11-04 21:42:33",
-   "done": false
+   "done": true,
+   "ep": 9,
+   "note": "tanpa pesan; disebut sebagai dermawan tanpa nama"
   },
   {
    "id": "c92986c5-2d0f-5188-99b8-005780c60fa5",
@@ -47,7 +50,8 @@
    "qty": 5,
    "message": "Tetep jadi orang jujur dan punya prinsip y, kak. GBU.",
    "at": "2026-11-04 21:16:42",
-   "done": false
+   "done": true,
+   "ep": 9
   },
   {
    "id": "44e9c9dd-543a-5873-89a6-e8d3e4a27ec9",

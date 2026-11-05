@@ -12006,6 +12006,95 @@
    "label": "untuk Kak Chalid, dari warga",
    "by": "Chalid Ade Rahman",
    "ep": 8
+  },
+  {
+   "type": "kantinjujur",
+   "x": 51,
+   "y": 65,
+   "r": 3,
+   "by": "Seseorang (traktir)",
+   "ep": 9
+  },
+  {
+   "type": "lampusemangat",
+   "x": 53,
+   "y": 56,
+   "r": 3,
+   "by": "Tiara",
+   "ep": 9,
+   "label": "dari Tiara"
+  },
+  {
+   "type": "lampusemangat",
+   "x": 56,
+   "y": 56,
+   "r": 1,
+   "by": "Tiara",
+   "ep": 9
+  },
+  {
+   "type": "lampusemangat",
+   "x": 53,
+   "y": 63,
+   "r": 3,
+   "by": "Tiara",
+   "ep": 9
+  },
+  {
+   "type": "lampusemangat",
+   "x": 56,
+   "y": 63,
+   "r": 1,
+   "by": "Tiara",
+   "ep": 9
+  },
+  {
+   "type": "lampusemangat",
+   "x": 53,
+   "y": 68,
+   "r": 3,
+   "by": "Tiara",
+   "ep": 9
+  },
+  {
+   "type": "lampusemangat",
+   "x": 56,
+   "y": 68,
+   "r": 1,
+   "by": "Tiara",
+   "ep": 9
+  },
+  {
+   "type": "lampusemangat",
+   "x": 53,
+   "y": 75,
+   "r": 3,
+   "by": "Tiara",
+   "ep": 9
+  },
+  {
+   "type": "lampusemangat",
+   "x": 56,
+   "y": 75,
+   "r": 1,
+   "by": "Tiara",
+   "ep": 9
+  },
+  {
+   "type": "lampusemangat",
+   "x": 53,
+   "y": 82,
+   "r": 3,
+   "by": "Tiara",
+   "ep": 9
+  },
+  {
+   "type": "lampusemangat",
+   "x": 56,
+   "y": 82,
+   "r": 1,
+   "by": "Tiara",
+   "ep": 9
   }
  ],
  "episodes": [
@@ -12085,6 +12174,15 @@
     "kotak usulan warga"
    ],
    "text": "Kotak usulan lama dikocok: waterpark dengan perosotan spiral dan bebek karet raksasa di utara jalan silang, dan pembakaran ikan dekat dermaga.\nTraktiran Chalid \"semangat\": warga memasang Papan Semangat di dekat panggung.\nPresiden @Etet_443 diam-diam lebih suka ikan bakar daripada warteg. Di pulau seberang, lampu kedua di gambar mercusuar Aru menyala.\nWapres @EGA_91 meluncur duluan. Byur! Rapat kabinet ditunda."
+  },
+  {
+   "ep": 9,
+   "date": "5 Nov 2026",
+   "picks": [
+    "Seseorang (traktir)",
+    "Tiara (traktir)"
+   ],
+   "text": "Semalam pulau kehujanan traktiran. Terima kasih Tiara, adis, Kak Alfi, dan para dermawan tanpa nama!\nPesan \"jujur dan punya prinsip\" jadi Kantin Kejujuran di samping sekolah: tanpa kasir, ambil sendiri, bayar sendiri.\nSepuluh traktiran Tiara jadi sepuluh Lampu Semangat di jalan utama. Malam ini pulau terang.\nWapres @EGA_91 mengadakan rapat kabinet di kolam, lalu memergoki Presiden @Etet_443 mengambil gorengan. Presiden bayar dua kali lipat."
   }
  ],
  "letters": [],

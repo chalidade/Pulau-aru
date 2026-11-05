@@ -99,13 +99,15 @@ def narrator_caption(text, shown, tl, dur):
     return layer
 
 # the two chosen comments: key = a word the narrator says when the card should pop (from line n2),
-# value = (username, comment text, tag). A value may also be (path to a screenshot, tag).
+# value = (username, comment text, tag[, avatar path]). A value may also be (path to a real screenshot of the comment, tag).
+# Chalid 5 Nov 2026: show the commenter's real username AND profile photo; a real screenshot is best, else pass the avatar from comments.json.
 COMMENTS = {'aspal': ('EN17', 'buat jalan aspal', 'TERPILIH'), 'sekolah': ('junaa_yuds', 'kak bikin sekolah,apotik', 'TERPILIH')}
 CARD_T = {'aspal': .4}   # first card early; others pop on their keyword
 UNDIAN_BG = 'e6c2'     # capture folder whose last frame, blurred, sits behind the comment cards
 DECREE = ('Etet_443', 'Aku kan udah jadi presiden aku minta masjid')   # (username, text) for a 'decree' segment, or None
-def comment_card(user, text, width=900):
-    """a TikTok-style comment drawn from text: avatar initial, username, comment, reply row"""
+def comment_card(user, text, width=900, avatar=None):
+    """a TikTok-style comment drawn from text: the real profile photo (avatar = path from studio/comments.json, downloaded
+    by the comments workflow) or an initial, the exact username, comment, reply row"""
     F_U = ImageFont.truetype(B.F + 'rethink-latin-500-normal.ttf', 30); F_T = ImageFont.truetype(B.F + 'rethink-latin-500-normal.ttf', 40)
     try: F_J = ImageFont.truetype('/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc', 30)
     except Exception: F_J = F_U
@@ -115,6 +117,11 @@ def comment_card(user, text, width=900):
     d.rounded_rectangle((0, 0, width - 1, h - 1), 26, fill=(255, 255, 255, 255))
     hue = sum(map(ord, user)) % 6; col = [(232, 98, 82), (86, 154, 214), (98, 178, 120), (226, 170, 66), (150, 110, 200), (70, 170, 170)][hue]
     d.ellipse((34, 34, 124, 124), fill=col); d.text((79, 80), (user.strip('@._ ') or '?')[0].upper(), font=ImageFont.truetype(B.F + 'rethink-latin-700-normal.ttf', 46), fill=(255, 255, 255), anchor='mm')
+    if avatar and os.path.exists(avatar):
+        try:
+            av = Image.open(avatar).convert('RGB').resize((90, 90), Image.LANCZOS); m = Image.new('L', (90, 90), 0); ImageDraw.Draw(m).ellipse((0, 0, 89, 89), fill=255)
+            c.paste(av, (34, 34), m)
+        except Exception: pass
     fu = F_J if any(ord(ch) > 0x2000 for ch in user) else F_U
     d.text((150, 44), user, font=fu, fill=(120, 120, 120)); y = 88
     for ln in lines: d.text((150, y), ln, font=F_T, fill=(20, 20, 20)); y += 52
@@ -139,7 +146,7 @@ def undian_frame(t):
         _U['bg'] = Image.blend(bg, Image.new('RGB', (W, H), INK), .55)
         _U['cards'] = []
         for k, v in COMMENTS.items():
-            c, tag = (comment_image(v[0]), v[1]) if len(v) == 2 else (comment_card(v[0], v[1]), v[2])
+            c, tag = (comment_image(v[0]), v[1]) if len(v) == 2 else (comment_card(v[0], v[1], avatar=v[3] if len(v) > 3 else None), v[2])
             t0 = CARD_T[k] if k in CARD_T else .4 + (word_time('n2', k) or 3.0)
             _U['cards'].append((c, t0, tag))
     img = _U['bg'].copy().convert('RGBA'); d = ImageDraw.Draw(img)

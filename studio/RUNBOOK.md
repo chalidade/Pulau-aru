@@ -82,7 +82,12 @@ Choosing:
 - Two comments that are unique, funny, surprising or random; they do not need to make sense. Prefer ones answering
   the previous episode's question, and ones with likes.
 - Never reuse anything in `usedComments`. Skip hateful, sexual, about-minors, doxxing, or real-politics comments.
-- Credit the commenter's handle exactly. The compositor draws the comment cards from text.
+- Credit the commenter's handle exactly.
+- **Comment cards must show the real username and profile photo (Chalid, 5 Nov 2026).** Best: a real screenshot of the
+  comment (Claude in Chrome on TikTok Studio, cropped to the one comment) passed to `COMMENTS` as `(path, tag)`.
+  Otherwise draw the card with the exact `user` from `studio/comments.json` and its `avatar` file (downloaded by the
+  comments workflow into `studio/avatars/`): `(user, text, tag, avatar)`. Never invent a username or photo; if neither
+  is available, say so in the report.
 
 ## 2b. Community and money (every episode, lightly)
 
