@@ -424,6 +424,46 @@ export const BT = {
       const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.9, .92), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.75, .03); g.add(sign);
       for (const x2 of [-.95, -.48, 0, .48, .95]) { const l = new THREE.Mesh(G.sph, lanternMat); l.scale.setScalar(.06); l.position.set(x2, 2.28, .06); g.add(l); }
     } },
+  // an honesty canteen with no cashier: take a snack, drop the money in the box (ep 9, traktiran "jujur dan punya prinsip")
+  kantinjujur: { n: 'Kantin Kejujuran', w: 2, h: 2, land: true,
+    build(g) {
+      box(g, '#c9bfa8', 1.9, .1, 1.85, 0, 0, 0);
+      box(g, '#e8dcc0', 1.75, 1.2, .1, 0, .1, -.78); box(g, '#d8caa8', .1, 1.2, 1.1, -.82, .1, -.28); box(g, '#d8caa8', .1, 1.2, 1.1, .82, .1, -.28);
+      for (const [x, z] of [[-.84, .72], [.84, .72]]) box(g, '#5e3b22', .08, 1.4, .08, x, .1, z);
+      box(g, '#3f7f5a', 1.95, .08, 1.7, 0, 1.3, -.05);                                                   // green roof
+      for (let i = 0; i < 7; i++) { const a = box(g, i % 2 ? '#f4eee0' : '#3f7f5a', .28, .05, .48, -.84 + i * .28, 1.23, .84); a.rotation.x = .38; }
+      box(g, '#8a5a34', 1.5, .62, .42, 0, .1, .28); box(g, '#f4eee0', 1.52, .06, .44, 0, .72, .28);        // counter
+      for (let i = 0; i < 3; i++) { const tray = -.55 + i * .42; add(g, G.cyl8, '#d8d2c4', .17, .03, .17, tray, .79, .26);   // trays of gorengan
+        for (let k = 0; k < 4; k++) add(g, G.ico, ['#d99a3e', '#c98a3a', '#e0b050'][i], .055, .035, .08, tray - .07 + (k % 2) * .13, .84 + (k >> 1) * .03, .22 + (k >> 1) * .08); }
+      box(g, '#7a4a28', .3, .24, .24, .58, .78, .3); box(g, '#2b1a10', .16, .02, .04, .58, 1.02, .3);    // money box with a slot
+      const c = document.createElement('canvas'); c.width = 512; c.height = 160; const x = c.getContext('2d');
+      x.fillStyle = '#fff8e6'; x.fillRect(0, 0, 512, 160); x.fillStyle = '#3f7f5a'; x.fillRect(0, 0, 512, 12); x.fillRect(0, 148, 512, 12);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#2f6a48'; x.font = '700 56px "Pixelify Sans", sans-serif'; x.fillText('KANTIN KEJUJURAN', 256, 62, 490);
+      x.fillStyle = '#5e3b22'; x.font = '700 30px "Pixelify Sans", sans-serif'; x.fillText('ambil sendiri · bayar sendiri', 256, 118, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.75, .55), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.66, .56); g.add(sign);
+      box(g, '#5e3b22', 1.82, .62, .04, 0, 1.35, .53);
+      const c2 = document.createElement('canvas'); c2.width = 128; c2.height = 64; const y = c2.getContext('2d');
+      y.fillStyle = '#f4e3c0'; y.fillRect(0, 0, 128, 64); y.fillStyle = '#3a2412'; y.font = '700 30px "Pixelify Sans", sans-serif'; y.textAlign = 'center'; y.textBaseline = 'middle'; y.fillText('BAYAR', 64, 34);
+      const t2 = new THREE.CanvasTexture(c2); t2.colorSpace = THREE.SRGBColorSpace;
+      const lab = new THREE.Mesh(new THREE.PlaneGeometry(.26, .13), new THREE.MeshStandardMaterial({ map: t2, roughness: .8 })); lab.position.set(.58, .9, .425); g.add(lab);
+      const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.09, .12, .09); lamp.position.set(-.75, 1.08, .8); g.add(lamp);
+    } },
+  // a street lamp along the main street; ten of them from Tiara's ten traktiran (ep 9). b.label puts a small plaque on the post
+  lampusemangat: { n: 'Lampu Semangat', w: 1, h: 1, land: true,
+    build(g, b) {
+      box(g, '#6b6b66', .26, .12, .26, 0, 0, 0); box(g, '#3d4a52', .08, 2.3, .08, 0, .1, 0);
+      box(g, '#3d4a52', .06, .06, .5, 0, 2.3, .2); box(g, '#2b3338', .26, .06, .26, 0, 2.28, .44);
+      const l = new THREE.Mesh(G.sph, lanternMat); l.scale.set(.13, .15, .13); l.position.set(0, 2.14, .44); g.add(l);
+      const h = new THREE.Mesh(G.sph, mat('#e6b84a')); h.scale.set(.1, .1, .03); h.position.set(0, 1.55, .06); g.add(h);
+      if (b && b.label) {
+        const c = document.createElement('canvas'); c.width = 256; c.height = 96; const x = c.getContext('2d');
+        x.fillStyle = '#e6b84a'; x.fillRect(0, 0, 256, 96); x.fillStyle = '#3a2412'; x.textAlign = 'center'; x.textBaseline = 'middle';
+        x.font = '700 30px "Pixelify Sans", sans-serif'; x.fillText('LAMPU SEMANGAT', 128, 30, 240); x.font = '700 26px "Pixelify Sans", sans-serif'; x.fillText(b.label, 128, 68, 240);
+        const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+        const p = new THREE.Mesh(new THREE.PlaneGeometry(.56, .21), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); p.position.set(0, 1.15, .06); g.add(p);
+      }
+    } },
   // a small business stall for a real UMKM chosen from the comments (#UMKMPulauAru): the sign shows b.label,
   // the awning colour comes from the name, and tapping it opens the business link (b.link) after a confirmation sheet
   warungumkm: { n: 'Warung UMKM', w: 2, h: 2, land: true,
