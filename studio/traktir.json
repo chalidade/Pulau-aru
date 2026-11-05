@@ -15,7 +15,9 @@
    "qty": 5,
    "message": "",
    "at": "2026-11-04 22:19:29",
-   "done": false
+   "done": true,
+   "ep": 12,
+   "note": "disebut di ucapan terima kasih ep 12 (34 traktiran tanpa nama); pesan soal aplikasi lain Chalid, tidak dibangun"
   },
   {
    "id": "0b91184e-90fd-554b-80d1-80df9fe77c9a",
@@ -23,7 +25,9 @@
    "qty": 1,
    "message": "Semangat,  semoga segera rilis untuk iOS",
    "at": "2026-11-04 22:09:06",
-   "done": false
+   "done": true,
+   "ep": 12,
+   "note": "disebut di ucapan terima kasih ep 12 (34 traktiran tanpa nama); pesan soal aplikasi lain Chalid, tidak dibangun"
   },
   {
    "id": "e099a062-6582-52e0-b782-b362f058f7b2",
@@ -59,7 +63,9 @@
    "qty": 2,
    "message": "Terima Kasih, aplikasinya sangat membantu jika saatnya tiba. Tapi saya harap semoga tidak perlu menggunakan ini (untuk sekarang) dan semoga keadaan selalu baik-baik saja 🤲",
    "at": "2026-11-05 04:36:45",
-   "done": false
+   "done": true,
+   "ep": 12,
+   "note": "diwujudkan: Gapura Selamat Datang, sisi belakang \"Semoga selalu baik-baik saja\""
   },
   {
    "id": "2013d3e8-7a91-55a9-a63c-df97d524b593",
@@ -67,7 +73,9 @@
    "qty": 5,
    "message": "sukses ya bang,semoga secepatnya terealisasi di ios.salam dari bogor.maaf ya bang tdk bisa traktir banyak",
    "at": "2026-11-05 00:07:20",
-   "done": false
+   "done": true,
+   "ep": 12,
+   "note": "diwujudkan: Tiang Salam (panah BOGOR) di dermaga"
   },
   {
    "id": "7cd4be2d-6e64-5669-a355-82c42b99c1d2",
@@ -93,7 +101,9 @@
    "qty": 1,
    "message": "Mangatt kak!",
    "at": "2026-11-04 23:00:43",
-   "done": false
+   "done": true,
+   "ep": 12,
+   "note": "disebut di ucapan terima kasih ep 12 (34 traktiran tanpa nama); pesan soal aplikasi lain Chalid, tidak dibangun"
   },
   {
    "id": "cf680a91-e343-5be1-b606-41df2aec38e2",
@@ -101,7 +111,9 @@
    "qty": 25,
    "message": "",
    "at": "2026-11-04 22:41:48",
-   "done": false
+   "done": true,
+   "ep": 12,
+   "note": "disebut di ucapan terima kasih ep 12 (34 traktiran tanpa nama); pesan soal aplikasi lain Chalid, tidak dibangun"
   },
   {
    "id": "3c6be8ed-e2c3-5c52-958d-4c8cbc0e2ebe",
