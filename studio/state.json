@@ -1,5 +1,5 @@
 {
- "nextEp": 10,
+ "nextEp": 11,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -21,13 +21,13 @@
   "requestsMax": 2
  },
  "openThreads": [
-  "Episode 9 menutup dengan pertanyaan: 'Kalau kamu buka kantin kejujuran, mau jual apa?' Jawaban bisa jadi isi Kantin Kejujuran.",
-  "Presiden @Etet_443 ketahuan ambil gorengan di Kantin Kejujuran, lalu bayar dua kali lipat. Warga bisa usul hukuman lucu / presiden jaga kantin sehari. Sisa 1 permintaan tanpa undian (masa jabatan sampai ~10 Nov). Wapres @EGA_91 belum pakai 2 jatahnya; dia suka rapat kabinet di kolam.",
-  "Traktiran yang belum diwujudkan (lihat studio/traktir.json, done:false): Seseorang 'semoga rilis iOS', Seseorang x25, Seseorang x5, Seribulansss Alfi Syahrin 'kopinya', Seseorang 'warga salingjaga', Seseorang 'Mangatt', adis 'salam dari bogor', Seseorang 'semoga tidak perlu menggunakan ini'. Banyak yang tampaknya untuk aplikasi Chalid yang lain; tunggu arahan Chalid.",
-  "Aru di Pulau Seberang: lampu kedua di gambar mercusuar menyala (2 dari 3, ep 8). Lampu ketiga = Aru menemukan jalan ke pulau awan / pulang. Tidak muncul di ep 9; munculkan di ep 10.",
-  "Ep 8 'wahana apa lagi di waterpark?', ep 7 'menu warteg', ep 6 'cara menggulingkan presiden', 'apa yang dijual pertama di Kopdes' belum dijawab.",
-  "Usulan lama yang belum dipakai: bengkel, bank/mata uang, hotel, apartemen, toilet.",
-  "Komentar TikTok otomatis belum jalan: secret APIFY_TOKEN belum diisi (run 5 Nov gagal lagi). Ep 9 digerakkan oleh traktiran."
+  "Episode 10 menutup dengan pertanyaan: 'Siapa yang harus menjemput Aru?' Jawaban (presiden? wapres? warga tertentu? perahu nelayan?) bisa jadi ep 11: Aru pulang dari Pulau Seberang.",
+  "Aru di Pulau Seberang: lampu ketiga di gambar mercusuar menyala (3 dari 3, ep 10) karena cahaya Lampu Semangat. Aru tahu jalan pulang; penjemputan / pelayaran pulang belum terjadi.",
+  "Presiden @Etet_443 dihukum ronda malam (ep 10) gara-gara gorengan, ketiduran di Pos Ronda, dibangunkan kentongan. Sisa 1 permintaan tanpa undian (masa jabatan sampai ~10 Nov). Wapres @EGA_91 belum pakai 2 jatahnya.",
+  "Kedai Kopi (jalan silang, x45 y54) dan Pos Ronda (x50 y54) baru berdiri berdampingan; bisa jadi tempat nongkrong warga / rapat kabinet berikutnya.",
+  "Traktiran yang belum diwujudkan (studio/traktir.json, done:false): Seseorang x25 dan x5 (tanpa pesan), Seseorang 'semoga rilis iOS', adis 'salam dari bogor / iOS', Seseorang 'Mangatt', Seseorang 'semoga tidak perlu menggunakan ini'. Sebagian besar untuk aplikasi Chalid yang lain; tunggu arahan Chalid atau sebut sebagai ucapan terima kasih.",
+  "Pertanyaan lama belum dijawab: ep 9 'kantin kejujuran mau jual apa?', ep 8 'wahana waterpark', ep 7 'menu warteg', ep 6 'cara menggulingkan presiden'. Usulan lama: bengkel, bank/mata uang, hotel, apartemen, toilet.",
+  "Komentar TikTok otomatis belum jalan: secret APIFY_TOKEN belum diisi (run 5 Nov pagi gagal lagi). Ep 9 dan 10 digerakkan oleh traktiran."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -42,7 +42,9 @@
   "kotak usulan: pembakaran ikan",
   "traktir Chalid Ade Rahman: Semamgat aku",
   "traktir Seseorang: Tetep jadi orang jujur dan punya prinsip (Kantin Kejujuran)",
-  "traktir Tiara x10: Semangat! (10 Lampu Semangat)"
+  "traktir Tiara x10: Semangat! (10 Lampu Semangat)",
+  "traktir Seribulansss Alfi Syahrin: selamat menikmati kopinya (Kedai Kopi)",
+  "traktir Seseorang: Keren, warga salingjaga (Pos Ronda)"
  ],
  "episodes": [
   {
@@ -68,20 +70,27 @@
    "title": "Kantin Kejujuran",
    "posted": "https://www.tiktok.com/@kita.berkembang/video/7704536808675200264",
    "summary": "Hujan traktiran semalam. Pesan 'jujur dan punya prinsip' (Seseorang) jadi Kantin Kejujuran di samping sekolah; 10 traktiran Tiara 'Semangat!' jadi 10 Lampu Semangat di jalan utama (malam terang). Terima kasih Tiara, adis, Alfi, dermawan tanpa nama. Wapres rapat kabinet di kolam, lalu memergoki presiden ambil gorengan di kantin; presiden bayar dua kali lipat."
+  },
+  {
+   "ep": 10,
+   "title": "Kopi & Pos Ronda",
+   "posted": "manual (menunggu Chalid)",
+   "summary": "Traktiran Kak Alfi 'selamat menikmati kopinya' jadi Kedai Kopi di jalan silang; pesan 'warga saling jaga' jadi Pos Ronda dengan kentongan. Terima kasih Alfi, Vani, dermawan tanpa nama. Wapres menghukum presiden ronda malam (gorengan ep 9); presiden minta tiga gelas kopi, lalu ketiduran dan dibangunkan kentongan. Aru di Pulau Seberang melihat cahaya Lampu Semangat: lampu ketiga mercusuar menyala, Aru tahu jalan pulang. End card: siapa yang menjemput Aru? CTA UMKM."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 9,
-   "cta": "traktir"
+   "ep": 10,
+   "cta": "umkm"
   },
-  "nextCta": "umkm"
+  "nextCta": "traktir"
  },
  "notes": [
   "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
   "Chalid 4 Nov 2026: promosikan Warung UMKM. Usaha yang komentar #UMKMPulauAru nama - jenis - IG/WA dibuatkan warung (type warungumkm) dengan link; bangunan berlink bisa diketuk ke Instagram/WhatsApp/website. Ajakan UMKM di end card ep 8.",
-  "Chalid 5 Nov 2026: kartu komentar harus memakai screenshot asli komentar (username asli) dan foto profilnya. Workflow komentar sekarang mengunduh avatar ke studio/avatars/; compose menerima (user, text, tag, avatar)."
+  "Chalid 5 Nov 2026: kartu komentar harus memakai screenshot asli komentar (username asli) dan foto profilnya. Workflow komentar sekarang mengunduh avatar ke studio/avatars/; compose menerima (user, text, tag, avatar).",
+  "Ep 10 (5 Nov pagi): Claude in Chrome tidak tersambung di sesi cloud dan Apify gagal (APIFY_TOKEN kosong), jadi episode digerakkan traktiran dan video dikirim ke Chalid untuk diposting manual. Kartu traktir memakai nama Trakteer tanpa foto (bukan komentar TikTok)."
  ]
 }

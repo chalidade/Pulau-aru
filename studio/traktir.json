@@ -75,7 +75,8 @@
    "qty": 5,
    "message": "Hai Kak! Aku yang dari Threads. Selamat menikmati kopinya yah Kak. Terima kasih banyak inovasinya 🙏🏻😊",
    "at": "2026-11-04 23:31:08",
-   "done": false
+   "done": true,
+   "ep": 10
   },
   {
    "id": "309ce4b1-96d7-5bfd-9350-ff3afc366e6d",
@@ -83,7 +84,8 @@
    "qty": 1,
    "message": "Keren, warga salingjaga",
    "at": "2026-11-04 23:15:41",
-   "done": false
+   "done": true,
+   "ep": 10
   },
   {
    "id": "dd4807f1-c385-5b51-8f4c-373085b4aa0e",
@@ -107,7 +109,9 @@
    "qty": 1,
    "message": "Semangat!",
    "at": "2026-11-05 06:23:28",
-   "done": false
+   "done": true,
+   "ep": 10,
+   "note": "disebut di ucapan terima kasih ep 10"
   }
  ]
 }

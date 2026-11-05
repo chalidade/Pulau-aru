@@ -18,7 +18,7 @@ CLIP = {
 W, H, FPS = 1080, 1920, 30
 OUT = os.environ.get('STUDIO_WORK', '/tmp/studio') + '/out-ep3'
 F = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'fonts') + '/'
-def font(name, size): return ImageFont.truetype(F + name, size)
+def font(name, size): return ImageFont.truetype(F + name, size, layout_engine=ImageFont.Layout.BASIC)   # BASIC: no 'fi' ligature (Pixelify drew 'Alfi' as 'AlA')
 PIX = 'pixelify-latin-700-normal.ttf'; BODY = 'rethink-latin-500-normal.ttf'; BOLD = 'rethink-latin-700-normal.ttf'; ITAL = 'rethink-latin-400-italic.ttf'
 
 INK = (15, 42, 49); SAND = (244, 230, 198); LAMP = (255, 201, 74); CORAL = (255, 138, 114)
