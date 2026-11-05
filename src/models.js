@@ -113,19 +113,19 @@ function palm(g, x, z, s = 1) {
 }
 export const BT = {
   rumah: { n: 'Rumah', w: 3, h: 3, land: true, scale: 1.55, build(g) { box(g, '#e3c49a', 1.6, 1.1, 1.4, 0, 0, 0); roof4(g, '#b8523c', 2.1, 1, 1.9, 0, 1.1, 0); box(g, '#5e3b22', .36, .66, .05, 0, 0, .71); box(g, windowMat, .3, .3, .05, -.5, .5, .71); box(g, windowMat, .3, .3, .05, .5, .5, .71); box(g, '#9a9b94', .22, .5, .22, .45, 1.3, -.3); } },
-  tenda: { n: 'Tenda', w: 2, h: 2, land: true, build(g) { add(g, G.cone4, '#d9763f', 1, 1.4, 1, 0, .7, 0, Math.PI / 4); box(g, '#3a2a20', .3, .5, .05, 0, 0, .55); add(g, G.cyl6, '#5e3b22', .03, .3, .03, 0, 1.5, 0); } },
+  tenda: { n: 'Tenda', w: 3, h: 3, scale: 1.35, land: true, build(g) { add(g, G.cone4, '#d9763f', 1, 1.4, 1, 0, .7, 0, Math.PI / 4); box(g, '#3a2a20', .3, .5, .05, 0, 0, .55); add(g, G.cyl6, '#5e3b22', .03, .3, .03, 0, 1.5, 0); } },
   kebun: { n: 'Kebun', w: 3, h: 2, land: true, walk: true, build(g) { box(g, '#7a5534', 2.8, .12, 1.8, 0, 0, 0); for (let r = 0; r < 4; r++) { box(g, '#5d3e24', 2.6, .06, .14, 0, .12, -.6 + r * .4); for (let c = 0; c < 7; c++) add(g, G.cone6, r % 2 ? '#62bd73' : '#e0a84a', .09, .28, .09, -1.1 + c * .36, .3, -.6 + r * .4); } } },
-  sumur: { n: 'Sumur', w: 1, h: 1, land: true, build(g) { cyl(g, '#9a9b94', .38, .5, 0, 0, 0, 8); add(g, G.cyl8, '#2b6a85', .3, .02, .3, 0, .45, 0, 0, false); box(g, '#5e3b22', .06, 1.1, .06, -.34, .5, 0); box(g, '#5e3b22', .06, 1.1, .06, .34, .5, 0); roof4(g, '#b8523c', .95, .4, .7, 0, 1.55, 0); } },
+  sumur: { n: 'Sumur', w: 2, h: 2, scale: 1.2, land: true, build(g) { cyl(g, '#9a9b94', .38, .5, 0, 0, 0, 8); add(g, G.cyl8, '#2b6a85', .3, .02, .3, 0, .45, 0, 0, false); box(g, '#5e3b22', .06, 1.1, .06, -.34, .5, 0); box(g, '#5e3b22', .06, 1.1, .06, .34, .5, 0); roof4(g, '#b8523c', .95, .4, .7, 0, 1.55, 0); } },
   dermaga: { n: 'Dermaga', w: 1, h: 4, water: true, walk: true, build(g) { for (let i = 0; i < 12; i++) box(g, i % 2 ? '#b07a4a' : '#8a5a34', .9, .08, .3, 0, .22, -1.7 + i * .31); for (const z of [-1.8, 0, 1.8]) for (const x of [-.4, .4]) add(g, G.cyl6, '#5e3b22', .07, 1.8, .07, x, -.6, z); } },
   jembatan: { n: 'Jembatan', w: 4, h: 1, water: true, walk: true, build(g) { for (let i = 0; i < 12; i++) box(g, i % 2 ? '#b07a4a' : '#8a5a34', .3, .08, .9, -1.7 + i * .31, .22, 0); for (const x of [-1.8, 0, 1.8]) for (const z of [-.42, .42]) { add(g, G.cyl6, '#5e3b22', .06, 2.2, .06, x, -.6, z); } box(g, '#8a5a34', 3.9, .06, .06, 0, .7, -.42); box(g, '#8a5a34', 3.9, .06, .06, 0, .7, .42); } },
   api: { n: 'Api unggun', w: 1, h: 1, land: true, fire: true, build(g) { campfire(g); } },
-  pasar: { n: 'Pasar', w: 3, h: 2, land: true, build(g) { for (const sx of [-.75, .75]) { box(g, '#b07a4a', 1.2, .6, .6, sx, 0, .2); for (const [px, pz] of [[-.55, -.4], [.55, -.4], [-.55, .45], [.55, .45]]) box(g, '#5e3b22', .06, 1.3, .06, sx + px, 0, pz); for (let i = 0; i < 6; i++) box(g, i % 2 ? '#f0e6d0' : '#d0483a', .2, .06, 1.1, sx - .5 + i * .2, 1.3, 0); const cols = ['#e6b84a', '#7bc06a', '#d56b3a']; for (let i = 0; i < 3; i++) add(g, G.sph, cols[i], .1, .1, .1, sx - .35 + i * .35, .7, .25); } } },
-  sekolah: { n: 'Sekolah', w: 3, h: 2, land: true, build(g) { box(g, '#efe2c6', 2.6, 1.3, 1.5, 0, 0, 0); roof4(g, '#4e7a9a', 3.3, .9, 2, 0, 1.3, 0); box(g, '#4e7a9a', .4, .5, .4, 0, 2.1, 0); add(g, G.sph, '#e5c06a', .1, .1, .1, 0, 2.4, .21); box(g, '#5e3b22', .4, .8, .05, 0, 0, .76); for (const x of [-.9, -.5, .5, .9]) box(g, windowMat, .26, .3, .05, x, .6, .76); } },
-  menara: { n: 'Menara pandang', w: 1, h: 1, land: true, build(g) { for (const [x, z] of [[-.35, -.35], [.35, -.35], [-.35, .35], [.35, .35]]) box(g, '#5e3b22', .08, 2.6, .08, x, 0, z); box(g, '#8a5a34', .95, .1, .95, 0, 2.5, 0); for (let i = 0; i < 4; i++) box(g, '#8a5a34', .8, .05, .05, 0, .6 + i * .5, .36); roof4(g, '#d9b45c', 1.3, .7, 1.3, 0, 3.1, 0); for (const [x, z] of [[-.4, -.4], [.4, -.4], [-.4, .4], [.4, .4]]) box(g, '#5e3b22', .05, .5, .05, x, 2.6, z); } },
-  patung: { n: 'Patung', w: 1, h: 1, land: true, build(g) { box(g, '#9a9b94', .8, .5, .8, 0, 0, 0); box(g, '#c2c2b8', .3, .5, .2, 0, .5, 0); box(g, '#c2c2b8', .4, .45, .25, 0, .95, 0); box(g, '#c2c2b8', .3, .3, .28, 0, 1.4, 0); const a = box(g, '#c2c2b8', .1, .45, .1, .26, 1.1, 0); a.rotation.z = -2.6; a.position.y = 1.55; } },
+  pasar: { n: 'Pasar', w: 5, h: 3, scale: 1.6, land: true, build(g) { for (const sx of [-.75, .75]) { box(g, '#b07a4a', 1.2, .6, .6, sx, 0, .2); for (const [px, pz] of [[-.55, -.4], [.55, -.4], [-.55, .45], [.55, .45]]) box(g, '#5e3b22', .06, 1.3, .06, sx + px, 0, pz); for (let i = 0; i < 6; i++) box(g, i % 2 ? '#f0e6d0' : '#d0483a', .2, .06, 1.1, sx - .5 + i * .2, 1.3, 0); const cols = ['#e6b84a', '#7bc06a', '#d56b3a']; for (let i = 0; i < 3; i++) add(g, G.sph, cols[i], .1, .1, .1, sx - .35 + i * .35, .7, .25); } } },
+  sekolah: { n: 'Sekolah', w: 6, h: 4, scale: 1.8, land: true, build(g) { box(g, '#efe2c6', 2.6, 1.3, 1.5, 0, 0, 0); roof4(g, '#4e7a9a', 3.3, .9, 2, 0, 1.3, 0); box(g, '#4e7a9a', .4, .5, .4, 0, 2.1, 0); add(g, G.sph, '#e5c06a', .1, .1, .1, 0, 2.4, .21); box(g, '#5e3b22', .4, .8, .05, 0, 0, .76); for (const x of [-.9, -.5, .5, .9]) box(g, windowMat, .26, .3, .05, x, .6, .76); } },
+  menara: { n: 'Menara pandang', w: 2, h: 2, scale: 1.3, land: true, build(g) { for (const [x, z] of [[-.35, -.35], [.35, -.35], [-.35, .35], [.35, .35]]) box(g, '#5e3b22', .08, 2.6, .08, x, 0, z); box(g, '#8a5a34', .95, .1, .95, 0, 2.5, 0); for (let i = 0; i < 4; i++) box(g, '#8a5a34', .8, .05, .05, 0, .6 + i * .5, .36); roof4(g, '#d9b45c', 1.3, .7, 1.3, 0, 3.1, 0); for (const [x, z] of [[-.4, -.4], [.4, -.4], [-.4, .4], [.4, .4]]) box(g, '#5e3b22', .05, .5, .05, x, 2.6, z); } },
+  patung: { n: 'Patung', w: 1, h: 1, scale: 1.5, land: true, build(g) { box(g, '#9a9b94', .8, .5, .8, 0, 0, 0); box(g, '#c2c2b8', .3, .5, .2, 0, .5, 0); box(g, '#c2c2b8', .4, .45, .25, 0, .95, 0); box(g, '#c2c2b8', .3, .3, .28, 0, 1.4, 0); const a = box(g, '#c2c2b8', .1, .45, .1, .26, 1.1, 0); a.rotation.z = -2.6; a.position.y = 1.55; } },
   taman: { n: 'Taman bunga', w: 2, h: 2, land: true, walk: true, build(g) { box(g, '#5aa64c', 1.9, .06, 1.9, 0, 0, 0); const cols = ['#f06b8a', '#ffd25a', '#f4f1ea', '#b48cf0', '#ff9b52']; for (let i = 0; i < 26; i++) { const x = -.8 + ((i * 37) % 17) / 10, z = -.8 + ((i * 53) % 17) / 10; add(g, G.cyl6, '#3f8a42', .015, .25, .015, x, .18, z, 0, false); add(g, G.sph, cols[i % 5], .07, .06, .07, x, .32, z); } for (let i = 0; i < 8; i++) { box(g, '#e8dcc4', .05, .3, .05, -.95 + i * .27, 0, -.95); box(g, '#e8dcc4', .05, .3, .05, -.95 + i * .27, 0, .95); } } },
   kelapa: { n: 'Pohon kelapa', w: 1, h: 1, land: true, build(g) { palm(g, 0, 0, 1); } },
-  lumbung: { n: 'Lumbung', w: 2, h: 2, land: true, build(g) { box(g, '#a8443a', 1.6, 1.3, 1.5, 0, 0, 0); const r = add(g, G.cone4, '#5b3b2a', 1.25, .9, 1.15, 0, 1.75, 0, Math.PI / 4); box(g, '#efe2c6', .6, .8, .05, 0, 0, .76); box(g, '#7c2f28', .5, .7, .06, 0, .05, .77); const x1 = box(g, '#efe2c6', .06, .9, .07, 0, 0, .79); x1.rotation.z = .6; x1.position.y = .4; const x2 = box(g, '#efe2c6', .06, .9, .07, 0, 0, .79); x2.rotation.z = -.6; x2.position.y = .4; } },
+  lumbung: { n: 'Lumbung', w: 4, h: 4, scale: 1.45, land: true, build(g) { box(g, '#a8443a', 1.6, 1.3, 1.5, 0, 0, 0); const r = add(g, G.cone4, '#5b3b2a', 1.25, .9, 1.15, 0, 1.75, 0, Math.PI / 4); box(g, '#efe2c6', .6, .8, .05, 0, 0, .76); box(g, '#7c2f28', .5, .7, .06, 0, .05, .77); const x1 = box(g, '#efe2c6', .06, .9, .07, 0, 0, .79); x1.rotation.z = .6; x1.position.y = .4; const x2 = box(g, '#efe2c6', .06, .9, .07, 0, 0, .79); x2.rotation.z = -.6; x2.position.y = .4; } },
   perahu: { n: 'Perahu nelayan', w: 2, h: 1, water: true, deep: true, bob: true, build(g) { box(g, '#8a5a34', 1.6, .3, .6, 0, .05, 0); box(g, '#5e3b22', 1.2, .12, .4, 0, -.05, 0); const p = add(g, G.cone4, '#8a5a34', .3, .6, .42, .95, .2, 0, Math.PI / 4); p.rotation.z = -Math.PI / 2; box(g, '#5e3b22', .06, 1.6, .06, -.1, .3, 0); const sh = new THREE.Shape(); sh.moveTo(0, 0); sh.lineTo(0, 1.3); sh.lineTo(.9, .1); const sail = new THREE.Mesh(new THREE.ShapeGeometry(sh), mat('#f2ead8', { side: THREE.DoubleSide })); sail.position.set(-.05, .55, 0); sail.castShadow = true; g.add(sail); } },
   // 13x13 stepped pyramid, 13 tiers of 0.75 m: walkable on top, each tier needs a jump
   piramida: { n: 'Piramida', w: 13, h: 13, land: true, climb: { half: 6.5, inset: .5, step: .75, tiers: 13 }, build(g) {
@@ -252,7 +252,7 @@ export const BT = {
       for (const [x, z] of [[-1.7, -1.5], [-1.7, 0], [1.7, .1]]) add(g, G.ico, '#4f9b45', .32, .34, .32, x, .45, z);
     } },
   // a small neighbourhood pharmacy: white walls, a green cross sign and a glass front
-  apotik: { n: 'Apotik', w: 2, h: 2, land: true,
+  apotik: { n: 'Apotik', w: 4, h: 3, scale: 1.7, land: true,
     build(g) {
       box(g, '#bfc4c0', 1.9, .12, 1.8, 0, 0, .05);
       box(g, '#f6f6f2', 1.7, 1.25, 1.3, 0, .12, -.15);
@@ -272,7 +272,7 @@ export const BT = {
       for (const [w, h] of [[.36, .12], [.12, .36]]) { const m = new THREE.Mesh(G.box, gm); m.scale.set(w, h, .06); cross.add(m); }
     } },
   // a warung tegal: open front with a glass food display, wooden benches and a striped awning (ep 7, usulan @javaz53)
-  warteg: { n: 'Warteg', w: 2, h: 2, land: true,
+  warteg: { n: 'Warteg', w: 3, h: 3, scale: 1.6, land: true,
     build(g) {
       box(g, '#c9bfa8', 1.9, .1, 1.85, 0, 0, 0);
       box(g, '#7fb3a0', 1.75, 1.2, .12, 0, .1, -.75); box(g, '#7fb3a0', .12, 1.2, 1.2, -.82, .1, -.2); box(g, '#7fb3a0', .12, 1.2, 1.2, .82, .1, -.2);
@@ -291,7 +291,7 @@ export const BT = {
       box(g, '#2f6f5a', 1.16, .4, .04, 0, 1.42, .49);
     } },
   // a small island hospital: two storeys, white with a teal band, an "H" sign and an ambulance bay (ep 7, usulan @yan.dipanggil.nen3)
-  rumahsakit: { n: 'Rumah sakit', w: 4, h: 3, land: true, scale: 1.25,
+  rumahsakit: { n: 'Rumah sakit', w: 6, h: 5, scale: 1.7, land: true, scale: 1.25,
     build(g) {
       box(g, '#bfc4c0', 3.3, .1, 2.6, 0, 0, 0);
       box(g, '#f7f7f3', 3.0, 2.1, 1.7, 0, .1, -.35);
@@ -425,7 +425,7 @@ export const BT = {
       for (const x2 of [-.95, -.48, 0, .48, .95]) { const l = new THREE.Mesh(G.sph, lanternMat); l.scale.setScalar(.06); l.position.set(x2, 2.28, .06); g.add(l); }
     } },
   // an honesty canteen with no cashier: take a snack, drop the money in the box (ep 9, traktiran "jujur dan punya prinsip")
-  kantinjujur: { n: 'Kantin Kejujuran', w: 2, h: 2, land: true,
+  kantinjujur: { n: 'Kantin Kejujuran', w: 3, h: 3, scale: 1.5, land: true,
     build(g) {
       box(g, '#c9bfa8', 1.9, .1, 1.85, 0, 0, 0);
       box(g, '#e8dcc0', 1.75, 1.2, .1, 0, .1, -.78); box(g, '#d8caa8', .1, 1.2, 1.1, -.82, .1, -.28); box(g, '#d8caa8', .1, 1.2, 1.1, .82, .1, -.28);
@@ -544,17 +544,18 @@ export const BT = {
       for (const x of [-.2, .2]) { box(sw, '#9a9b94', .02, .8, .02, x - .08, .37, 0); box(sw, '#9a9b94', .02, .8, .02, x + .08, .37, 0); box(sw, '#e6b84a', .25, .04, .15, x, .35, 0); }
     } },
   // beach guard post: a small police post with a blue light and a lifeguard tower facing the sea (ep 11, penjaga @RANUUGLL)
-  pospantai: { n: 'Pos Penjaga Pantai', w: 3, h: 2, land: true,
+  pospantai: { n: 'Pos Penjaga Pantai', w: 6, h: 4, scale: 1.5, land: true,
     build(g, b) {
-      box(g, '#d9cfb4', 2.9, .08, 1.9, 0, 0, 0);
-      // police post (left)
-      box(g, '#f4f4f0', 1.2, 1.15, 1.0, -.75, .08, -.35); box(g, '#2c4f86', 1.25, .12, 1.05, -.75, .65, -.35); box(g, '#2c4f86', 1.35, .1, 1.15, -.75, 1.23, -.35);
-      box(g, windowMat, .5, .35, .04, -.95, .55, .16); box(g, '#3b3b3b', .3, .75, .04, -.35, .08, .16);
-      const lt = new THREE.MeshStandardMaterial({ color: '#4aa8ff', emissive: '#2a7fff', emissiveIntensity: 1.6 }); add(g, G.box, lt, .22, .12, .14, -.75, 1.4, -.35);
+      box(g, '#d9cfb4', 3.9, .08, 2.1, -.45, 0, -.05);
+      // police post (left), built at its old size and scaled up so its door is taller than a person
+      const pg = new THREE.Group(); pg.position.set(-1.45 + .75 * 1.7, .08 - .08 * 1.7, -.35 + .35 * 1.7); pg.scale.setScalar(1.7); g.add(pg);
+      box(pg, '#f4f4f0', 1.2, 1.15, 1.0, -.75, .08, -.35); box(pg, '#2c4f86', 1.25, .12, 1.05, -.75, .65, -.35); box(pg, '#2c4f86', 1.35, .1, 1.15, -.75, 1.23, -.35);
+      box(pg, windowMat, .5, .35, .04, -.95, .55, .16); box(pg, '#3b3b3b', .3, .75, .04, -.35, .08, .16);
+      const lt = new THREE.MeshStandardMaterial({ color: '#4aa8ff', emissive: '#2a7fff', emissiveIntensity: 1.6 }); add(pg, G.box, lt, .22, .12, .14, -.75, 1.4, -.35);
       const c = document.createElement('canvas'); c.width = 256; c.height = 72; const x = c.getContext('2d');
       x.fillStyle = '#2c4f86'; x.fillRect(0, 0, 256, 72); x.fillStyle = '#ffffff'; x.font = '700 46px "Pixelify Sans", sans-serif'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('POLISI', 128, 38);
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
-      const s = new THREE.Mesh(new THREE.PlaneGeometry(.75, .21), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); s.position.set(-.75, 1.02, .17); g.add(s);
+      const s = new THREE.Mesh(new THREE.PlaneGeometry(.75, .21), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); s.position.set(-.75, 1.02, .17); pg.add(s);
       // lifeguard tower (right): red and white, ladder in front, flag on top
       for (const [px, pz] of [[.65, -.6], [1.25, -.6], [.65, 0], [1.25, 0]]) box(g, '#f4f4f0', .08, 1.4, .08, px, .08, pz);
       box(g, '#d0483a', .9, .08, .9, .95, 1.48, -.3); for (const px of [.52, 1.38]) box(g, '#f4f4f0', .05, .35, .9, px, 1.56, -.3); box(g, '#f4f4f0', .9, .35, .05, .95, 1.56, -.73);
@@ -625,7 +626,7 @@ export const BT = {
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
       const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.3, .4), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.98, .78); g.add(sign);
     } },
-  warungumkm: { n: 'Warung UMKM', w: 2, h: 2, land: true,
+  warungumkm: { n: 'Warung UMKM', w: 3, h: 3, scale: 1.5, land: true,
     build(g, b) {
       const name = (b && b.label) || 'Warung', hue = [...name].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7) % 6;
       const [c1, c2] = [['#d0483a', '#f4eee0'], ['#2f8a6a', '#f4eee0'], ['#e6b84a', '#5e3b22'], ['#4e7a9a', '#f4eee0'], ['#b06ab3', '#f4eee0'], ['#e07b39', '#fff4dc']][hue];

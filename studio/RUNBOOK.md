@@ -176,6 +176,11 @@ Everything the episode shows must really exist at pulau-aru.web.id afterwards.
   - Then add an entry to `data/island.json → buildings`: `{type, x, y, r, by, ep}`.
     - `r` turns it in quarter turns. The door faces +y at r=0, west at r=1... use r=1 or r=3 to face a north–south street.
   - Never logos or brands of real organisations. Use your own generic signs.
+- **Proportions (Chalid asked for realistic scale):** a person is ~1.46 m. A small one-storey building (warung, kiosk,
+  pharmacy, post) is at least ~2× a person tall with a door taller than a person; houses ~2.2×; schools, hospitals,
+  police stations, mosques 3× or more; lamps ~1.6×. Build at a comfortable size and use `scale: k` with a footprint
+  (`w`/`h`) that covers the scaled model. Check with `python3 studio/lib/measure.py` (height/human column) and
+  `python3 studio/lib/overlap.py` (no clashes except road x road) before capturing.
 - **Placement:** run `python3 studio/lib/mapdump.py` and look at `$STUDIO_WORK/map.png`. The town is planned:
   - Main street: `x 54–55`, from the stage `(53,44)` south to the pier.
   - Cross street: `y 52–53`.

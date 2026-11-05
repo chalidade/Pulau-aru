@@ -11832,8 +11832,8 @@
   },
   {
    "type": "raktombak",
-   "x": 51,
-   "y": 93,
+   "x": 47,
+   "y": 90,
    "r": 0,
    "label": "",
    "by": "Akai",
@@ -11952,7 +11952,7 @@
   },
   {
    "type": "sekolah",
-   "x": 50,
+   "x": 49,
    "y": 70,
    "r": 3,
    "by": "junaa_yuds",
@@ -12140,7 +12140,7 @@
   {
    "type": "pospantai",
    "x": 58,
-   "y": 92,
+   "y": 89,
    "r": 0,
    "label": "Penjaga: @RANUUGLL",
    "by": "RANUUGLL",
