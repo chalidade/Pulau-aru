@@ -558,11 +558,11 @@ export const BT = {
       // lifeguard tower (right): red and white, ladder in front, flag on top
       for (const [px, pz] of [[.65, -.6], [1.25, -.6], [.65, 0], [1.25, 0]]) box(g, '#f4f4f0', .08, 1.4, .08, px, .08, pz);
       box(g, '#d0483a', .9, .08, .9, .95, 1.48, -.3); for (const px of [.52, 1.38]) box(g, '#f4f4f0', .05, .35, .9, px, 1.56, -.3); box(g, '#f4f4f0', .9, .35, .05, .95, 1.56, -.73);
-      for (const [px, pz] of [[.55, -.72], [1.35, -.72], [.55, .12], [1.35, .12]]) box(g, '#d0483a', .04, .7, .04, px, 1.56, pz);
-      roof4(g, '#d0483a', 1.15, .3, 1.15, .95, 2.26, -.3);
+      for (const [px, pz] of [[.55, -.72], [1.35, -.72], [.55, .12], [1.35, .12]]) box(g, '#d0483a', .04, 1.65, .04, px, 1.56, pz);
+      roof4(g, '#d0483a', 1.15, .3, 1.15, .95, 3.21, -.3);
       for (let i = 0; i < 6; i++) box(g, '#c9c2b0', .4, .04, .05, .95, .25 + i * .22, .25 + i * .0);
       for (const px of [.77, 1.13]) box(g, '#c9c2b0', .04, 1.45, .04, px, .08, .25);
-      add(g, G.cyl6, '#d8dad6', .02, .7, .02, 1.35, 2.75, -.7); box(g, '#ffd23f', .32, .2, .02, 1.53, 2.9, -.7);
+      add(g, G.cyl6, '#d8dad6', .02, .7, .02, 1.35, 3.7, -.7); box(g, '#ffd23f', .32, .2, .02, 1.53, 3.85, -.7);
       const rb = new THREE.Mesh(new THREE.TorusGeometry(.17, .06, 6, 12), mat('#ff7a2a')); rb.position.set(1.32, .75, .05); g.add(rb);
       // name board: the guard on duty
       const name = (b && b.label) || 'Penjaga Pantai';
