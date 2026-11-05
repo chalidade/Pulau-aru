@@ -245,12 +245,16 @@ Cloud mode has no access to TikTok, so Chalid posts by hand. Make that a 30-seco
    ```
    ffmpeg -i final.mp4 -c:v libx264 -preset medium -crf 25 -maxrate 1500k -bufsize 3000k -c:a aac -b:a 128k -movflags +faststart $STUDIO_WORK/pulau-aru-ep<N>.mp4
    ```
-2. Send it with `SendUserFile` (status `proactive`).
-3. Send a `SendUserMessage` that starts with **"Episode <N> siap diposting"**, followed by the caption in a code block
+2. **Keep a copy where later sessions can find it** (the container is thrown away; Chalid may ask another session to post
+   it): `gh release create ep<N> $STUDIO_WORK/pulau-aru-ep<N>.mp4 --repo chalidade/Pulau-aru --title "Episode <N>: <title>" --notes "<caption>"`
+   (if the release exists, `gh release upload ep<N> <file> --clobber`). To post an older episode later, download it with
+   `gh release download ep<N> --repo chalidade/Pulau-aru`.
+3. Send it with `SendUserFile` (status `proactive`).
+4. Send a `SendUserMessage` that starts with **"Episode <N> siap diposting"**, followed by the caption in a code block
    ready to paste. Caption: Indonesian, under ~300 characters, one line about what happened, credit `@user1 @user2`,
    "Komentar = nasib pulau. Kunjungi pulau-aru.web.id", hashtags `#pulauaru #pulaunetizen #fyp`. Add one line
    reminding him to turn on the AI-generated content label.
-4. If Claude in Chrome happens to be connected in this run, you may post it yourself through TikTok Studio upload
+5. If Claude in Chrome happens to be connected in this run, you may post it yourself through TikTok Studio upload
    instead (file_upload needs a file under 10 MB in /mnt/user-data/outputs; visibility Everyone; AI label on), then
    still send the file and link. This posting is authorised by Chalid for this workflow; post nothing else, change
    no settings.
