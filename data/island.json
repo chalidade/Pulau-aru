@@ -12145,6 +12145,24 @@
    "label": "Penjaga: @RANUUGLL",
    "by": "RANUUGLL",
    "ep": 11
+  },
+  {
+   "type": "gapura",
+   "x": 53,
+   "y": 94,
+   "r": 0,
+   "label": "",
+   "by": "Seseorang (traktiran)",
+   "ep": 12
+  },
+  {
+   "type": "tiangsalam",
+   "x": 57,
+   "y": 95,
+   "r": 0,
+   "label": "",
+   "by": "adis",
+   "ep": 12
   }
  ],
  "episodes": [
@@ -12252,6 +12270,15 @@
     "RANUUGLL"
    ],
    "text": "Wapres @EGA_91 pakai hak tanpa undian: Ladang Buah di timur waterpark, dengan Kebun Warga tempat siapa pun bisa beli bibit dan berkebun sendiri (menu Kebunku).\nSekolah jadi paket lengkap (usulan @by5m4): lapangan upacara, tiang bendera, perpustakaan, ayunan.\n@RANUUGLL resmi jadi polisi dan penjaga pantai. Tugas pertamanya: menangkap presiden makan mangga wapres. \"Ini uji rasa!\"\nMalamnya, dari menara, penjaga melihat cahaya perahu di tengah laut."
+  },
+  {
+   "ep": 12,
+   "date": "5 Nov 2026",
+   "picks": [
+    "traktir adis: salam dari Bogor",
+    "traktir Seseorang: semoga selalu baik-baik saja"
+   ],
+   "text": "Aru pulang dari Pulau Seberang! Perahunya mendarat di pantai dekat dermaga.\nDoa dermawan tanpa nama jadi Gapura Selamat Datang di ujung dermaga: dari laut 'Selamat datang', dari kota 'Semoga selalu baik-baik saja'.\nSalam adis dari Bogor jadi Tiang Salam; panah ke Bogor menunjuk lurus ke laut.\nPresiden langsung rapat kabinet darurat: ikan bakar penyambutan. Malamnya Aru membaca surat yang ia temukan di Pulau Seberang, untuknya."
   }
  ],
  "letters": [],

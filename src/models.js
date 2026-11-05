@@ -606,14 +606,16 @@ export const BT = {
   tiangsalam: { n: 'Tiang Salam', w: 1, h: 1, land: true,
     build(g) {
       const arrow = (t1, t2, bg, y, ry, len = 1.15) => {
-        const c = document.createElement('canvas'); c.width = 512; c.height = 128; const x = c.getContext('2d');
-        x.fillStyle = bg; x.beginPath(); x.moveTo(0, 6); x.lineTo(440, 6); x.lineTo(506, 64); x.lineTo(440, 122); x.lineTo(0, 122); x.closePath(); x.fill();
-        x.fillStyle = '#fff8e6'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = '700 50px "Pixelify Sans", sans-serif'; x.fillText(t1, 225, t2 ? 48 : 66, 420);
-        if (t2) { x.font = '700 28px "Pixelify Sans", sans-serif'; x.fillText(t2, 225, 98, 420); }
-        const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
-        const m = new THREE.MeshStandardMaterial({ map: t, roughness: .8, transparent: true, alphaTest: .5, side: THREE.DoubleSide });
+        const tex = flip => { const c = document.createElement('canvas'); c.width = 512; c.height = 128; const x = c.getContext('2d');
+          x.save(); if (flip) { x.translate(512, 0); x.scale(-1, 1); }
+          x.fillStyle = bg; x.beginPath(); x.moveTo(0, 6); x.lineTo(440, 6); x.lineTo(506, 64); x.lineTo(440, 122); x.lineTo(0, 122); x.closePath(); x.fill(); x.restore();
+          const cx = flip ? 287 : 225; x.fillStyle = '#fff8e6'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = '700 50px "Pixelify Sans", sans-serif'; x.fillText(t1, cx, t2 ? 48 : 66, 420);
+          if (t2) { x.font = '700 28px "Pixelify Sans", sans-serif'; x.fillText(t2, cx, 98, 420); }
+          const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return new THREE.MeshStandardMaterial({ map: t, roughness: .8, transparent: true, alphaTest: .5 }); };
         const p = new THREE.Group(); p.position.y = y; p.rotation.y = ry; g.add(p);
-        const pl = new THREE.Mesh(new THREE.PlaneGeometry(len, len / 4), m); pl.position.x = len / 2 - .05; p.add(pl);
+        const geo = new THREE.PlaneGeometry(len, len / 4);
+        const a = new THREE.Mesh(geo, tex(false)); a.position.set(len / 2 - .05, 0, .012); p.add(a);
+        const b = new THREE.Mesh(geo, tex(true)); b.position.set(len / 2 - .05, 0, -.012); b.rotation.y = Math.PI; p.add(b);
       };
       box(g, '#6b6b66', .3, .14, .3, 0, 0, 0); box(g, '#f4eee0', .1, 2.9, .1, 0, .14, 0);
       add(g, G.sph, '#d0483a', .1, .1, .1, 0, 3.1, 0);
