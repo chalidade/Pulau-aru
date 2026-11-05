@@ -1,5 +1,5 @@
 {
- "nextEp": 11,
+ "nextEp": 12,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -17,13 +17,14 @@
  "vicePresident": {
   "n": "EGA_91",
   "since": "2026-11-03",
-  "requestsUsed": 0,
+  "requestsUsed": 1,
   "requestsMax": 2
  },
  "openThreads": [
-  "Episode 10 menutup dengan pertanyaan: 'Siapa yang harus menjemput Aru?' Jawaban (presiden? wapres? warga tertentu? perahu nelayan?) bisa jadi ep 11: Aru pulang dari Pulau Seberang.",
+  "Episode 11 menutup dengan pertanyaan: 'Siapa yang ada di perahu itu?' (cahaya perahu terlihat dari menara penjaga pantai). Kemungkinan besar Aru pulang; jawaban komentar menentukan siapa yang ikut di perahu.",
+  "@RANUUGLL resmi polisi & penjaga pantai (Pos Penjaga Pantai x58 y92). Tugas pertama: menangkap presiden mencuri mangga di Ladang Buah ('uji rasa'). Presiden @Etet_443 sisa 1 permintaan tanpa undian (masa jabatan ~10 Nov); wapres @EGA_91 sisa 1 dari 2.",
+  "Fitur Kebunku (ep 11, permintaan Chalid): warga beli bibit dengan koin pulau, tanam di 6 petak Kebun Warga di Ladang Buah, panen setelah 10 mnt-8 jam; data di localStorage (src/kebun.js). Bisa dipromosikan lagi / ditambah bibit baru dari komentar.",
   "Aru di Pulau Seberang: lampu ketiga di gambar mercusuar menyala (3 dari 3, ep 10) karena cahaya Lampu Semangat. Aru tahu jalan pulang; penjemputan / pelayaran pulang belum terjadi.",
-  "Presiden @Etet_443 dihukum ronda malam (ep 10) gara-gara gorengan, ketiduran di Pos Ronda, dibangunkan kentongan. Sisa 1 permintaan tanpa undian (masa jabatan sampai ~10 Nov). Wapres @EGA_91 belum pakai 2 jatahnya.",
   "Kedai Kopi (jalan silang, x45 y54) dan Pos Ronda (x50 y54) baru berdiri berdampingan; bisa jadi tempat nongkrong warga / rapat kabinet berikutnya.",
   "Traktiran yang belum diwujudkan (studio/traktir.json, done:false): Seseorang x25 dan x5 (tanpa pesan), Seseorang 'semoga rilis iOS', adis 'salam dari bogor / iOS', Seseorang 'Mangatt', Seseorang 'semoga tidak perlu menggunakan ini'. Sebagian besar untuk aplikasi Chalid yang lain; tunggu arahan Chalid atau sebut sebagai ucapan terima kasih.",
   "Pertanyaan lama belum dijawab: ep 9 'kantin kejujuran mau jual apa?', ep 8 'wahana waterpark', ep 7 'menu warteg', ep 6 'cara menggulingkan presiden'. Usulan lama: bengkel, bank/mata uang, hotel, apartemen, toilet.",
@@ -44,7 +45,10 @@
   "traktir Seseorang: Tetep jadi orang jujur dan punya prinsip (Kantin Kejujuran)",
   "traktir Tiara x10: Semangat! (10 Lampu Semangat)",
   "traktir Seribulansss Alfi Syahrin: selamat menikmati kopinya (Kedai Kopi)",
-  "traktir Seseorang: Keren, warga salingjaga (Pos Ronda)"
+  "traktir Seseorang: Keren, warga salingjaga (Pos Ronda)",
+  "EGA_ (wapres, tanpa undian): request ladang buat nanam buah buahan",
+  "by5m4: buat sekolah min udh paket lgkap",
+  "RANUUGLL: cari penjaga dari netizen polisi/penjaga pantai, notice aku"
  ],
  "episodes": [
   {
@@ -76,21 +80,28 @@
    "title": "Kopi & Pos Ronda",
    "posted": "https://www.tiktok.com/@kita.berkembang/video/7704563553130319122",
    "summary": "Traktiran Kak Alfi 'selamat menikmati kopinya' jadi Kedai Kopi di jalan silang; pesan 'warga saling jaga' jadi Pos Ronda dengan kentongan. Terima kasih Alfi, Vani, dermawan tanpa nama. Wapres menghukum presiden ronda malam (gorengan ep 9); presiden minta tiga gelas kopi, lalu ketiduran dan dibangunkan kentongan. Aru di Pulau Seberang melihat cahaya Lampu Semangat: lampu ketiga mercusuar menyala, Aru tahu jalan pulang. End card: siapa yang menjemput Aru? CTA UMKM."
+  },
+  {
+   "ep": 11,
+   "title": "Ladang Wapres & Penjaga Pantai",
+   "posted": "manual (menunggu Chalid)",
+   "summary": "Wapres @EGA_91 pakai hak tanpa undian: Ladang Buah (mangga, pisang, semangka, orang-orangan sawah) dengan Kebun Warga, tempat warga bisa beli bibit dan berkebun sendiri di pulau-aru.web.id (menu Kebunku). Sekolah paket lengkap (@by5m4): lapangan upacara, perpustakaan, ayunan. @RANUUGLL jadi polisi & penjaga pantai, langsung menangkap presiden makan mangga ('uji rasa'). Malamnya penjaga melihat cahaya perahu di laut."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 10,
-   "cta": "umkm"
+   "ep": 11,
+   "cta": "traktir"
   },
-  "nextCta": "traktir"
+  "nextCta": "umkm"
  },
  "notes": [
   "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
   "Chalid 4 Nov 2026: promosikan Warung UMKM. Usaha yang komentar #UMKMPulauAru nama - jenis - IG/WA dibuatkan warung (type warungumkm) dengan link; bangunan berlink bisa diketuk ke Instagram/WhatsApp/website. Ajakan UMKM di end card ep 8.",
   "Chalid 5 Nov 2026: kartu komentar harus memakai screenshot asli komentar (username asli) dan foto profilnya. Workflow komentar sekarang mengunduh avatar ke studio/avatars/; compose menerima (user, text, tag, avatar).",
-  "Ep 10 (5 Nov pagi): Claude in Chrome tidak tersambung di sesi cloud dan Apify gagal (APIFY_TOKEN kosong), jadi episode digerakkan traktiran dan video dikirim ke Chalid untuk diposting manual. Kartu traktir memakai nama Trakteer tanpa foto (bukan komentar TikTok)."
+  "Ep 10 (5 Nov pagi): Claude in Chrome tidak tersambung di sesi cloud dan Apify gagal (APIFY_TOKEN kosong), jadi episode digerakkan traktiran dan video dikirim ke Chalid untuk diposting manual. Kartu traktir memakai nama Trakteer tanpa foto (bukan komentar TikTok).",
+  "Chalid 5 Nov 2026 sore: wujudkan komentar warga yang ia kirim (screenshot); EGA wapres tanpa undian. Minta fitur: warga beli bibit dan berkebun di HP, data di localStorage, tanaman matang/dipanen di pulau-aru.web.id (dibuat: src/kebun.js, menu Kebunku)."
  ]
 }

@@ -11810,6 +11810,14 @@
   {
    "n": "javaz53",
    "ep": 7
+  },
+  {
+   "n": "by5m4",
+   "ep": 11
+  },
+  {
+   "n": "RANUUGLL",
+   "ep": 11
   }
  ],
  "buildings": [
@@ -12112,6 +12120,31 @@
    "r": 2,
    "by": "Seseorang (traktir)",
    "ep": 10
+  },
+  {
+   "type": "ladang",
+   "x": 68,
+   "y": 44,
+   "r": 0,
+   "by": "EGA_91",
+   "ep": 11
+  },
+  {
+   "type": "lapangansekolah",
+   "x": 44,
+   "y": 69,
+   "r": 0,
+   "by": "by5m4",
+   "ep": 11
+  },
+  {
+   "type": "pospantai",
+   "x": 58,
+   "y": 92,
+   "r": 0,
+   "label": "Penjaga: @RANUUGLL",
+   "by": "RANUUGLL",
+   "ep": 11
   }
  ],
  "episodes": [
@@ -12209,6 +12242,16 @@
     "Seseorang (traktir)"
    ],
    "text": "Traktiran masuk lagi. \"Selamat menikmati kopinya\" dari Kak Alfi jadi Kedai Kopi di jalan silang.\nPesan \"warga saling jaga\" jadi Pos Ronda lengkap dengan kentongan. Terima kasih Kak Alfi, Vani, dan dermawan tanpa nama!\nHukuman gorengan: Presiden @Etet_443 ronda malam. Jam dua pagi ia tertidur, warga membangunkannya dengan kentongan.\nDi pulau seberang, Aru melihat cahaya Lampu Semangat. Lampu ketiga di gambar mercusuar menyala: Aru tahu jalan pulang."
+  },
+  {
+   "ep": 11,
+   "date": "5 Nov 2026",
+   "picks": [
+    "EGA_91",
+    "by5m4",
+    "RANUUGLL"
+   ],
+   "text": "Wapres @EGA_91 pakai hak tanpa undian: Ladang Buah di timur waterpark, dengan Kebun Warga tempat siapa pun bisa beli bibit dan berkebun sendiri (menu Kebunku).\nSekolah jadi paket lengkap (usulan @by5m4): lapangan upacara, tiang bendera, perpustakaan, ayunan.\n@RANUUGLL resmi jadi polisi dan penjaga pantai. Tugas pertamanya: menangkap presiden makan mangga wapres. \"Ini uji rasa!\"\nMalamnya, dari menara, penjaga melihat cahaya perahu di tengah laut."
   }
  ],
  "letters": [],
