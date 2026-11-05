@@ -255,7 +255,7 @@ Cloud mode has no access to TikTok, so Chalid posts by hand. Make that a 30-seco
    "Komentar = nasib pulau. Kunjungi pulau-aru.web.id", hashtags `#pulauaru #pulaunetizen #fyp`. Add one line
    reminding him to turn on the AI-generated content label.
 5. If Claude in Chrome happens to be connected in this run, you may post it yourself through TikTok Studio upload
-   instead (file_upload needs a file under 10 MB in /mnt/user-data/outputs; visibility Everyone; AI label on), then
+   instead (file_upload only accepts files under 10 MB in /mnt/user-data/uploads/ or attachments, not outputs/; visibility Everyone; AI label on), then
    still send the file and link. This posting is authorised by Chalid for this workflow; post nothing else, change
    no settings.
 
