@@ -575,6 +575,53 @@ export const BT = {
       const t2 = new THREE.CanvasTexture(c2); t2.colorSpace = THREE.SRGBColorSpace;
       const s2 = new THREE.Mesh(new THREE.PlaneGeometry(.95, .18), new THREE.MeshStandardMaterial({ map: t2, roughness: .8 })); s2.position.set(.95, 1.45, .17); g.add(s2);
     } },
+  // a welcome gate over the main street where it meets the pier (ep 12, the day Aru sailed home). Front (to the pier):
+  // "Selamat datang"; back (to town): the wish of an anonymous supporter's traktiran, "semoga selalu baik-baik saja"
+  gapura: { n: 'Gapura Selamat Datang', w: 4, h: 1, land: true, arch: true,
+    build(g, b) {
+      const sign = (t1, t2, bg, fg) => { const c = document.createElement('canvas'); c.width = 1024; c.height = 192; const x = c.getContext('2d');
+        x.fillStyle = bg; x.fillRect(0, 0, 1024, 192); x.fillStyle = '#e6b84a'; x.fillRect(0, 0, 1024, 12); x.fillRect(0, 180, 1024, 12);
+        x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = fg; x.font = '700 78px "Pixelify Sans", sans-serif'; x.fillText(t1, 512, 76, 980);
+        x.font = '700 40px "Pixelify Sans", sans-serif'; x.fillStyle = '#ffe9a8'; x.fillText(t2, 512, 148, 980);
+        const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return new THREE.MeshStandardMaterial({ map: t, roughness: .8 }); };
+      for (const s of [-1, 1]) {
+        const px = s * 1.62;
+        box(g, '#8d8a80', .7, .25, .62, px, 0, 0);
+        for (let i = 0; i < 5; i++) box(g, i % 2 ? '#f4eee0' : '#c4473a', .5 - i * .01, .62, .46, px, .25 + i * .62, 0);
+        box(g, '#8d8a80', .64, .16, .58, px, 3.35, 0);
+        roof4(g, '#c4473a', .66, .55, .66, px, 3.51, 0); add(g, G.sph, '#e6b84a', .08, .08, .08, px, 4.1, 0);
+        const l = new THREE.Mesh(G.sph, lanternMat); l.scale.set(.14, .18, .14); l.position.set(px - s * .38, 2.35, .32); g.add(l);
+        box(g, '#2b1a10', .02, .3, .02, px - s * .38, 2.5, .32);
+        // umbul-umbul: a tall bamboo pole with a long curved banner
+        const ux = s * 2.2; add(g, G.cyl6, '#c9a35a', .035, 4.6, .035, ux, 2.3, -.1);
+        for (let k = 0; k < 6; k++) { const f = box(g, k % 2 ? '#f4eee0' : '#d0483a', .02, .42, .26, ux + s * .03, 3.9 - k * .38, -.1 - k * k * .012); f.rotation.x = -.05 * k; }
+      }
+      box(g, '#5e3b22', 3.95, .72, .3, 0, 2.62, 0);
+      box(g, '#c4473a', 4.15, .12, .42, 0, 3.34, 0);
+      const front = new THREE.Mesh(new THREE.PlaneGeometry(2.75, .55), sign('SELAMAT DATANG', 'di Pulau Aru · Pulau Netizen', '#2f6a48', '#ffffff')); front.position.set(0, 2.98, .16); g.add(front);
+      const back = new THREE.Mesh(new THREE.PlaneGeometry(2.75, .55), sign('SEMOGA SELALU', 'baik-baik saja · dari dermawan pulau', '#2c4f86', '#ffffff')); back.position.set(0, 2.98, -.16); back.rotation.y = Math.PI; g.add(back);
+      for (let i = 0; i < 7; i++) { const l = new THREE.Mesh(G.sph, lanternMat); l.scale.setScalar(.06); l.position.set(-1.2 + i * .4, 2.5, .17); g.add(l); }
+    } },
+  // a signpost by the pier with arrows to faraway places (ep 12, traktiran adis "salam dari Bogor"): Bogor points out to sea
+  tiangsalam: { n: 'Tiang Salam', w: 1, h: 1, land: true,
+    build(g) {
+      const arrow = (t1, t2, bg, y, ry, len = 1.15) => {
+        const c = document.createElement('canvas'); c.width = 512; c.height = 128; const x = c.getContext('2d');
+        x.fillStyle = bg; x.beginPath(); x.moveTo(0, 6); x.lineTo(440, 6); x.lineTo(506, 64); x.lineTo(440, 122); x.lineTo(0, 122); x.closePath(); x.fill();
+        x.fillStyle = '#fff8e6'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = '700 50px "Pixelify Sans", sans-serif'; x.fillText(t1, 225, t2 ? 48 : 66, 420);
+        if (t2) { x.font = '700 28px "Pixelify Sans", sans-serif'; x.fillText(t2, 225, 98, 420); }
+        const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
+        const m = new THREE.MeshStandardMaterial({ map: t, roughness: .8, transparent: true, alphaTest: .5, side: THREE.DoubleSide });
+        const p = new THREE.Group(); p.position.y = y; p.rotation.y = ry; g.add(p);
+        const pl = new THREE.Mesh(new THREE.PlaneGeometry(len, len / 4), m); pl.position.x = len / 2 - .05; p.add(pl);
+      };
+      box(g, '#6b6b66', .3, .14, .3, 0, 0, 0); box(g, '#f4eee0', .1, 2.9, .1, 0, .14, 0);
+      add(g, G.sph, '#d0483a', .1, .1, .1, 0, 3.1, 0);
+      arrow('BOGOR', 'salam dari adis!', '#2f6a48', 2.75, -Math.PI / 2 - .25);
+      arrow('PULAU SEBERANG', 'ikuti matahari terbit', '#2c4f86', 2.35, .55);
+      arrow('PASAR', '', '#c4473a', 1.95, Math.PI / 2 - .2, .9);
+      arrow('PANGGUNG', '', '#a0703a', 1.6, Math.PI / 2 + .25, .9);
+    } },
   // a small business stall for a real UMKM chosen from the comments (#UMKMPulauAru): the sign shows b.label,
   // the awning colour comes from the name, and tapping it opens the business link (b.link) after a confirmation sheet
   // a small coffee house on the cross street, from Kak Alfi's traktiran "selamat menikmati kopinya" (ep 10)

@@ -98,14 +98,14 @@ const fpOf = b => { const d = BT[b.type]; return (b.r | 0) % 2 ? { w: d.h, h: d.
 function rebuildOcc() {
   solid = new Uint8Array(W * H); plank = new Uint8Array(W * H); occ = new Int16Array(W * H).fill(-1);
   for (const l of LMS) for (let dy = 0; dy < l[4]; dy++) for (let dx = 0; dx < l[3]; dx++) occ[(l[2] + dy) * W + l[1] + dx] = -2;
-  S.buildings.forEach((b, bi) => { const d = BT[b.type]; if (!d || d.float) return; const f = fpOf(b); for (let dy = 0; dy < f.h; dy++) for (let dx = 0; dx < f.w; dx++) { const x = b.x + dx, y = b.y + dy; if (x < 0 || y < 0 || x >= W || y >= H) continue; occ[y * W + x] = bi; if (d.walk && d.water) plank[y * W + x] = 1; } });
+  S.buildings.forEach((b, bi) => { const d = BT[b.type]; if (!d || d.float || d.arch) return; const f = fpOf(b); for (let dy = 0; dy < f.h; dy++) for (let dx = 0; dx < f.w; dx++) { const x = b.x + dx, y = b.y + dy; if (x < 0 || y < 0 || x >= W || y >= H) continue; occ[y * W + x] = bi; if (d.walk && d.water) plank[y * W + x] = 1; } });
   if (pop() >= 1000) for (let y = WD.PIER.y0 - 1; y <= WD.PIER.y1; y++) plank[y * W + WD.PIER.x] = 1;
   roadPlan = S.roads ? planRoadNet() : null;
   if (WD.oldPath !== !S.roads) { WD.setOldPath(!S.roads); terrain.userData.refresh(); }
   cleared = new Uint8Array(W * H);
   for (const p of padsFor()) for (let y = Math.max(0, p.y0); y < Math.min(H, p.y1); y++) for (let x = Math.max(0, p.x0); x < Math.min(W, p.x1); x++) cleared[y * W + x] = 1;
   for (const c of S.construct || []) if (c && c.x != null) for (let y = c.y - 2; y <= c.y + 2; y++) for (let x = c.x - 2; x <= c.x + 2; x++) cleared[y * W + x] = 1;
-  S.buildings.forEach(b => { const d = BT[b.type]; if (!d || d.water || d.float || d.walk) return; const f = fpOf(b); if (f.w * f.h < 4) return; for (let y = b.y - 1; y <= b.y + f.h; y++) for (let x = b.x - 1; x <= b.x + f.w; x++) if (x >= 0 && y >= 0 && x < W && y < H) cleared[y * W + x] = 1; });
+  S.buildings.forEach(b => { const d = BT[b.type]; if (!d || d.water || d.float || d.walk || d.arch) return; const f = fpOf(b); if (f.w * f.h < 4) return; for (let y = b.y - 1; y <= b.y + f.h; y++) for (let x = b.x - 1; x <= b.x + f.w; x++) if (x >= 0 && y >= 0 && x < W && y < H) cleared[y * W + x] = 1; });
   for (let i = 0; i < W * H; i++) {
     let s = tile[i] === WD.DEEP ? 1 : 0;
     if (occ[i] === -2) s = 1;
@@ -131,7 +131,7 @@ function planRoadNet() {
   const goals = [];
   for (const [k, x, y, w, h] of LMS) if (k !== 'wreck' && k !== 'fire') goals.push(ring(x, y, w, h));
   if (pop() >= 1000) goals.push([[WD.PIER.x, WD.PIER.y0 - 2], [WD.PIER.x - 1, WD.PIER.y0 - 2], [WD.PIER.x + 1, WD.PIER.y0 - 2]]);
-  for (const b of S.buildings) { const d = BT[b.type]; if (!d || d.water || d.float || d.walk || d.stage) continue; const f = fpOf(b); goals.push(ring(b.x, b.y, f.w, f.h)); }
+  for (const b of S.buildings) { const d = BT[b.type]; if (!d || d.water || d.float || d.walk || d.stage || d.arch) continue; const f = fpOf(b); goals.push(ring(b.x, b.y, f.w, f.h)); }
   return planRoads(occ, hub, goals, S.roads && S.roads.segments);
 }
 function rebuildRoadMesh() {
@@ -713,7 +713,7 @@ function syncExpansion(animate) {
 function padsFor() {
   const out = [];
   for (const b of S.buildings) {
-    const d = BT[b.type]; if (!d || d.water || d.float || d.walk) continue;
+    const d = BT[b.type]; if (!d || d.water || d.float || d.walk || d.arch) continue;
     const f = fpOf(b), r = (b.r | 0) % 4;
     let x0 = b.x - 1, y0 = b.y - 1, x1 = b.x + f.w + 1, y1 = b.y + f.h + 1;
     if (d.stage) { const ext = 7; if (r === 0) y1 += ext; else if (r === 2) y0 -= ext; else if (r === 1) x0 -= ext; else x1 += ext; x0 -= 2; x1 += 2; }
