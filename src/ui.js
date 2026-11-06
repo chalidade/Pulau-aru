@@ -1,5 +1,6 @@
 // HUD, panels and the creator's admin tools.
 import { BT } from './models.js';
+import { ROOMS } from './interiors.js';
 import { ROLE_LINES } from './activities.js';
 import { loadStats, ignoreMe, ignored } from './analytics.js';
 import { store, tokenKey, publishState, downloadState, normalize, REPO } from './data.js';
@@ -392,6 +393,10 @@ function adPulau() {
     h('div', { class: 'eyebrow', style: 'margin-top:18px;margin-bottom:6px' }, 'Jalan aspal'),
     h('p', { class: 'lede' }, 'Jalan dua lajur dari mimbar ke semua bangunan dan tempat penting. Pohon di jalurnya ditebang otomatis.'),
     h('button', { class: 'btn ghost', onclick: () => { S.roads = S.roads ? null : { ep: app.curEp() }; app.markDirty(); openAdmin('pulau'); toast(S.roads ? 'Jalan aspal dibangun' : 'Jalan aspal dibongkar'); } }, S.roads ? 'Bongkar jalan aspal' : 'Bangun jalan aspal'),
+    h('div', { class: 'eyebrow', style: 'margin-top:18px;margin-bottom:6px' }, 'Ruangan yang sudah dibuka'),
+    h('p', { class: 'lede' }, 'Warga bisa masuk ke bangunan ini. Yang belum dicentang pintunya terkunci. Buka satu per episode.'),
+    h('div', { class: 'row', style: 'flex-wrap:wrap;gap:10px' }, ...Object.entries(ROOMS).map(([t, R]) => h('label', { style: 'display:flex;gap:6px;align-items:center' },
+      h('input', { type: 'checkbox', checked: (S.interiors || []).includes(t), onchange: e => { const s = new Set(S.interiors || []); e.target.checked ? s.add(t) : s.delete(t); S.interiors = [...s]; app.markDirty(); toast(R.title + (e.target.checked ? ' dibuka' : ' dikunci')); } }), R.title))),
     h('div', { class: 'eyebrow', style: 'margin-top:18px;margin-bottom:6px' }, 'Yang sedang dibangun tukang'),
     h('p', { class: 'lede' }, 'Dua lokasi bangunan diberi papan "Segera dibangun". Kalau sudah jadi, bangun lewat tab Bangun lalu kosongkan di sini.'),
     h('div', { class: 'row' }, ...[0, 1].map(k => h('select', { class: 'inp', id: 'ad-plan' + k, onchange: e => { const v = e.target.value; S.construct = (S.construct || []).slice(0, 2); while (S.construct.length < 2) S.construct.push(null); S.construct[k] = v ? { type: v, ep: app.curEp() } : null; S.construct = S.construct.filter(Boolean).length ? S.construct.map(c => c || { type: 'rumah', ep: app.curEp() }) : []; app.markDirty(); } },

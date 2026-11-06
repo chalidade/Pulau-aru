@@ -205,6 +205,19 @@ Everything the episode shows must really exist at pulau-aru.web.id afterwards.
   - **Push `data/island.json` only after the capture.** A local edit during a capture changes what the camera sees.
   - Always `git pull --rebase` before pushing. The follower sync commits to `data/island.json` every 30 min.
 
+## 4b. Rooms inside buildings (unlock one per episode)
+
+Rooms exist for masjid, sekolah, rumahsakit, rumah, rumahpresiden, warteg, kedaikopi, apotik (`src/interiors.js`).
+All start locked ("Lihat … (terkunci)" + toast "Segera dibuka"). Each episode opens **one** room as a beat, in this
+order unless a comment asks for another: **masjid (ep13) → sekolah → rumahpresiden → rumahsakit → rumah → warteg →
+kedaikopi → apotik**.
+- Open it: add the type to `island.json → interiors` (e.g. `"interiors": ["masjid"]`). Track it in `state.json → rooms`.
+- Preview locally before it is open: `?buka=semua` or `?buka=masjid,sekolah`.
+- Capture: `window.__room.enter('masjid')` puts the player inside (camera set for you); `window.__room.exit()`
+  returns. Inside, people are real resident names (newest followers; sekolah's blackboard lists the 8 newest — use
+  that as a "selamat datang murid baru" shout-out). Rumah presiden seats the current president and VP.
+- Story beat: Aru unlocks the door ("Hari ini masjid resmi dibuka!"), walk-in shot, 2–3 s inside, a resident line.
+
 ## 5. Capture
 
 - Copy `studio/lib/shots_template.py` to `studio/episodes/ep<N>/shots.py`.

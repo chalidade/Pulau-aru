@@ -13,6 +13,7 @@ import { loadState, normalize, store } from './data.js';
 import * as UI from './ui.js';
 import { createFishing } from './fishing.js';
 import * as I2 from './island2.js';
+import { createInteriors, ROOMS } from './interiors.js';
 import { createActivities } from './activities.js';
 import { createBoats } from './boats.js';
 import * as kebun from './kebun.js';
@@ -40,6 +41,24 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure
 $('game').appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0x8fd3f0, 55, 165);
+// rooms inside buildings: opened one by one (island.json → interiors). ?buka=semua or ?buka=masjid,sekolah previews them
+const IN = createInteriors({ scene, newest: n => S.residents.slice(-n).reverse().map(r => r.n), who: l => l === 'Presiden' ? S.president && S.president.n : l === 'Wakil Presiden' ? S.vicePresident && S.vicePresident.n : null });
+const bukaQ = new URLSearchParams(location.search).get('buka');
+const roomOpen = t => !!ROOMS[t] && (bukaQ === 'semua' || (bukaQ || '').split(',').includes(t) || (S.interiors || []).includes(t));
+let room = null;
+function enterRoom(b) {
+  const R = ROOMS[b.type]; room = { b, back: room ? room.back : { x: player.x, z: player.z, y: player.y, yaw: cam.yaw, pitch: cam.pitch, dist: cam.dist } };
+  const p = IN.enter(b.type); player.x = p.x; player.z = p.z - .4; player.y = 0; player.vy = 0; player.tx = null; player.obj.rotation.y = Math.PI;
+  if (fishing.st.active) fishing.setActive(false);
+  cam.yaw = 0; cam.pitch = .9; cam.dist = touch ? 15 : 14; cam.target.set(player.x, 1, player.z - 1); near = null;
+  toast('Kamu masuk ' + R.title.toLowerCase() + (b.label ? ' "' + b.label + '"' : '') + '.');
+}
+function exitRoom() {
+  if (!room) return; const k = room.back; IN.exit(); player.x = k.x; player.z = k.z; player.y = k.y; player.vy = 0; player.tx = null;
+  cam.yaw = k.yaw; cam.pitch = k.pitch; cam.dist = k.dist; cam.target.set(player.x, player.y + 1, player.z); room = null; near = null;
+}
+const ROOM_HI = { pray: 'Ssst… sedang salat. Nanti kita ngobrol ya.', sit: 'Halo! Betah banget di sini.', lie: 'Lagi istirahat dulu, kata dokter dua hari lagi sembuh.', write: 'Ayo duduk, pelajaran sebentar lagi dimulai!', cook: 'Masak dulu ya, bentar lagi matang.', serve: 'Mau pesan apa?', stand: 'Halo, warga baru ya?' };
+window.__room = { enter: t => { const o = bObjs.find(o => o.userData.b.type === t); if (o) enterRoom(o.userData.b); return !!o; }, exit: () => exitRoom(), get: () => room && room.b.type };
 const camera = new THREE.PerspectiveCamera(touch && innerWidth < innerHeight ? 55 : 42, innerWidth / innerHeight, .1, 600);
 
 const hemi = new THREE.HemisphereLight(0xcfeeff, 0x5a7a3a, .9); scene.add(hemi);
@@ -342,6 +361,7 @@ function stepCloud(n, dt, T) {
   const air = f < 1; u.legL.rotation.x = air ? -.9 : 0; u.legR.rotation.x = air ? -.5 : 0; u.armL.rotation.x = air ? -2.4 : -.3; u.armR.rotation.x = air ? -2.4 : -.3; u.body.position.y = 0; u.body.rotation.x = 0;
 }
 function walkable(x, z) {
+  if (IN.inside(x, z)) return IN.walkable(x, z);
   if (I2.inside2(x, z)) return I2.walkable2(x, z);
   if (Math.abs(x) > W / 2 - .5 || Math.abs(z) > H / 2 - .5) return false;
   for (const [dx, dz] of [[-.28, -.2], [.28, -.2], [-.28, .2], [.28, .2]]) { const cx = WD.w2cx(x + dx), cy = WD.w2cy(z + dz); if (cx < 0 || cy < 0 || cx >= W || cy >= H || solid[cy * W + cx]) return false; }
@@ -355,9 +375,9 @@ const climbCell = i => occ[i] >= 0 && !!BT[S.buildings[occ[i]].type].climb;
 function npcWalkable(x, z) { if (!walkable(x, z)) return false; for (const [dx, dz] of [[-.3, -.3], [.3, -.3], [-.3, .3], [.3, .3]]) { const i = WD.w2cy(z + dz) * W + WD.w2cx(x + dx); if (climbCell(i)) return false; } return true; }
 function platformAt(x, z, y) { let best = -Infinity; for (const p of platforms) if (p.top <= y + .35 && p.top > best && (x - p.x) ** 2 + (z - p.z) ** 2 < p.r * p.r) best = p.top; return best; }
 const playerSurface = (x, z, y = Infinity) => Math.max(surfaceY(x, z), climbAt(x, z), platformAt(x, z, y));
-const shallowAt = (x, z) => I2.inside2(x, z) ? I2.shallow2(x, z) : shallowAt1(x, z);
+const shallowAt = (x, z) => IN.inside(x, z) ? false : I2.inside2(x, z) ? I2.shallow2(x, z) : shallowAt1(x, z);
 const shallowAt1 = (x, z) => { const i = WD.w2cy(z) * W + WD.w2cx(x); return tile[i] === WD.SHALLOW && !plank[i]; };
-const surfaceY = (x, z) => I2.inside2(x, z) ? I2.surface2(x, z) : surfaceY1(x, z);
+const surfaceY = (x, z) => IN.inside(x, z) ? 0 : I2.inside2(x, z) ? I2.surface2(x, z) : surfaceY1(x, z);
 const surfaceY1 = (x, z) => { const i = WD.w2cy(z) * W + WD.w2cx(x); if (plank[i]) return .26; return Math.max(groundY(x, z), -.55); };
 function stepNpc(n, dt) {
   if (n.wait > 0) { n.wait -= dt; n.moving = false; return; }
@@ -459,6 +479,7 @@ function disembark() { const p = landSpot(); if (!p) { toast('Terlalu jauh dari 
 function interactables() {
   const L = [];
   if (sail.on) { const p = landSpot(); if (p) L.push({ x: player.x, z: player.z, label: 'Turun ke darat', act: disembark, r: 99, key: 'land' }); return L; }
+  if (room) return IN.interactables(player.x, player.z, exitRoom, p => { UI.dialog(p.label, ROOM_HI[p.pose] || 'Halo!'); });
   if (pop() >= 1000) L.push({ x: sail.x, z: sail.z, label: 'Naik kapal', act: board, r: 4.6, key: 'ship' });
   { const b = boats.nearest(player.x, player.z, 2.6); if (b) L.push({ x: b.x, z: b.z, label: 'Naik perahu', act: () => boardBoat(b), r: 2.6, key: 'boat' }); }
   if (I2.inside2(player.x, player.z)) { for (const it of I2.interactables2()) L.push({ ...it, act: () => UI.dialog(it.key === 'chest' ? 'Peti tua' : it.key === 'circle' ? 'Lingkaran batu' : 'Pantai seberang', I2.LORE[it.key]) }); return L; }
@@ -469,7 +490,7 @@ function interactables() {
   L.push({ ...at(LM.board[0], LM.board[1], 2, 1, .9), label: 'Baca aturan', act: UI.openRules, r: 1.6 });
   L.push({ ...at(LM.wreck[0], LM.wreck[1], 3, 2, 1.4), label: 'Periksa perahu', act: UI.openMystery, r: 2.4 });
   L.push({ ...at(LM.fire[0], LM.fire[1], 1, 1, .9), label: 'Baca catatan', act: UI.openJournal, r: 1.6 });
-  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); if (b.type === 'perahu') return; const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : b.link ? 'Mampir ke ' + (b.label || 'warung') : BT[b.type].open ? (BT[b.type].openLabel || 'Baca ' + BT[b.type].n) : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : b.link ? () => UI.shopDialog(b) : BT[b.type].open ? () => UI.openPanel(BT[b.type].open) : () => UI.bldDialog(b), r: Math.min(3, Math.max(1.4, f.w * .7)), key: sp ? 'spear' + fishing.st.active : null }); });
+  bObjs.forEach(o => { const b = o.userData.b, f = fpOf(b); if (b.type === 'perahu') return; const [cx, cz] = fpCenter(b.x, b.y, f.w, f.h); const sp = BT[b.type].spear; L.push({ x: cx, z: cz + f.h / 2 + .4, label: sp ? (fishing.st.active ? 'Kembalikan tombak' : 'Ambil tombak') : b.link ? 'Mampir ke ' + (b.label || 'warung') : BT[b.type].open ? (BT[b.type].openLabel || 'Baca ' + BT[b.type].n) : ROOMS[b.type] ? (roomOpen(b.type) ? 'Masuk ' : 'Lihat ') + BT[b.type].n.toLowerCase() + (roomOpen(b.type) ? '' : ' (terkunci)') : 'Lihat ' + BT[b.type].n.toLowerCase(), act: sp ? fishing.toggle : b.link ? () => UI.shopDialog(b) : BT[b.type].open ? () => UI.openPanel(BT[b.type].open) : ROOMS[b.type] ? (roomOpen(b.type) ? () => enterRoom(b) : () => { UI.bldDialog(b); toast('Pintunya masih terkunci. Segera dibuka, nantikan di episode berikutnya!'); }) : () => UI.bldDialog(b), r: Math.min(3, Math.max(1.4, f.w * .7)), key: sp ? 'spear' + fishing.st.active : null }); });
   for (const n of npcs) L.push({ npc: true, x: n.x, z: n.z, label: 'Bicara dengan ' + n.name, act: () => { n.obj.rotation.y = Math.atan2(player.x - n.x, player.z - n.z); n.wait = 4; UI.talk(n); }, r: 1.3 });
   return L;
 }
@@ -545,6 +566,7 @@ function updateLabels() {
   const items = [];
   const push = (text, x, y, z, cls, d) => items.push({ text, x, y, z, cls, d });
   for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (d < (n.aru || n.pres || n.vp ? 12 : 4.5) && (n.num || n.aru || n.pres || n.vp)) push(n.pres ? 'Presiden ' + n.name : n.vp ? 'Wakil Presiden ' + n.name : n.name, n.x, n.obj.position.y + 1.6, n.z, n.aru || n.pres || n.vp ? 'gold' : '', d); }
+  if (room && IN.current) for (const q of IN.current.people) push(q.label, q.x, q.pose === 'lie' ? 1.2 : q.pose === 'sit' || q.pose === 'pray' ? 1.3 : 1.7, q.z, q.label.startsWith('@') ? '' : 'gold', Math.hypot(q.x - player.x, q.z - player.z));
   items.sort((a, b) => a.d - b.d);
   labelPool.forEach((el, i) => {
     const it = items[i]; if (!it) { el.hidden = true; return; }
@@ -598,6 +620,7 @@ function frame() {
   kerja.update(dt);
   fishing.update(dt, T0);
   kebun.update(dt, T0);
+  IN.update(dt, T0);
   for (const n of npcs) { if (n.cloud) { stepCloud(n, dt, T0); continue; } acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z) + (n.state === 'work' ? n.yOff || 0 : 0), n.z); }
   // camera
   if (cam.attract && !$('start').hidden) { cam.yaw += dt * .05; }
@@ -605,6 +628,7 @@ function frame() {
   const tgt = new THREE.Vector3(player.x, player.obj.position.y + 1, player.z);
   if (place && !place.erase && place.hx != null && touch) { const [cx, cz] = fpCenter(place.hx, place.hy, 1, 1); tgt.set(cx, 1, cz); }
   if (sail.on) tgt.set(V().x, 1.5, V().z);
+  if (room) tgt.set(player.x * .4 + IN.OX * .6, .6, player.z * .4 + IN.OZ * .6 + .5);
   if (window.__camTarget) tgt.copy(window.__camTarget);
   cam.target.lerp(tgt, Math.min(1, dt * 6));
   cam.sailDist = (cam.sailDist || 0) + ((sail.on ? (sail.boat ? 4 : 10) : 0) - (cam.sailDist || 0)) * Math.min(1, dt * 2);
@@ -612,7 +636,7 @@ function frame() {
   const cd = cam.dist + cam.sailDist;
   camera.position.set(cam.target.x + Math.sin(cam.yaw) * cp * cd, cam.target.y + Math.sin(cam.pitch) * cd, cam.target.z + Math.cos(cam.yaw) * cp * cd);
   scene.fog.far = 165 + cam.sailDist * 10; scene.fog.near = 55 + cam.sailDist * 4;
-  camera.position.y = Math.max(camera.position.y, (I2.inside2(camera.position.x, camera.position.z) ? I2.ground2(camera.position.x, camera.position.z) : groundY(camera.position.x, camera.position.z)) + 1.2, climbAt(camera.position.x, camera.position.z) + 1);
+  camera.position.y = Math.max(camera.position.y, (IN.inside(camera.position.x, camera.position.z) ? 0 : I2.inside2(camera.position.x, camera.position.z) ? I2.ground2(camera.position.x, camera.position.z) : groundY(camera.position.x, camera.position.z)) + 1.2, climbAt(camera.position.x, camera.position.z) + 1);
   camera.lookAt(cam.target);
   // time of day lighting
   const p = tClock, dk = darkness(p), dusk = duskAmt(p);
