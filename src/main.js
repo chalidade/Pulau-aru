@@ -125,7 +125,7 @@ function rebuildOcc() {
   cleared = new Uint8Array(W * H);
   for (const p of padsFor()) for (let y = Math.max(0, p.y0); y < Math.min(H, p.y1); y++) for (let x = Math.max(0, p.x0); x < Math.min(W, p.x1); x++) cleared[y * W + x] = 1;
   for (const c of S.construct || []) if (c && c.x != null) for (let y = c.y - 2; y <= c.y + 2; y++) for (let x = c.x - 2; x <= c.x + 2; x++) cleared[y * W + x] = 1;
-  S.buildings.forEach(b => { const d = BT[b.type]; if (!d || d.water || d.float || d.walk || d.arch) return; const f = fpOf(b); if (f.w * f.h < 4) return; for (let y = b.y - 1; y <= b.y + f.h; y++) for (let x = b.x - 1; x <= b.x + f.w; x++) if (x >= 0 && y >= 0 && x < W && y < H) cleared[y * W + x] = 1; });
+  S.buildings.forEach(b => { const d = BT[b.type]; if (!d || d.water || d.float || d.walk || d.arch) return; const f = fpOf(b); if (f.w * f.h < 4) return; const m = d.clear || 1; for (let y = b.y - m; y < b.y + f.h + m; y++) for (let x = b.x - m; x < b.x + f.w + m; x++) if (x >= 0 && y >= 0 && x < W && y < H) cleared[y * W + x] = 1; });
   for (let i = 0; i < W * H; i++) {
     let s = tile[i] === WD.DEEP ? 1 : 0;
     if (occ[i] === -2) s = 1;
@@ -342,16 +342,19 @@ function placardMat(text) {
 const DEMO_SIGNS = ['PEMILU!', 'PRESIDEN|DIPILIH WARGA', 'GORENGAN|DIBAYAR!', 'RONDA|JANGAN TIDUR', 'MANGGA|MILIK LADANG', 'SUARA|WARGA!', 'PEMILU|SEKARANG', 'KAMI|MAU MEMILIH'];
 const DEMO_SPOTS = [[1.2, -.3], [2.1, -.5], [3.0, -.3], [3.9, -.5], [1.6, .5], [2.5, .4], [3.4, .5], [4.3, .6]];
 function assignDemo() {
-  for (const n of npcs) if (n.demo) { if (n.demo.sign) n.obj.remove(n.demo.sign); n.role = n.demo.role0; n.demo = null; }
+  for (const n of npcs) { if (n.demo) { if (n.demo.sign) n.obj.remove(n.demo.sign); n.role = n.demo.role0; n.demo = null; } if (n.candSign) { n.obj.remove(n.candSign); n.candSign = null; } }
   const ev = S.event; if (!ev || ev.type !== 'demo') return;
+  const placard = text => { const g = new THREE.Group(), board = new THREE.Mesh(new THREE.PlaneGeometry(.62, .39), placardMat(text)); board.position.set(0, 2.05, .12); g.add(board);
+    const stick = new THREE.Mesh(M.G.box, M.mat('#8a6a3a')); stick.scale.set(.03, .9, .03); stick.position.set(0, 1.5, .1); g.add(stick); return g; };
+  // ep 14: candidates carry their own placard wherever they go (event.presSign / event.vpSign)
+  for (const [k, key] of [['pres', 'presSign'], ['vp', 'vpSign']]) { const n = npcs.find(n => n[k]); if (n && ev[key]) { n.candSign = placard(ev[key]); n.obj.add(n.candSign); } }
   const sp = S.buildings.find(b => b.type === 'spanduk'); if (!sp) return;
   const f = fpOf(sp), [ox, oz] = fpCenter(sp.x, sp.y, f.w, f.h);
   const free = n => !n.aru && !n.pres && !n.vp && !n.cloud, pool = ['wander', 'listen', 'sit', 'shop'].flatMap(r => npcs.filter(n => free(n) && n.role === r));
   const signs = ev.signs || DEMO_SIGNS;
   DEMO_SPOTS.forEach(([dx, dz], i) => { const n = pool[i]; if (!n) return;
     if (n.kit) { n.obj.userData.body.remove(...n.kit); n.kit = null; } if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }
-    const g = new THREE.Group(), board = new THREE.Mesh(new THREE.PlaneGeometry(.62, .39), placardMat(signs[i % signs.length])); board.position.set(0, 2.05, .12); g.add(board);
-    const stick = new THREE.Mesh(M.G.box, M.mat('#8a6a3a')); stick.scale.set(.03, .9, .03); stick.position.set(0, 1.5, .1); g.add(stick); n.obj.add(g);
+    const g = placard(signs[i % signs.length]); n.obj.add(g);
     n.demo = { role0: n.role, x: ox + dx, z: oz + dz, face: Math.PI + (i % 3 - 1) * .15, sign: g, ph: i * .6 }; n.role = 'demo'; n.x = n.demo.x; n.z = n.demo.z; n.tx = null; });
 }
 function stepDemo(n, T) {

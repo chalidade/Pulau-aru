@@ -735,6 +735,41 @@ export const BT = {
       const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.5, .46), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.85, .01); g.add(sign);
       add(g, G.cyl6, '#9a9b94', .025, 1.0, .025, 1.0, 2.24 + .5, -.3); const fl = box(g, '#d0483a', .3, .1, .02, 1.15, 2.95, -.3); box(g, '#f4eee0', .3, .1, .02, 1.15, 2.85, -.3);
     } },
+  // a red-and-white lattice signal tower with dishes and a beacon, from Sal's 440 traktiran "semoga bisa segera up di
+  // playstore dan ios" (ep 14); the board at its foot carries the message, the beacon glows at night
+  menarasinyal: { n: 'Menara Sinyal Sal', w: 3, h: 3, land: true, scale: 1.5, clear: 4,   // clears trees 4 cells around (open view from the street)
+    build(g) {
+      box(g, '#9a9b94', 1.7, .12, 1.7, 0, 0, 0);
+      const H = 5.2, seg = 8;
+      for (let i = 0; i < seg; i++) {                                                   // tapering legs, red/white bands
+        const y0 = .12 + i * H / seg, t0 = .62 - i * .055, t1 = .62 - (i + 1) * .055, col = i % 2 ? '#f4eee0' : '#d0483a';
+        for (const [sx, sz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) {
+          const lg = box(g, col, .07, H / seg + .02, .07, sx * (t0 + t1) / 2, y0, sz * (t0 + t1) / 2); lg.rotation.z = sx * .05; lg.rotation.x = -sz * .05;
+        }
+        const yy = y0 + H / seg - .02, tt = t1;
+        for (const sz of [-1, 1]) { box(g, col, tt * 2 + .06, .04, .04, 0, yy, sz * tt); box(g, col, .04, .04, tt * 2 + .06, sz * tt, yy, 0); }
+        for (const sz of [-1, 1]) { const d = box(g, '#c9c9c2', .03, H / seg * 1.25, .03, 0, y0, sz * (t0 + t1) / 2); d.rotation.z = (i % 2 ? 1 : -1) * .9; d.position.y = y0 + H / seg / 2; }
+      }
+      box(g, '#d8dadc', .5, .06, .5, 0, H + .1, 0);                                        // platform
+      add(g, G.cyl6, '#3d4a52', .03, 1.0, .03, 0, H + .65, 0);                            // mast
+      const bc = new THREE.Mesh(G.sph, lanternMat); bc.scale.set(.1, .1, .1); bc.position.set(0, H + 1.2, 0); g.add(bc);
+      for (const [x, z, ry] of [[.28, 0, Math.PI / 2], [-.28, 0, -Math.PI / 2], [0, .28, 0]]) {     // dishes and panels
+        const d = add(g, G.cyl8, '#eef0f2', .17, .05, .17, x, H - .2, z, 0); d.rotation.set(Math.PI / 2, 0, 0); d.rotation.y = ry; d.rotation.order = 'YXZ';
+      }
+      for (const [x, z] of [[.22, .22], [-.22, .22], [.22, -.22], [-.22, -.22]]) box(g, '#eef0f2', .08, .45, .04, x, H - 1.1, z, Math.atan2(x, z));
+      // signal bars on the platform rail
+      for (let i = 0; i < 5; i++) box(g, '#5fae6a', .05, .08 + i * .06, .03, -.14 + i * .07, H + .16, .26);
+      // board at the foot: name + Sal's message
+      const c = document.createElement('canvas'); c.width = 512; c.height = 256; const x = c.getContext('2d');
+      x.fillStyle = '#1f2f45'; x.fillRect(0, 0, 512, 256); x.fillStyle = '#e6b84a'; x.fillRect(0, 0, 512, 10); x.fillRect(0, 246, 512, 10);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffffff'; x.font = '700 58px "Pixelify Sans", sans-serif'; x.fillText('MENARA SINYAL', 256, 54, 490);
+      x.fillStyle = '#e6b84a'; x.font = '700 40px "Pixelify Sans", sans-serif'; x.fillText('dari Kak Sal ♥ 440 traktiran', 256, 112, 490);
+      x.fillStyle = '#cfe0ec'; x.font = '700 30px "Pixelify Sans", sans-serif'; x.fillText('"Semoga segera rilis', 256, 168, 490); x.fillText('di Play Store & iOS!"', 256, 208, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      for (const xx of [-.42, .42]) box(g, '#3d4a52', .05, .9, .05, xx, .12, .95);
+      const bd = new THREE.Mesh(new THREE.PlaneGeometry(1.0, .5), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); bd.position.set(0, .82, .98); g.add(bd);
+      box(g, '#2b3338', 1.04, .54, .03, 0, .55, .955);
+    } },
   // a cloth protest banner between two bamboo poles; the text is b.label (ep 13, demo warga minta pemilu)
   spanduk: { n: 'Spanduk warga', w: 2, h: 1, land: true,
     build(g, b) {
