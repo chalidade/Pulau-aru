@@ -678,6 +678,76 @@ export const BT = {
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
       const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.3, .4), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.98, .78); g.add(sign);
     } },
+  // a small eatery with a long table and benches where visitors can sit and order (ep 13, usulan @FAHMI "pengen nge warung").
+  // seats: [x, y, z, face] in unscaled local metres (y = seat top); face 0 looks +z (toward the street)
+  warungfahmi: { n: 'Warung Fahmi', w: 4, h: 3, land: true, scale: 1.5, open: 'warung', openLabel: 'Duduk & pesan makan',
+    seats: [[-.62, .4, -.1, 0], [0, .4, -.1, 0], [.62, .4, -.1, 0], [-.62, .4, .72, Math.PI], [0, .4, .72, Math.PI], [.62, .4, .72, Math.PI]], table: [.58, .27],
+    build(g) {
+      box(g, '#c9bfa8', 2.6, .1, 1.9, 0, 0, 0);
+      box(g, '#e8c48a', 2.5, 1.75, .1, 0, .1, -.88); box(g, '#d9b277', .1, 1.75, .9, -1.22, .1, -.45); box(g, '#d9b277', .1, 1.75, .9, 1.22, .1, -.45);
+      for (const [x, z] of [[-1.22, .86], [1.22, .86]]) box(g, '#5e3b22', .09, 1.75, .09, x, .1, z);
+      box(g, '#b8523c', 2.7, .1, 2.0, 0, 1.85, -.02);                                                     // roof
+      for (let i = 0; i < 9; i++) { const a = box(g, i % 2 ? '#fff4dc' : '#d0483a', .3, .05, .5, -1.2 + i * .3, 1.78, .95); a.rotation.x = .38; }
+      // kitchen along the back: stove, wok, pots, a glass food display
+      box(g, '#8a5a34', 2.2, .6, .4, 0, .1, -.6); box(g, '#f4eee0', 2.22, .05, .42, 0, .7, -.6);
+      box(g, '#5a5a58', .5, .12, .3, -.7, .75, -.6); add(g, G.cyl8, '#2b2b2b', .17, .05, .17, -.8, .9, -.6); add(g, G.cyl8, '#9a9b94', .1, .14, .1, -.5, .94, -.62);
+      const glass = box(g, '#cfe8ee', .8, .32, .32, .5, .75, -.6); glass.material = new THREE.MeshStandardMaterial({ color: '#cfe8ee', transparent: true, opacity: .5 });
+      const food = ['#e0a84a', '#c4473a', '#f2e6c8', '#62bd73', '#d99a3e'];
+      for (let i = 0; i < 5; i++) add(g, G.cyl8, food[i], .07, .05, .07, .22 + i * .14, .82, -.6);
+      box(g, '#8a5a34', 1.6, .05, .2, 0, 1.25, -.8); for (let i = 0; i < 6; i++) add(g, G.cyl8, ['#d0483a', '#f2c94c', '#3f7f5a'][i % 3], .05, .16, .05, -.6 + i * .24, 1.3, -.8);
+      // long table with two benches
+      box(g, '#a8763e', 2.0, .05, .44, 0, .52, .32); for (const x of [-.9, .9]) for (const z of [.15, .49]) box(g, '#5e3b22', .05, .42, .05, x, .1, z);
+      box(g, '#f0e6d0', 1.9, .01, .3, 0, .57, .32);
+      for (const z of [-.1, .72]) { box(g, '#7a4a28', 2.0, .05, .2, 0, .35, z); for (const x of [-.85, .85]) box(g, '#5e3b22', .05, .25, .05, x, .1, z); }
+      for (let i = 0; i < 3; i++) { add(g, G.cyl8, '#c0702a', .035, .1, .035, -.62 + i * .62, .6, .44); add(g, G.cyl8, '#e8e2d4', .03, .06, .03, -.45 + i * .62, .6, .2); }  // tea glasses, sambal
+      const c = document.createElement('canvas'); c.width = 512; c.height = 160; const x = c.getContext('2d');
+      x.fillStyle = '#fff4dc'; x.fillRect(0, 0, 512, 160); x.fillStyle = '#d0483a'; x.fillRect(0, 0, 512, 12); x.fillRect(0, 148, 512, 12);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#b8523c'; x.font = '700 66px "Pixelify Sans", sans-serif'; x.fillText('WARUNG FAHMI', 256, 64, 490);
+      x.fillStyle = '#5e3b22'; x.font = '700 28px "Pixelify Sans", sans-serif'; x.fillText('duduk · pesan · makan', 256, 122, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.8, .56), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 2.23, 1.0); g.add(sign);
+      box(g, '#5e3b22', 1.86, .62, .04, 0, 1.92, .97);
+      const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.08, .11, .08); lamp.position.set(0, 1.62, .35); g.add(lamp);
+    } },
+  // the island office where visitors take a shift and earn coins (ep 13, usulan wapres @EGA_91 "kantor untuk nyari uang")
+  kantor: { n: 'Kantor Pulau', w: 4, h: 3, land: true, scale: 1.6, open: 'kantor', openLabel: 'Kerja di kantor',
+    seats: [[-.68, .36, .18, 0], [.68, .36, .18, 0]], table: [.54, .3],
+    build(g) {
+      box(g, '#bdbab2', 2.4, .08, 1.8, 0, 0, 0);
+      box(g, '#eef0f2', 2.3, 2.1, .85, 0, .08, -.45);                                                     // two-storey block
+      box(g, '#3f6f9a', 2.32, .12, .87, 0, 1.12, -.45); box(g, '#d8dadc', 2.4, .12, .95, 0, 2.18, -.45);
+      for (const xx of [-.8, -.27, .27, .8]) { box(g, windowMat, .36, .42, .02, xx, 1.45, -.02); }
+      box(g, '#2e3a46', .45, 1.0, .03, 0, .08, -.01); box(g, '#cfe0ec', .36, .82, .02, 0, .14, .01);         // glass door, taller than a person
+      for (const xx of [-.8, .8]) box(g, windowMat, .5, .5, .02, xx, .45, -.02);
+      // porch with canopy and two work desks facing the street
+      box(g, '#3f6f9a', 2.4, .06, .9, 0, 1.06, .4); for (const xx of [-1.12, 1.12]) box(g, '#d8dadc', .07, 1.0, .07, xx, .06, .8);
+      for (const xx of [-.68, .68]) {
+        box(g, '#8a6a4a', .7, .04, .32, xx, .48, .5); box(g, '#5e3b22', .04, .4, .3, xx - .32, .08, .5); box(g, '#5e3b22', .04, .4, .3, xx + .32, .08, .5);
+        box(g, '#2b2b2b', .3, .02, .2, xx, .52, .48); const scr = box(g, '#2b2b2b', .3, .15, .02, xx, .53, .4); scr.rotation.x = -.25;    // laptop
+        box(g, '#f4eee0', .16, .03, .2, xx + .22, .52, .5);                                                   // papers
+        box(g, '#3a4a6b', .3, .04, .28, xx, .3, .18); box(g, '#3a4a6b', .3, .32, .04, xx, .34, .03); add(g, G.cyl6, '#2b2b2b', .03, .24, .03, xx, .06, .18);  // chair
+      }
+      const c = document.createElement('canvas'); c.width = 512; c.height = 160; const x = c.getContext('2d');
+      x.fillStyle = '#3f6f9a'; x.fillRect(0, 0, 512, 160); x.fillStyle = '#e6b84a'; x.fillRect(0, 148, 512, 12);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffffff'; x.font = '700 66px "Pixelify Sans", sans-serif'; x.fillText('KANTOR PULAU', 256, 62, 490);
+      x.fillStyle = '#e6b84a'; x.font = '700 28px "Pixelify Sans", sans-serif'; x.fillText('kerja jujur, dapat koin', 256, 122, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.5, .46), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.85, .01); g.add(sign);
+      add(g, G.cyl6, '#9a9b94', .025, 1.0, .025, 1.0, 2.24 + .5, -.3); const fl = box(g, '#d0483a', .3, .1, .02, 1.15, 2.95, -.3); box(g, '#f4eee0', .3, .1, .02, 1.15, 2.85, -.3);
+    } },
+  // a cloth protest banner between two bamboo poles; the text is b.label (ep 13, demo warga minta pemilu)
+  spanduk: { n: 'Spanduk warga', w: 2, h: 1, land: true,
+    build(g, b) {
+      for (const x of [-.95, .95]) { add(g, G.cyl6, '#c9a868', .04, 2.3, .04, x, 1.15, 0); add(g, G.sph, '#8a6a3a', .05, .05, .05, x, 2.32, 0); }
+      const text = (b && b.label) || 'SUARA WARGA';
+      const c = document.createElement('canvas'); c.width = 512; c.height = 140; const x = c.getContext('2d');
+      x.fillStyle = '#f7f1e3'; x.fillRect(0, 0, 512, 140); x.fillStyle = '#d0483a'; x.fillRect(0, 0, 512, 8); x.fillRect(0, 132, 512, 8);
+      let fs = 72; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; while (fs > 30 && x.measureText(text).width > 480) { fs -= 2; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; }
+      x.fillStyle = '#c0392b'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(text, 256, 72);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const cloth = new THREE.Mesh(new THREE.PlaneGeometry(1.86, .52), new THREE.MeshStandardMaterial({ map: tx, roughness: .9, side: THREE.DoubleSide })); cloth.position.set(0, 1.85, 0); g.add(cloth);
+      for (const y of [1.59, 2.11]) box(g, '#8a6a3a', 1.9, .015, .015, 0, y, 0);
+    } },
   warungumkm: { n: 'Warung UMKM', w: 3, h: 3, scale: 1.5, land: true,
     build(g, b) {
       const name = (b && b.label) || 'Warung', hue = [...name].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7) % 6;

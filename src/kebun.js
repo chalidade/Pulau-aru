@@ -29,6 +29,9 @@ const save = () => store.set(KEY, JSON.stringify(st));
 const progress = p => p ? Math.min(1, (now() - p.t) / (SEEDS[p.s].menit * 60000)) : 0;
 const left = p => Math.max(0, p.t + SEEDS[p.s].menit * 60000 - now());
 const dur = ms => { const m = Math.ceil(ms / 60000); return m >= 60 ? `${Math.floor(m / 60)} jam${m % 60 ? ' ' + (m % 60) + ' mnt' : ''}` : `${m} mnt`; };
+// shared island coins (also used by the warung and the kantor, src/kerja.js)
+export const koin = () => st.koin;
+export function addKoin(n) { st.koin = Math.max(0, st.koin + n); save(); }
 export const readyCount = () => st.plots.filter(p => p && progress(p) >= 1).length;
 
 export function init() {

@@ -16,6 +16,7 @@ import * as I2 from './island2.js';
 import { createActivities } from './activities.js';
 import { createBoats } from './boats.js';
 import * as kebun from './kebun.js';
+import * as kerja from './kerja.js';
 import { $, h, toast, fmt, clean } from './ui.js';
 
 const touch = matchMedia('(pointer:coarse)').matches;
@@ -238,7 +239,7 @@ const boats = createBoats({ scene, navigable: (x, z) => navigable(x, z) });
 
 // ---------- characters ----------
 const player = { obj: null, x: 0, z: 0, y: 0, vy: 0, grounded: true, tx: null, tz: null, moving: false };
-function jump() { if (!sail.on && player.grounded && $('start').hidden && $('sheet').hidden && !place) { player.vy = 6.3; player.grounded = false; } }
+function jump() { if (player.sit) { kerja.stand(); return; } if (!sail.on && player.grounded && $('start').hidden && $('sheet').hidden && !place) { player.vy = 6.3; player.grounded = false; } }
 function setPlayerLook() { if (player.obj) scene.remove(player.obj); player.obj = makeCharacter(role.kind === 'aru' ? ARU : lookOf(role.name + 'me')); scene.add(player.obj); player.obj.traverse(o => { if (o.isMesh) o.castShadow = true; }); }
 let npcs = [];
 const fishHud = h('div', { class: 'plate fishplate', hidden: true }); $('hud-l').appendChild(fishHud);
@@ -571,6 +572,7 @@ function frame() {
   if (mx || my) { player.tx = null; const fx = -Math.sin(cam.yaw), fz = -Math.cos(cam.yaw), rx = Math.cos(cam.yaw), rz = -Math.sin(cam.yaw); wx = rx * mx + fx * -my; wz = rz * mx + fz * -my; }
   else if (player.tx != null) { const dx = player.tx - player.x, dz = player.tz - player.z, d = Math.hypot(dx, dz); if (d < .2) player.tx = null; else { wx = dx / d; wz = dz / d; } }
   const ml = Math.hypot(wx, wz);
+  if (player.sit && ml > .12 && !blocked) kerja.stand();
   if (sail.on) {
     const v = V(), small = !!sail.boat, vmax = small ? 7 : 10, fr = small ? 1.3 : 3.4, bk = small ? 1.0 : 2.4;
     if (ml > .12 && !blocked) { const want = Math.atan2(-wz, wx); let dr = want - v.ry; dr = Math.atan2(Math.sin(dr), Math.cos(dr)); v.ry += Math.sign(dr) * Math.min(Math.abs(dr), dt * (small ? 2.2 : 1.3)); v.speed = Math.min(vmax * Math.min(1, ml), v.speed + dt * 4 * Math.max(.2, Math.cos(dr))); }
@@ -578,7 +580,7 @@ function frame() {
     const cx = Math.cos(v.ry), cz = -Math.sin(v.ry), nx = v.x + cx * v.speed * dt, nz = v.z + cz * v.speed * dt;
     if (navigable(nx + cx * fr, nz + cz * fr) && navigable(nx, nz) && navigable(nx - cx * bk, nz - cz * bk)) { v.x = nx; v.z = nz; } else if (v.speed > 2) { v.speed = 0; toast(small ? 'Perahu menyentuh dasar. Putar arah.' : 'Kapal menyentuh dasar. Putar arah.'); } else v.speed = 0;
     player.x = v.x - cx * (small ? .15 : .3); player.z = v.z - cz * (small ? .15 : .3); player.y = small ? .12 : 1.05 + shipObj.position.y; player.obj.rotation.y = v.ry + Math.PI / 2; player.moving = false; player.grounded = true; player.vy = 0;
-  } else if (ml > .12 && !blocked) {
+  } else if (ml > .12 && !blocked && !player.sit) {
     const sp = 4.2 * dt * Math.min(1, ml) * (shallowAt(player.x, player.z) ? .55 : onRoad(player.x, player.z) ? 1.2 : 1) * (keys.shift && !place ? 1.6 : 1);
     const vx = wx / ml * sp, vz = wz / ml * sp; let moved = false;
     const okAt = (x, z) => walkable(x, z) ? playerSurface(x, z, player.y) <= player.y + .32 : platformAt(x, z, player.y) > -Infinity && Math.abs(x) < W / 2 && Math.abs(z) < H / 2;
@@ -586,13 +588,14 @@ function frame() {
     if (!moved) player.tx = null; player.moving = moved;
     const want = Math.atan2(wx, wz); let dr = want - player.obj.rotation.y; dr = Math.atan2(Math.sin(dr), Math.cos(dr)); player.obj.rotation.y += dr * Math.min(1, dt * 14);
   } else player.moving = false;
-  if (!sail.on) { // gravity, jumping and stepping onto ledges
+  if (!sail.on && !player.sit) { // gravity, jumping and stepping onto ledges
     const g = playerSurface(player.x, player.z, player.y);
     if (!player.grounded || player.vy > 0 || player.y > g + .32) { player.vy -= 16 * dt; player.y += player.vy * dt; if (player.y <= g) { player.y = g; player.vy = 0; player.grounded = true; } else player.grounded = false; }
     else { player.y = g; player.vy = 0; player.grounded = true; }
   }
-  player.obj.position.set(player.x, player.y, player.z);
-  animateCharacter(player.obj, player.moving, dt);
+  if (player.sit) kerja.pose(player.obj, T0);
+  else { player.obj.position.set(player.x, player.y, player.z); animateCharacter(player.obj, player.moving, dt); }
+  kerja.update(dt);
   fishing.update(dt, T0);
   kebun.update(dt, T0);
   for (const n of npcs) { if (n.cloud) { stepCloud(n, dt, T0); continue; } acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z) + (n.state === 'work' ? n.yOff || 0 : 0), n.z); }
@@ -733,6 +736,7 @@ const app = {
 };
 UI.initUI(app);
 kebun.init(); $('b-kebun').onclick = () => kebun.open();
+kerja.init({ player, objs: () => bObjs });
 
 // ---------- start ----------
 // ---------- LIVE mode (pulau-aru.web.id/?live): a self-running tour for TikTok LIVE screen sharing ----------
@@ -822,5 +826,5 @@ requestAnimationFrame(frame);
   }, 90000);
 })();
 
-window.__pulau = { kebun, roads: roadGroup,  app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
+window.__pulau = { kebun, kerja, roads: roadGroup,  app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
 trackVisit();
