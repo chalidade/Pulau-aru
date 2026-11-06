@@ -783,6 +783,40 @@ export const BT = {
       const cloth = new THREE.Mesh(new THREE.PlaneGeometry(1.86, .52), new THREE.MeshStandardMaterial({ map: tx, roughness: .9, side: THREE.DoubleSide })); cloth.position.set(0, 1.85, 0); g.add(cloth);
       for (const y of [1.59, 2.11]) box(g, '#8a6a3a', 1.9, .015, .015, 0, y, 0);
     } },
+  // the election board (ep 15): president and vice president resigned, so two empty chairs wait in front of a board
+  // listing every candidate from the comments. Candidates from b.cands, rule line from b.label
+  papanpemilu: { n: 'Papan Pemilu', w: 3, h: 2, scale: 1.3, land: true,
+    build(g, b) {
+      const cands = (b && b.cands) || ['Calon dari komentar'];
+      box(g, '#c9bfa8', 2.3, .08, 1.5, 0, 0, 0);
+      for (const x of [-1.0, 1.0]) box(g, '#5e3b22', .1, 2.2, .1, x, 0, -.5);
+      box(g, '#c4473a', 2.2, .14, .14, 0, 2.2, -.5);
+      const c = document.createElement('canvas'); c.width = 512; c.height = 400; const x = c.getContext('2d');
+      x.fillStyle = '#fff8e6'; x.fillRect(0, 0, 512, 400); x.fillStyle = '#c4473a'; x.fillRect(0, 0, 512, 64); x.fillStyle = '#f4eee0'; x.fillRect(0, 64, 512, 6);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#fff8e6'; x.font = '700 44px "Pixelify Sans", sans-serif'; x.fillText('PEMILU PULAU ARU', 256, 34, 490);
+      x.fillStyle = '#3a2412'; x.font = '700 24px "Pixelify Sans", sans-serif'; x.fillText('CALON PRESIDEN', 256, 92);
+      const cols = cands.length > 5 ? 2 : 1, rows = Math.ceil(cands.length / cols), lh = Math.min(42, 210 / rows);
+      x.font = `700 ${Math.round(lh * .78)}px "Pixelify Sans", sans-serif`; x.textAlign = 'left';
+      cands.forEach((n, i) => { const cx = cols === 2 ? 30 + (i % 2) * 245 : 120, cy = 128 + Math.floor(cols === 2 ? i / 2 : i) * lh + lh / 2;
+        x.strokeStyle = '#3a2412'; x.lineWidth = 3; x.strokeRect(cx, cy - 11, 22, 22); x.fillStyle = '#3a2412'; x.fillText(n, cx + 32, cy + 1, 200); });
+      x.fillStyle = '#e6b84a'; x.fillRect(0, 344, 512, 56); x.fillStyle = '#3a2412'; x.textAlign = 'center'; x.font = '700 24px "Pixelify Sans", sans-serif';
+      x.fillText((b && b.label) || 'LIKE TERBANYAK = PRESIDEN · KEDUA = WAPRES', 256, 373, 496);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      box(g, '#5e3b22', 2.04, 1.62, .06, 0, .64, -.53);
+      const board = new THREE.Mesh(new THREE.PlaneGeometry(1.96, 1.53), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); board.position.set(0, 1.45, -.49); g.add(board);
+      // two empty chairs with a 'KOSONG' tag: the president's (red cushion) and the vice president's (gold)
+      const tag = text => { const c2 = document.createElement('canvas'); c2.width = 256; c2.height = 96; const y = c2.getContext('2d');
+        y.fillStyle = '#f4eee0'; y.fillRect(0, 0, 256, 96); y.strokeStyle = '#3a2412'; y.lineWidth = 6; y.strokeRect(3, 3, 250, 90); y.fillStyle = '#3a2412'; y.textAlign = 'center'; y.textBaseline = 'middle';
+        y.font = '700 30px "Pixelify Sans", sans-serif'; y.fillText(text, 128, 30, 236); y.fillStyle = '#c0392b'; y.font = '700 38px "Pixelify Sans", sans-serif'; y.fillText('KOSONG', 128, 68, 236);
+        const t = new THREE.CanvasTexture(c2); t.colorSpace = THREE.SRGBColorSpace; return new THREE.MeshStandardMaterial({ map: t, roughness: .8 }); };
+      for (const [cx, cush, lab] of [[-.5, '#c4473a', 'PRESIDEN'], [.5, '#e6b84a', 'WAPRES']]) {
+        for (const [lx, lz] of [[-.17, .18], [.17, .18], [-.17, .52], [.17, .52]]) box(g, '#5e3b22', .05, .42, .05, cx + lx, 0, lz);
+        box(g, '#7a4a28', .44, .06, .44, cx, .42, .35); box(g, cush, .4, .06, .4, cx, .48, .35);
+        box(g, '#7a4a28', .44, .62, .06, cx, .42, .13); box(g, cush, .36, .46, .03, cx, .5, .17);
+        box(g, '#e6b84a', .46, .06, .08, cx, 1.04, .13);
+        const t = new THREE.Mesh(new THREE.PlaneGeometry(.34, .13), tag(lab)); t.position.set(cx, .27, .58); g.add(t);
+      }
+    } },
   warungumkm: { n: 'Warung UMKM', w: 3, h: 3, scale: 1.5, land: true,
     build(g, b) {
       const name = (b && b.label) || 'Warung', hue = [...name].reduce((a, c) => (a * 31 + c.charCodeAt(0)) >>> 0, 7) % 6;

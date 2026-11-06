@@ -303,8 +303,12 @@ function rebuildNpcs() {
   if (pres && !(role.kind === 'warga' && role.name.toLowerCase() === pres.toLowerCase())) want.push({ key: 'r:' + pres.toLowerCase(), name: '@' + pres, num: (S.residents.findIndex(r => r.n.toLowerCase() === pres.toLowerCase()) + 1) || null, pres: true });
   const vp = S.vicePresident && S.vicePresident.n ? clean(S.vicePresident.n) : null;
   if (vp && pres && vp.toLowerCase() !== pres.toLowerCase() && !(role.kind === 'warga' && role.name.toLowerCase() === vp.toLowerCase())) want.push({ key: 'r:' + vp.toLowerCase(), name: '@' + vp, num: (S.residents.findIndex(r => r.n.toLowerCase() === vp.toLowerCase()) + 1) || null, vp: true });
-  for (let i = 0; i < N; i++) { const r = i < res.length ? res[i] : null; const key = r ? 'r:' + r.n.toLowerCase() : 'a:' + i; if (role.kind === 'warga' && key === 'r:' + role.name.toLowerCase()) continue; if (pres && key === 'r:' + pres.toLowerCase()) continue; if (vp && key === 'r:' + vp.toLowerCase()) continue; want.push(r ? { key, name: '@' + r.n, num: r.num } : { key, name: 'Warga', num: null }); }
-  const old = new Map(npcs.map(n => [n.key, n])); for (const o of old.values()) { delete o.pres; delete o.vp; }
+  // ep 15: named residents from the story (island.json → event.carry, e.g. the former president and VP) always walk the island with their placard
+  const carry = S.event && S.event.carry ? Object.keys(S.event.carry).map(clean).filter(n => n && (!pres || n.toLowerCase() !== pres.toLowerCase()) && (!vp || n.toLowerCase() !== vp.toLowerCase()) && !(role.kind === 'warga' && role.name.toLowerCase() === n.toLowerCase())) : [];
+  for (const c of carry) want.push({ key: 'r:' + c.toLowerCase(), name: '@' + c, num: (S.residents.findIndex(r => r.n.toLowerCase() === c.toLowerCase()) + 1) || null, cand: c });
+  const carried = new Set(carry.map(c => 'r:' + c.toLowerCase()));
+  for (let i = 0; i < N; i++) { const r = i < res.length ? res[i] : null; const key = r ? 'r:' + r.n.toLowerCase() : 'a:' + i; if (role.kind === 'warga' && key === 'r:' + role.name.toLowerCase()) continue; if (pres && key === 'r:' + pres.toLowerCase()) continue; if (vp && key === 'r:' + vp.toLowerCase()) continue; if (carried.has(key)) continue; want.push(r ? { key, name: '@' + r.n, num: r.num } : { key, name: 'Warga', num: null }); }
+  const old = new Map(npcs.map(n => [n.key, n])); for (const o of old.values()) { delete o.pres; delete o.vp; delete o.cand; }
   const next = want.map((w, i) => {
     const o = old.get(w.key); if (o) { old.delete(w.key); Object.assign(o, w); return o; }
     const home = w.aru ? { x: LM.camp[0] + 1, y: LM.camp[1] + 2 } : village[(i * 13 + 5) % Math.min(village.length, 1600)];
@@ -348,9 +352,10 @@ function assignDemo() {
     const stick = new THREE.Mesh(M.G.box, M.mat('#8a6a3a')); stick.scale.set(.03, .9, .03); stick.position.set(0, 1.5, .1); g.add(stick); return g; };
   // ep 14: candidates carry their own placard wherever they go (event.presSign / event.vpSign)
   for (const [k, key] of [['pres', 'presSign'], ['vp', 'vpSign']]) { const n = npcs.find(n => n[k]); if (n && ev[key]) { n.candSign = placard(ev[key]); n.obj.add(n.candSign); } }
+  const carry = ev.carry || {}; for (const n of npcs) if (n.cand) { const k = Object.keys(carry).find(k => clean(k).toLowerCase() === n.cand.toLowerCase()); if (k) { n.candSign = placard(carry[k]); n.obj.add(n.candSign); } }
   const sp = S.buildings.find(b => b.type === 'spanduk'); if (!sp) return;
   const f = fpOf(sp), [ox, oz] = fpCenter(sp.x, sp.y, f.w, f.h);
-  const free = n => !n.aru && !n.pres && !n.vp && !n.cloud, pool = ['wander', 'listen', 'sit', 'shop'].flatMap(r => npcs.filter(n => free(n) && n.role === r));
+  const free = n => !n.aru && !n.pres && !n.vp && !n.cand && !n.cloud, pool = ['wander', 'listen', 'sit', 'shop'].flatMap(r => npcs.filter(n => free(n) && n.role === r));
   const signs = ev.signs || DEMO_SIGNS;
   DEMO_SPOTS.forEach(([dx, dz], i) => { const n = pool[i]; if (!n) return;
     if (n.kit) { n.obj.userData.body.remove(...n.kit); n.kit = null; } if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }
