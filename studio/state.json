@@ -21,7 +21,7 @@
   "requestsMax": 2
  },
  "openThreads": [
-  "Ep 15 (arahan Chalid): presiden @Etet_443 mundur, pulau tanpa presiden, pemilu lewat like terbanyak di komentar calon (lihat komentar.md). Pengumuman pemenang di ep 16.",
+  "Ep 15 (arahan Chalid): presiden @Etet_443 dan wapres @EGA_91 mundur, kursi presiden & wapres kosong; pemilu lewat like terbanyak di komentar calon (lihat komentar.md). Pengumuman pemenang di ep 16.",
   "Ep 14 membuka PENDAFTARAN CALON PRESIDEN (spanduk 'DAFTAR CAPRES DIBUKA!', event demo dengan plakat calon). End card: 'siapa calon presidenmu? komentar AKU CALON + janji kampanye'. Presiden @Etet_443 daftar lagi ('kali ini lewat pemilu, beneran'), wapres @EGA_91 'sudah daftar dari kemarin'. Lanjutan: ambil calon dari komentar, kampanye lucu, debat di mimbar, lalu hari pemilu (sinyal Menara Sal menyiarkan hasil). Masa jabatan @Etet_443 berakhir ~10 Nov.",
   "Rahasia presiden (ep 13): ia dilantik waktu Aru di Pulau Seberang (ep 4), tanpa pemilu, 'cuma karena follow duluan'. Surat dari Pulau Seberang ternyata dari Penjaga Mercusuar: 'Pemimpin pulau harus dipilih warga, bukan ditunjuk.'",
   "Wapres @EGA_91 sudah memakai 2 dari 2 jatah dan resmi calon presiden ('AKU DAFTAR DULUAN'). Presiden sisa 1 permintaan tanpa undian.",
@@ -131,7 +131,8 @@
   "Ep 12 (5 Nov sore): tidak ada komentar baru (Apify gagal, Chrome tidak tersambung, komentar.md kosong), jadi episode digerakkan traktiran yang tertunda dan thread perahu ep 11. Pesan traktiran soal iOS / tanpa pesan dicatat sebagai ucapan terima kasih. Rilis GitHub ep12 tidak dibuat (izin ditolak di sesi ini).",
   "Chalid 6 Nov 2026: ep 13 = kudeta presiden (warga sadar kesalahan presiden, Aru datang membawa info siapa sebenarnya presiden, warga demo); wujudkan 2 komentar (FAHMI warung, EGA kantor). Interaksi gedung dibangun satu per satu dan diupdate berkala (duduk & pesan di warung, perosotan, ayunan...).",
   "Ep 14 (6 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong), Chrome tidak tersambung, komentar.md kosong; episode digerakkan traktiran Sal ×440 + thread pemilu. Kode baru: BT clear (radius pembersihan pohon per model), event.presSign/vpSign (plakat calon di presiden/wapres).",
-  "Chalid 6 Nov 2026 siang: ep 15 = lanjutan ep 14. Banyak warga mau jadi presiden (6 komentar di komentar.md + screenshot di studio/episodes/ep15/). Presiden @Etet_443 mundur karena hanya mendaftar tanpa dipilih -> pulau tanpa presiden (island.json president = null, state.json president kosong). Presiden baru = komentar calon dengan like terbanyak, diumumkan episode berikutnya. Web harus sama dengan video. Bug duduk di warung (stuck setelah berdiri) sudah diperbaiki di src/kerja.js (6 Nov)."
+  "Chalid 6 Nov 2026 siang: ep 15 = lanjutan ep 14. Banyak warga mau jadi presiden (6 komentar di komentar.md + screenshot di studio/episodes/ep15/). Presiden @Etet_443 mundur karena hanya mendaftar tanpa dipilih -> pulau tanpa presiden (island.json president = null, state.json president kosong). Presiden baru = komentar calon dengan like terbanyak, diumumkan episode berikutnya. Web harus sama dengan video. Bug duduk di warung (stuck setelah berdiri) sudah diperbaiki di src/kerja.js (6 Nov).",
+  "Chalid 6 Nov 2026: wapres @EGA_91 juga mundur di ep 15. Kursi presiden DAN wakil presiden kosong (island.json president & vicePresident = null). Pemilu like terbanyak mengisi kursi presiden (wapres: putuskan bersama, misal like terbanyak kedua, atau tanya Chalid)."
  ],
  "rooms": {
   "open": [
