@@ -850,5 +850,5 @@ requestAnimationFrame(frame);
   }, 90000);
 })();
 
-window.__pulau = { kebun, kerja, roads: roadGroup,  app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
+window.__pulau = { renderer, scene, kebun, kerja, roads: roadGroup,  app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
 trackVisit();

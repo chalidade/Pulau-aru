@@ -2,8 +2,9 @@
 // built far away from the island when you enter and thrown away when you leave. Rooms open one by one through the
 // episodes: data/island.json → interiors: ["masjid", ...]. A building with a room but not yet opened shows a lock.
 import * as THREE from 'three';
-import { box, mat, G, windowMat, lanternMat, makeCharacter, animateCharacter, lookOf } from './models.js';
+import { bake, box, mat, G, windowMat, lanternMat, makeCharacter, animateCharacter, lookOf } from './models.js';
 
+const doorMat = new THREE.MeshStandardMaterial({ color: '#ffe7a8', emissive: '#ffd36a', emissiveIntensity: .6 });
 export const OX = -320, OZ = 320;           // where rooms are built (far off the map, hidden by fog)
 const inside = (x, z) => Math.abs(x - OX) < 40 && Math.abs(z - OZ) < 40;
 export const insideRoom = inside;
@@ -104,9 +105,9 @@ export function createInteriors({ scene, newest, who }) {
     for (const s of [-1, 1]) { box(g, wall, .2, H, D + .4, s * (W / 2 + .1), 0, 0); for (const z of [-D / 4, D / 4]) box(g, windowMat, .05, .9, 1.2, s * (W / 2 - .02), 1.1, z); }
     for (const s of [-1, 1]) box(g, wall, W / 2 - .7, .5, .2, s * (W / 4 + .35), 0, D / 2 + .1);   // low front wall with a door gap
     box(g, R.trim, W + .4, .14, .24, 0, H, -D / 2 - .1);
-    const doorMat = new THREE.MeshStandardMaterial({ color: '#ffe7a8', emissive: '#ffd36a', emissiveIntensity: .6 }); const dm = new THREE.Mesh(G.box, doorMat); dm.scale.set(1.2, .04, .6); dm.position.set(0, .02, D / 2 + .1); g.add(dm);
+    const dm = new THREE.Mesh(G.box, doorMat); dm.scale.set(1.2, .04, .6); dm.position.set(0, .02, D / 2 + .1); g.add(dm);
     R.build(g, cols, { newest });
-    const light = new THREE.PointLight(0xfff1d6, 1.2, 18, 1.2); light.position.set(0, 3.2, 0); g.add(light);
+    bake(g);   // walls and furniture merge into a handful of meshes; no extra light (adding one recompiles every shader)
     // people
     const people = R.spots.map(([x, z, f, pose, label], i) => {
       const pool = newest(40), real = label && who ? who(label) : null;
@@ -136,7 +137,7 @@ export function createInteriors({ scene, newest, who }) {
     get current() { return cur; }, OX, OZ,
     inside,
     enter(type) { if (cur) this.exit(); cur = build(type); return { x: OX, z: OZ + cur.D / 2 - .6 }; },
-    exit() { if (!cur) return; scene.remove(cur.g); cur.g.traverse(o => { if (o.isMesh && o.material.map) o.material.map.dispose(); }); cur = null; },
+    exit() { if (!cur) return; scene.remove(cur.g); const shared = new Set(Object.values(G)); cur.g.traverse(o => { if (!o.isMesh) return; if (!shared.has(o.geometry)) o.geometry.dispose(); if (o.material.map) { o.material.map.dispose(); o.material.dispose(); } }); cur = null; },
     walkable(x, z) {
       if (!cur) return false; const lx = x - OX, lz = z - OZ;
       if (Math.abs(lx) > cur.W / 2 - .3 || lz < -cur.D / 2 + .3 || lz > cur.D / 2 + .5) return false;

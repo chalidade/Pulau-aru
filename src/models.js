@@ -838,7 +838,7 @@ export const live = { supporters: [], umkm: [] };
 // heavy, so after building we bake every plain mesh into one mesh per material. Textured, transparent or animated
 // parts (anything reachable from g.userData, e.g. flames, cloud steps) stay as they are.
 const _m = new THREE.Matrix4(), _inv = new THREE.Matrix4();
-function bake(root) {
+export function bake(root) {
   root.updateMatrixWorld(true); _inv.copy(root.matrixWorld).invert();
   const keep = new Set();
   for (const v of Object.values(root.userData)) if (v && v.isObject3D) v.traverse(o => keep.add(o));
