@@ -12185,7 +12185,7 @@
    "x": 52,
    "y": 49,
    "r": 3,
-   "label": "DAFTAR CAPRES DIBUKA!",
+   "label": "PEMILU! LIKE CALONMU",
    "by": "warga",
    "ep": 13
   },
@@ -12197,6 +12197,23 @@
    "label": "",
    "by": "Sal (440 traktiran)",
    "ep": 14
+  },
+  {
+   "type": "papanpemilu",
+   "x": 57,
+   "y": 50,
+   "r": 0,
+   "by": "pemilu warga",
+   "ep": 15,
+   "cands": [
+    "MR Roblox",
+    "Pak Azka",
+    "bocah soleh",
+    "WHO and SHARK",
+    "'EGA_",
+    "??"
+   ],
+   "label": "LIKE TERBANYAK = PRESIDEN · KEDUA = WAPRES"
   }
  ],
  "episodes": [
@@ -12330,6 +12347,19 @@
     "Sal (traktir ×440)"
    ],
    "text": "Kak Sal mentraktir 440 kali, traktiran terbesar sepanjang sejarah pulau! Pesannya \"semoga segera rilis di Play Store & iOS\" jadi Menara Sinyal Sal di jalan silang timur. Sinyal pulau penuh, lima batang.\nMasjid resmi dibuka: masuk ke dalam dan lihat warga di sana.\nPresiden merenung di depan masjid: presiden memang harus dipilih. Aru membuka pendaftaran calon presiden; presiden daftar lagi, wapres sudah daftar duluan.\nSpanduk sekarang berbunyi \"DAFTAR CAPRES DIBUKA!\". Komentar AKU CALON + janji kampanyemu!"
+  },
+  {
+   "ep": 15,
+   "date": "6 Nov 2026",
+   "picks": [
+    "M.Azka",
+    "WHO and SHARK",
+    "MR Roblox",
+    "bocah soleh",
+    "'EGA_",
+    "??"
+   ],
+   "text": "Presiden @Etet_443 mundur: \"aku cuma daftar sendiri, nggak ada yang milih.\" Wapres @EGA_91 ikut mundur. Kursi presiden dan wapres KOSONG.\nKolom komentar banjir calon: MR Roblox, Pak Azka (udh follow), bocah soleh, ?? (udah lama follow), 'EGA_ (nyalon lagi) dan WHO and SHARK dengan kampanye tersingkat: \"aku kak\".\nPapan Pemilu berdiri di jalan silang (dua kursi kosong menunggu), sekolah resmi dibuka.\nAturan pemilu: komentar calon dengan like terbanyak jadi presiden, kedua jadi wapres. Hasilnya di episode 16!"
   }
  ],
  "letters": [],
@@ -12353,14 +12383,8 @@
   "updatedAt": "2026-11-06T09:54:39.608Z"
  },
  "expand": 1,
- "president": {
-  "n": "Etet_443",
-  "ep": 4
- },
- "vicePresident": {
-  "n": "EGA_91",
-  "ep": 5
- },
+ "president": null,
+ "vicePresident": null,
  "roads": {
   "by": "EN17",
   "ep": 6,
@@ -12426,21 +12450,24 @@
  "umkm": [],
  "event": {
   "type": "demo",
-  "ep": 14,
+  "ep": 15,
   "signs": [
-   "AKU|CALON!",
-   "PEMILU|JUJUR",
-   "PILIH|PRESIDEN",
-   "SUARA|WARGA!",
-   "CALON|DARI WARGA",
-   "DAFTAR|SEKARANG",
-   "SINYAL|PENUH!",
-   "MAKASIH|KAK SAL"
+   "PAK AZKA|UDH FOLLOW",
+   "AKU|KAK",
+   "MR ROBLOX|PRESIDEN",
+   "BOCAH SOLEH|PRESIDEN",
+   "??|UDAH LAMA FOLLOW",
+   "'EGA_|NYALON",
+   "LIKE|CALONMU!",
+   "KURSI|KOSONG"
   ],
-  "presSign": "AKU|DAFTAR LAGI",
-  "vpSign": "AKU|DAFTAR DULUAN"
+  "carry": {
+   "Etet_443": "MANTAN|PRESIDEN",
+   "EGA_91": "EGA_|NYALON"
+  }
  },
  "interiors": [
-  "masjid"
+  "masjid",
+  "sekolah"
  ]
 }
