@@ -1,168 +1,168 @@
 {
- "nextEp": 16,
- "tiktok": "https://www.tiktok.com/@kita.berkembang",
- "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
- "rules": {
-  "warga": "2 komentar acak per episode diwujudkan",
-  "presiden": "menjabat 1 minggu, 3 permintaan tanpa undian selama masa jabatan",
-  "wakilPresiden": "menjabat 1 minggu, 2 permintaan tanpa undian selama masa jabatan",
-  "traktir": "Rp5.000 = 1 permintaan, diwujudkan tanpa undian (teer.id/chalidade)"
- },
- "president": {
-  "n": null,
-  "since": null,
-  "requestsUsed": 0,
-  "requestsMax": 3,
-  "prev": "Etet_443 (mundur ep 15)"
- },
- "vicePresident": {
-  "n": null,
-  "since": null,
-  "requestsUsed": 0,
-  "requestsMax": 2,
-  "prev": "EGA_91 (mundur ep 15)"
- },
- "openThreads": [
-  "Ep 15 SELESAI: presiden @Etet_443 dan wapres @EGA_91 mundur, kursi kosong (island.json president/vicePresident = null, Papan Pemilu x57 y50 dengan 2 kursi KOSONG). Calon: MR Roblox, M.Azka (Pak Azka), bocah soleh, WHO and SHARK ('aku kak'), 'EGA_ (mantan wapres nyalon presiden), ??. EP 16: umumkan pemenang = komentar calon dengan like terbanyak (presiden) dan kedua (wapres) -> perlu jumlah like (Chalid kirim screenshot/angka di komentar.md, atau Apify/Chrome). Lantik di mimbar, isi island.json president/vicePresident, hapus event.carry & ganti event (pelantikan), update cands di Papan Pemilu / ganti jadi papan hasil.",
-  "Ep 14 membuka pendaftaran capres; ep 15 kampanye singkat. Masa jabatan presiden baru mulai saat dilantik (ep 16), kuota baru 3/2.",
-  "Rahasia presiden (ep 13): ia dilantik waktu Aru di Pulau Seberang (ep 4), tanpa pemilu, 'cuma karena follow duluan'. Surat dari Pulau Seberang ternyata dari Penjaga Mercusuar: 'Pemimpin pulau harus dipilih warga, bukan ditunjuk.'",
-  "Mantan presiden @Etet_443 dan mantan wapres @EGA_91 sekarang warga biasa; di web mereka selalu muncul berkeliling membawa plakat (event.carry: 'MANTAN PRESIDEN', 'EGA_ NYALON').",
-  "Fitur interaksi (arahan Chalid 6 Nov): bisa interaksi dengan gedung satu per satu, update berkala. Sudah: duduk & pesan makan di Warung Fahmi, kerja shift di Kantor Pulau (src/kerja.js, koin bersama Kebunku). Berikutnya: perosotan waterpark, ayunan sekolah, duduk di Kedai Kopi / Pos Ronda, dst.",
-  "@RANUUGLL polisi & penjaga pantai (Pos Penjaga Pantai x58 y89) bisa menjaga demo / pemilu.",
-  "Kedai Kopi (x45 y54) dan Pos Ronda (x50 y54) jadi tempat warga mencatat kesalahan presiden. Gapura Selamat Datang dan Tiang Salam di dermaga.",
-  "Pertanyaan lama belum dijawab: ep 9 'kantin kejujuran mau jual apa?', ep 8 'wahana waterpark', ep 7 'menu warteg', ep 6 'cara menggulingkan presiden' (relevan untuk kudeta!). Usulan lama: bengkel, bank/mata uang, hotel, apartemen, toilet.",
-  "Komentar TikTok otomatis belum jalan (ep 14 juga): secret APIFY_TOKEN belum diisi; Claude in Chrome tidak tersambung di sesi cloud.",
-  "Menara Sinyal Sal (x71 y54, ep 14) dari 440 traktiran Sal, pesan soal rilis Play Store/iOS. Bisa dipakai: siaran pemilu, 'live' dari pulau, sinyal ke Pulau Seberang / Penjaga Mercusuar."
- ],
- "usedComments": [
-  "EN17: buat jalan aspal",
-  "junaa_yuds: kak bikin sekolah,apotik",
-  "Etet_443: aku minta masjid",
-  "EGA_91: wakil presiden",
-  "ザAエル: Kopdes di atas awan",
-  "javaz53: warteg kak",
-  "yan.dipanggil.nen3: rumah sakit biar ga ada yang sakit",
-  "etet_443.bakhtiar (presiden): Aku kan udah jadi presiden aku mau rumah",
-  "kotak usulan: waterpark",
-  "kotak usulan: pembakaran ikan",
-  "traktir Chalid Ade Rahman: Semamgat aku",
-  "traktir Seseorang: Tetep jadi orang jujur dan punya prinsip (Kantin Kejujuran)",
-  "traktir Tiara x10: Semangat! (10 Lampu Semangat)",
-  "traktir Seribulansss Alfi Syahrin: selamat menikmati kopinya (Kedai Kopi)",
-  "traktir Seseorang: Keren, warga salingjaga (Pos Ronda)",
-  "EGA_ (wapres, tanpa undian): request ladang buat nanam buah buahan",
-  "by5m4: buat sekolah min udh paket lgkap",
-  "RANUUGLL: cari penjaga dari netizen polisi/penjaga pantai, notice aku",
-  "traktir adis x5: salam dari Bogor (Tiang Salam)",
-  "traktir Seseorang x2: semoga selalu baik-baik saja (Gapura Selamat Datang)",
-  "FAHMI: ka aku pengen nge warung (Warung Fahmi, bisa duduk & pesan makan)",
-  "'EGA_ (wapres EGA_91, tanpa undian): buat kantor min untuk nyari uang (Kantor Pulau, kerja dapat koin)",
-  "traktir Sal x440: Semoga bisa segera up di playstore dan ios ya kak! (Menara Sinyal Sal)",
-  "MR Roblox: aku mau jadi presiden (calon ep 15)",
-  "M.Azka: bang aku mau nyalon presiden namanya Pak Azka udh follow (calon ep 15, terpilih)",
-  "bocah soleh: aku mau jadi presiden (calon ep 15)",
-  "WHO and SHARK: aku kak (calon ep 15, terpilih)",
-  "'EGA_: aku nyalon jadi presiden minn (calon ep 15)",
-  "??: bg aku mau nyalon presiden aku juga udah lama follow (calon ep 15)"
- ],
- "episodes": [
-  {
-   "ep": 6,
-   "title": "Jalan Baru",
-   "posted": "manual",
-   "summary": "Presiden @Etet_443 merapikan pulau: jalan aspal (usulan @EN17), dua rumah selesai, tukang mulai membangun sekolah dan apotik (usulan @junaa_yuds), masjid tanpa undian atas permintaan presiden. Warga berbisik soal menggulingkan presiden."
+  "nextEp": 16,
+  "tiktok": "https://www.tiktok.com/@kita.berkembang",
+  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
+  "rules": {
+    "warga": "2 komentar acak per episode diwujudkan",
+    "presiden": "menjabat 1 minggu, 3 permintaan tanpa undian selama masa jabatan",
+    "wakilPresiden": "menjabat 1 minggu, 2 permintaan tanpa undian selama masa jabatan",
+    "traktir": "Rp5.000 = 1 permintaan, diwujudkan tanpa undian (teer.id/chalidade)"
   },
-  {
-   "ep": 7,
-   "title": "Warteg & Rumah Sakit",
-   "posted": "https://www.tiktok.com/@kita.berkembang/video/7704165208012377352",
-   "summary": "Undian: warteg (@javaz53) dan rumah sakit \"biar nggak ada yang sakit\" (@yan.dipanggil.nen3) di jalan timur. Presiden minta rumah tanpa undian: Rumah Presiden di samping panggung. Sekolah dan apotik selesai. Pasien pertama rumah sakit: warga kekenyangan dari warteg."
+  "president": {
+    "n": null,
+    "since": null,
+    "requestsUsed": 0,
+    "requestsMax": 3,
+    "prev": "Etet_443 (mundur ep 15)"
   },
-  {
-   "ep": 8,
-   "title": "Waterpark & Ikan Bakar",
-   "posted": "manual (menunggu Chalid)",
-   "summary": "Kotak usulan lama dikocok: waterpark (kolam, perosotan spiral, bebek karet raksasa) di utara jalan silang, dan pembakaran ikan dekat dermaga. Traktiran Chalid 'semangat': Papan Semangat dari warga di dekat panggung. Presiden diam-diam lebih suka ikan bakar daripada warteg. Aru di pulau seberang: lampu kedua mercusuar menyala. Penutup: wapres meluncur, byur, rapat kabinet ditunda."
+  "vicePresident": {
+    "n": null,
+    "since": null,
+    "requestsUsed": 0,
+    "requestsMax": 2,
+    "prev": "EGA_91 (mundur ep 15)"
   },
-  {
-   "ep": 9,
-   "title": "Kantin Kejujuran",
-   "posted": "https://www.tiktok.com/@kita.berkembang/video/7704536808675200264",
-   "summary": "Hujan traktiran semalam. Pesan 'jujur dan punya prinsip' (Seseorang) jadi Kantin Kejujuran di samping sekolah; 10 traktiran Tiara 'Semangat!' jadi 10 Lampu Semangat di jalan utama (malam terang). Terima kasih Tiara, adis, Alfi, dermawan tanpa nama. Wapres rapat kabinet di kolam, lalu memergoki presiden ambil gorengan di kantin; presiden bayar dua kali lipat."
-  },
-  {
-   "ep": 10,
-   "title": "Kopi & Pos Ronda",
-   "posted": "https://www.tiktok.com/@kita.berkembang/video/7704563553130319122",
-   "summary": "Traktiran Kak Alfi 'selamat menikmati kopinya' jadi Kedai Kopi di jalan silang; pesan 'warga saling jaga' jadi Pos Ronda dengan kentongan. Terima kasih Alfi, Vani, dermawan tanpa nama. Wapres menghukum presiden ronda malam (gorengan ep 9); presiden minta tiga gelas kopi, lalu ketiduran dan dibangunkan kentongan. Aru di Pulau Seberang melihat cahaya Lampu Semangat: lampu ketiga mercusuar menyala, Aru tahu jalan pulang. End card: siapa yang menjemput Aru? CTA UMKM."
-  },
-  {
-   "ep": 11,
-   "title": "Ladang Wapres & Penjaga Pantai",
-   "posted": "https://www.tiktok.com/@kita.berkembang/video/7704588905374305554",
-   "summary": "Wapres @EGA_91 pakai hak tanpa undian: Ladang Buah (mangga, pisang, semangka, orang-orangan sawah) dengan Kebun Warga, tempat warga bisa beli bibit dan berkebun sendiri di pulau-aru.web.id (menu Kebunku). Sekolah paket lengkap (@by5m4): lapangan upacara, perpustakaan, ayunan. @RANUUGLL jadi polisi & penjaga pantai, langsung menangkap presiden makan mangga ('uji rasa'). Malamnya penjaga melihat cahaya perahu di laut."
-  },
-  {
-   "ep": 12,
-   "title": "Aru Pulang",
-   "posted": "https://www.tiktok.com/@kita.berkembang/video/7704853040964046086",
-   "summary": "Perahu misterius mendarat: Aru pulang dari Pulau Seberang, disambut penjaga @RANUUGLL, wapres dan warga. Traktiran 'semoga selalu baik-baik saja' (Seseorang) jadi Gapura Selamat Datang di ujung dermaga; salam adis dari Bogor jadi Tiang Salam (panah Bogor menunjuk ke laut, presiden kirim salam balik). Presiden: rapat kabinet darurat, ikan bakar penyambutan. Terima kasih adis + 34 traktiran tanpa nama. Malamnya Aru membaca surat untuknya dari Pulau Seberang. End card: surat itu dari siapa? CTA UMKM."
-  },
-  {
-   "ep": 13,
-   "title": "Demo Warga",
-   "posted": "https://www.tiktok.com/@kita.berkembang/video/7704865065241021697",
-   "summary": "Usulan FAHMI 'pengen nge warung' jadi Warung Fahmi (bisa duduk & pesan makan pakai koin) dan wapres EGA 'kantor buat nyari uang' jadi Kantor Pulau (kerja shift dapat koin). Aru makan nasi goreng. Warga mencatat kesalahan presiden; Aru membaca surat Penjaga Mercusuar: pemimpin harus dipilih warga, lalu mengumumkan presiden dilantik tanpa pemilu. Warga demo damai, spanduk PEMILU SEKARANG. Presiden: 'aku kan sudah bikin masjid!'. End card: presiden turun atau bertahan, siapa calon berikutnya? CTA traktir."
-  },
-  {
-   "ep": 14,
-   "title": "Menara Sinyal Sal",
-   "posted": "https://www.tiktok.com/@kita.berkembang/video/7704957174539210036",
-   "summary": "Traktiran terbesar: Sal ×440 'semoga segera rilis di Play Store & iOS' jadi Menara Sinyal Sal (menara merah-putih, lampu suar, papan pesan) di jalan silang timur; presiden kaget di Monumen Dermawan. Wapres: pemilu bisa disiarkan. Masjid resmi dibuka (room pertama). Presiden merenung di depan masjid: presiden harus dipilih. Aru membuka pendaftaran capres; warga berplakat AKU CALON, presiden daftar lagi, wapres sudah daftar duluan. End card: siapa calon presidenmu? CTA UMKM. Tidak ada komentar TikTok baru (Apify gagal, Chrome tidak tersambung)."
-  },
-  {
-   "ep": 15,
-   "title": "Kursi Kosong",
-   "posted": "manual (menunggu Chalid)",
-   "summary": "Presiden @Etet_443 mundur ('cuma daftar sendiri, nggak ada yang milih'), wapres @EGA_91 ikut mundur: kursi presiden & wapres kosong. Komentar banjir calon (MR Roblox, Pak Azka, bocah soleh, ??, 'EGA_, WHO and SHARK 'aku kak' = kampanye tersingkat). Aru di mimbar: pemilu lewat like, terbanyak presiden, kedua wapres. Papan Pemilu dengan dua kursi KOSONG di jalan silang, sekolah dibuka (room kedua). EGA: 'mundur dari wapres, nyalon presiden, namanya strategi!'. End card: like komentar calon favoritmu, hasil di ep 16."
-  }
- ],
- "monetization": {
-  "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
-  "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
-  "lastCta": {
-   "ep": 14,
-   "cta": "umkm"
-  },
-  "nextCta": "traktir"
- },
- "notes": [
-  "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
-  "Chalid 4 Nov 2026: promosikan Warung UMKM. Usaha yang komentar #UMKMPulauAru nama - jenis - IG/WA dibuatkan warung (type warungumkm) dengan link; bangunan berlink bisa diketuk ke Instagram/WhatsApp/website. Ajakan UMKM di end card ep 8.",
-  "Chalid 5 Nov 2026: kartu komentar harus memakai screenshot asli komentar (username asli) dan foto profilnya. Workflow komentar sekarang mengunduh avatar ke studio/avatars/; compose menerima (user, text, tag, avatar).",
-  "Ep 10 (5 Nov pagi): Claude in Chrome tidak tersambung di sesi cloud dan Apify gagal (APIFY_TOKEN kosong), jadi episode digerakkan traktiran dan video dikirim ke Chalid untuk diposting manual. Kartu traktir memakai nama Trakteer tanpa foto (bukan komentar TikTok).",
-  "Chalid 5 Nov 2026 sore: wujudkan komentar warga yang ia kirim (screenshot); EGA wapres tanpa undian. Minta fitur: warga beli bibit dan berkebun di HP, data di localStorage, tanaman matang/dipanen di pulau-aru.web.id (dibuat: src/kebun.js, menu Kebunku).",
-  "Ep 12 (5 Nov sore): tidak ada komentar baru (Apify gagal, Chrome tidak tersambung, komentar.md kosong), jadi episode digerakkan traktiran yang tertunda dan thread perahu ep 11. Pesan traktiran soal iOS / tanpa pesan dicatat sebagai ucapan terima kasih. Rilis GitHub ep12 tidak dibuat (izin ditolak di sesi ini).",
-  "Chalid 6 Nov 2026: ep 13 = kudeta presiden (warga sadar kesalahan presiden, Aru datang membawa info siapa sebenarnya presiden, warga demo); wujudkan 2 komentar (FAHMI warung, EGA kantor). Interaksi gedung dibangun satu per satu dan diupdate berkala (duduk & pesan di warung, perosotan, ayunan...).",
-  "Ep 14 (6 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong), Chrome tidak tersambung, komentar.md kosong; episode digerakkan traktiran Sal ×440 + thread pemilu. Kode baru: BT clear (radius pembersihan pohon per model), event.presSign/vpSign (plakat calon di presiden/wapres).",
-  "Chalid 6 Nov 2026 siang: ep 15 = lanjutan ep 14. Banyak warga mau jadi presiden (6 komentar di komentar.md + screenshot di studio/episodes/ep15/). Presiden @Etet_443 mundur karena hanya mendaftar tanpa dipilih -> pulau tanpa presiden (island.json president = null, state.json president kosong). Presiden baru = komentar calon dengan like terbanyak, diumumkan episode berikutnya. Web harus sama dengan video. Bug duduk di warung (stuck setelah berdiri) sudah diperbaiki di src/kerja.js (6 Nov).",
-  "Chalid 6 Nov 2026: wapres @EGA_91 juga mundur di ep 15. Kursi presiden DAN wakil presiden kosong (island.json president & vicePresident = null). Aturan pemilu (disetujui Chalid): komentar calon dengan like terbanyak = presiden, like terbanyak kedua = wakil presiden; diumumkan di ep 16.",
-  "Ep 15 (6 Nov sore): Apify gagal lagi (run 42196863738), Chrome tidak tersambung; episode memakai antrean komentar.md dari Chalid (6 screenshot calon). Kode baru: model papanpemilu (b.cands, kursi KOSONG), event.carry (tokoh cerita selalu muncul membawa plakat), menu aturan menulis KOSONG saat jabatan kosong."
- ],
- "rooms": {
-  "open": [
-   "masjid",
-   "sekolah"
+  "openThreads": [
+    "Ep 15 SELESAI: presiden @Etet_443 dan wapres @EGA_91 mundur, kursi kosong (island.json president/vicePresident = null, Papan Pemilu x57 y50 dengan 2 kursi KOSONG). Calon: MR Roblox, M.Azka (Pak Azka), bocah soleh, WHO and SHARK ('aku kak'), 'EGA_ (mantan wapres nyalon presiden), ??. EP 16: umumkan pemenang = komentar calon dengan like terbanyak (presiden) dan kedua (wapres) -> perlu jumlah like (Chalid kirim screenshot/angka di komentar.md, atau Apify/Chrome). Lantik di mimbar, isi island.json president/vicePresident, hapus event.carry & ganti event (pelantikan), update cands di Papan Pemilu / ganti jadi papan hasil.",
+    "Ep 14 membuka pendaftaran capres; ep 15 kampanye singkat. Masa jabatan presiden baru mulai saat dilantik (ep 16), kuota baru 3/2.",
+    "Rahasia presiden (ep 13): ia dilantik waktu Aru di Pulau Seberang (ep 4), tanpa pemilu, 'cuma karena follow duluan'. Surat dari Pulau Seberang ternyata dari Penjaga Mercusuar: 'Pemimpin pulau harus dipilih warga, bukan ditunjuk.'",
+    "Mantan presiden @Etet_443 dan mantan wapres @EGA_91 sekarang warga biasa; di web mereka selalu muncul berkeliling membawa plakat (event.carry: 'MANTAN PRESIDEN', 'EGA_ NYALON').",
+    "Fitur interaksi (arahan Chalid 6 Nov): bisa interaksi dengan gedung satu per satu, update berkala. Sudah: duduk & pesan makan di Warung Fahmi, kerja shift di Kantor Pulau (src/kerja.js, koin bersama Kebunku). Berikutnya: perosotan waterpark, ayunan sekolah, duduk di Kedai Kopi / Pos Ronda, dst.",
+    "@RANUUGLL polisi & penjaga pantai (Pos Penjaga Pantai x58 y89) bisa menjaga demo / pemilu.",
+    "Kedai Kopi (x45 y54) dan Pos Ronda (x50 y54) jadi tempat warga mencatat kesalahan presiden. Gapura Selamat Datang dan Tiang Salam di dermaga.",
+    "Pertanyaan lama belum dijawab: ep 9 'kantin kejujuran mau jual apa?', ep 8 'wahana waterpark', ep 7 'menu warteg', ep 6 'cara menggulingkan presiden' (relevan untuk kudeta!). Usulan lama: bengkel, bank/mata uang, hotel, apartemen, toilet.",
+    "Komentar TikTok otomatis belum jalan (ep 14 juga): secret APIFY_TOKEN belum diisi; Claude in Chrome tidak tersambung di sesi cloud.",
+    "Menara Sinyal Sal (x71 y54, ep 14) dari 440 traktiran Sal, pesan soal rilis Play Store/iOS. Bisa dipakai: siaran pemilu, 'live' dari pulau, sinyal ke Pulau Seberang / Penjaga Mercusuar."
   ],
-  "order": [
-   "masjid",
-   "sekolah",
-   "rumahpresiden",
-   "rumahsakit",
-   "rumah",
-   "warteg",
-   "kedaikopi",
-   "apotik"
-  ]
- }
+  "usedComments": [
+    "EN17: buat jalan aspal",
+    "junaa_yuds: kak bikin sekolah,apotik",
+    "Etet_443: aku minta masjid",
+    "EGA_91: wakil presiden",
+    "ザAエル: Kopdes di atas awan",
+    "javaz53: warteg kak",
+    "yan.dipanggil.nen3: rumah sakit biar ga ada yang sakit",
+    "etet_443.bakhtiar (presiden): Aku kan udah jadi presiden aku mau rumah",
+    "kotak usulan: waterpark",
+    "kotak usulan: pembakaran ikan",
+    "traktir Chalid Ade Rahman: Semamgat aku",
+    "traktir Seseorang: Tetep jadi orang jujur dan punya prinsip (Kantin Kejujuran)",
+    "traktir Tiara x10: Semangat! (10 Lampu Semangat)",
+    "traktir Seribulansss Alfi Syahrin: selamat menikmati kopinya (Kedai Kopi)",
+    "traktir Seseorang: Keren, warga salingjaga (Pos Ronda)",
+    "EGA_ (wapres, tanpa undian): request ladang buat nanam buah buahan",
+    "by5m4: buat sekolah min udh paket lgkap",
+    "RANUUGLL: cari penjaga dari netizen polisi/penjaga pantai, notice aku",
+    "traktir adis x5: salam dari Bogor (Tiang Salam)",
+    "traktir Seseorang x2: semoga selalu baik-baik saja (Gapura Selamat Datang)",
+    "FAHMI: ka aku pengen nge warung (Warung Fahmi, bisa duduk & pesan makan)",
+    "'EGA_ (wapres EGA_91, tanpa undian): buat kantor min untuk nyari uang (Kantor Pulau, kerja dapat koin)",
+    "traktir Sal x440: Semoga bisa segera up di playstore dan ios ya kak! (Menara Sinyal Sal)",
+    "MR Roblox: aku mau jadi presiden (calon ep 15)",
+    "M.Azka: bang aku mau nyalon presiden namanya Pak Azka udh follow (calon ep 15, terpilih)",
+    "bocah soleh: aku mau jadi presiden (calon ep 15)",
+    "WHO and SHARK: aku kak (calon ep 15, terpilih)",
+    "'EGA_: aku nyalon jadi presiden minn (calon ep 15)",
+    "??: bg aku mau nyalon presiden aku juga udah lama follow (calon ep 15)"
+  ],
+  "episodes": [
+    {
+      "ep": 6,
+      "title": "Jalan Baru",
+      "posted": "manual",
+      "summary": "Presiden @Etet_443 merapikan pulau: jalan aspal (usulan @EN17), dua rumah selesai, tukang mulai membangun sekolah dan apotik (usulan @junaa_yuds), masjid tanpa undian atas permintaan presiden. Warga berbisik soal menggulingkan presiden."
+    },
+    {
+      "ep": 7,
+      "title": "Warteg & Rumah Sakit",
+      "posted": "https://www.tiktok.com/@kita.berkembang/video/7704165208012377352",
+      "summary": "Undian: warteg (@javaz53) dan rumah sakit \"biar nggak ada yang sakit\" (@yan.dipanggil.nen3) di jalan timur. Presiden minta rumah tanpa undian: Rumah Presiden di samping panggung. Sekolah dan apotik selesai. Pasien pertama rumah sakit: warga kekenyangan dari warteg."
+    },
+    {
+      "ep": 8,
+      "title": "Waterpark & Ikan Bakar",
+      "posted": "manual (menunggu Chalid)",
+      "summary": "Kotak usulan lama dikocok: waterpark (kolam, perosotan spiral, bebek karet raksasa) di utara jalan silang, dan pembakaran ikan dekat dermaga. Traktiran Chalid 'semangat': Papan Semangat dari warga di dekat panggung. Presiden diam-diam lebih suka ikan bakar daripada warteg. Aru di pulau seberang: lampu kedua mercusuar menyala. Penutup: wapres meluncur, byur, rapat kabinet ditunda."
+    },
+    {
+      "ep": 9,
+      "title": "Kantin Kejujuran",
+      "posted": "https://www.tiktok.com/@kita.berkembang/video/7704536808675200264",
+      "summary": "Hujan traktiran semalam. Pesan 'jujur dan punya prinsip' (Seseorang) jadi Kantin Kejujuran di samping sekolah; 10 traktiran Tiara 'Semangat!' jadi 10 Lampu Semangat di jalan utama (malam terang). Terima kasih Tiara, adis, Alfi, dermawan tanpa nama. Wapres rapat kabinet di kolam, lalu memergoki presiden ambil gorengan di kantin; presiden bayar dua kali lipat."
+    },
+    {
+      "ep": 10,
+      "title": "Kopi & Pos Ronda",
+      "posted": "https://www.tiktok.com/@kita.berkembang/video/7704563553130319122",
+      "summary": "Traktiran Kak Alfi 'selamat menikmati kopinya' jadi Kedai Kopi di jalan silang; pesan 'warga saling jaga' jadi Pos Ronda dengan kentongan. Terima kasih Alfi, Vani, dermawan tanpa nama. Wapres menghukum presiden ronda malam (gorengan ep 9); presiden minta tiga gelas kopi, lalu ketiduran dan dibangunkan kentongan. Aru di Pulau Seberang melihat cahaya Lampu Semangat: lampu ketiga mercusuar menyala, Aru tahu jalan pulang. End card: siapa yang menjemput Aru? CTA UMKM."
+    },
+    {
+      "ep": 11,
+      "title": "Ladang Wapres & Penjaga Pantai",
+      "posted": "https://www.tiktok.com/@kita.berkembang/video/7704588905374305554",
+      "summary": "Wapres @EGA_91 pakai hak tanpa undian: Ladang Buah (mangga, pisang, semangka, orang-orangan sawah) dengan Kebun Warga, tempat warga bisa beli bibit dan berkebun sendiri di pulau-aru.web.id (menu Kebunku). Sekolah paket lengkap (@by5m4): lapangan upacara, perpustakaan, ayunan. @RANUUGLL jadi polisi & penjaga pantai, langsung menangkap presiden makan mangga ('uji rasa'). Malamnya penjaga melihat cahaya perahu di laut."
+    },
+    {
+      "ep": 12,
+      "title": "Aru Pulang",
+      "posted": "https://www.tiktok.com/@kita.berkembang/video/7704853040964046086",
+      "summary": "Perahu misterius mendarat: Aru pulang dari Pulau Seberang, disambut penjaga @RANUUGLL, wapres dan warga. Traktiran 'semoga selalu baik-baik saja' (Seseorang) jadi Gapura Selamat Datang di ujung dermaga; salam adis dari Bogor jadi Tiang Salam (panah Bogor menunjuk ke laut, presiden kirim salam balik). Presiden: rapat kabinet darurat, ikan bakar penyambutan. Terima kasih adis + 34 traktiran tanpa nama. Malamnya Aru membaca surat untuknya dari Pulau Seberang. End card: surat itu dari siapa? CTA UMKM."
+    },
+    {
+      "ep": 13,
+      "title": "Demo Warga",
+      "posted": "https://www.tiktok.com/@kita.berkembang/video/7704865065241021697",
+      "summary": "Usulan FAHMI 'pengen nge warung' jadi Warung Fahmi (bisa duduk & pesan makan pakai koin) dan wapres EGA 'kantor buat nyari uang' jadi Kantor Pulau (kerja shift dapat koin). Aru makan nasi goreng. Warga mencatat kesalahan presiden; Aru membaca surat Penjaga Mercusuar: pemimpin harus dipilih warga, lalu mengumumkan presiden dilantik tanpa pemilu. Warga demo damai, spanduk PEMILU SEKARANG. Presiden: 'aku kan sudah bikin masjid!'. End card: presiden turun atau bertahan, siapa calon berikutnya? CTA traktir."
+    },
+    {
+      "ep": 14,
+      "title": "Menara Sinyal Sal",
+      "posted": "https://www.tiktok.com/@kita.berkembang/video/7704957174539210036",
+      "summary": "Traktiran terbesar: Sal ×440 'semoga segera rilis di Play Store & iOS' jadi Menara Sinyal Sal (menara merah-putih, lampu suar, papan pesan) di jalan silang timur; presiden kaget di Monumen Dermawan. Wapres: pemilu bisa disiarkan. Masjid resmi dibuka (room pertama). Presiden merenung di depan masjid: presiden harus dipilih. Aru membuka pendaftaran capres; warga berplakat AKU CALON, presiden daftar lagi, wapres sudah daftar duluan. End card: siapa calon presidenmu? CTA UMKM. Tidak ada komentar TikTok baru (Apify gagal, Chrome tidak tersambung)."
+    },
+    {
+      "ep": 15,
+      "title": "Kursi Kosong",
+      "posted": "https://www.tiktok.com/@kita.berkembang/video/7705090790292311297",
+      "summary": "Presiden @Etet_443 mundur ('cuma daftar sendiri, nggak ada yang milih'), wapres @EGA_91 ikut mundur: kursi presiden & wapres kosong. Komentar banjir calon (MR Roblox, Pak Azka, bocah soleh, ??, 'EGA_, WHO and SHARK 'aku kak' = kampanye tersingkat). Aru di mimbar: pemilu lewat like, terbanyak presiden, kedua wapres. Papan Pemilu dengan dua kursi KOSONG di jalan silang, sekolah dibuka (room kedua). EGA: 'mundur dari wapres, nyalon presiden, namanya strategi!'. End card: like komentar calon favoritmu, hasil di ep 16."
+    }
+  ],
+  "monetization": {
+    "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
+    "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
+    "lastCta": {
+      "ep": 14,
+      "cta": "umkm"
+    },
+    "nextCta": "traktir"
+  },
+  "notes": [
+    "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
+    "Chalid 4 Nov 2026: promosikan Warung UMKM. Usaha yang komentar #UMKMPulauAru nama - jenis - IG/WA dibuatkan warung (type warungumkm) dengan link; bangunan berlink bisa diketuk ke Instagram/WhatsApp/website. Ajakan UMKM di end card ep 8.",
+    "Chalid 5 Nov 2026: kartu komentar harus memakai screenshot asli komentar (username asli) dan foto profilnya. Workflow komentar sekarang mengunduh avatar ke studio/avatars/; compose menerima (user, text, tag, avatar).",
+    "Ep 10 (5 Nov pagi): Claude in Chrome tidak tersambung di sesi cloud dan Apify gagal (APIFY_TOKEN kosong), jadi episode digerakkan traktiran dan video dikirim ke Chalid untuk diposting manual. Kartu traktir memakai nama Trakteer tanpa foto (bukan komentar TikTok).",
+    "Chalid 5 Nov 2026 sore: wujudkan komentar warga yang ia kirim (screenshot); EGA wapres tanpa undian. Minta fitur: warga beli bibit dan berkebun di HP, data di localStorage, tanaman matang/dipanen di pulau-aru.web.id (dibuat: src/kebun.js, menu Kebunku).",
+    "Ep 12 (5 Nov sore): tidak ada komentar baru (Apify gagal, Chrome tidak tersambung, komentar.md kosong), jadi episode digerakkan traktiran yang tertunda dan thread perahu ep 11. Pesan traktiran soal iOS / tanpa pesan dicatat sebagai ucapan terima kasih. Rilis GitHub ep12 tidak dibuat (izin ditolak di sesi ini).",
+    "Chalid 6 Nov 2026: ep 13 = kudeta presiden (warga sadar kesalahan presiden, Aru datang membawa info siapa sebenarnya presiden, warga demo); wujudkan 2 komentar (FAHMI warung, EGA kantor). Interaksi gedung dibangun satu per satu dan diupdate berkala (duduk & pesan di warung, perosotan, ayunan...).",
+    "Ep 14 (6 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong), Chrome tidak tersambung, komentar.md kosong; episode digerakkan traktiran Sal ×440 + thread pemilu. Kode baru: BT clear (radius pembersihan pohon per model), event.presSign/vpSign (plakat calon di presiden/wapres).",
+    "Chalid 6 Nov 2026 siang: ep 15 = lanjutan ep 14. Banyak warga mau jadi presiden (6 komentar di komentar.md + screenshot di studio/episodes/ep15/). Presiden @Etet_443 mundur karena hanya mendaftar tanpa dipilih -> pulau tanpa presiden (island.json president = null, state.json president kosong). Presiden baru = komentar calon dengan like terbanyak, diumumkan episode berikutnya. Web harus sama dengan video. Bug duduk di warung (stuck setelah berdiri) sudah diperbaiki di src/kerja.js (6 Nov).",
+    "Chalid 6 Nov 2026: wapres @EGA_91 juga mundur di ep 15. Kursi presiden DAN wakil presiden kosong (island.json president & vicePresident = null). Aturan pemilu (disetujui Chalid): komentar calon dengan like terbanyak = presiden, like terbanyak kedua = wakil presiden; diumumkan di ep 16.",
+    "Ep 15 (6 Nov sore): Apify gagal lagi (run 42196863738), Chrome tidak tersambung; episode memakai antrean komentar.md dari Chalid (6 screenshot calon). Kode baru: model papanpemilu (b.cands, kursi KOSONG), event.carry (tokoh cerita selalu muncul membawa plakat), menu aturan menulis KOSONG saat jabatan kosong."
+  ],
+  "rooms": {
+    "open": [
+      "masjid",
+      "sekolah"
+    ],
+    "order": [
+      "masjid",
+      "sekolah",
+      "rumahpresiden",
+      "rumahsakit",
+      "rumah",
+      "warteg",
+      "kedaikopi",
+      "apotik"
+    ]
+  }
 }
