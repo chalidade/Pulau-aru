@@ -328,6 +328,38 @@ function assignCloud() {
   [cl.queue[1], cl.queue[2], cl.queue[4]].forEach(s => s && take('queue', s));
   take('carry', cl.carry[0]);
 }
+// a live event from the story (island.json → event). 'demo' (ep 13): 8 residents protest with placards beside the spanduk
+const placardMats = new Map();
+function placardMat(text) {
+  if (placardMats.has(text)) return placardMats.get(text);
+  const c = document.createElement('canvas'); c.width = 256; c.height = 160; const x = c.getContext('2d');
+  x.fillStyle = '#fff8e6'; x.fillRect(0, 0, 256, 160); x.strokeStyle = '#3a2412'; x.lineWidth = 8; x.strokeRect(4, 4, 248, 152);
+  x.fillStyle = '#c0392b'; x.textAlign = 'center'; x.textBaseline = 'middle'; const w = text.split('|'); let fs = 52; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`;
+  while (fs > 22 && Math.max(...w.map(t => x.measureText(t).width)) > 236) { fs -= 2; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; }
+  w.forEach((t, i) => x.fillText(t, 128, 80 + (i - (w.length - 1) / 2) * fs * 1.1));
+  const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; const m = new THREE.MeshStandardMaterial({ map: tx, side: THREE.DoubleSide }); placardMats.set(text, m); return m;
+}
+const DEMO_SIGNS = ['PEMILU!', 'PRESIDEN|DIPILIH WARGA', 'GORENGAN|DIBAYAR!', 'RONDA|JANGAN TIDUR', 'MANGGA|MILIK LADANG', 'SUARA|WARGA!', 'PEMILU|SEKARANG', 'KAMI|MAU MEMILIH'];
+const DEMO_SPOTS = [[1.2, -.3], [2.1, -.5], [3.0, -.3], [3.9, -.5], [1.6, .5], [2.5, .4], [3.4, .5], [4.3, .6]];
+function assignDemo() {
+  for (const n of npcs) if (n.demo) { if (n.demo.sign) n.obj.remove(n.demo.sign); n.role = n.demo.role0; n.demo = null; }
+  const ev = S.event; if (!ev || ev.type !== 'demo') return;
+  const sp = S.buildings.find(b => b.type === 'spanduk'); if (!sp) return;
+  const f = fpOf(sp), [ox, oz] = fpCenter(sp.x, sp.y, f.w, f.h);
+  const free = n => !n.aru && !n.pres && !n.vp && !n.cloud, pool = ['wander', 'listen', 'sit', 'shop'].flatMap(r => npcs.filter(n => free(n) && n.role === r));
+  const signs = ev.signs || DEMO_SIGNS;
+  DEMO_SPOTS.forEach(([dx, dz], i) => { const n = pool[i]; if (!n) return;
+    if (n.kit) { n.obj.userData.body.remove(...n.kit); n.kit = null; } if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }
+    const g = new THREE.Group(), board = new THREE.Mesh(new THREE.PlaneGeometry(.62, .39), placardMat(signs[i % signs.length])); board.position.set(0, 2.05, .12); g.add(board);
+    const stick = new THREE.Mesh(M.G.box, M.mat('#8a6a3a')); stick.scale.set(.03, .9, .03); stick.position.set(0, 1.5, .1); g.add(stick); n.obj.add(g);
+    n.demo = { role0: n.role, x: ox + dx, z: oz + dz, face: Math.PI + (i % 3 - 1) * .15, sign: g, ph: i * .6 }; n.role = 'demo'; n.x = n.demo.x; n.z = n.demo.z; n.tx = null; });
+}
+function stepDemo(n, T) {
+  const d = n.demo, u = n.obj.userData, t = T + d.ph, loud = Math.sin(t * .5) > 0;   // chanting, then resting, in waves
+  n.obj.position.set(d.x, surfaceY(d.x, d.z), d.z); n.obj.rotation.y = d.face; u.legL.rotation.x = u.legR.rotation.x = 0; u.body.rotation.x = 0;
+  if (loud) { u.armR.rotation.x = u.armL.rotation.x = -2.8 + Math.sin(t * 10) * .2; u.body.position.y = Math.abs(Math.sin(t * 6)) * .08; }
+  else { u.armR.rotation.x = -.6; u.armL.rotation.x = -.15; u.body.position.y = 0; }
+}
 function stepCloud(n, dt, T) {
   const c = n.cloud, u = n.obj.userData;
   if (c.kind !== 'climb') {
@@ -621,7 +653,7 @@ function frame() {
   fishing.update(dt, T0);
   kebun.update(dt, T0);
   IN.update(dt, T0);
-  for (const n of npcs) { if (n.cloud) { stepCloud(n, dt, T0); continue; } acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z) + (n.state === 'work' ? n.yOff || 0 : 0), n.z); }
+  for (const n of npcs) { if (n.cloud) { stepCloud(n, dt, T0); continue; } if (n.demo) { stepDemo(n, T0); continue; } acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z) + (n.state === 'work' ? n.yOff || 0 : 0), n.z); }
   // camera
   if (cam.attract && !$('start').hidden) { cam.yaw += dt * .05; }
   if (liveOn) cam.yaw += dt * .06;
@@ -749,7 +781,7 @@ function padsFor() {
   return out;
 }
 let padKey = '';
-function applyWorld(animate = false) { const pads = padsFor(), pk = JSON.stringify(pads); if (pk !== padKey) { padKey = pk; WD.setPads(pads); terrain.userData.refresh(); } syncExpansion(animate); rebuildOcc(); rebuildRoadMesh(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); assignCloud(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
+function applyWorld(animate = false) { const pads = padsFor(), pk = JSON.stringify(pads); if (pk !== padKey) { padKey = pk; WD.setPads(pads); terrain.userData.refresh(); } syncExpansion(animate); rebuildOcc(); rebuildRoadMesh(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); assignCloud(); assignDemo(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
 function markDirty() { dirty = true; store.set(draftKey, JSON.stringify(S)); applyWorld(true); }
 const app = {
   get S() { return S; }, get dirty() { return dirty; }, get base() { try { return JSON.parse(PUB); } catch (e) { return null; } }, role, pop, lamps, curEp,
@@ -810,7 +842,7 @@ function begin(kind, name) {
   trackPlay();
   role.kind = kind; role.name = name || 'Aru'; store.set('pulau-aru-role', JSON.stringify(role));
   if (fishing.st.active) fishing.setActive(false);
-  $('start').hidden = true; cam.attract = false; setPlayerLook(); rebuildNpcs(); updateFishHud();
+  $('start').hidden = true; cam.attract = false; setPlayerLook(); rebuildNpcs(); assignDemo(); updateFishHud();
   if (kind === 'warga') {
     const [x, z] = fpCenter(LM.stone[0], LM.stone[1] + 2, 2, 1); player.x = x; player.z = z;
     const i = S.residents.findIndex(r => r.n.toLowerCase() === name.toLowerCase());

@@ -208,6 +208,14 @@ Everything the episode shows must really exist at pulau-aru.web.id afterwards.
   - **Push `data/island.json` only after the capture.** A local edit during a capture changes what the camera sees.
   - Always `git pull --rebase` before pushing. The follower sync commits to `data/island.json` every 30 min.
 
+## 4a. Live story events
+
+Whatever the episode stages only for the camera must also be visible in the live game, or viewers who open the
+website will not find it. `island.json → event` drives a live scene: `{"type":"demo","ep":13}` puts 8 residents with
+placards next to the `spanduk` (optional `"signs": ["PEMILU!", "SUARA|WARGA!", …]`, `|` = line break). When the story
+resolves (e.g. the election happens), remove `event` or replace it. New kinds of events go in `assignDemo`/`stepDemo`
+in `src/main.js`.
+
 ## 4b. Rooms inside buildings (unlock one per episode)
 
 Rooms exist for masjid, sekolah, rumahsakit, rumah, rumahpresiden, warteg, kedaikopi, apotik (`src/interiors.js`).
