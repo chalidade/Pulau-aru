@@ -9,6 +9,9 @@ and posts it to TikTok **@kita.berkembang**. There are two runs a day (10:00 and
 steps in order. Write everything the audience sees or hears in Indonesian, in the same voice as earlier episodes:
 casual, funny, a little anime (jokes, small sad or warm beats, and a hook at the end).
 
+> **Aturan Chalid (6 Nov 2026): setiap video harus ada wujudnya di web.** Semua yang tampil di episode harus bisa
+> ditemukan di pulau-aru.web.id. Lihat bagian 6b; episode tidak dikirim sebelum cek ini lulus.
+
 The person who owns all this is Chalid. Message him with `SendUserMessage` for the posting hand-off and final report, or when a step really cannot be done.
 
 ---
@@ -266,6 +269,21 @@ kedaikopi → apotik**.
   - `final`
 - Check four or five frames of the final MP4 before posting: text not clipped, nothing covering faces,
   the comment cards readable.
+
+## 6b. Web parity check (WAJIB, never skip)
+
+**Rule from Chalid (6 Nov 2026): every video must be represented on the website.** A viewer who opens
+pulau-aru.web.id right after watching must find everything the episode showed: new buildings, signs, rooms opened,
+crowds/events, NPC jobs, president/VP changes. Viewers noticed when the ep13 protest existed only in the video.
+1. List every visible thing in the episode that is new or story-relevant (read your `shots.py`).
+2. For each item, anything that was only staged in `shots.py` (`__pose`, `__placard`, crowd spots, props added in JS,
+   hidden NPCs, forced time of day excepted) must become real game state before you deliver:
+   a building or `label` in `island.json`, an `event` (section 4a), an opened room (4b), or a new NPC role in code.
+3. Push code + `data/island.json`, `git pull` so the checkout equals `main` (what Pages serves; the container
+   can't reach pulau-aru.web.id), restart the local server and take plain `look.py` shots of each item **with no
+   shot-script JS at all**. Look at them. If something is missing, fix and repeat.
+4. Send one parity screenshot (contact sheet) to Chalid together with the episode in step 7, captioned
+   "Sudah ada di web: …". Do not send the episode until this passes.
 
 ## 7. Deliver for posting (Chalid posts it from his phone)
 
