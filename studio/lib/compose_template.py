@@ -294,6 +294,9 @@ def pop_caption(line_id, tl, who):
         x += d.textlength(tx + ' ', font=F)
     return layer
 
+# hook position: below TikTok's top tabs and inside the 3:4 profile-grid crop (y 240..1680), big enough to read
+# as a thumbnail. Was y=300 / 92px (sat under the "Following | For You" tabs and looked tiny in the grid).
+HOOK_Y, HOOK_SIZE = 600, 128
 def hook_layer(l1, l2, t, t0, t1):
     """the first-second hook: two big lines on a slanted yellow band, popping in immediately"""
     layer = Image.new('RGBA', (W, H), (0, 0, 0, 0)); k = t - t0
@@ -302,9 +305,9 @@ def hook_layer(l1, l2, t, t0, t1):
     p = min(1, .7 + k / .12 * .3)
     for j, ln in enumerate([l1, l2]):
         if not ln: continue
-        size = int(92 * p)
-        while size > 50 and d.textlength(ln, font=font(PIX, size)) > W - 140: size -= 4
-        F = font(PIX, size); tw = d.textlength(ln, font=F); y = 300 + j * (size + 34)
+        size = int(HOOK_SIZE * p)
+        while size > 50 and d.textlength(ln, font=font(PIX, size)) > W - 120: size -= 4
+        F = font(PIX, size); tw = d.textlength(ln, font=F); y = HOOK_Y + j * (int(HOOK_SIZE * p) + 40)
         band = Image.new('RGBA', (int(tw + 60), size + 30), LAMP + (a,) if j == 0 else (255, 255, 255, a)); band = band.rotate(-2 if j == 0 else 1.5, expand=True, resample=Image.BICUBIC)
         layer.alpha_composite(band, (int((W - band.width) / 2), int(y - band.height / 2)))
         d.text((W // 2, y), ln, font=F, fill=INK + (a,), anchor='mm')

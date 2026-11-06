@@ -123,6 +123,9 @@ TikTok decides in the first 1–2 seconds. Every episode must follow these:
    with a voice line starting at 0.0–0.1 s and a two-line **`hook`** text on screen from frame 0
    (e.g. `('KOMENTAR KALIAN', 'JADI JALAN ASPAL!', 0, 2.9)`). Never open on a slow aerial, a fade-in, a title card or
    "Episode N"; the episode number is a small badge (automatic). No `fade_in` on the first segment.
+   The hook sits at y≈600 (`HOOK_Y`), below TikTok's "Following | For You" tabs and inside the 3:4 profile-grid crop,
+   so it is also the readable thumbnail. Keep each hook line **≤ 18 characters** so it renders big (long lines shrink
+   to fit the width). Frame the shot so the face sits below the hook (y 800–1300), not behind it.
 2. **The first frame must be readable on a phone**: a close shot of a character or the new thing, never a tiny landscape.
    Never start the cold open on a camera cut (skip the first frames after a cut with `from`).
 3. **Promise a payoff** in the hook or the first line ("…tapi lihat apa yang terjadi di akhir", "siapa yang jatuh?"), and
