@@ -209,7 +209,7 @@ Everything the episode shows must really exist at pulau-aru.web.id afterwards.
 
 Rooms exist for masjid, sekolah, rumahsakit, rumah, rumahpresiden, warteg, kedaikopi, apotik (`src/interiors.js`).
 All start locked ("Lihat … (terkunci)" + toast "Segera dibuka"). Each episode opens **one** room as a beat, in this
-order unless a comment asks for another: **masjid (ep13) → sekolah → rumahpresiden → rumahsakit → rumah → warteg →
+order unless a comment asks for another: **masjid (ep14) → sekolah → rumahpresiden → rumahsakit → rumah → warteg →
 kedaikopi → apotik**.
 - Open it: add the type to `island.json → interiors` (e.g. `"interiors": ["masjid"]`). Track it in `state.json → rooms`.
 - Preview locally before it is open: `?buka=semua` or `?buka=masjid,sekolah`.
