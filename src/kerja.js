@@ -38,7 +38,17 @@ function sitAt(o, pick) {
   if (!s) return null;
   seat = s; P.sit = s; P.tx = null; P.x = s.x; P.z = s.z; return s;
 }
-export function stand() { const P = app && app.player; if (!P || !P.sit) return; const s = P.sit; P.sit = null; P.x = s.x + Math.sin(s.ry) * .55; P.z = s.z + Math.cos(s.ry) * .55; seat = null; clearPlate(); if (job) { toast('Shift dibatalkan. Upah dibayar kalau shift selesai.'); job = null; } }
+// standing up puts the player on the nearest free ground outside the building (the seats are inside its solid
+// footprint, so stepping straight forward used to leave the character stuck in place, unable to walk away)
+function standSpot(s) {
+  const free = app.free || (() => true);
+  for (let d = .6; d <= 5; d += .3) for (let k = 0; k < 12; k++) {
+    const a = s.ry + (k % 2 ? 1 : -1) * Math.ceil(k / 2) * Math.PI / 6, x = s.x + Math.sin(a) * d, z = s.z + Math.cos(a) * d;
+    if (free(x, z) && free(x + .25, z) && free(x - .25, z) && free(x, z + .25) && free(x, z - .25)) return [x, z];
+  }
+  return [s.x + Math.sin(s.ry) * .55, s.z + Math.cos(s.ry) * .55];
+}
+export function stand() { const P = app && app.player; if (!P || !P.sit) return; const s = P.sit; P.sit = null; [P.x, P.z] = standSpot(s); P.tx = null; P.vy = 0; P.grounded = false; seat = null; clearPlate(); if (job) { toast('Shift dibatalkan. Upah dibayar kalau shift selesai.'); job = null; } }
 export const sitting = () => !!(app && app.player.sit);
 
 // a seated character: legs forward, arms do whatever the current activity is

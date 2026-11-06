@@ -795,7 +795,7 @@ const app = {
 };
 UI.initUI(app);
 kebun.init(); $('b-kebun').onclick = () => kebun.open();
-kerja.init({ player, objs: () => bObjs });
+kerja.init({ player, objs: () => bObjs, free: (x, z) => walkable(x, z) });
 
 // ---------- start ----------
 // ---------- LIVE mode (pulau-aru.web.id/?live): a self-running tour for TikTok LIVE screen sharing ----------
