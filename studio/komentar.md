@@ -22,7 +22,8 @@ Traktiran dari teer.id/chalidade masuk otomatis ke studio/traktir.json (kalau se
 
 Arah cerita ep 15: banyak sekali warga yang mau jadi presiden. Presiden @Etet_443 **dan wapres @EGA_91 mundur** karena
 hanya mendaftar sendiri tanpa dipilih warga, jadi **kursi presiden dan wakil presiden kosong**. Pemilu dibuka: semua calon di atas tampil, dan
-**komentar dengan like terbanyak menjadi presiden** (diumumkan di episode berikutnya). End card mengajak penonton
+**komentar calon dengan like terbanyak menjadi presiden, like terbanyak kedua menjadi wakil presiden** (diumumkan di
+episode berikutnya). End card mengajak penonton
 nge-like komentar calon favoritnya / komentar "aku calon" sendiri.
 Web harus sama dengan video: `data/island.json → president` dan `vicePresident` dikosongkan (null) di episode ini,
 label "Presiden"/"Wakil Presiden" (dan kursi di Kantor Pulau) tidak lagi menunjuk Etet_443 / EGA_91, dan para calon terlihat di pulau (misal plakat nama calon di spanduk pemilu).
