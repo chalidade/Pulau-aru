@@ -12185,9 +12185,18 @@
    "x": 52,
    "y": 49,
    "r": 3,
-   "label": "PEMILU SEKARANG!",
+   "label": "DAFTAR CAPRES DIBUKA!",
    "by": "warga",
    "ep": 13
+  },
+  {
+   "type": "menarasinyal",
+   "x": 71,
+   "y": 54,
+   "r": 2,
+   "label": "",
+   "by": "Sal (440 traktiran)",
+   "ep": 14
   }
  ],
  "episodes": [
@@ -12313,6 +12322,14 @@
     "EGA_91 (wapres)"
    ],
    "text": "Usulan FAHMI \"pengen nge warung\" jadi Warung Fahmi di jalan timur. Sekarang kamu bisa duduk dan pesan makan di sana, bayar pakai koin pulau.\nWapres @EGA_91 minta kantor buat nyari uang: Kantor Pulau berdiri di ujung jalan silang. Kerja satu shift, dapat koin.\nWarga mencatat kesalahan presiden: gorengan, tidur waktu ronda, mangga ladang. Aru membaca surat penjaga mercusuar: pemimpin pulau harus dipilih warga.\nAru mengumumkan presiden dilantik waktu ia pergi, tanpa pemilu. Warga berdemo damai, spanduk \"PEMILU SEKARANG!\" terpasang di depan Rumah Presiden."
+  },
+  {
+   "ep": 14,
+   "date": "6 Nov 2026",
+   "picks": [
+    "Sal (traktir ×440)"
+   ],
+   "text": "Kak Sal mentraktir 440 kali, traktiran terbesar sepanjang sejarah pulau! Pesannya \"semoga segera rilis di Play Store & iOS\" jadi Menara Sinyal Sal di jalan silang timur. Sinyal pulau penuh, lima batang.\nMasjid resmi dibuka: masuk ke dalam dan lihat warga di sana.\nPresiden merenung di depan masjid: presiden memang harus dipilih. Aru membuka pendaftaran calon presiden; presiden daftar lagi, wapres sudah daftar duluan.\nSpanduk sekarang berbunyi \"DAFTAR CAPRES DIBUKA!\". Komentar AKU CALON + janji kampanyemu!"
   }
  ],
  "letters": [],
@@ -12409,6 +12426,21 @@
  "umkm": [],
  "event": {
   "type": "demo",
-  "ep": 13
- }
+  "ep": 14,
+  "signs": [
+   "AKU|CALON!",
+   "PEMILU|JUJUR",
+   "PILIH|PRESIDEN",
+   "SUARA|WARGA!",
+   "CALON|DARI WARGA",
+   "DAFTAR|SEKARANG",
+   "SINYAL|PENUH!",
+   "MAKASIH|KAK SAL"
+  ],
+  "presSign": "AKU|DAFTAR LAGI",
+  "vpSign": "AKU|DAFTAR DULUAN"
+ },
+ "interiors": [
+  "masjid"
+ ]
 }
