@@ -72,6 +72,9 @@ export function lookOf(name) {
 export const ARU = { skin: '#c68a5b', hair: '#2b1d14', shirt: '#ece4d2', pants: '#3a5a7a', style: 1, scarf: '#e2733a' };
 
 export const CHAR_SCALE = .9;
+// body offset that puts a character's seat (bottom of the torso, hip .5 in unscaled units) exactly on a surface
+// `top` metres above the character's feet; was a fixed -.42, which sank people deep into chairs and logs
+export const sitBodyY = (top) => top / CHAR_SCALE - .5;
 export function makeCharacter(lk) {
   const root = new THREE.Group();
   const body = new THREE.Group(); root.add(body);

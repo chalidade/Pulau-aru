@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import * as WD from './world.js';
 import { W, H, tile, treeAt, LM, village } from './world.js';
-import { mat, box, G, presidentKit, vicePresidentKit, textTexture, BT } from './models.js';
+import { sitBodyY, mat, box, G, presidentKit, vicePresidentKit, textTexture, BT } from './models.js';
 
 // ---------- props ----------
 function axe() { const g = new THREE.Group(); box(g, '#7a5432', .04, .5, .04, 0, -.95, .02); box(g, '#9aa3a8', .04, .14, .2, 0, -.97, .12); return g; }
@@ -33,6 +33,7 @@ function logSeat() { const l = new THREE.Mesh(G.cyl6, mat('#6b4a2b')); l.scale.s
 
 // ---------- spots ----------
 const FIRE_SEATS = 7;
+const LOG_TOP = .28;   // logSeat: centre .12 above ground + radius .16
 export function createActivities(ctx) {
   // ctx: { scene, solid(), occ(), npcWalkable, groundY, surfaceY, fireXZ, player }
   const deco = new THREE.Group(); ctx.scene.add(deco);
@@ -84,9 +85,10 @@ export function createActivities(ctx) {
     const [fx, fz] = ctx.fireXZ;
     for (let k = 0; k < FIRE_SEATS; k++) {
       const a = Math.PI * .15 + k / (FIRE_SEATS - 1) * Math.PI * .7; // southern arc
-      const x = fx + Math.cos(a) * 2.3, z = fz + Math.sin(a) * 2.3;
+      // the sitter is placed right on top of the log (log lies tangent to the fire, top at ground + LOG_TOP)
+      const x = fx + Math.cos(a) * 2.5, z = fz + Math.sin(a) * 2.5;
       spots.sit.push({ x, z, face: Math.atan2(fx - x, fz - z) });
-      const seat = logSeat(); seat.position.set(fx + Math.cos(a) * 2.55, ctx.groundY(x, z) + .12, fz + Math.sin(a) * 2.55); seat.rotation.y = -a; deco.add(seat);
+      const seat = logSeat(); seat.position.set(fx + Math.cos(a) * 2.52, ctx.groundY(x, z) + .12, fz + Math.sin(a) * 2.52); seat.rotation.y = -a + Math.PI / 2; deco.add(seat);
     }
     return sites;
   }
@@ -204,7 +206,7 @@ export function createActivities(ctx) {
       if (n.carry) { u.armR.rotation.x = -1.1; u.armL.rotation.x = -1.1; u.body.position.y = Math.abs(Math.sin(ph * 2)) * .02; }
       else { const c = (ph * 2.6) % 1; u.armR.rotation.x = -1.7 + Math.abs(Math.sin(c * Math.PI)) * 1.1; u.armL.rotation.x = -.4; u.body.rotation.x = .25; u.body.position.y = -.08; }
     } else if (n.role === 'sit') {
-      u.body.position.y = -.42; u.legL.rotation.x = -1.45; u.legR.rotation.x = -1.4; u.armL.rotation.x = -.5; u.armR.rotation.x = -.5 + Math.sin(ph * 1.7) * .12;
+      u.body.position.y = sitBodyY(LOG_TOP); u.legL.rotation.x = -1.2; u.legR.rotation.x = -1.15; u.armL.rotation.x = -.5; u.armR.rotation.x = -.5 + Math.sin(ph * 1.7) * .12;
       if (Math.sin(ph * .7) > .6) u.armR.rotation.x = -1.1 + Math.sin(ph * 6) * .3; // talking with hands
     } else if (n.role === 'sell') {
       // calling out to buyers, now and then holding up the goods

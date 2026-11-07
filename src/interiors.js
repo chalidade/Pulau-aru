@@ -2,7 +2,7 @@
 // built far away from the island when you enter and thrown away when you leave. Rooms open one by one through the
 // episodes: data/island.json → interiors: ["masjid", ...]. A building with a room but not yet opened shows a lock.
 import * as THREE from 'three';
-import { bake, box, mat, G, windowMat, lanternMat, makeCharacter, animateCharacter, lookOf } from './models.js';
+import { bake, box, mat, G, windowMat, lanternMat, makeCharacter, animateCharacter, lookOf, sitBodyY } from './models.js';
 
 const doorMat = new THREE.MeshStandardMaterial({ color: '#ffe7a8', emissive: '#ffd36a', emissiveIntensity: .6 });
 export const OX = -320, OZ = 320;           // where rooms are built (far off the map, hidden by fog)
@@ -120,7 +120,7 @@ export function createInteriors({ scene, newest, who }) {
   function pose(p, T) {
     const u = p.ch.userData, ph = T + p.ph; u.body.rotation.x = 0; u.body.position.y = 0; p.ch.position.y = 0;
     for (const k of ['legL', 'legR', 'armL', 'armR']) { u[k].rotation.x = 0; u[k].rotation.z = 0; }
-    if (p.pose === 'sit') { u.body.position.y = -.42; u.legL.rotation.x = -1.45; u.legR.rotation.x = -1.4; u.armL.rotation.x = -.6; u.armR.rotation.x = -.6 + Math.sin(ph * 1.6) * .15; }
+    if (p.pose === 'sit') { u.body.position.y = sitBodyY(.5); u.legL.rotation.x = -1.3; u.legR.rotation.x = -1.25; u.armL.rotation.x = -.6; u.armR.rotation.x = -.6 + Math.sin(ph * 1.6) * .15; }
     else if (p.pose === 'pray') {          // standing, bowing and prostrating in a slow cycle
       const c = (ph * .25) % 4;
       if (c < 1.4) { u.armL.rotation.x = -1.2; u.armR.rotation.x = -1.2; }
