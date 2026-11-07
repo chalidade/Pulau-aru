@@ -986,6 +986,37 @@ export const BT = {
       // a small bin and a potted plant
       add(g, G.cyl8, '#3f7f5a', .1, .3, .1, -.85, .08, .55); add(g, G.cyl8, '#8a5a34', .12, .2, .12, .75, .08, .6); add(g, G.ico, '#62bd73', .18, .2, .18, .75, .42, .6);
     } },
+  // ep 18: the president's first request, picked from the suggestion box: Bank Pulau. Tapping it opens the bank sheet
+  // (kebun.js openBank): save island coins in a savings account that earns a little interest every day.
+  bankpulau: { n: 'Bank Pulau', w: 4, h: 3, land: true, scale: 1.75, open: 'bank', openLabel: 'Masuk Bank Pulau',
+    build(g) {
+      box(g, '#bdb6a4', 2.0, .1, 1.5, 0, 0, 0);                                                             // stone plinth
+      box(g, '#cfc8b6', 1.5, .06, .3, 0, .1, .6); box(g, '#d8d2c2', 1.3, .06, .2, 0, .16, .62);             // front steps
+      box(g, '#f3eee2', 1.8, 1.45, 1.05, 0, .1, -.2);                                                        // white hall
+      box(g, '#e2dac8', 1.84, .12, 1.09, 0, .1, -.2);                                                        // skirting
+      box(g, '#d9cfb8', 1.9, .12, 1.15, 0, 1.55, -.18);                                                      // cornice
+      // portico: four columns, an architrave and a triangular pediment with a gold coin
+      for (const x of [-.72, -.26, .26, .72]) { add(g, G.cyl8, '#fbf8f0', .07, 1.3, .07, x, .22 + .65, .55); box(g, '#e6dfcd', .18, .06, .18, x, .2, .55); box(g, '#e6dfcd', .18, .06, .18, x, 1.5, .55); }
+      box(g, '#e9e2d0', 1.8, .14, .34, 0, 1.55, .46);
+      const ped = new THREE.Shape(); ped.moveTo(-.95, 0); ped.lineTo(.95, 0); ped.lineTo(0, .5); ped.lineTo(-.95, 0);
+      const pg = new THREE.Mesh(new THREE.ExtrudeGeometry(ped, { depth: 1.5, bevelEnabled: false }), mat('#b5413a')); pg.position.set(0, 1.69, -.82); pg.castShadow = true; g.add(pg);
+      const pf = new THREE.Mesh(new THREE.ExtrudeGeometry(ped, { depth: .04, bevelEnabled: false }), mat('#f3eee2')); pf.scale.set(.86, .8, 1); pf.position.set(0, 1.71, .685); g.add(pf);
+      const coin = add(g, G.cyl8, '#e6b84a', .14, .04, .14, 0, 1.86, .72); coin.rotation.x = Math.PI / 2; coin.position.y = 1.86;
+      // big wooden door and two barred windows
+      box(g, '#5e3b22', .44, .95, .04, 0, .1, .335); box(g, '#e6b84a', .03, .03, .02, .12, .55, .36); box(g, '#e6b84a', .03, .03, .02, -.12, .55, .36);
+      for (const x of [-.6, .6]) { box(g, windowMat, .32, .5, .03, x, .6, .335); for (let i = 0; i < 4; i++) box(g, '#3a3a38', .02, .5, .04, x - .12 + i * .08, .6, .34); }
+      // sign
+      const c = document.createElement('canvas'); c.width = 512; c.height = 128; const x = c.getContext('2d');
+      x.fillStyle = '#1f4e5f'; x.fillRect(0, 0, 512, 128); x.strokeStyle = '#e6b84a'; x.lineWidth = 8; x.strokeRect(6, 6, 500, 116);
+      x.fillStyle = '#ffe9a8'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = '700 66px "Pixelify Sans", sans-serif'; x.fillText('BANK PULAU', 256, 54, 480);
+      x.font = '700 26px "Pixelify Sans", sans-serif'; x.fillStyle = '#ffffff'; x.fillText('tabungan koin pulau · ada bunganya', 256, 104, 480);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.5, .37), new THREE.MeshStandardMaterial({ map: tx })); sign.position.set(0, 1.3, .64); g.add(sign);
+      // a coin machine (ATM) on the right side, and a stack of gold coins by the steps
+      box(g, '#6f8a96', .26, .62, .22, 1.0, .1, .3); box(g, '#22313a', .18, .12, .02, 1.0, .5, .415); box(g, '#e6b84a', .12, .03, .02, 1.0, .36, .415);
+      for (let i = 0; i < 4; i++) add(g, G.cyl8, '#e6b84a', .09, .03, .09, -.88 + (i % 2) * .02, .1 + i * .035, .62);
+      add(g, G.cyl8, '#8a5a34', .12, .2, .12, .85, .1, .68); add(g, G.ico, '#62bd73', .17, .2, .17, .85, .42, .68);
+    } },
   papan: { n: 'Papan nama', w: 1, h: 1, land: true, sign: true, build(g, b) { box(g, '#5e3b22', .08, 1, .08, 0, 0, 0); const board = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(splitLabel(b && b.label || 'Pulau'), { size: 46, grain: true }), flatShading: true }), mat('#8a5a34')]); board.scale.set(.95, .48, .06); board.position.set(0, 1, .05); board.castShadow = true; g.add(board); } },
 };
 export function spearMesh(parent) {

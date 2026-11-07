@@ -21,7 +21,7 @@ let st = load(), host = null, group = null, lastSig = '', readyNotified = new Se
 function load() {
   let s = null; try { s = JSON.parse(store.get(KEY) || 'null'); } catch (e) { }
   if (!s || typeof s !== 'object') s = { v: 1, koin: START, plots: [], panen: 0, day: '' };
-  s.koin = Math.max(0, s.koin | 0); s.panen = s.panen | 0;
+  s.koin = Math.max(0, s.koin | 0); s.panen = s.panen | 0; s.tab = Math.max(0, s.tab | 0); s.tabDay = s.tabDay || '';
   s.plots = Array.from({ length: NPLOT }, (_, i) => { const p = (s.plots || [])[i]; return p && SEEDS[p.s] && +p.t ? { s: p.s, t: +p.t } : null; });
   return s;
 }
@@ -35,7 +35,8 @@ export function addKoin(n) { st.koin = Math.max(0, st.koin + n); save(); }
 export const readyCount = () => st.plots.filter(p => p && progress(p) >= 1).length;
 
 export function init() {
-  panels.kebun = () => open();
+  panels.kebun = () => open(); panels.bank = () => openBank();
+  interest();
   // daily delivery from the vice president's farm, and coins for every fish caught with the spear
   if (st.day !== today()) { const first = !st.day; st.day = today(); if (!first) { st.koin += DAILY; setTimeout(() => toast(`Kiriman harian dari Ladang Buah: +${DAILY} koin`), 1800); } save(); }
   window.addEventListener('pulau-fish', () => { st.koin += FISH; save(); toast(`+${FISH} koin untuk kebunmu`); });
@@ -115,5 +116,29 @@ function harvest(i) {
   st.plots[i] = null; st.koin += d.jual; st.panen++; readyNotified.delete(i); save(); refresh3d(); dot();
   toast(`Panen ${d.n}! +${d.jual} koin`); open();
 }
+// ---------- Bank Pulau (ep 18, the president's first request) ----------
+// A savings account for island coins: whatever sits in the bank earns BUNGA (10%, at least 1 coin) for every new day.
+// Saved on this device only, like the garden.
+const BUNGA = .1, MAXDAYS = 7;
+function interest() {
+  const t = today(); if (!st.tab) { st.tabDay = t; return 0; }
+  const days = Math.min(MAXDAYS, Math.max(0, Math.round((Date.parse(t) - Date.parse(st.tabDay || t)) / 864e5)));
+  let got = 0; for (let i = 0; i < days; i++) { const b = Math.max(1, Math.floor(st.tab * BUNGA)); st.tab += b; got += b; }
+  st.tabDay = t; save(); if (got) setTimeout(() => toast(`Bunga Bank Pulau: +${got} koin di tabunganmu`), 3200); return got;
+}
+function setor(n) { n = Math.min(n, st.koin); if (n <= 0) return; if (!st.tab) st.tabDay = today(); st.koin -= n; st.tab += n; save(); toast(`Disetor ${n} koin. Besok dapat bunga!`); openBank(); }
+function tarik(n) { n = Math.min(n, st.tab); if (n <= 0) return; st.tab -= n; st.koin += n; save(); toast(`Ditarik ${n} koin ke dompet`); openBank(); }
+export function openBank() {
+  const b = (t, on, f) => h('button', { class: 'mini', disabled: !on, onclick: f }, t);
+  sheet('Bank Pulau',
+    h('p', { class: 'lede' }, 'Permintaan pertama Presiden ‘EGA_, dari Kotak Usulan warga. Simpan koin pulau di sini: setiap hari baru tabunganmu dapat bunga 10% (paling sedikit 1 koin).'),
+    h('div', { class: 'list' },
+      h('div', { class: 'li kebun' }, h('div', null, h('div', { class: 'eyebrow' }, 'dompet'), h('div', { class: 'big' }, fmt(st.koin))),
+        h('div', null, b('Setor 5', st.koin >= 5, () => setor(5)), ' ', b('Setor semua', st.koin > 0, () => setor(st.koin)))),
+      h('div', { class: 'li kebun' }, h('div', null, h('div', { class: 'eyebrow' }, 'tabungan'), h('div', { class: 'big' }, fmt(st.tab))),
+        h('div', null, b('Tarik semua', st.tab > 0, () => tarik(st.tab))))),
+    h('p', { class: 'lede', style: 'margin-top:12px;font-size:13px' }, `Bunga dihitung untuk paling lama ${MAXDAYS} hari sekali datang, jadi mampirlah tiap hari. Koin dipakai di Kebunku, Warung Fahmi dan Kantor Pulau. Data disimpan di perangkat ini saja.`));
+}
+
 // for the studio capture: show a prepared garden without touching anyone's real data
-export const __demo = (plots, koin) => { st = { ...st, koin: koin ?? st.koin, plots: plots.map(p => p ? { s: p[0], t: now() - p[1] * SEEDS[p[0]].menit * 60000 } : null) }; lastSig = ''; refresh3d(); };
+export const __demo = (plots, koin, tab) => { st = { ...st, koin: koin ?? st.koin, tab: tab ?? st.tab, plots: plots.map(p => p ? { s: p[0], t: now() - p[1] * SEEDS[p[0]].menit * 60000 } : null) }; lastSig = ''; refresh3d(); };
