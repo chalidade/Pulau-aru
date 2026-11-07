@@ -12239,6 +12239,23 @@
    ],
    "by": "sapta.rajo.ghaisa",
    "ep": 16
+  },
+  {
+   "type": "kotakusulan",
+   "x": 50,
+   "y": 51,
+   "r": 0,
+   "by": "EGA_91",
+   "ep": 17,
+   "label": "Kotak Usulan Presiden"
+  },
+  {
+   "type": "toiletumum",
+   "x": 64,
+   "y": 54,
+   "r": 2,
+   "ep": 17,
+   "label": "Toilet Umum pertama"
   }
  ],
  "episodes": [
@@ -12394,6 +12411,14 @@
     "wibu cilik pelenger"
    ],
    "text": "Hasil pemilu: komentar 'EGA_ dapat 3 like, terbanyak! Mantan wapres itu sekarang PRESIDEN, janjinya \"jadi pemimpin yang baik\". Wakilnya King indo, yang ia tag sendiri di balasan.\nAru melantik keduanya di mimbar; Papan Pemilu sekarang jadi papan HASIL dan Rumah Presiden resmi dibuka.\nWibu cilik pelenger buka Gerobak Kopi Dong di samping papan. Presiden beli kopi, dan bayar.\nPresiden baru punya 3 permintaan: apa yang harus dibangun duluan?"
+  },
+  {
+   "ep": 17,
+   "date": "7 Nov 2026",
+   "picks": [
+    "usulan lama warga"
+   ],
+   "text": "Rapat kabinet pertama Presiden 'EGA_: tiga permintaan, belum ada yang dipakai. Presiden memasang Kotak Usulan di depan mimbar; ketuk kotaknya untuk menulis usulan di komentar.\nMantan presiden Etet memasukkan surat pertama: \"Dulu saya nggak pernah nanya warga.\"\nDari usulan lama warga (bengkel, bank, hotel, apartemen, toilet), Toilet Umum pertama dibangun di jalan silang timur. Bukan jatah presiden, kata EGA: kewajiban!\nRumah sakit resmi dibuka. Presiden masih punya 3 permintaan: bangun apa duluan?"
   }
  ],
  "letters": [],
@@ -12490,16 +12515,16 @@
  "umkm": [],
  "event": {
   "type": "demo",
-  "ep": 16,
+  "ep": 17,
   "signs": [
-   "SELAMAT|PRES EGA_",
+   "USUL|DONG!",
+   "TOILET|UMUM!",
+   "PRES|EGA_",
    "WAPRES|KING INDO",
-   "JANJI:|PEMIMPIN BAIK",
-   "KOPI|DONG!",
-   "DIPILIH|WARGA",
-   "3 LIKE|MENANG!",
-   "HIDUP|PEMILU!",
-   "NGOPI|DULU"
+   "KOTAK|USULAN",
+   "3 JATAH|PRESIDEN",
+   "NGOPI|DULU",
+   "RS|DIBUKA!"
   ],
   "carry": {
    "Etet_443": "MANTAN|PRESIDEN"
@@ -12508,6 +12533,30 @@
  "interiors": [
   "masjid",
   "sekolah",
-  "rumahpresiden"
+  "rumahpresiden",
+  "rumahsakit"
+ ],
+ "usulan": [
+  {
+   "t": "Toilet umum",
+   "st": "dibangun",
+   "ep": 17
+  },
+  {
+   "t": "Bengkel",
+   "st": "menunggu"
+  },
+  {
+   "t": "Bank / mata uang pulau",
+   "st": "menunggu"
+  },
+  {
+   "t": "Hotel",
+   "st": "menunggu"
+  },
+  {
+   "t": "Apartemen",
+   "st": "menunggu"
+  }
  ]
 }

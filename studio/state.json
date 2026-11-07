@@ -1,5 +1,5 @@
 {
- "nextEp": 17,
+ "nextEp": 18,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -25,8 +25,8 @@
   "prev": "EGA_91 (mundur ep 15, lalu jadi presiden ep 16)"
  },
  "openThreads": [
-  "Ep 16 SELESAI: pemilu lewat like. 'EGA_ (3 like) dilantik jadi PRESIDEN, King indo (island.json vicePresident = kingindo131, follower yang paling cocok; Chalid bisa koreksi) jadi WAPRES. Papan Pemilu (x57 y50) sekarang papan HASIL (b.win). Kuota baru: presiden 3, wapres 2 permintaan tanpa undian. Janji EGA 'jadi pemimpin yang baik' bisa ditagih warga. End card ep 16: apa yang harus dibangun duluan? -> permintaan pertama presiden.",
-  "Masa jabatan 1 minggu (sampai ~14 Nov). Rumah Presiden dibuka (room ketiga, ep 16); berikutnya: rumahsakit.",
+  "Presiden 'EGA_ (ep 16) & wapres King indo (kingindo131). Kuota masih utuh: presiden 0/3, wapres 0/2 (ep 17 toilet umum = 'kewajiban', bukan jatah). End card ep 16 & 17: presiden harus bangun apa duluan? -> permintaan pertama presiden dari komentar. Kotak Usulan (x50 y51, ep 17) membuka panel usulan (island.json usulan[]): tandai st 'dibangun' saat usulan lama terwujud (bengkel, bank, hotel, apartemen masih menunggu).",
+  "Masa jabatan 1 minggu (sampai ~14 Nov). Room terbuka: masjid, sekolah, rumahpresiden, rumahsakit (ep 17); berikutnya: rumah.",
   "Rahasia presiden (ep 13): ia dilantik waktu Aru di Pulau Seberang (ep 4), tanpa pemilu, 'cuma karena follow duluan'. Surat dari Pulau Seberang ternyata dari Penjaga Mercusuar: 'Pemimpin pulau harus dipilih warga, bukan ditunjuk.'",
   "Mantan presiden @Etet_443 warga biasa, selalu muncul dengan plakat MANTAN PRESIDEN (event.carry). 'Dulu aku cuma follow duluan.'",
   "Fitur interaksi (arahan Chalid 6 Nov): bisa interaksi dengan gedung satu per satu, update berkala. Sudah: duduk & pesan makan di Warung Fahmi, kerja shift di Kantor Pulau (src/kerja.js, koin bersama Kebunku). Berikutnya: perosotan waterpark, ayunan sekolah, duduk di Kedai Kopi / Pos Ronda, dst.",
@@ -136,13 +136,19 @@
    "title": "Pelantikan & Kopi Dong",
    "posted": "manual (menunggu Chalid)",
    "summary": "Hasil pemilu like: 'EGA_ (mantan wapres, 3 like, janji 'jadi pemimpin yang baik') jadi presiden, King indo yang ia tag di balasan jadi wapres ('aku cuma di-tag!'). Aru melantik keduanya di mimbar, warga berplakat SELAMAT PRES EGA_. Mantan presiden Etet: 'dulu aku cuma follow duluan'. Wibu cilik pelenger buka Gerobak Kopi Dong dekat Papan Pemilu (sekarang papan HASIL); presiden EGA beli kopi dan bayar. Rumah presiden dibuka (room ketiga). End card: presiden punya 3 permintaan, apa yang dibangun duluan? CTA traktir."
+  },
+  {
+   "ep": 17,
+   "title": "Kotak Usulan",
+   "posted": "manual (menunggu Chalid)",
+   "summary": "Tidak ada komentar TikTok baru (Apify gagal lagi, run 42333362311; Chrome tidak tersambung; komentar.md & traktir kosong). Episode digerakkan thread presiden baru: rapat kabinet pertama, wapres King indo panik kotak usulan isinya cuma satu surat. Presiden EGA pasang Kotak Usulan (x50 y51, depan mimbar; diketuk -> panel usulan + tombol ke komentar TikTok). Mantan presiden Etet memasukkan surat pertama. Usulan lama warga dibuka; warga minta toilet umum, EGA: 'bukan jatah presiden, itu kewajiban!' -> Toilet Umum (x64 y54, r2). Rumah sakit dibuka (room keempat). Kuota presiden tetap 0/3. End card: presiden harus bangun apa duluan? CTA UMKM."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 14,
+   "ep": 17,
    "cta": "umkm"
   },
   "nextCta": "traktir"
@@ -159,13 +165,15 @@
   "Chalid 6 Nov 2026 siang: ep 15 = lanjutan ep 14. Banyak warga mau jadi presiden (6 komentar di komentar.md + screenshot di studio/episodes/ep15/). Presiden @Etet_443 mundur karena hanya mendaftar tanpa dipilih -> pulau tanpa presiden (island.json president = null, state.json president kosong). Presiden baru = komentar calon dengan like terbanyak, diumumkan episode berikutnya. Web harus sama dengan video. Bug duduk di warung (stuck setelah berdiri) sudah diperbaiki di src/kerja.js (6 Nov).",
   "Chalid 6 Nov 2026: wapres @EGA_91 juga mundur di ep 15. Kursi presiden DAN wakil presiden kosong (island.json president & vicePresident = null). Aturan pemilu (disetujui Chalid): komentar calon dengan like terbanyak = presiden, like terbanyak kedua = wakil presiden; diumumkan di ep 16.",
   "Ep 15 (6 Nov sore): Apify gagal lagi (run 42196863738), Chrome tidak tersambung; episode memakai antrean komentar.md dari Chalid (6 screenshot calon). Kode baru: model papanpemilu (b.cands, kursi KOSONG), event.carry (tokoh cerita selalu muncul membawa plakat), menu aturan menulis KOSONG saat jabatan kosong.",
-  "Ep 16 (7 Nov pagi): dua komentar dari antrean komentar.md (pilihan Chalid, screenshot asli). Chrome tidak tersambung di sesi cloud, Apify tidak dipakai (antrean sudah terisi). Kode baru: model gerobakkopi, buildings[].seller/lines (penjual bernama tetap di lapaknya), papanpemilu b.win (papan hasil), dialog presiden/wapres baru."
+  "Ep 16 (7 Nov pagi): dua komentar dari antrean komentar.md (pilihan Chalid, screenshot asli). Chrome tidak tersambung di sesi cloud, Apify tidak dipakai (antrean sudah terisi). Kode baru: model gerobakkopi, buildings[].seller/lines (penjual bernama tetap di lapaknya), papanpemilu b.win (papan hasil), dialog presiden/wapres baru.",
+  "Ep 17 (7 Nov pagi): Apify gagal lagi (run 42333362311), Chrome tidak tersambung, antrean kosong; episode tanpa kartu komentar. Kode baru: model kotakusulan (open: 'usulan', ui.js openUsulan, island.json usulan[]) dan toiletumum."
  ],
  "rooms": {
   "open": [
    "masjid",
    "sekolah",
-   "rumahpresiden"
+   "rumahpresiden",
+   "rumahsakit"
   ],
   "order": [
    "masjid",
