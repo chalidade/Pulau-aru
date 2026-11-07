@@ -141,6 +141,14 @@ TikTok decides in the first 1–2 seconds. Every episode must follow these:
    first card at ~0.4 s (`CARD_T`).
 7. Write lines short and spoken: one idea per line, max ~12 words, humour over exposition.
 
+## 2d. Pemeran warga (studio/warga.json)
+Chalid wants the island to feel alive through recurring residents with fixed personalities (iseng, pahlawan,
+introvert, sok tahu, menyebalkan, kocak, ...). `studio/warga.json` is the cast list. In every episode, give 1-3 of
+them a small supporting part that matches their `sifat` and use their `kalimat` lines (one line each is enough).
+Keep traits consistent across episodes, keep them friendly (teasing is fine, never mean), and when a new
+follower asks to join, you may add them to warga.json with a new trait. Running gag: **Klub Pertama**
+(three residents who all commented 'pertama') argue over who was first whenever anything opens.
+
 ## 3. Write the episode
 
 - 55–60 s, in 10–13 segments, starting with the cold open (see 2c). Roughly:
