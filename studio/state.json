@@ -1,5 +1,5 @@
 {
- "nextEp": 18,
+ "nextEp": 19,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -12,7 +12,7 @@
   "n": "EGA_91 ('EGA_, akun @.....plengerrr0)",
   "since": "ep 16 (7 Nov 2026)",
   "until": "ep ~29 (14 Nov 2026)",
-  "requestsUsed": 0,
+  "requestsUsed": 1,
   "requestsMax": 3,
   "prev": "Etet_443 (mundur ep 15)"
  },
@@ -25,17 +25,18 @@
   "prev": "EGA_91 (mundur ep 15, lalu jadi presiden ep 16)"
  },
  "openThreads": [
-  "Presiden 'EGA_ (ep 16) & wapres King indo (kingindo131). Kuota masih utuh: presiden 0/3, wapres 0/2 (ep 17 toilet umum = 'kewajiban', bukan jatah). End card ep 16 & 17: presiden harus bangun apa duluan? -> permintaan pertama presiden dari komentar. Kotak Usulan (x50 y51, ep 17) membuka panel usulan (island.json usulan[]): tandai st 'dibangun' saat usulan lama terwujud (bengkel, bank, hotel, apartemen masih menunggu).",
-  "Masa jabatan 1 minggu (sampai ~14 Nov). Room terbuka: masjid, sekolah, rumahpresiden, rumahsakit (ep 17); berikutnya: rumah.",
+  "Presiden 'EGA_ (ep 16) & wapres King indo (kingindo131). Kuota: presiden 1/3 (ep 18 Bank Pulau dari Kotak Usulan), wapres 0/2. End card ep 18: jatah kedua presiden, bengkel, hotel, atau apartemen? -> ambil dari komentar. Kotak Usulan (x50 y51): usulan bengkel, hotel, apartemen masih menunggu.",
+  "Masa jabatan 1 minggu (sampai ~14 Nov). Room terbuka: masjid, sekolah, rumahpresiden, rumahsakit, rumah (ep 18); berikutnya: warteg.",
   "Rahasia presiden (ep 13): ia dilantik waktu Aru di Pulau Seberang (ep 4), tanpa pemilu, 'cuma karena follow duluan'. Surat dari Pulau Seberang ternyata dari Penjaga Mercusuar: 'Pemimpin pulau harus dipilih warga, bukan ditunjuk.'",
   "Mantan presiden @Etet_443 warga biasa, selalu muncul dengan plakat MANTAN PRESIDEN (event.carry). 'Dulu aku cuma follow duluan.'",
   "Fitur interaksi (arahan Chalid 6 Nov): bisa interaksi dengan gedung satu per satu, update berkala. Sudah: duduk & pesan makan di Warung Fahmi, kerja shift di Kantor Pulau (src/kerja.js, koin bersama Kebunku). Berikutnya: perosotan waterpark, ayunan sekolah, duduk di Kedai Kopi / Pos Ronda, dst.",
   "@RANUUGLL polisi & penjaga pantai (Pos Penjaga Pantai x58 y89) bisa menjaga demo / pemilu.",
   "Kedai Kopi (x45 y54) dan Pos Ronda (x50 y54) jadi tempat warga mencatat kesalahan presiden. Gapura Selamat Datang dan Tiang Salam di dermaga.",
   "Pertanyaan lama belum dijawab: ep 9 'kantin kejujuran mau jual apa?', ep 8 'wahana waterpark', ep 7 'menu warteg', ep 6 'cara menggulingkan presiden' (relevan untuk kudeta!). Usulan lama: bengkel, bank/mata uang, hotel, apartemen, toilet.",
-  "Komentar TikTok otomatis belum jalan (ep 14 juga): secret APIFY_TOKEN belum diisi; Claude in Chrome tidak tersambung di sesi cloud.",
+  "Komentar TikTok otomatis belum jalan (ep 14-18): secret APIFY_TOKEN belum diisi (run 42354430314 gagal lagi 7 Nov sore); Claude in Chrome tidak tersambung di sesi cloud.",
   "Menara Sinyal Sal (x71 y54, ep 14) dari 440 traktiran Sal, pesan soal rilis Play Store/iOS. Bisa dipakai: siaran pemilu, 'live' dari pulau, sinyal ke Pulau Seberang / Penjaga Mercusuar.",
-  "Gerobak Kopi Dong (x60 y50, ep 16) milik wibu cilik pelenger (@sapta.rajo.ghaisa): penjualnya selalu berdiri di gerobak (buildings[].seller, kode baru di main.js/activities.js), dialognya dari buildings[].lines. Presiden EGA beli kopi dan bayar ('belajar dari presiden lama'). Bisa jadi interaksi: beli kopi pakai koin."
+  "Gerobak Kopi Dong (x60 y50, ep 16) milik wibu cilik pelenger (@sapta.rajo.ghaisa): penjualnya selalu berdiri di gerobak (buildings[].seller, kode baru di main.js/activities.js), dialognya dari buildings[].lines. Presiden EGA beli kopi dan bayar ('belajar dari presiden lama'). Bisa jadi interaksi: beli kopi pakai koin.",
+  "Bank Pulau (x59 y54, r2, ep 18): tabungan koin pulau di perangkat (kebun.js openBank), bunga 10%/hari maks 7 hari. Lelucon: presiden EGA menyetor 5 koin 'dari kotak usulan', bilang 'donasi, nanti dikembalikan' -> wapres mengawasi; mantan presiden Etet minta 'gaji presiden yang dulu', saldo nol, mulai nabung dari nol. Bisa lanjut: presiden mengembalikan koin, audit wapres, mata uang pulau."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -68,7 +69,8 @@
   "'EGA_: aku nyalon jadi presiden minn (calon ep 15)",
   "??: bg aku mau nyalon presiden aku juga udah lama follow (calon ep 15)",
   "'EGA_ (@.....plengerrr0): aku nyalon min, janji jadi pemimpin yang baik (3 like, PRESIDEN ep 16) + 'wakil saya @King indo' (WAPRES)",
-  "wibu cilik pelenger (@sapta.rajo.ghaisa): kakak aku tukang jualan kopidong udah follow (Gerobak Kopi Dong)"
+  "wibu cilik pelenger (@sapta.rajo.ghaisa): kakak aku tukang jualan kopidong udah follow (Gerobak Kopi Dong)",
+  "usulan lama warga (Kotak Usulan): bank / mata uang pulau (Bank Pulau, jatah presiden 1/3)"
  ],
  "episodes": [
   {
@@ -142,16 +144,22 @@
    "title": "Kotak Usulan",
    "posted": "manual (menunggu Chalid)",
    "summary": "Tidak ada komentar TikTok baru (Apify gagal lagi, run 42333362311; Chrome tidak tersambung; komentar.md & traktir kosong). Episode digerakkan thread presiden baru: rapat kabinet pertama, wapres King indo panik kotak usulan isinya cuma satu surat. Presiden EGA pasang Kotak Usulan (x50 y51, depan mimbar; diketuk -> panel usulan + tombol ke komentar TikTok). Mantan presiden Etet memasukkan surat pertama. Usulan lama warga dibuka; warga minta toilet umum, EGA: 'bukan jatah presiden, itu kewajiban!' -> Toilet Umum (x64 y54, r2). Rumah sakit dibuka (room keempat). Kuota presiden tetap 0/3. End card: presiden harus bangun apa duluan? CTA UMKM."
+  },
+  {
+   "ep": 18,
+   "title": "Bank Pulau",
+   "posted": "manual (menunggu Chalid)",
+   "summary": "Tidak ada komentar TikTok baru (Apify gagal, run 42354430314; Chrome tidak tersambung; komentar.md & traktir kosong). Mantan presiden Etet minta 'gaji presiden yang dulu' di ATM, wapres King indo: saldo nol. Presiden EGA membuka Kotak Usulan dan memakai jatah pertamanya (1/3) untuk usulan warga: Bank Pulau (x59 y54) di jalan silang; di web bisa ditabung, bunga 10%/hari. Presiden menyetor 5 koin 'dari kotak usulan... donasi, nanti dikembalikan!'. Etet mulai nabung dari nol. Rumah warga dibuka (room kelima). End card: jatah kedua, bengkel, hotel, atau apartemen? CTA traktir."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 17,
-   "cta": "umkm"
+   "ep": 18,
+   "cta": "traktir"
   },
-  "nextCta": "traktir"
+  "nextCta": "umkm"
  },
  "notes": [
   "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
@@ -166,7 +174,8 @@
   "Chalid 6 Nov 2026: wapres @EGA_91 juga mundur di ep 15. Kursi presiden DAN wakil presiden kosong (island.json president & vicePresident = null). Aturan pemilu (disetujui Chalid): komentar calon dengan like terbanyak = presiden, like terbanyak kedua = wakil presiden; diumumkan di ep 16.",
   "Ep 15 (6 Nov sore): Apify gagal lagi (run 42196863738), Chrome tidak tersambung; episode memakai antrean komentar.md dari Chalid (6 screenshot calon). Kode baru: model papanpemilu (b.cands, kursi KOSONG), event.carry (tokoh cerita selalu muncul membawa plakat), menu aturan menulis KOSONG saat jabatan kosong.",
   "Ep 16 (7 Nov pagi): dua komentar dari antrean komentar.md (pilihan Chalid, screenshot asli). Chrome tidak tersambung di sesi cloud, Apify tidak dipakai (antrean sudah terisi). Kode baru: model gerobakkopi, buildings[].seller/lines (penjual bernama tetap di lapaknya), papanpemilu b.win (papan hasil), dialog presiden/wapres baru.",
-  "Ep 17 (7 Nov pagi): Apify gagal lagi (run 42333362311), Chrome tidak tersambung, antrean kosong; episode tanpa kartu komentar. Kode baru: model kotakusulan (open: 'usulan', ui.js openUsulan, island.json usulan[]) dan toiletumum."
+  "Ep 17 (7 Nov pagi): Apify gagal lagi (run 42333362311), Chrome tidak tersambung, antrean kosong; episode tanpa kartu komentar. Kode baru: model kotakusulan (open: 'usulan', ui.js openUsulan, island.json usulan[]) dan toiletumum.",
+  "Ep 18 (7 Nov sore): Apify gagal lagi (APIFY_TOKEN kosong, run 42354430314), Chrome tidak tersambung, antrean kosong; episode tanpa kartu komentar, digerakkan Kotak Usulan. Kode baru: model bankpulau (open: 'bank'), kebun.js openBank (tabungan st.tab + bunga harian), __demo(plots, koin, tab)."
  ],
  "rooms": {
   "open": [

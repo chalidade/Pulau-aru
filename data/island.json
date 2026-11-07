@@ -12256,6 +12256,15 @@
    "r": 2,
    "ep": 17,
    "label": "Toilet Umum pertama"
+  },
+  {
+   "type": "bankpulau",
+   "x": 59,
+   "y": 54,
+   "r": 2,
+   "by": "EGA_91",
+   "ep": 18,
+   "label": "Bank Pulau"
   }
  ],
  "episodes": [
@@ -12419,6 +12428,14 @@
     "usulan lama warga"
    ],
    "text": "Rapat kabinet pertama Presiden 'EGA_: tiga permintaan, belum ada yang dipakai. Presiden memasang Kotak Usulan di depan mimbar; ketuk kotaknya untuk menulis usulan di komentar.\nMantan presiden Etet memasukkan surat pertama: \"Dulu saya nggak pernah nanya warga.\"\nDari usulan lama warga (bengkel, bank, hotel, apartemen, toilet), Toilet Umum pertama dibangun di jalan silang timur. Bukan jatah presiden, kata EGA: kewajiban!\nRumah sakit resmi dibuka. Presiden masih punya 3 permintaan: bangun apa duluan?"
+  },
+  {
+   "ep": 18,
+   "date": "7 Nov 2026",
+   "picks": [
+    "usulan lama warga: bank"
+   ],
+   "text": "Mantan presiden Etet datang ke ATM minta gaji presidennya dulu. Saldonya: nol koin.\nPresiden 'EGA_ membuka Kotak Usulan dan memakai jatah pertamanya untuk usulan warga: Bank Pulau di jalan silang. Ketuk banknya, tabung koinmu, tiap hari dapat bunga.\nPresiden ikut menyetor 5 koin... 'dari kotak usulan? Itu donasi, nanti dikembalikan!' Rumah warga resmi dibuka.\nJatah presiden tinggal dua: bengkel, hotel, atau apartemen?"
   }
  ],
  "letters": [],
@@ -12515,16 +12532,16 @@
  "umkm": [],
  "event": {
   "type": "demo",
-  "ep": 17,
+  "ep": 18,
   "signs": [
-   "USUL|DONG!",
-   "TOILET|UMUM!",
+   "NABUNG|DULU!",
+   "BANK|PULAU!",
    "PRES|EGA_",
    "WAPRES|KING INDO",
    "KOTAK|USULAN",
-   "3 JATAH|PRESIDEN",
+   "2 JATAH|LAGI",
    "NGOPI|DULU",
-   "RS|DIBUKA!"
+   "RUMAH|DIBUKA!"
   ],
   "carry": {
    "Etet_443": "MANTAN|PRESIDEN"
@@ -12534,7 +12551,8 @@
   "masjid",
   "sekolah",
   "rumahpresiden",
-  "rumahsakit"
+  "rumahsakit",
+  "rumah"
  ],
  "usulan": [
   {
@@ -12548,7 +12566,8 @@
   },
   {
    "t": "Bank / mata uang pulau",
-   "st": "menunggu"
+   "st": "dibangun",
+   "ep": 18
   },
   {
    "t": "Hotel",
