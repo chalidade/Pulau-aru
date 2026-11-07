@@ -11818,6 +11818,10 @@
   {
    "n": "RANUUGLL",
    "ep": 11
+  },
+  {
+   "n": "sapta.rajo.ghaisa",
+   "ep": 16
   }
  ],
  "buildings": [
@@ -12185,7 +12189,7 @@
    "x": 52,
    "y": 49,
    "r": 3,
-   "label": "PEMILU! LIKE CALONMU",
+   "label": "SELAMAT PRESIDEN BARU!",
    "by": "warga",
    "ep": 13
   },
@@ -12213,7 +12217,28 @@
     "'EGA_",
     "??"
    ],
-   "label": "LIKE TERBANYAK = PRESIDEN · KEDUA = WAPRES"
+   "label": "DILANTIK EP 16 · MENJABAT 1 MINGGU",
+   "win": {
+    "pres": "'EGA_",
+    "vp": "King indo",
+    "note": "'EGA_ 3 like · janji: pemimpin yang baik"
+   }
+  },
+  {
+   "type": "gerobakkopi",
+   "x": 60,
+   "y": 50,
+   "r": 0,
+   "label": "KOPI DONG",
+   "sub": "kopi wibu cilik pelenger",
+   "seller": "sapta.rajo.ghaisa",
+   "lines": [
+    "Kopi dong, kak! Kopi dong!",
+    "Kopi pelantikan, gratis buat yang udah follow!",
+    "Aku tukang jualan kopi, udah follow juga dong."
+   ],
+   "by": "sapta.rajo.ghaisa",
+   "ep": 16
   }
  ],
  "episodes": [
@@ -12360,6 +12385,15 @@
     "??"
    ],
    "text": "Presiden @Etet_443 mundur: \"aku cuma daftar sendiri, nggak ada yang milih.\" Wapres @EGA_91 ikut mundur. Kursi presiden dan wapres KOSONG.\nKolom komentar banjir calon: MR Roblox, Pak Azka (udh follow), bocah soleh, ?? (udah lama follow), 'EGA_ (nyalon lagi) dan WHO and SHARK dengan kampanye tersingkat: \"aku kak\".\nPapan Pemilu berdiri di jalan silang (dua kursi kosong menunggu), sekolah resmi dibuka.\nAturan pemilu: komentar calon dengan like terbanyak jadi presiden, kedua jadi wapres. Hasilnya di episode 16!"
+  },
+  {
+   "ep": 16,
+   "date": "7 Nov 2026",
+   "picks": [
+    "'EGA_",
+    "wibu cilik pelenger"
+   ],
+   "text": "Hasil pemilu: komentar 'EGA_ dapat 3 like, terbanyak! Mantan wapres itu sekarang PRESIDEN, janjinya \"jadi pemimpin yang baik\". Wakilnya King indo, yang ia tag sendiri di balasan.\nAru melantik keduanya di mimbar; Papan Pemilu sekarang jadi papan HASIL dan Rumah Presiden resmi dibuka.\nWibu cilik pelenger buka Gerobak Kopi Dong di samping papan. Presiden beli kopi, dan bayar.\nPresiden baru punya 3 permintaan: apa yang harus dibangun duluan?"
   }
  ],
  "letters": [],
@@ -12383,8 +12417,14 @@
   "updatedAt": "2026-11-07T02:22:59.073Z"
  },
  "expand": 1,
- "president": null,
- "vicePresident": null,
+ "president": {
+  "n": "EGA_91",
+  "ep": 16
+ },
+ "vicePresident": {
+  "n": "kingindo131",
+  "ep": 16
+ },
  "roads": {
   "by": "EN17",
   "ep": 6,
@@ -12450,24 +12490,24 @@
  "umkm": [],
  "event": {
   "type": "demo",
-  "ep": 15,
+  "ep": 16,
   "signs": [
-   "PAK AZKA|UDH FOLLOW",
-   "AKU|KAK",
-   "MR ROBLOX|PRESIDEN",
-   "BOCAH SOLEH|PRESIDEN",
-   "??|UDAH LAMA FOLLOW",
-   "'EGA_|NYALON",
-   "LIKE|CALONMU!",
-   "KURSI|KOSONG"
+   "SELAMAT|PRES EGA_",
+   "WAPRES|KING INDO",
+   "JANJI:|PEMIMPIN BAIK",
+   "KOPI|DONG!",
+   "DIPILIH|WARGA",
+   "3 LIKE|MENANG!",
+   "HIDUP|PEMILU!",
+   "NGOPI|DULU"
   ],
   "carry": {
-   "Etet_443": "MANTAN|PRESIDEN",
-   "EGA_91": "EGA_|NYALON"
+   "Etet_443": "MANTAN|PRESIDEN"
   }
  },
  "interiors": [
   "masjid",
-  "sekolah"
+  "sekolah",
+  "rumahpresiden"
  ]
 }

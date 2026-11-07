@@ -1,5 +1,5 @@
 {
- "nextEp": 16,
+ "nextEp": 17,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -9,30 +9,33 @@
   "traktir": "Rp5.000 = 1 permintaan, diwujudkan tanpa undian (teer.id/chalidade)"
  },
  "president": {
-  "n": null,
-  "since": null,
+  "n": "EGA_91 ('EGA_, akun @.....plengerrr0)",
+  "since": "ep 16 (7 Nov 2026)",
+  "until": "ep ~29 (14 Nov 2026)",
   "requestsUsed": 0,
   "requestsMax": 3,
   "prev": "Etet_443 (mundur ep 15)"
  },
  "vicePresident": {
-  "n": null,
-  "since": null,
+  "n": "kingindo131 (King indo, ditunjuk EGA di balasan)",
+  "since": "ep 16 (7 Nov 2026)",
+  "until": "ep ~29 (14 Nov 2026)",
   "requestsUsed": 0,
   "requestsMax": 2,
-  "prev": "EGA_91 (mundur ep 15)"
+  "prev": "EGA_91 (mundur ep 15, lalu jadi presiden ep 16)"
  },
  "openThreads": [
-  "Ep 15 SELESAI: presiden @Etet_443 dan wapres @EGA_91 mundur, kursi kosong (island.json president/vicePresident = null, Papan Pemilu x57 y50 dengan 2 kursi KOSONG). Calon: MR Roblox, M.Azka (Pak Azka), bocah soleh, WHO and SHARK ('aku kak'), 'EGA_ (mantan wapres nyalon presiden), ??. EP 16: umumkan pemenang = komentar calon dengan like terbanyak (presiden) dan kedua (wapres) -> perlu jumlah like (Chalid kirim screenshot/angka di komentar.md, atau Apify/Chrome). Lantik di mimbar, isi island.json president/vicePresident, hapus event.carry & ganti event (pelantikan), update cands di Papan Pemilu / ganti jadi papan hasil.",
-  "Ep 14 membuka pendaftaran capres; ep 15 kampanye singkat. Masa jabatan presiden baru mulai saat dilantik (ep 16), kuota baru 3/2.",
+  "Ep 16 SELESAI: pemilu lewat like. 'EGA_ (3 like) dilantik jadi PRESIDEN, King indo (island.json vicePresident = kingindo131, follower yang paling cocok; Chalid bisa koreksi) jadi WAPRES. Papan Pemilu (x57 y50) sekarang papan HASIL (b.win). Kuota baru: presiden 3, wapres 2 permintaan tanpa undian. Janji EGA 'jadi pemimpin yang baik' bisa ditagih warga. End card ep 16: apa yang harus dibangun duluan? -> permintaan pertama presiden.",
+  "Masa jabatan 1 minggu (sampai ~14 Nov). Rumah Presiden dibuka (room ketiga, ep 16); berikutnya: rumahsakit.",
   "Rahasia presiden (ep 13): ia dilantik waktu Aru di Pulau Seberang (ep 4), tanpa pemilu, 'cuma karena follow duluan'. Surat dari Pulau Seberang ternyata dari Penjaga Mercusuar: 'Pemimpin pulau harus dipilih warga, bukan ditunjuk.'",
-  "Mantan presiden @Etet_443 dan mantan wapres @EGA_91 sekarang warga biasa; di web mereka selalu muncul berkeliling membawa plakat (event.carry: 'MANTAN PRESIDEN', 'EGA_ NYALON').",
+  "Mantan presiden @Etet_443 warga biasa, selalu muncul dengan plakat MANTAN PRESIDEN (event.carry). 'Dulu aku cuma follow duluan.'",
   "Fitur interaksi (arahan Chalid 6 Nov): bisa interaksi dengan gedung satu per satu, update berkala. Sudah: duduk & pesan makan di Warung Fahmi, kerja shift di Kantor Pulau (src/kerja.js, koin bersama Kebunku). Berikutnya: perosotan waterpark, ayunan sekolah, duduk di Kedai Kopi / Pos Ronda, dst.",
   "@RANUUGLL polisi & penjaga pantai (Pos Penjaga Pantai x58 y89) bisa menjaga demo / pemilu.",
   "Kedai Kopi (x45 y54) dan Pos Ronda (x50 y54) jadi tempat warga mencatat kesalahan presiden. Gapura Selamat Datang dan Tiang Salam di dermaga.",
   "Pertanyaan lama belum dijawab: ep 9 'kantin kejujuran mau jual apa?', ep 8 'wahana waterpark', ep 7 'menu warteg', ep 6 'cara menggulingkan presiden' (relevan untuk kudeta!). Usulan lama: bengkel, bank/mata uang, hotel, apartemen, toilet.",
   "Komentar TikTok otomatis belum jalan (ep 14 juga): secret APIFY_TOKEN belum diisi; Claude in Chrome tidak tersambung di sesi cloud.",
-  "Menara Sinyal Sal (x71 y54, ep 14) dari 440 traktiran Sal, pesan soal rilis Play Store/iOS. Bisa dipakai: siaran pemilu, 'live' dari pulau, sinyal ke Pulau Seberang / Penjaga Mercusuar."
+  "Menara Sinyal Sal (x71 y54, ep 14) dari 440 traktiran Sal, pesan soal rilis Play Store/iOS. Bisa dipakai: siaran pemilu, 'live' dari pulau, sinyal ke Pulau Seberang / Penjaga Mercusuar.",
+  "Gerobak Kopi Dong (x60 y50, ep 16) milik wibu cilik pelenger (@sapta.rajo.ghaisa): penjualnya selalu berdiri di gerobak (buildings[].seller, kode baru di main.js/activities.js), dialognya dari buildings[].lines. Presiden EGA beli kopi dan bayar ('belajar dari presiden lama'). Bisa jadi interaksi: beli kopi pakai koin."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -63,7 +66,9 @@
   "bocah soleh: aku mau jadi presiden (calon ep 15)",
   "WHO and SHARK: aku kak (calon ep 15, terpilih)",
   "'EGA_: aku nyalon jadi presiden minn (calon ep 15)",
-  "??: bg aku mau nyalon presiden aku juga udah lama follow (calon ep 15)"
+  "??: bg aku mau nyalon presiden aku juga udah lama follow (calon ep 15)",
+  "'EGA_ (@.....plengerrr0): aku nyalon min, janji jadi pemimpin yang baik (3 like, PRESIDEN ep 16) + 'wakil saya @King indo' (WAPRES)",
+  "wibu cilik pelenger (@sapta.rajo.ghaisa): kakak aku tukang jualan kopidong udah follow (Gerobak Kopi Dong)"
  ],
  "episodes": [
   {
@@ -125,6 +130,12 @@
    "title": "Kursi Kosong",
    "posted": "https://www.tiktok.com/@kita.berkembang/video/7705090790292311297",
    "summary": "Presiden @Etet_443 mundur ('cuma daftar sendiri, nggak ada yang milih'), wapres @EGA_91 ikut mundur: kursi presiden & wapres kosong. Komentar banjir calon (MR Roblox, Pak Azka, bocah soleh, ??, 'EGA_, WHO and SHARK 'aku kak' = kampanye tersingkat). Aru di mimbar: pemilu lewat like, terbanyak presiden, kedua wapres. Papan Pemilu dengan dua kursi KOSONG di jalan silang, sekolah dibuka (room kedua). EGA: 'mundur dari wapres, nyalon presiden, namanya strategi!'. End card: like komentar calon favoritmu, hasil di ep 16."
+  },
+  {
+   "ep": 16,
+   "title": "Pelantikan & Kopi Dong",
+   "posted": "manual (menunggu Chalid)",
+   "summary": "Hasil pemilu like: 'EGA_ (mantan wapres, 3 like, janji 'jadi pemimpin yang baik') jadi presiden, King indo yang ia tag di balasan jadi wapres ('aku cuma di-tag!'). Aru melantik keduanya di mimbar, warga berplakat SELAMAT PRES EGA_. Mantan presiden Etet: 'dulu aku cuma follow duluan'. Wibu cilik pelenger buka Gerobak Kopi Dong dekat Papan Pemilu (sekarang papan HASIL); presiden EGA beli kopi dan bayar. Rumah presiden dibuka (room ketiga). End card: presiden punya 3 permintaan, apa yang dibangun duluan? CTA traktir."
   }
  ],
  "monetization": {
@@ -147,12 +158,14 @@
   "Ep 14 (6 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong), Chrome tidak tersambung, komentar.md kosong; episode digerakkan traktiran Sal ×440 + thread pemilu. Kode baru: BT clear (radius pembersihan pohon per model), event.presSign/vpSign (plakat calon di presiden/wapres).",
   "Chalid 6 Nov 2026 siang: ep 15 = lanjutan ep 14. Banyak warga mau jadi presiden (6 komentar di komentar.md + screenshot di studio/episodes/ep15/). Presiden @Etet_443 mundur karena hanya mendaftar tanpa dipilih -> pulau tanpa presiden (island.json president = null, state.json president kosong). Presiden baru = komentar calon dengan like terbanyak, diumumkan episode berikutnya. Web harus sama dengan video. Bug duduk di warung (stuck setelah berdiri) sudah diperbaiki di src/kerja.js (6 Nov).",
   "Chalid 6 Nov 2026: wapres @EGA_91 juga mundur di ep 15. Kursi presiden DAN wakil presiden kosong (island.json president & vicePresident = null). Aturan pemilu (disetujui Chalid): komentar calon dengan like terbanyak = presiden, like terbanyak kedua = wakil presiden; diumumkan di ep 16.",
-  "Ep 15 (6 Nov sore): Apify gagal lagi (run 42196863738), Chrome tidak tersambung; episode memakai antrean komentar.md dari Chalid (6 screenshot calon). Kode baru: model papanpemilu (b.cands, kursi KOSONG), event.carry (tokoh cerita selalu muncul membawa plakat), menu aturan menulis KOSONG saat jabatan kosong."
+  "Ep 15 (6 Nov sore): Apify gagal lagi (run 42196863738), Chrome tidak tersambung; episode memakai antrean komentar.md dari Chalid (6 screenshot calon). Kode baru: model papanpemilu (b.cands, kursi KOSONG), event.carry (tokoh cerita selalu muncul membawa plakat), menu aturan menulis KOSONG saat jabatan kosong.",
+  "Ep 16 (7 Nov pagi): dua komentar dari antrean komentar.md (pilihan Chalid, screenshot asli). Chrome tidak tersambung di sesi cloud, Apify tidak dipakai (antrean sudah terisi). Kode baru: model gerobakkopi, buildings[].seller/lines (penjual bernama tetap di lapaknya), papanpemilu b.win (papan hasil), dialog presiden/wapres baru."
  ],
  "rooms": {
   "open": [
    "masjid",
-   "sekolah"
+   "sekolah",
+   "rumahpresiden"
   ],
   "order": [
    "masjid",
