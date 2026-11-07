@@ -11822,6 +11822,258 @@
   {
    "n": "sapta.rajo.ghaisa",
    "ep": 16
+  },
+  {
+   "n": "Alexandre",
+   "ep": 19,
+   "tampil": "Alexandre",
+   "julukan": "Si Pahlawan",
+   "sifat": "pahlawan",
+   "kalimat": [
+    "Serahkan padaku!",
+    "Tenang, warga! Aku datang!"
+   ],
+   "tempat": "berjaga dekat mercusuar",
+   "spot": [
+    82,
+    51
+   ],
+   "face": 0,
+   "pose": "hero"
+  },
+  {
+   "n": "whoyss",
+   "ep": 19,
+   "tampil": "whoyss",
+   "julukan": "Si Iseng",
+   "sifat": "iseng",
+   "kalimat": [
+    "Hehe... bukan aku.",
+    "Pliss jangan bilang Aru!"
+   ],
+   "tempat": "di balik semak dekat alun-alun",
+   "spot": [
+    50,
+    42
+   ],
+   "face": 0,
+   "pose": "sneak"
+  },
+  {
+   "n": "Aidil YZ",
+   "ep": 19,
+   "tampil": "Aidil YZ",
+   "julukan": "Si Mata Berkaca-kaca",
+   "sifat": "perasa",
+   "kalimat": [
+    "Hiks... indah banget 🥺",
+    "Makasih banyaaak..."
+   ],
+   "tempat": "bangku taman",
+   "spot": [
+    62,
+    42
+   ],
+   "face": 0,
+   "pose": "cry"
+  },
+  {
+   "n": "D..A..B..Y a..j..a",
+   "ep": 19,
+   "tampil": "D..A..B..Y a..j..a",
+   "julukan": "Si Pertama (Asli)",
+   "sifat": "kompetitif",
+   "kalimat": [
+    "PERTAMA!",
+    "Aku duluan, sumpah!"
+   ],
+   "tempat": "garis start di jalan utama",
+   "spot": [
+    61,
+    58
+   ],
+   "face": 3.14,
+   "pose": "run"
+  },
+  {
+   "n": "princes_nay",
+   "ep": 19,
+   "tampil": "princes_nay",
+   "julukan": "Tuan Putri Pertama",
+   "sifat": "drama",
+   "kalimat": [
+    "Hah?! Tega kamu...",
+    "Aku kan PRINCESS, harusnya aku pertama 💕"
+   ],
+   "tempat": "dekat panggung/mimbar",
+   "spot": [
+    53,
+    41
+   ],
+   "face": 3.14,
+   "pose": "faint"
+  },
+  {
+   "n": "Letisya Khianantaa",
+   "ep": 19,
+   "tampil": "Letisya Khianantaa",
+   "julukan": "Si Pertama Tenang",
+   "sifat": "kalem-cerdik",
+   "kalimat": [
+    "Cek jamnya dulu, ya.",
+    "Santai aja. Aku tahu kok."
+   ],
+   "tempat": "duduk di dermaga",
+   "spot": [
+    55,
+    98
+   ],
+   "face": 0,
+   "pose": "fold"
+  },
+  {
+   "n": "ALERXMNC",
+   "ep": 19,
+   "tampil": "ALERXMNC",
+   "julukan": "Si Misterius",
+   "sifat": "misterius",
+   "kalimat": [
+    "...",
+    "Aku sudah di sini dari tadi."
+   ],
+   "tempat": "dekat mercusuar saat malam",
+   "spot": [
+    84,
+    51
+   ],
+   "face": 3.14,
+   "pose": "still"
+  },
+  {
+   "n": "D4L",
+   "ep": 19,
+   "tampil": "D4L",
+   "julukan": "Si Boleh?",
+   "sifat": "peragu",
+   "kalimat": [
+    "Boleh nggak?",
+    "Aku boleh ikut... boleh?"
+   ],
+   "tempat": "berdiri di pinggir kerumunan",
+   "spot": [
+    61,
+    46
+   ],
+   "face": 0,
+   "pose": "ask"
+  },
+  {
+   "n": "ALIF HR",
+   "ep": 19,
+   "tampil": "ALIF HR",
+   "julukan": "Si Warga Biasa",
+   "sifat": "rendah hati (sial)",
+   "kalimat": [
+    "Aku warga biasa aja, bang...",
+    "Kenapa harus aku lagi?!"
+   ],
+   "tempat": "rumah biasa paling biasa",
+   "spot": [
+    61,
+    61
+   ],
+   "face": 0,
+   "pose": "scratch"
+  },
+  {
+   "n": "alivia_vi",
+   "ep": 19,
+   "tampil": "lala cute",
+   "julukan": "Si Kue Manis",
+   "sifat": "ceria",
+   "kalimat": [
+    "Mau kue? 🍪",
+    "Semangaaat, semuanya! 🍓"
+   ],
+   "tempat": "dekat warung",
+   "spot": [
+    66,
+    76
+   ],
+   "face": 0,
+   "pose": "cookie"
+  },
+  {
+   "n": "apriantoro",
+   "ep": 19,
+   "tampil": "senar muliya",
+   "julukan": "Si Gitar Senar Putus",
+   "sifat": "menyebalkan (lucu)",
+   "kalimat": [
+    "Satu lagu lagi, ya!",
+    "Jreng... eh senarnya putus lagi."
+   ],
+   "tempat": "api unggun",
+   "spot": [
+    69,
+    70
+   ],
+   "face": -1.57,
+   "pose": "guitar"
+  },
+  {
+   "n": "luciardiansyah",
+   "ep": 19,
+   "tampil": "Luci Ardiansyah",
+   "julukan": "Si Sok Tahu",
+   "sifat": "sok tahu",
+   "kalimat": [
+    "Itu mah gampang, aku udah tahu.",
+    "Percaya deh sama aku."
+   ],
+   "tempat": "papan pengumuman",
+   "spot": [
+    60,
+    69
+   ],
+   "face": 0,
+   "pose": "point"
+  },
+  {
+   "n": "inyuu416",
+   "ep": 19,
+   "tampil": "inyuu",
+   "julukan": "Si Gamer",
+   "sifat": "kocak",
+   "kalimat": [
+    "GG, warga!",
+    "Tunggu, aku respawn dulu."
+   ],
+   "tempat": "taman bermain",
+   "spot": [
+    51,
+    74
+   ],
+   "face": 3.14,
+   "pose": "game"
+  },
+  {
+   "n": "abcdell_011",
+   "ep": 19,
+   "tampil": "dell_",
+   "julukan": "Si Penikmat Senja",
+   "sifat": "introvert",
+   "kalimat": [
+    "hm.",
+    "...senjanya bagus."
+   ],
+   "tempat": "ujung dermaga",
+   "spot": [
+    55,
+    101
+   ],
+   "face": 0,
+   "pose": "sitlook"
   }
  ],
  "buildings": [
@@ -12436,6 +12688,27 @@
     "usulan lama warga: bank"
    ],
    "text": "Mantan presiden Etet datang ke ATM minta gaji presidennya dulu. Saldonya: nol koin.\nPresiden 'EGA_ membuka Kotak Usulan dan memakai jatah pertamanya untuk usulan warga: Bank Pulau di jalan silang. Ketuk banknya, tabung koinmu, tiap hari dapat bunga.\nPresiden ikut menyetor 5 koin... 'dari kotak usulan? Itu donasi, nanti dikembalikan!' Rumah warga resmi dibuka.\nJatah presiden tinggal dua: bengkel, hotel, atau apartemen?"
+  },
+  {
+   "ep": 19,
+   "date": "7 Nov 2026",
+   "picks": [
+    "Alexandre",
+    "whoyss",
+    "Aidil YZ",
+    "D..A..B..Y a..j..a",
+    "princes_nay",
+    "Letisya Khianantaa",
+    "ALERXMNC",
+    "D4L",
+    "ALIF HR",
+    "alivia_vi",
+    "apriantoro",
+    "luciardiansyah",
+    "inyuu416",
+    "abcdell_011"
+   ],
+   "text": "14 warga baru dari kolom komentar pindah ke pulau, masing-masing dengan sifatnya: Si Pahlawan, Si Iseng, Si Sok Tahu, Si Gamer, Si Gitar Senar Putus, Si Warga Biasa, Si Penikmat Senja, dan lainnya. Klub Pertama ribut siapa yang pertama; Letisya menang pakai catatan jam. Sapa mereka di tempatnya masing-masing."
   }
  ],
  "letters": [],
@@ -12534,14 +12807,14 @@
   "type": "demo",
   "ep": 18,
   "signs": [
-   "NABUNG|DULU!",
-   "BANK|PULAU!",
+   "SELAMAT|DATANG!",
+   "WARGA|BARU!",
+   "14 WARGA|BARU",
+   "PERTAMA?",
+   "KLUB|PERTAMA",
+   "KENALAN|DULU",
    "PRES|EGA_",
-   "WAPRES|KING INDO",
-   "KOTAK|USULAN",
-   "2 JATAH|LAGI",
-   "NGOPI|DULU",
-   "RUMAH|DIBUKA!"
+   "WAPRES|KING INDO"
   ],
   "carry": {
    "Etet_443": "MANTAN|PRESIDEN"
