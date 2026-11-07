@@ -292,12 +292,16 @@ Cloud mode has no access to TikTok, so Chalid posts by hand. Make that a 30-seco
    ```
    ffmpeg -i final.mp4 -c:v libx264 -preset medium -crf 25 -maxrate 1500k -bufsize 3000k -c:a aac -b:a 128k -movflags +faststart $STUDIO_WORK/pulau-aru-ep<N>.mp4
    ```
-2. **WAJIB, jangan dilewati (ep16 & ep17 hilang 7 Nov karena langkah ini dilewati): keep a copy where later sessions can find it** (the container is thrown away; Chalid may ask another session to post
-   it): `gh release create ep<N> $STUDIO_WORK/pulau-aru-ep<N>.mp4 --repo chalidade/Pulau-aru --title "Episode <N>: <title>" --notes "<caption>"`
-   (if the release exists, `gh release upload ep<N> <file> --clobber`). To post an older episode later, download it with
-   `gh release download ep<N> --repo chalidade/Pulau-aru`.
-3. Send it with `SendUserFile` (status `proactive`). In the message, also give the release link
-   `https://github.com/chalidade/Pulau-aru/releases/tag/ep<N>` so Chalid can always download it from his phone.
+2. **WAJIB, jangan dilewati (video ep16 & ep17 hilang 7 Nov karena langkah ini gagal): simpan salinan di branch `videos`.**
+   `gh release` is blocked for these sessions (HTTP 403), so commit the file to the orphan branch `videos` instead:
+   ```
+   git clone -q --no-checkout --filter=blob:none https://github.com/chalidade/Pulau-aru.git /tmp/vids && cd /tmp/vids
+   git checkout -q videos && cp $STUDIO_WORK/pulau-aru-ep<N>.mp4 episodes/ && git add episodes && git commit -m "Ep <N> video" && git push origin videos
+   ```
+   Download link for Chalid (and for later sessions): `https://github.com/chalidade/Pulau-aru/raw/videos/episodes/pulau-aru-ep<N>.mp4`.
+   Keep the file under ~10 MB (`-crf 25 -maxrate 1100k`), which also fits the Chrome TikTok upload.
+3. Send it with `SendUserFile` (status `proactive`). In the message, also give the download link
+   `https://github.com/chalidade/Pulau-aru/raw/videos/episodes/pulau-aru-ep<N>.mp4` so Chalid can always download it from his phone.
 4. Send a `SendUserMessage` that starts with **"Episode <N> siap diposting"**, followed by the caption in a code block
    ready to paste. Caption: Indonesian, under ~300 characters, one line about what happened, credit `@user1 @user2`,
    "Komentar = nasib pulau. Kunjungi pulau-aru.web.id", hashtags `#pulauaru #pulaunetizen #fyp`. Add one line
