@@ -146,7 +146,9 @@ Chalid wants the island to feel alive through recurring residents with fixed per
 introvert, sok tahu, menyebalkan, kocak, ...). `studio/warga.json` is the cast list. In every episode, give 1-3 of
 them a small supporting part that matches their `sifat` and use their `kalimat` lines (one line each is enough).
 Keep traits consistent across episodes, keep them friendly (teasing is fine, never mean), and when a new
-follower asks to join, you may add them to warga.json with a new trait. Running gag: **Klub Pertama**
+follower asks to join, you may add them to warga.json with a new trait. **Cameo rule (Chalid, 8 Nov):** whenever the camera is in a public place, let 1-3 random residents from warga.json
+appear in frame doing a small funny bit true to their trait (vary who appears from episode to episode).
+Running gags: **Klub Warga Biasa** (ALIF HR vs NOVA), the over-serious bodyguard, and **Klub Pertama**
 (three residents who all commented 'pertama') argue over who was first whenever anything opens.
 
 ## 3. Write the episode
