@@ -933,6 +933,59 @@ export const BT = {
       for (let i = 0; i < 4; i++) { const bk = new THREE.Mesh(G.cyl8, mat('#b08850')); bk.scale.set(.22, .24, .22); bk.position.set(-2.4 + i * .5, .12, D / 2 + .9); bk.castShadow = true; kb.add(bk); const f = new THREE.Mesh(G.sph, mat(['#7f97ad', '#6b4a2b', '#ffd24a', '#6fbf4a'][i])); f.scale.setScalar(.12); f.position.set(-2.4 + i * .5, .3, D / 2 + .9); kb.add(f); }
       for (const [lx, lz] of [[-4.2, 1.6], [4.1, 1.2]]) { box(kb, '#5e3b22', .06, 1.3, .06, lx, 0, lz); const l = new THREE.Mesh(G.sph, lanternMat); l.scale.set(.12, .16, .12); l.position.set(lx, 1.35, lz); kb.add(l); }
     } },
+  // ep 17: the president's suggestion box in front of the stage. Tapping it opens the usulan panel (ui.js openUsulan):
+  // old suggestions, what got built, and a button to write a suggestion in the TikTok comments.
+  kotakusulan: { n: 'Kotak Usulan', w: 2, h: 1, land: true, scale: 1.2, open: 'usulan', openLabel: 'Baca kotak usulan',
+    build(g) {
+      box(g, '#8a8578', .7, .08, .5, 0, 0, 0);                                                              // small stone base
+      box(g, '#3a3a38', .1, .78, .1, 0, .08, 0);                                                            // post
+      box(g, '#c4473a', .62, .5, .44, 0, .86, 0);                                                           // the box
+      box(g, '#a63a2f', .68, .06, .5, 0, 1.36, 0); box(g, '#a63a2f', .56, .06, .38, 0, 1.42, 0);           // lid
+      box(g, '#1d1d1b', .34, .035, .03, 0, 1.2, .225);                                                      // letter slot
+      box(g, '#e6b84a', .08, .08, .03, .2, .95, .225);                                                      // little lock
+      // letters sticking out of the slot
+      for (let i = 0; i < 3; i++) { const l = box(g, ['#fff4dc', '#f4eee0', '#e8dcc4'][i], .18, .12, .01, -.1 + i * .1, 1.17, .22 - i * .005); l.rotation.z = (i - 1) * .2; }
+      // sign board on two poles above the box
+      for (const x of [-.5, .5]) box(g, '#5e3b22', .05, 1.9, .05, x, 0, -.12);
+      const c = document.createElement('canvas'); c.width = 512; c.height = 200; const x = c.getContext('2d');
+      x.fillStyle = '#fff4dc'; x.fillRect(0, 0, 512, 200); x.fillStyle = '#c4473a'; x.fillRect(0, 0, 512, 14); x.fillRect(0, 186, 512, 14);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#c4473a'; x.font = '700 76px "Pixelify Sans", sans-serif'; x.fillText('KOTAK USULAN', 256, 78, 490);
+      x.fillStyle = '#5e3b22'; x.font = '700 34px "Pixelify Sans", sans-serif'; x.fillText('tulis usulanmu di komentar', 256, 148, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.1, .43), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.78, -.09); g.add(sign);
+      box(g, '#3a2618', 1.14, .47, .03, 0, 1.555, -.12);
+    } },
+  // ep 17: a public toilet from the old residents' suggestions (two doors, sink outside, water tank on the roof)
+  toiletumum: { n: 'Toilet Umum', w: 3, h: 2, land: true, scale: 1.45,
+    build(g) {
+      box(g, '#c9bfa8', 2.0, .08, 1.5, 0, 0, 0);
+      box(g, '#e9f1ee', 1.8, 1.5, 1.0, 0, .08, -.2);                                                        // tiled walls
+      for (let i = 0; i < 7; i++) box(g, '#cfe0dc', 1.81, .02, 1.01, 0, .2 + i * .2, -.2);                 // tile lines
+      box(g, '#2aa198', 1.82, .14, 1.02, 0, .08, -.2);                                                      // skirting
+      box(g, '#7a8f8c', 2.0, .08, 1.25, 0, 1.58, -.15);                                                     // flat roof
+      add(g, G.cyl8, '#4e7a9a', .22, .42, .22, .55, 1.66, -.35); add(g, G.cyl8, '#3d6580', .23, .04, .23, .55, 2.08, -.35);   // water tank
+      // two doors with symbols
+      for (const [dx, col, lab] of [[-.45, '#3a7fc2', 'PRIA'], [.45, '#c4473a', 'WANITA']]) {
+        box(g, '#5e3b22', .52, 1.2, .04, dx, .08, .31); box(g, '#e6b84a', .04, .04, .02, dx + .18, .65, .335);
+        const c = document.createElement('canvas'); c.width = 128; c.height = 160; const x = c.getContext('2d');
+        x.fillStyle = col; x.fillRect(0, 0, 128, 160); x.fillStyle = '#fff'; x.beginPath(); x.arc(64, 38, 16, 0, Math.PI * 2); x.fill();
+        if (lab === 'PRIA') x.fillRect(48, 58, 32, 50); else { x.beginPath(); x.moveTo(64, 56); x.lineTo(88, 108); x.lineTo(40, 108); x.fill(); }
+        x.font = '700 26px "Pixelify Sans", sans-serif'; x.textAlign = 'center'; x.fillText(lab, 64, 138);
+        const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+        const s = new THREE.Mesh(new THREE.PlaneGeometry(.26, .32), new THREE.MeshStandardMaterial({ map: tx })); s.position.set(dx, 1.0, .336); g.add(s);
+      }
+      // sign over the doors
+      const c = document.createElement('canvas'); c.width = 512; c.height = 128; const x = c.getContext('2d');
+      x.fillStyle = '#2aa198'; x.fillRect(0, 0, 512, 128); x.fillStyle = '#fff'; x.textAlign = 'center'; x.textBaseline = 'middle';
+      x.font = '700 62px "Pixelify Sans", sans-serif'; x.fillText('TOILET UMUM', 256, 52, 490); x.font = '700 26px "Pixelify Sans", sans-serif'; x.fillText('gratis · bersih · ada sabun', 256, 104, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.3, .32), new THREE.MeshStandardMaterial({ map: tx })); sign.position.set(0, 1.4, .315); g.add(sign);
+      // sink outside on the right wall, with a mirror and soap
+      box(g, '#f4f8f7', .14, .08, .36, .97, .72, .05); box(g, '#9a9b94', .04, .72, .04, .97, 0, .05); box(g, '#9a9b94', .02, .12, .02, 1.0, .8, .05);
+      box(g, '#cfe8ee', .02, .3, .26, .91, 1.0, .05); add(g, G.cyl8, '#f2c94c', .025, .06, .025, .97, .8, .18);
+      // a small bin and a potted plant
+      add(g, G.cyl8, '#3f7f5a', .1, .3, .1, -.85, .08, .55); add(g, G.cyl8, '#8a5a34', .12, .2, .12, .75, .08, .6); add(g, G.ico, '#62bd73', .18, .2, .18, .75, .42, .6);
+    } },
   papan: { n: 'Papan nama', w: 1, h: 1, land: true, sign: true, build(g, b) { box(g, '#5e3b22', .08, 1, .08, 0, 0, 0); const board = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(splitLabel(b && b.label || 'Pulau'), { size: 46, grain: true }), flatShading: true }), mat('#8a5a34')]); board.scale.set(.95, .48, .06); board.position.set(0, 1, .05); board.castShadow = true; g.add(board); } },
 };
 export function spearMesh(parent) {

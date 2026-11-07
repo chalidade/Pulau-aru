@@ -94,7 +94,17 @@ export function openLetters() {
       : h('div', { class: 'empty' }, 'Kotak surat masih kosong. Surat pertama datang di episode 10.'));
 }
 export const TREAT_URL = 'https://teer.id/chalidade';
-export const panels = { dermawan: () => openDermawan(), umkm: () => openUmkm() };
+export const panels = { dermawan: () => openDermawan(), umkm: () => openUmkm(), usulan: () => openUsulan() };
+export const TIKTOK_URL = 'https://www.tiktok.com/@kita.berkembang';
+// ep 17: Kotak Usulan in front of the stage. S.usulan = [{t, st: 'dibangun'|'menunggu', ep?}]
+export function openUsulan() {
+  const S = app.S, list = S.usulan || [], pr = S.president;
+  sheet('Kotak Usulan',
+    h('p', { class: 'lede' }, 'Usulan warga untuk pulau. Tulis usulanmu di komentar video TikTok @kita.berkembang; yang terpilih dibangun di episode berikutnya.' + (pr && pr.n ? ` Presiden @${clean(pr.n)} juga punya permintaan tanpa undian.` : '')),
+    list.length ? h('div', { class: 'list' }, list.map(u => h('div', { class: 'li' }, h('b', null, u.t), h('div', { class: 'umkm-k' }, u.st === 'dibangun' ? 'Sudah dibangun' + (u.ep ? ' (episode ' + u.ep + ')' : '') : 'Menunggu')))) : h('div', { class: 'empty' }, 'Kotaknya masih kosong.'),
+    h('a', { class: 'btn', href: TIKTOK_URL, target: '_blank', rel: 'noopener', style: 'display:block;text-align:center;margin:12px 0' }, 'Tulis usulan di komentar TikTok'),
+    h('a', { class: 'btn treat', href: TREAT_URL, target: '_blank', rel: 'noopener' }, 'Tanpa undian: traktir Rp5.000 · teer.id/chalidade'));
+}
 export const openPanel = k => panels[k] && panels[k]();
 export function openDermawan() {
   const S = app.S, sup = [...(S.supporters || [])].sort((a, b) => (b.count || 0) - (a.count || 0) || (b.total || 0) - (a.total || 0));
