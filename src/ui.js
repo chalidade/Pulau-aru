@@ -209,6 +209,8 @@ export function talk(n) {
     const lines = [`Selamat datang. Kita sekarang ${fmt(app.pop())} orang di pulau ini.`, e ? `Catatan terakhir, episode ${e.ep}: ${e.text}` : 'Aku masih menunggu warga pertama.', `Mercusuar sudah punya ${fmt(app.lamps())} lampu menyala.`, 'Kadang aku masih ingat ombak malam itu. Belum semuanya bisa kuceritakan.'];
     dialog('Aru', lines[(Math.random() * lines.length) | 0]); return;
   }
+  // ep 19: the regular cast answer in character: their nickname and one of their own lines
+  if (n.julukan) { const L = n.kalimat && n.kalimat.length ? n.kalimat : ['Halo!']; dialog(n.name + ' · ' + n.julukan, L[(Math.random() * L.length) | 0]); return; }
   if (n.sellLines && n.sellLines.length) { dialog(n.name, n.sellLines[(Math.random() * n.sellLines.length) | 0]); return; }
   if (n.role && ROLE_LINES[n.role] && (n.pres || n.vp || Math.random() < .65)) { const L = ROLE_LINES[n.role]; dialog(n.pres ? 'Presiden ' + n.name : n.vp ? 'Wakil Presiden ' + n.name : n.name, L[(Math.random() * L.length) | 0]); return; }
   const b = S.buildings[S.buildings.length - 1];

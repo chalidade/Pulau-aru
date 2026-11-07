@@ -2,7 +2,7 @@
 import * as THREE from 'three';
 import * as WD from './world.js';
 import { W, H, tile, treeAt, LM, village } from './world.js';
-import { sitBodyY, mat, box, G, presidentKit, vicePresidentKit, textTexture, BT } from './models.js';
+import { sitBodyY, mat, box, G, presidentKit, vicePresidentKit, castKit, textTexture, BT } from './models.js';
 
 // ---------- props ----------
 function axe() { const g = new THREE.Group(); box(g, '#7a5432', .04, .5, .04, 0, -.95, .02); box(g, '#9aa3a8', .04, .14, .2, 0, -.97, .12); return g; }
@@ -103,6 +103,8 @@ export function createActivities(ctx) {
       if (n.aru) { setRole(n, 'sit', spots.sit[used.sit++] || null); return; }
       if (n.pres) { setRole(n, 'president', spots.pres[0] || null); return; }
       if (n.vp) { setRole(n, 'vicepresident', spots.vp[0] || null); return; }
+      // ep 19: the regular cast (island.json → residents[].julukan/spot) keep to their own place on the island
+      if (n.castSpot) { setRole(n, 'cast', n.castSpot); return; }
       if (n.own) { const sp = spots.own.find(s => s.n === n.own); if (sp) { setRole(n, 'sell', sp); n.workFor = Infinity; return; } }
       // market sellers and the crowd at the stage come first, then the usual jobs
       for (const r of ['sell', 'listen', 'shop']) if (used[r] < spots[r].length) { setRole(n, r, spots[r][used[r]++]); return; }
@@ -121,6 +123,7 @@ export function createActivities(ctx) {
     n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
     if (n.role === 'president' || n.role === 'vicepresident') n.workFor = Infinity;
     if (n.role === 'listen') n.workFor = 60 + Math.random() * 90;
+    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (ps === 'guitar' || ps === 'game' || ps === 'cookie') { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
     if (n.role === 'shop') { n.workFor = 4 + Math.random() * 6; n.t = 0; }
     n.yOff = spot && spot.y || 0;
     if (n.role === 'president') { const before = n.obj.userData.body.children.length; presidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
@@ -185,7 +188,7 @@ export function createActivities(ctx) {
       if (n.tx == null || walkTo(n, n.tx, n.tz, dt)) { n.tx = null; n.wait = 1 + Math.random() * 3; }
       if (n.state === 'break' && n.t > n.breakFor) { n.state = 'return'; n.t = 0; }
     } else if (n.state === 'return') {
-      if (walkTo(n, n.spot.x, n.spot.z, dt)) { n.state = 'work'; n.t = 0; n.workFor = n.role === 'shop' ? 4 + Math.random() * 6 : n.role === 'listen' ? 60 + Math.random() * 90 : 35 + Math.random() * 50; }
+      if (walkTo(n, n.spot.x, n.spot.z, dt)) { n.state = 'work'; n.t = 0; n.workFor = n.role === 'cast' ? 50 + Math.random() * 60 : n.role === 'shop' ? 4 + Math.random() * 6 : n.role === 'listen' ? 60 + Math.random() * 90 : 35 + Math.random() * 50; }
     }
     walkPose(u, n.moving, dt);
     if (n.tool && n.role !== 'fish') n.tool.visible = true;
@@ -213,6 +216,8 @@ export function createActivities(ctx) {
       const c = (ph % 5) / 5;
       u.armR.rotation.x = c < .35 ? -1.6 + Math.sin(ph * 9) * .35 : -.4; u.armL.rotation.x = c < .35 ? -.3 : -1.0;
       u.body.position.y = Math.abs(Math.sin(ph * 2.2)) * .02;
+    } else if (n.role === 'cast') {
+      castPose(n.spot.pose, u, ph, T);
     } else if (n.role === 'shop') {
       u.armL.rotation.x = -.9; u.armR.rotation.x = -.5 + Math.sin(ph * 2) * .25; u.body.rotation.x = .12;
     } else if (n.role === 'listen') {
@@ -243,6 +248,27 @@ export function createActivities(ctx) {
       const p = n.line.geometry.attributes.position, inv = n.obj.worldToLocal.bind(n.obj);
       const a = inv(tip.clone()), b = inv(n.bob.position.clone()); p.setXYZ(0, a.x, a.y, a.z); p.setXYZ(1, b.x, b.y, b.z); p.needsUpdate = true;
     }
+  }
+  // ep 19: each regular resident has a pose that shows their personality (studio/warga.json → pose)
+  function castPose(p, u, ph, T) {
+    const A = (l, r, lz = 0, rz = 0) => { u.armL.rotation.x = l; u.armR.rotation.x = r; u.armL.rotation.z = lz; u.armR.rotation.z = rz; };
+    u.body.rotation.z = 0; u.body.rotation.y = 0;
+    if (p === 'hero') { A(.25, .25, -.75, .75); u.body.rotation.x = -.08; if (Math.sin(ph * .8) > .7) A(.25, -2.9, -.75, 0); }   // hands on hips, now and then a fist in the air
+    else if (p === 'sneak') { A(-.9, -.9); u.body.rotation.x = .35; u.body.position.y = -.08; u.legL.rotation.x = .25; u.legR.rotation.x = -.35; u.body.rotation.y = Math.sin(ph * 1.3) * .5; }
+    else if (p === 'cry') { const k = Math.sin(ph * 5) * .12; A(-2.5 + k, -2.5 - k, .35, -.35); u.body.position.y = Math.abs(Math.sin(ph * 4)) * .015; }   // wiping both eyes
+    else if (p === 'run') { const c = ph * 9; u.legL.rotation.x = Math.sin(c) * .8; u.legR.rotation.x = -Math.sin(c) * .8; A(-2.9, -2.9 + Math.sin(c) * .2, -.2, .2); u.body.position.y = Math.abs(Math.cos(c)) * .08; }
+    else if (p === 'faint') { const c = (ph % 6) / 6; A(-.3, -2.6, 0, -.3); u.body.rotation.z = c > .6 ? Math.min(.35, (c - .6) * 2) : 0; u.body.rotation.x = -.12; }   // hand on forehead, sways
+    else if (p === 'fold') { A(-1.35, -1.35, .45, -.45); u.body.rotation.y = Math.sin(ph * .4) * .15; }
+    else if (p === 'still') { A(0, 0); }
+    else if (p === 'ask') { A(-.2, -2.0 + Math.sin(ph * 2) * .15, 0, -.1); u.body.rotation.x = .06; }   // a half-raised hand: boleh?
+    else if (p === 'scratch') { A(-.2, -2.7, 0, -.55); u.armR.rotation.x += Math.sin(ph * 10) * .08; }
+    else if (p === 'wave') { A(-.4, -2.8, 0, .2 + Math.sin(ph * 8) * .35); u.body.position.y = Math.max(0, Math.sin(ph * 6)) * .12; }
+    else if (p === 'cookie') { A(-.4, -1.4 + Math.sin(ph * 2) * .15); u.body.position.y = Math.max(0, Math.sin(ph * 6)) * .06; }
+    else if (p === 'guitar') { A(-.9, -1.0 + Math.sin(ph * 12) * .25, .35, -.2); u.body.rotation.x = Math.sin(ph * 3) * .05; }
+    else if (p === 'point') { A(-.2, -2.6 + Math.sin(ph * 3) * .2, 0, -.15); u.body.rotation.x = -.06; }
+    else if (p === 'game') { const k = Math.sin(ph * 14) * .08; A(-1.25 + k, -1.25 - k, .3, -.3); u.body.rotation.x = .1; }
+    else if (p === 'sitlook') { u.body.position.y = -.42; u.legL.rotation.x = -1.5; u.legR.rotation.x = -1.5; A(-.25, -.25, .1, -.1); }   // sitting on the boards, watching the sea
+    else A(0, 0);
   }
   return { compute, assign, update, siteCells, get spots() { return spots; } };
 }

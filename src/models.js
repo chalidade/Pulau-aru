@@ -16,6 +16,13 @@ export function vicePresidentKit(ch) {
   box(b, '#141414', .4, .17, .38, 0, 1.34, -.01);
   const s1 = box(b, '#e6b84a', .09, .66, .03, 0, .48, .16); s1.rotation.z = -.62; s1.position.y = .76;
 }
+// ep 19: props for the regular cast: senar muliya's guitar, inyuu's game pad, lala's cookie tray
+export function castKit(ch, pose) {
+  const b = ch.userData.body;
+  if (pose === 'guitar') { box(b, '#b5651d', .34, .4, .1, .05, .42, .2); box(b, '#2a1a10', .1, .1, .11, .05, .44, .21); box(b, '#6b4226', .06, .5, .05, .38, .6, .2); box(b, '#3a2412', .08, .1, .06, .55, .75, .2); }
+  if (pose === 'game') { box(b, '#2b2d42', .3, .08, .14, 0, .62, .38); box(b, '#e63946', .05, .03, .05, .08, .67, .38); box(b, '#43aa8b', .05, .03, .05, -.08, .67, .38); }
+  if (pose === 'cookie') { box(b, '#e9d8a6', .34, .03, .24, -.1, .66, .36); for (const [x, z] of [[-.2, .3], [-.06, .32], [-.14, .42], [0, .42]]) box(b, '#b07040', .07, .04, .07, x, .69, z); box(b, '#d62828', .06, .06, .06, -.24, .7, .44); }
+}
 export function presidentKit(ch) {
   const b = ch.userData.body;
   box(b, '#141414', .4, .17, .38, 0, 1.34, -.01);

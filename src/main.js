@@ -311,9 +311,12 @@ function rebuildNpcs() {
   // ep 16: residents who run their own stall (buildings[].seller) are always on the island, behind their counter
   const owners = [...new Set(S.buildings.filter(b => b.seller).map(b => clean(b.seller)))].filter(n => n && (!pres || n.toLowerCase() !== pres.toLowerCase()) && (!vp || n.toLowerCase() !== vp.toLowerCase()) && !carry.some(c => c.toLowerCase() === n.toLowerCase()) && !(role.kind === 'warga' && role.name.toLowerCase() === n.toLowerCase()));
   for (const c of owners) { const b = S.buildings.find(b => b.seller && clean(b.seller).toLowerCase() === c.toLowerCase()); want.push({ key: 'r:' + c.toLowerCase(), name: '@' + c, num: (S.residents.findIndex(r => r.n.toLowerCase() === c.toLowerCase()) + 1) || null, own: c.toLowerCase(), sellLines: b.lines || null }); }
-  const carried = new Set(carry.concat(owners).map(c => 'r:' + c.toLowerCase()));
+  // ep 19: the regular cast (residents with a julukan and a spot) always live on the island, at their own place, in character
+  const castR = S.residents.map((r, i) => ({ r, num: i + 1 })).filter(({ r }) => r.julukan && Array.isArray(r.spot) && !(role.kind === 'warga' && role.name.toLowerCase() === r.n.toLowerCase()) && (!pres || r.n.toLowerCase() !== pres.toLowerCase()) && (!vp || r.n.toLowerCase() !== vp.toLowerCase()) && !carry.concat(owners).some(c => c.toLowerCase() === r.n.toLowerCase()));
+  for (const { r, num } of castR) want.push({ key: 'r:' + r.n.toLowerCase(), name: r.tampil || '@' + r.n, num, julukan: r.julukan, kalimat: r.kalimat || [], castSpot: { x: WD.cx2w(r.spot[0]) + (r.spot[2] || 0), z: WD.cy2w(r.spot[1]) + (r.spot[3] || 0), face: r.face || 0, pose: r.pose || 'still' } });
+  const carried = new Set(carry.concat(owners).concat(castR.map(c => c.r.n)).map(c => 'r:' + c.toLowerCase()));
   for (let i = 0; i < N; i++) { const r = i < res.length ? res[i] : null; const key = r ? 'r:' + r.n.toLowerCase() : 'a:' + i; if (role.kind === 'warga' && key === 'r:' + role.name.toLowerCase()) continue; if (pres && key === 'r:' + pres.toLowerCase()) continue; if (vp && key === 'r:' + vp.toLowerCase()) continue; if (carried.has(key)) continue; want.push(r ? { key, name: '@' + r.n, num: r.num } : { key, name: 'Warga', num: null }); }
-  const old = new Map(npcs.map(n => [n.key, n])); for (const o of old.values()) { delete o.pres; delete o.vp; delete o.cand; delete o.own; delete o.sellLines; }
+  const old = new Map(npcs.map(n => [n.key, n])); for (const o of old.values()) { delete o.pres; delete o.vp; delete o.cand; delete o.own; delete o.sellLines; delete o.castSpot; delete o.julukan; delete o.kalimat; }
   const next = want.map((w, i) => {
     const o = old.get(w.key); if (o) { old.delete(w.key); Object.assign(o, w); return o; }
     const home = w.aru ? { x: LM.camp[0] + 1, y: LM.camp[1] + 2 } : village[(i * 13 + 5) % Math.min(village.length, 1600)];
@@ -360,7 +363,7 @@ function assignDemo() {
   const carry = ev.carry || {}; for (const n of npcs) if (n.cand) { const k = Object.keys(carry).find(k => clean(k).toLowerCase() === n.cand.toLowerCase()); if (k) { n.candSign = placard(carry[k]); n.obj.add(n.candSign); } }
   const sp = S.buildings.find(b => b.type === 'spanduk'); if (!sp) return;
   const f = fpOf(sp), [ox, oz] = fpCenter(sp.x, sp.y, f.w, f.h);
-  const free = n => !n.aru && !n.pres && !n.vp && !n.cand && !n.own && !n.cloud, pool = ['wander', 'listen', 'sit', 'shop'].flatMap(r => npcs.filter(n => free(n) && n.role === r));
+  const free = n => !n.aru && !n.pres && !n.vp && !n.cand && !n.own && !n.cloud && !n.castSpot, pool = ['wander', 'listen', 'sit', 'shop'].flatMap(r => npcs.filter(n => free(n) && n.role === r));
   const signs = ev.signs || DEMO_SIGNS;
   DEMO_SPOTS.forEach(([dx, dz], i) => { const n = pool[i]; if (!n) return;
     if (n.kit) { n.obj.userData.body.remove(...n.kit); n.kit = null; } if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }
@@ -610,7 +613,7 @@ const pv = new THREE.Vector3();
 function updateLabels() {
   const items = [];
   const push = (text, x, y, z, cls, d) => items.push({ text, x, y, z, cls, d });
-  for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (d < (n.aru || n.pres || n.vp ? 12 : 4.5) && (n.num || n.aru || n.pres || n.vp)) push(n.pres ? 'Presiden ' + n.name : n.vp ? 'Wakil Presiden ' + n.name : n.name, n.x, n.obj.position.y + 1.6, n.z, n.aru || n.pres || n.vp ? 'gold' : '', d); }
+  for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (d < (n.aru || n.pres || n.vp ? 12 : 4.5) && (n.num || n.aru || n.pres || n.vp)) push(n.pres ? 'Presiden ' + n.name : n.vp ? 'Wakil Presiden ' + n.name : n.julukan ? n.name + ' · ' + n.julukan : n.name, n.x, n.obj.position.y + 1.6, n.z, n.aru || n.pres || n.vp ? 'gold' : '', d); }
   if (room && IN.current) for (const q of IN.current.people) push(q.label, q.x, q.pose === 'lie' ? 1.2 : q.pose === 'sit' || q.pose === 'pray' ? 1.3 : 1.7, q.z, q.label.startsWith('@') ? '' : 'gold', Math.hypot(q.x - player.x, q.z - player.z));
   items.sort((a, b) => a.d - b.d);
   labelPool.forEach((el, i) => {
