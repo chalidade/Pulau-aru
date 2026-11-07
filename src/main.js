@@ -265,10 +265,12 @@ const fishHud = h('div', { class: 'plate fishplate', hidden: true }); $('hud-l')
 function updateFishHud() { const st = fishing.st; fishHud.hidden = !st.active && !st.total; fishHud.replaceChildren(h('span', { class: 'eyebrow' }, 'Tangkapan ikan'), h('b', null, fmt(st.total))); }
 // market stalls and the president's stage give the residents somewhere to be
 function extraSpots() {
-  const out = { sell: [], shop: [], listen: [], pres: [], vp: [] };
+  const out = { sell: [], shop: [], listen: [], pres: [], vp: [], own: [] };
   const tr = (o, lx, lz) => { const r = o.rotation.y, c = Math.cos(r), s_ = Math.sin(r); return [o.position.x + lx * c + lz * s_, o.position.z - lx * s_ + lz * c]; };
   for (const o of bObjs) {
     const d = o.userData.def, sp = d.spots; if (!sp) continue;
+    // ep 16: a stall with its own named seller (island.json → buildings[].seller), e.g. the coffee cart
+    if (sp.seller && o.userData.b.seller) { const [lx, lz, f] = sp.seller, k = d.scale || 1, [x, z] = tr(o, lx * k, lz * k); out.own.push({ n: clean(o.userData.b.seller).toLowerCase(), x, z, face: f + o.rotation.y }); }
     if (d.market) {
       for (const [lx, lz, f] of sp.sell) { const [x, z] = tr(o, lx, lz); out.sell.push({ x, z, face: f + o.rotation.y }); }
       for (const [lx, lz, f] of sp.shop) { const [x, z] = tr(o, lx, lz); out.shop.push({ x, z, face: f + o.rotation.y }); }
@@ -306,9 +308,12 @@ function rebuildNpcs() {
   // ep 15: named residents from the story (island.json → event.carry, e.g. the former president and VP) always walk the island with their placard
   const carry = S.event && S.event.carry ? Object.keys(S.event.carry).map(clean).filter(n => n && (!pres || n.toLowerCase() !== pres.toLowerCase()) && (!vp || n.toLowerCase() !== vp.toLowerCase()) && !(role.kind === 'warga' && role.name.toLowerCase() === n.toLowerCase())) : [];
   for (const c of carry) want.push({ key: 'r:' + c.toLowerCase(), name: '@' + c, num: (S.residents.findIndex(r => r.n.toLowerCase() === c.toLowerCase()) + 1) || null, cand: c });
-  const carried = new Set(carry.map(c => 'r:' + c.toLowerCase()));
+  // ep 16: residents who run their own stall (buildings[].seller) are always on the island, behind their counter
+  const owners = [...new Set(S.buildings.filter(b => b.seller).map(b => clean(b.seller)))].filter(n => n && (!pres || n.toLowerCase() !== pres.toLowerCase()) && (!vp || n.toLowerCase() !== vp.toLowerCase()) && !carry.some(c => c.toLowerCase() === n.toLowerCase()) && !(role.kind === 'warga' && role.name.toLowerCase() === n.toLowerCase()));
+  for (const c of owners) { const b = S.buildings.find(b => b.seller && clean(b.seller).toLowerCase() === c.toLowerCase()); want.push({ key: 'r:' + c.toLowerCase(), name: '@' + c, num: (S.residents.findIndex(r => r.n.toLowerCase() === c.toLowerCase()) + 1) || null, own: c.toLowerCase(), sellLines: b.lines || null }); }
+  const carried = new Set(carry.concat(owners).map(c => 'r:' + c.toLowerCase()));
   for (let i = 0; i < N; i++) { const r = i < res.length ? res[i] : null; const key = r ? 'r:' + r.n.toLowerCase() : 'a:' + i; if (role.kind === 'warga' && key === 'r:' + role.name.toLowerCase()) continue; if (pres && key === 'r:' + pres.toLowerCase()) continue; if (vp && key === 'r:' + vp.toLowerCase()) continue; if (carried.has(key)) continue; want.push(r ? { key, name: '@' + r.n, num: r.num } : { key, name: 'Warga', num: null }); }
-  const old = new Map(npcs.map(n => [n.key, n])); for (const o of old.values()) { delete o.pres; delete o.vp; delete o.cand; }
+  const old = new Map(npcs.map(n => [n.key, n])); for (const o of old.values()) { delete o.pres; delete o.vp; delete o.cand; delete o.own; delete o.sellLines; }
   const next = want.map((w, i) => {
     const o = old.get(w.key); if (o) { old.delete(w.key); Object.assign(o, w); return o; }
     const home = w.aru ? { x: LM.camp[0] + 1, y: LM.camp[1] + 2 } : village[(i * 13 + 5) % Math.min(village.length, 1600)];
@@ -355,7 +360,7 @@ function assignDemo() {
   const carry = ev.carry || {}; for (const n of npcs) if (n.cand) { const k = Object.keys(carry).find(k => clean(k).toLowerCase() === n.cand.toLowerCase()); if (k) { n.candSign = placard(carry[k]); n.obj.add(n.candSign); } }
   const sp = S.buildings.find(b => b.type === 'spanduk'); if (!sp) return;
   const f = fpOf(sp), [ox, oz] = fpCenter(sp.x, sp.y, f.w, f.h);
-  const free = n => !n.aru && !n.pres && !n.vp && !n.cand && !n.cloud, pool = ['wander', 'listen', 'sit', 'shop'].flatMap(r => npcs.filter(n => free(n) && n.role === r));
+  const free = n => !n.aru && !n.pres && !n.vp && !n.cand && !n.own && !n.cloud, pool = ['wander', 'listen', 'sit', 'shop'].flatMap(r => npcs.filter(n => free(n) && n.role === r));
   const signs = ev.signs || DEMO_SIGNS;
   DEMO_SPOTS.forEach(([dx, dz], i) => { const n = pool[i]; if (!n) return;
     if (n.kit) { n.obj.userData.body.remove(...n.kit); n.kit = null; } if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }

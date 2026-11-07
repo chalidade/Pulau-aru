@@ -36,13 +36,13 @@ const FIRE_SEATS = 7;
 export function createActivities(ctx) {
   // ctx: { scene, solid(), occ(), npcWalkable, groundY, surfaceY, fireXZ, player }
   const deco = new THREE.Group(); ctx.scene.add(deco);
-  let spots = { fish: [], chop: [], build: [], sit: [], sell: [], shop: [], listen: [], pres: [], vp: [] }, sites = [];
+  let spots = { fish: [], chop: [], build: [], sit: [], sell: [], shop: [], listen: [], pres: [], vp: [], own: [] }, sites = [];
   const free = i => ctx.occ()[i] === -1 && !ctx.solid()[i];
   const spaced = (list, x, y, d) => list.every(s => Math.abs(s.cx - x) >= d || Math.abs(s.cy - y) >= d);
 
   function compute() {
-    deco.clear(); spots = { fish: [], chop: [], build: [], sit: [], sell: [], shop: [], listen: [], pres: [], vp: [] }; sites = [];
-    const ex = ctx.extraSpots ? ctx.extraSpots() : {}; for (const k of ['sell', 'shop', 'listen', 'pres', 'vp']) spots[k] = ex[k] || [];
+    deco.clear(); spots = { fish: [], chop: [], build: [], sit: [], sell: [], shop: [], listen: [], pres: [], vp: [], own: [] }; sites = [];
+    const ex = ctx.extraSpots ? ctx.extraSpots() : {}; for (const k of ['sell', 'shop', 'listen', 'pres', 'vp', 'own']) spots[k] = ex[k] || [];
     const cx0 = LM.camp[0], cy0 = LM.camp[1];
     const cells = [];
     for (let y = 2; y < H - 2; y++) for (let x = 2; x < W - 2; x++) { const d = Math.hypot(x - cx0, y - cy0); if (d < 34) cells.push({ x, y, d }); }
@@ -101,6 +101,7 @@ export function createActivities(ctx) {
       if (n.aru) { setRole(n, 'sit', spots.sit[used.sit++] || null); return; }
       if (n.pres) { setRole(n, 'president', spots.pres[0] || null); return; }
       if (n.vp) { setRole(n, 'vicepresident', spots.vp[0] || null); return; }
+      if (n.own) { const sp = spots.own.find(s => s.n === n.own); if (sp) { setRole(n, 'sell', sp); n.workFor = Infinity; return; } }
       // market sellers and the crowd at the stage come first, then the usual jobs
       for (const r of ['sell', 'listen', 'shop']) if (used[r] < spots[r].length) { setRole(n, r, spots[r][used[r]++]); return; }
       let want = ROLE_ORDER[k++ % ROLE_ORDER.length];
@@ -245,8 +246,8 @@ export function createActivities(ctx) {
 }
 
 export const ROLE_LINES = {
-  president: ['Warga sekalian, pasar sudah buka. Belanja yang banyak, ya!', 'Saya sudah follow, jadi saya presiden. Begitu aturannya.', 'Keputusan kedua? Tunggu komentar kalian.'],
-  vicepresident: ['Saya wakil presiden. Udah paket lengkap!', 'Pak Presiden kerja, saya yang tepuk tangan.', 'Sudah ke Kopdes di atas awan? Tangganya lewat puncak piramida.'],
+  president: ['Janji saya: jadi pemimpin yang baik, minn!', 'Mundur dari wapres, nyalon presiden, menang. Namanya strategi!', 'Kali ini dipilih warga, bukan cuma follow duluan.', 'Permintaan presiden? Tunggu komentar kalian.'],
+  vicepresident: ['Saya wakil presiden. Ditunjuk langsung di kolom komentar!', 'Pak Presiden janji jadi pemimpin yang baik. Saya yang catat.', 'Sudah ngopi di Kopi Dong? Enak, lho.'],
   kopdes: ['Antre dulu ya, mau setor ikan ke Kopdes.', 'Capek naiknya, tapi pemandangannya juara.', 'Jangan lihat ke bawah. Pokoknya jangan.'],
   climb: ['Lompat… lompat… jangan lihat ke bawah!', 'Awan ini empuk, tapi licin.', 'Tadi aku jatuh dua kali. Coba lagi!'],
   sell: ['Ikan segar, ikan segar! Baru ditangkap perahu nelayan!', 'Mangga manis, murah meriah!', 'Mampir dulu, kak. Lihat-lihat boleh.'],

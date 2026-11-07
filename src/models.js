@@ -794,10 +794,21 @@ export const BT = {
       const c = document.createElement('canvas'); c.width = 512; c.height = 400; const x = c.getContext('2d');
       x.fillStyle = '#fff8e6'; x.fillRect(0, 0, 512, 400); x.fillStyle = '#c4473a'; x.fillRect(0, 0, 512, 64); x.fillStyle = '#f4eee0'; x.fillRect(0, 64, 512, 6);
       x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#fff8e6'; x.font = '700 44px "Pixelify Sans", sans-serif'; x.fillText('PEMILU PULAU ARU', 256, 34, 490);
-      x.fillStyle = '#3a2412'; x.font = '700 24px "Pixelify Sans", sans-serif'; x.fillText('CALON PRESIDEN', 256, 92);
+      // ep 16: once the votes are counted, b.win = { pres, vp, note } turns the board into the results board
+      const win = b && b.win;
+      if (win) {
+        x.fillStyle = '#2f8a4a'; x.fillRect(0, 0, 512, 64); x.fillStyle = '#fff8e6'; x.font = '700 44px "Pixelify Sans", sans-serif'; x.fillText('HASIL PEMILU', 256, 34, 490);
+        x.fillStyle = '#c4473a'; x.font = '700 22px "Pixelify Sans", sans-serif'; x.fillText('PRESIDEN', 256, 92);
+        x.fillStyle = '#3a2412'; x.font = '700 50px "Pixelify Sans", sans-serif'; x.fillText(win.pres, 256, 132, 480);
+        x.fillStyle = '#b8862a'; x.font = '700 22px "Pixelify Sans", sans-serif'; x.fillText('WAKIL PRESIDEN', 256, 180);
+        x.fillStyle = '#3a2412'; x.font = '700 42px "Pixelify Sans", sans-serif'; x.fillText(win.vp, 256, 216, 480);
+        x.font = '700 19px "Pixelify Sans", sans-serif'; x.fillStyle = '#6a5a48'; x.fillText('calon: ' + cands.join(' · '), 256, 262, 496);
+        x.font = '700 22px "Pixelify Sans", sans-serif'; x.fillStyle = '#3a2412'; x.fillText(win.note || '', 256, 304, 496);
+      } else
+      x.fillStyle = '#3a2412', x.font = '700 24px "Pixelify Sans", sans-serif', x.fillText('CALON PRESIDEN', 256, 92);
       const cols = cands.length > 5 ? 2 : 1, rows = Math.ceil(cands.length / cols), lh = Math.min(42, 210 / rows);
       x.font = `700 ${Math.round(lh * .78)}px "Pixelify Sans", sans-serif`; x.textAlign = 'left';
-      cands.forEach((n, i) => { const cx = cols === 2 ? 30 + (i % 2) * 245 : 120, cy = 128 + Math.floor(cols === 2 ? i / 2 : i) * lh + lh / 2;
+      if (!win) cands.forEach((n, i) => { const cx = cols === 2 ? 30 + (i % 2) * 245 : 120, cy = 128 + Math.floor(cols === 2 ? i / 2 : i) * lh + lh / 2;
         x.strokeStyle = '#3a2412'; x.lineWidth = 3; x.strokeRect(cx, cy - 11, 22, 22); x.fillStyle = '#3a2412'; x.fillText(n, cx + 32, cy + 1, 200); });
       x.fillStyle = '#e6b84a'; x.fillRect(0, 344, 512, 56); x.fillStyle = '#3a2412'; x.textAlign = 'center'; x.font = '700 24px "Pixelify Sans", sans-serif';
       x.fillText((b && b.label) || 'LIKE TERBANYAK = PRESIDEN · KEDUA = WAPRES', 256, 373, 496);
@@ -805,17 +816,47 @@ export const BT = {
       box(g, '#5e3b22', 2.04, 1.62, .06, 0, .64, -.53);
       const board = new THREE.Mesh(new THREE.PlaneGeometry(1.96, 1.53), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); board.position.set(0, 1.45, -.49); g.add(board);
       // two empty chairs with a 'KOSONG' tag: the president's (red cushion) and the vice president's (gold)
-      const tag = text => { const c2 = document.createElement('canvas'); c2.width = 256; c2.height = 96; const y = c2.getContext('2d');
+      const tag = (text, who) => { const c2 = document.createElement('canvas'); c2.width = 256; c2.height = 96; const y = c2.getContext('2d');
         y.fillStyle = '#f4eee0'; y.fillRect(0, 0, 256, 96); y.strokeStyle = '#3a2412'; y.lineWidth = 6; y.strokeRect(3, 3, 250, 90); y.fillStyle = '#3a2412'; y.textAlign = 'center'; y.textBaseline = 'middle';
-        y.font = '700 30px "Pixelify Sans", sans-serif'; y.fillText(text, 128, 30, 236); y.fillStyle = '#c0392b'; y.font = '700 38px "Pixelify Sans", sans-serif'; y.fillText('KOSONG', 128, 68, 236);
+        y.font = '700 30px "Pixelify Sans", sans-serif'; y.fillText(text, 128, 30, 236); y.fillStyle = who ? '#2f8a4a' : '#c0392b'; y.font = '700 38px "Pixelify Sans", sans-serif'; y.fillText(who || 'KOSONG', 128, 68, 236);
         const t = new THREE.CanvasTexture(c2); t.colorSpace = THREE.SRGBColorSpace; return new THREE.MeshStandardMaterial({ map: t, roughness: .8 }); };
       for (const [cx, cush, lab] of [[-.5, '#c4473a', 'PRESIDEN'], [.5, '#e6b84a', 'WAPRES']]) {
         for (const [lx, lz] of [[-.17, .18], [.17, .18], [-.17, .52], [.17, .52]]) box(g, '#5e3b22', .05, .42, .05, cx + lx, 0, lz);
         box(g, '#7a4a28', .44, .06, .44, cx, .42, .35); box(g, cush, .4, .06, .4, cx, .48, .35);
         box(g, '#7a4a28', .44, .62, .06, cx, .42, .13); box(g, cush, .36, .46, .03, cx, .5, .17);
         box(g, '#e6b84a', .46, .06, .08, cx, 1.04, .13);
-        const t = new THREE.Mesh(new THREE.PlaneGeometry(.34, .13), tag(lab)); t.position.set(cx, .27, .58); g.add(t);
+        const t = new THREE.Mesh(new THREE.PlaneGeometry(.34, .13), tag(lab, win && (lab === 'PRESIDEN' ? win.pres : win.vp))); t.position.set(cx, .27, .58); g.add(t);
       }
+    } },
+  // ep 16: a coffee cart run by a resident (komentar @sapta.rajo.ghaisa "wibu cilik pelenger": "aku tukang jualan kopidong").
+  // b.label = sign text, b.seller = the resident who always stands behind it (main.js extraSpots → own)
+  gerobakkopi: { n: 'Gerobak Kopi', w: 2, h: 2, scale: 1.15, land: true,
+    spots: { seller: [0, -.62, 0] },
+    build(g, b) {
+      const name = (b && b.label) || 'KOPI';
+      for (const x of [-.62, .62]) { const w = add(g, G.cyl8, '#3a2a20', .26, .07, .26, x, .26, .05); w.rotation.z = Math.PI / 2; add(g, G.cyl8, '#9a9b94', .08, .08, .08, x, .26, .05).rotation.z = Math.PI / 2; }
+      box(g, '#8a5a34', 1.3, .08, .66, 0, .3, 0);                         // base
+      box(g, '#c4473a', 1.3, .44, .62, 0, .38, 0);                        // cart body
+      box(g, '#f4eee0', 1.34, .06, .66, 0, .82, 0);                       // counter top
+      box(g, '#5e3b22', .06, .5, .06, -.7, .5, -.28); const hd = box(g, '#5e3b22', .5, .05, .05, -.95, .95, -.28); hd.rotation.z = .2;   // push handle
+      // thermos, cups, a kettle and a jar of sugar on the counter
+      add(g, G.cyl8, '#d0483a', .1, .32, .1, -.42, 1.01, -.05); add(g, G.cyl8, '#f4eee0', .11, .04, .11, -.42, 1.18, -.05);
+      for (let i = 0; i < 4; i++) add(g, G.cyl8, i % 2 ? '#f4eee0' : '#e6b84a', .055, .1, .055, -.12 + i * .14, .9, .16);
+      add(g, G.sph, '#6d6a62', .12, .1, .12, .42, .94, -.08); add(g, G.cyl6, '#6d6a62', .02, .14, .02, .54, .96, -.08).rotation.z = -.9;
+      add(g, G.cyl8, '#e8dcc4', .07, .14, .07, .25, .92, -.16);
+      // the big umbrella
+      add(g, G.cyl6, '#5e3b22', .025, 1.4, .025, .5, 1.6, -.22);
+      add(g, G.cone6, '#e6b84a', .95, .32, .95, .5, 2.42, -.22); add(g, G.cone6, '#c4473a', .55, .2, .55, .5, 2.52, -.22);
+      // sign on the front
+      const c = document.createElement('canvas'); c.width = 512; c.height = 192; const x = c.getContext('2d');
+      x.fillStyle = '#fff4dc'; x.fillRect(0, 0, 512, 192); x.fillStyle = '#5e3b22'; x.fillRect(0, 0, 512, 12); x.fillRect(0, 180, 512, 12);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; let fs = 92; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`;
+      while (fs > 30 && x.measureText(name).width > 480) { fs -= 2; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; }
+      x.fillStyle = '#c4473a'; x.fillText(name, 256, 82); x.fillStyle = '#5e3b22'; x.font = '700 30px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'kopi hangat buat warga', 256, 152, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.2, .4), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, .6, .32); g.add(sign);
+      // a small stool for customers
+      for (const sx of [-.4, .4]) { add(g, G.cyl8, '#8a5a34', .14, .05, .14, sx, .45, .62); add(g, G.cyl6, '#5e3b22', .03, .45, .03, sx, .22, .62); }
     } },
   warungumkm: { n: 'Warung UMKM', w: 3, h: 3, scale: 1.5, land: true,
     build(g, b) {

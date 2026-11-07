@@ -199,6 +199,7 @@ export function talk(n) {
     const lines = [`Selamat datang. Kita sekarang ${fmt(app.pop())} orang di pulau ini.`, e ? `Catatan terakhir, episode ${e.ep}: ${e.text}` : 'Aku masih menunggu warga pertama.', `Mercusuar sudah punya ${fmt(app.lamps())} lampu menyala.`, 'Kadang aku masih ingat ombak malam itu. Belum semuanya bisa kuceritakan.'];
     dialog('Aru', lines[(Math.random() * lines.length) | 0]); return;
   }
+  if (n.sellLines && n.sellLines.length) { dialog(n.name, n.sellLines[(Math.random() * n.sellLines.length) | 0]); return; }
   if (n.role && ROLE_LINES[n.role] && (n.pres || n.vp || Math.random() < .65)) { const L = ROLE_LINES[n.role]; dialog(n.pres ? 'Presiden ' + n.name : n.vp ? 'Wakil Presiden ' + n.name : n.name, L[(Math.random() * L.length) | 0]); return; }
   const b = S.buildings[S.buildings.length - 1];
   const pool = [n.num ? `Aku warga ke-${n.num}. Namaku terukir di batu dekat pantai.` : 'Aku baru datang. Namaku belum sempat diukir.', b ? `Sudah lihat ${BT[b.type].n.toLowerCase()} yang baru dibangun? Aku suka.` : 'Pulau ini masih sepi. Kira-kira besok kita bangun apa ya?', `Kata Aru, mercusuar sudah punya ${fmt(app.lamps())} lampu.`, 'Kalau malam, coba lihat ke arah mercusuar.', S.clues.length > 1 ? 'Aku dengar di perahu rusak ada petunjuk baru.' : 'Menurutmu, bagaimana Aru bisa sampai ke sini?'];
