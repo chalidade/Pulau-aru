@@ -22,7 +22,7 @@ Screenshot asli (pakai sebagai kartu komentar, `COMMENTS` = (path, tag)):
    "aku kak plis udah follow" yang bukan pencalonan) → **King indo WAKIL PRESIDEN**. Plot twist: wapres yang mundur
    di ep 15 sekarang jadi presiden ("namanya strategi!"), janjinya "jadi pemimpin yang baik" ditulis di papan.
    Lantik keduanya di mimbar, isi `island.json` president/vicePresident, kuota baru 3/2, Papan Pemilu jadi papan hasil,
-   hapus `event.carry` 'EGA_ NYALON'. Ruangan berikutnya sesuai urutan: **rumahpresiden** (EGA & King indo duduk di kursinya).
+   hapus `event.carry` 'EGA_ NYALON'. **Dikonfirmasi Chalid 08:18: calon-calon lain dari screenshot ep 15 masih 0 like, jadi EGA_ menang sah.** Ruangan berikutnya sesuai urutan: **rumahpresiden** (EGA & King indo duduk di kursinya).
 2. **wibu cilik pelenger** (akun @sapta.rajo.ghaisa): "kakak aku tukang jualan kopidong udah follow".
    Wujudkan: gerobak/lapak kopi miliknya (label mis. "Kopi Dong" / "Kopi Wibu Cilik") di dekat mimbar atau Papan Pemilu,
    dia jualan kopi untuk warga yang merayakan pelantikan (NPC peran `sell`), dan masukkan ke residents kalau belum ada.
