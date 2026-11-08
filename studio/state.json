@@ -1,5 +1,5 @@
 {
- "nextEp": 23,
+ "nextEp": 24,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -27,7 +27,6 @@
  "openThreads": [
   "Pemeran tetap (ep 19 + ep 20): 20 warga di island.json residents[].spot dengan pose sesuai sifat (role 'cast'); disapa = julukan + kalimat khas. Ep 20 menambah 6: Cawetssssss bodyguard (depan panggung, jas & kacamata hitam, pose 'guard'), Pinjam seratus di depan Bank Pulau ('beg'), _Rayhannn` memancing di dermaga, kailnya selalu dapat sandal ('rod'), KM GPP TAN alun-alun/jalan silang dekat Kotak Usulan, dua jempol dua kali ('thumbs'), -VANZwlee dekat batu nama di pantai, pose anime lalu tersandung ('cool'), NOVA bertudung menutup wajah di sebelah ALIF HR ('hide'). Lelucon berjalan: bodyguard menghalangi Aru, wapres, bahkan presiden ('Identitas dulu'); Pinjam Seratus diberi kue oleh lala; sandal Rayhan disembunyikan whoyss; Revan ditabrak Klub Pertama; Klub Warga Biasa ALIF vs NOVA. Belum dapat adegan: Aidil, ALERX (malam), D4L, Letisya/princes (ep 20 cuma suara D..A..B..Y).",
   "Presiden 'EGA_ (ep 16) & wapres King indo (kingindo131). Kuota: presiden 2/3 (ep 18 Bank Pulau, ep 22 Apartemen Presiden), wapres 0/2. Kotak Usulan (x50 y51): bengkel SUDAH (ep 21), apartemen SUDAH (ep 22, jatah presiden); hotel masih menunggu.",
-  "Masa jabatan 1 minggu (sampai ~14 Nov). Room terbuka: masjid, sekolah, rumahpresiden, rumahsakit, rumah, warteg, kedaikopi (ep 22); berikutnya: apotik (terakhir di urutan), lalu ruang baru (mis. apartemen presiden / lobi).",
   "Rahasia presiden (ep 13): ia dilantik waktu Aru di Pulau Seberang (ep 4), tanpa pemilu, 'cuma karena follow duluan'. Surat dari Pulau Seberang ternyata dari Penjaga Mercusuar: 'Pemimpin pulau harus dipilih warga, bukan ditunjuk.'",
   "Mantan presiden @Etet_443 warga biasa, selalu muncul dengan plakat MANTAN PRESIDEN (event.carry). 'Dulu aku cuma follow duluan.'",
   "Fitur interaksi (arahan Chalid 6 Nov): bisa interaksi dengan gedung satu per satu, update berkala. Sudah: duduk & pesan makan di Warung Fahmi, kerja shift di Kantor Pulau (src/kerja.js, koin bersama Kebunku). Berikutnya: perosotan waterpark, ayunan sekolah, duduk di Kedai Kopi / Pos Ronda, dst.",
@@ -40,7 +39,10 @@
   "Bank Pulau (x59 y54, r2, ep 18): tabungan koin pulau di perangkat (kebun.js openBank), bunga 10%/hari maks 7 hari. Lelucon: presiden EGA menyetor 5 koin 'dari kotak usulan', bilang 'donasi, nanti dikembalikan' -> wapres mengawasi; mantan presiden Etet minta 'gaji presiden yang dulu', saldo nol, mulai nabung dari nol. Bisa lanjut: presiden mengembalikan koin, audit wapres, mata uang pulau.",
   "Bengkel Pulau (x67 y55, r2, ep 21) di jalan silang: tambal ban, servis gerobak, angin gratis. Roda Gerobak Kopi Dong sempat kabur (hanya di video; di web gerobak sudah normal). Alexandre 'membetulkan', baut sisa tiga; Luci: 'tinggal ditiup kayak balon'. Presiden EGA membayar dengan 5 koin dari kotak usulan (lunas: 'investasi!'). whoyss memegang tiga baut di tempatnya (castKit sneak, ada di web) dan bilang 'bukan aku' -> bisa jadi lelucon lanjut. End card ep 21: kendaraan apa yang harus ada di pulau? (ambil dari komentar: sepeda, motor, mobil, kereta...)",
   "Apartemen Presiden (x39 y56, r2, ep 22) di sisi selatan jalan silang barat: 5 lantai + penthouse emas bermahkota, jendela menyala malam. EGA: 'lantai paling atas punya saya'; Aru: 'liftnya belum ada'; EGA: 'tangga juga boleh'. Bodyguard Cawetssssss jaga lobi ('Identitas dulu!'); Klub Pertama rebutan penghuni pertama (DABY & princes); Pinjam Seratus 'pinjam buat bayar sewa'. End card ep 22: siapa tetangga presiden? -> ambil dari komentar (calon penghuni apartemen). Bisa jadi: lift, ruang dalam apartemen, penghuni pertama.",
-  "Pemeran baru ep 22: Bu Guru Gina (gerbang Sekolah x52 y70, pose 'teach', buku absen): memberi PR ke presiden ('Presiden juga murid') dan DUA PR ke bodyguard ('...Siap, Bu.'). Zidan, panggil aja zidan (Penjaga Masjid, halaman masjid x45 y50, pose 'sweep', sapu + sandal biru temuan): 'Sandalnya dilepas dulu ya, kak', menemukan sandal yang disembunyikan whoyss ('Hehe... bukan aku'). Lelucon lanjut: PR presiden dikumpulkan besok? sandal milik siapa (Rayhan?)."
+  "Pemeran baru ep 22: Bu Guru Gina (gerbang Sekolah x52 y70, pose 'teach', buku absen): memberi PR ke presiden ('Presiden juga murid') dan DUA PR ke bodyguard ('...Siap, Bu.'). Zidan, panggil aja zidan (Penjaga Masjid, halaman masjid x45 y50, pose 'sweep', sapu + sandal biru temuan): 'Sandalnya dilepas dulu ya, kak', menemukan sandal yang disembunyikan whoyss ('Hehe... bukan aku'). Lelucon lanjut: PR presiden dikumpulkan besok? sandal milik siapa (Rayhan?).",
+  "Masa jabatan 1 minggu (sampai ~14 Nov). Semua room di urutan sudah terbuka (apotik ep 23). Berikutnya: ruang baru (lobi/penthouse apartemen, kantor pulau, bank) atau interaksi gedung.",
+  "Sekretaris Presiden Debby (🌸 Debby_l0vata👻, ep 23): island.json secretary + resident spot (52,45) di samping mimbar, pose 'clip' (papan jadwal). Papan Jadwal Presiden (papanjadwal x51 y44, items[]): PR Bu Guru Gina (dicentang), study tour 'ikut? katanya nggak', bayar kopi dong, cari lift apartemen. Lelucon: bodyguard juga punya dua PR di jadwal; Debby mencatat semua ucapan presiden. Items bisa diperbarui tiap episode.",
+  "Study Tour (ep 23, island.json tour): Bu Guru Gina (bendera) memimpin 6 murid bertopi kuning (DABY, princes, Luci, Letisya, D4L, inyuu) keliling rute jalan utama -> jalan silang (Menara Sinyal, Apartemen) -> dermaga, loop ~2,5 menit di web (main.js assignTour/stepTour, window.__tourS untuk kamera). Spanduk Study Tour (spandukstudytour x53 y71 r3) di depan sekolah. PR: tulis pengalaman study tour, termasuk presiden. End card: study tour berikutnya ke mana? -> ambil dari komentar. Kalau tour diakhiri, hapus island.json tour agar murid kembali ke spot masing-masing."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -80,7 +82,9 @@
   "usulan lama warga (Kotak Usulan): bengkel (Bengkel Pulau ep 21, bukan jatah presiden; dibiayai 5 koin yang dikembalikan presiden)",
   "'EGA_ (presiden, tanpa undian, jatah 2/3): aku kan presiden aku mau apartemen (Apartemen Presiden ep 22)",
   "??? (komentar 'bu guru gina'): Bu Guru Gina jadi guru Sekolah, pemeran tetap ep 22",
-  "panggil aja zidan: aku yg jadi penjaga nya (Zidan, Penjaga Masjid, pemeran tetap ep 22)"
+  "panggil aja zidan: aku yg jadi penjaga nya (Zidan, Penjaga Masjid, pemeran tetap ep 22)",
+  "🌸 Debby_l0vata👻: min aku mana ☹️? (Sekretaris Presiden ep 23, Papan Jadwal Presiden)",
+  "??? (akun 'bu guru gina'): bikin acara study toor kak biar murid² jadi nyaman di sekolah 1 tahun 1 kali aja kak (Study Tour ep 23)"
  ],
  "episodes": [
   {
@@ -184,6 +188,12 @@
    "title": "Apartemen Presiden",
    "posted": "https://www.tiktok.com/@kita.berkembang/video/7705727657526299912",
    "summary": "Sesuai antrean Chalid (komentar.md, screenshot asli). Cold open: D..A..B..Y lari 'PERTAMA masuk apartemen!', bodyguard Cawetssssss 'Mundur! Identitas dulu!'. Kartu 3 komentar. Presiden EGA 'Aku kan presiden, aku mau apartemen' (jatah 2/3). Apartemen Presiden berdiri di jalan silang barat (5 lantai + mahkota emas). EGA mau lantai paling atas, Aru: liftnya belum ada, EGA: tangga juga boleh. Klub Pertama + Pinjam Seratus ('buat bayar sewa') di lobi. Bu Guru Gina di gerbang sekolah: absen, PR untuk presiden, dua PR untuk bodyguard. Zidan penjaga masjid menyapu halaman, menemukan sandal, whoyss 'bukan aku'. Kedai Kopi dibuka. Penutup: malam pertama, jendela apartemen menyala. End card: siapa tetangga presiden? CTA traktir."
+  },
+  {
+   "ep": 23,
+   "title": "Sekretaris & Study Tour",
+   "posted": "manual (menunggu Chalid)",
+   "summary": "Sesuai antrean Chalid (komentar.md, screenshot asli). Cold open: Debby mau ketemu presiden, bodyguard Cawetssssss 'Mundur! Identitas dulu!'. Kartu 2 komentar. Presiden EGA mengangkat Debby jadi Sekretaris Presiden ('Akhirnya aku masuk juga!'); Debby membacakan jadwal: PR dari Bu Guru Gina (Papan Jadwal Presiden di samping mimbar). Payoff: Debby menunjukkan jadwal bodyguard (dua PR), bodyguard 'Silakan lewat, Bu Sekretaris'. Bu Guru Gina: Study Tour setahun sekali, rombongan bertopi kuning (DABY & princes rebutan barisan depan). Pemandu wisata Luci Si Sok Tahu: Menara Sinyal 'buat manggil ikan', Apartemen 'istana seribu lantai', D4L 'Boleh foto?'. Aru: 'Itu apotik' -> apotik dibuka (room terakhir). Gina di gapura: PR tulis pengalaman study tour, termasuk Pak Presiden. End card: study tour berikutnya ke mana? Tanpa CTA."
   }
  ],
  "monetization": {
@@ -213,7 +223,8 @@
   "Ep 19 (7 Nov sore): sesuai antrean Chalid di komentar.md (tanpa komentar lain), jadi Apify/Chrome tidak dipakai. Kode baru: residents[].julukan/kalimat/spot/face/pose -> NPC tetap (role 'cast', castKit gitar/stik/kue). Capture kadang menghasilkan frame dengan kotak hitam (e19c11); dibersihkan dengan membandingkan frame tetangga, jangan pakai ambang piksel gelap saja (tiang lampu ikut terdeteksi).",
   "Ep 20 (8 Nov pagi): sesuai antrean Chalid di komentar.md (gelombang 2, tanpa komentar lain), jadi Apify/Chrome tidak dipakai; Chrome juga tidak tersambung di sesi cloud -> diposting manual. Kode baru: castPose guard/beg/rod/thumbs/cool/hide dan castKit guard (jas, kacamata), rod (pancing + sandal), hide (tudung). Spot di depan papanpemilu/rumahpresiden membuat kamera close-up masuk ke papan; pilih spot dengan ruang kosong 3 m di depan wajah.",
   "Ep 21 (8 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong, run 42439619074), Chrome tidak tersambung, antrean & traktir kosong; episode digerakkan Kotak Usulan (bengkel) tanpa kartu komentar. Kode baru: model bengkel, castKit 'sneak' (tiga baut di tangan whoyss). Gerobak miring + roda menggelinding hanya dipentaskan di shots.py (__cartInit/__cartSet); di web gerobak normal. Kamera di sisi selatan jalan silang sering masuk ke Bank/Toilet/Pos Ronda: ambil sudut dari arah jalan (yaw ~1.35) atau pitch tinggi.",
-  "Ep 22 (8 Nov sore): sesuai antrean Chalid di komentar.md (tanpa komentar lain), jadi Apify/Chrome tidak dipakai; Chrome juga tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach) -> diposting manual. Kode baru: model apartemen, castKit/pose 'teach' (Bu Guru Gina) dan 'sweep' (Zidan, sapu + sandal). Lampu jalan di depan lobi apartemen selalu menghalangi kamera dari jalan; ambil sudut dari timur sepanjang plaza (yaw ~1.75). Spot di depan pintu masjid: (45,50)."
+  "Ep 22 (8 Nov sore): sesuai antrean Chalid di komentar.md (tanpa komentar lain), jadi Apify/Chrome tidak dipakai; Chrome juga tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach) -> diposting manual. Kode baru: model apartemen, castKit/pose 'teach' (Bu Guru Gina) dan 'sweep' (Zidan, sapu + sandal). Lampu jalan di depan lobi apartemen selalu menghalangi kamera dari jalan; ambil sudut dari timur sepanjang plaza (yaw ~1.75). Spot di depan pintu masjid: (45,50).",
+  "Ep 23 (8 Nov malam): sesuai antrean Chalid di komentar.md (tanpa komentar lain), Apify/Chrome tidak dipakai; Chrome tidak tersambung di sesi cloud -> diposting manual. Kode baru: models papanjadwal & spandukstudytour, castKit clip/flag/cap, castPose clip, island.json tour (rombongan berjalan, main.js assignTour/stepTour; nama dicocokkan ke key r:<nama lowercase>, clean() menghapus spasi), secretary di menu aturan. Spot cast di atas mimbar tidak ikut tinggi panggung (surfaceY), jadi taruh cast di tanah. __tgt(x,z,h) sudah menambah groundY. Jangan edit/stash island.json saat capture (game polling). Follower sync bisa konflik di island.json saat rebase: ambil versi upstream lalu terapkan ulang perubahan episode. Mematikan server dengan awk '/[p]ython3 -m http.server/' dalam perintah yang juga memulai server ikut membunuh shell (exit 144): pisahkan perintahnya."
  ],
  "rooms": {
   "open": [
@@ -223,7 +234,8 @@
    "rumahsakit",
    "rumah",
    "warteg",
-   "kedaikopi"
+   "kedaikopi",
+   "apotik"
   ],
   "order": [
    "masjid",
