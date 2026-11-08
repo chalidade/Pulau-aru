@@ -12637,6 +12637,15 @@
    "by": "EGA_91",
    "ep": 18,
    "label": "Bank Pulau"
+  },
+  {
+   "type": "bengkel",
+   "x": 67,
+   "y": 55,
+   "r": 2,
+   "by": "usulan warga",
+   "ep": 21,
+   "label": "BENGKEL PULAU"
   }
  ],
  "episodes": [
@@ -12842,6 +12851,14 @@
     "NOVA"
    ],
    "text": "Gelombang 2: 6 warga baru dari kolom komentar. Cawetssssss jadi bodyguard Presiden 'EGA_ (menghalangi Aru, wapres, bahkan presiden sendiri), Pinjam Seratus nongkrong di depan Bank Pulau, _Rayhannn` memancing di dermaga dan selalu dapat sandal, KM GPP TAN bilang semuanya dua kali, -VANZwlee pose keren dekat batu nama lalu tersandung, NOVA bergabung dengan ALIF HR di Klub Warga Biasa. Sapa mereka di tempatnya."
+  },
+  {
+   "ep": 21,
+   "date": "8 Nov 2026",
+   "picks": [
+    "usulan warga: Bengkel"
+   ],
+   "text": "Roda Gerobak Kopi Dong kabur! Alexandre si Pahlawan 'membetulkan', bautnya malah sisa tiga; Luci bilang rodanya tinggal ditiup. Usulan lama di Kotak Usulan akhirnya jadi: Bengkel Pulau di jalan silang, dibiayai lima koin yang dikembalikan Presiden 'EGA_. Warteg resmi dibuka. Bautnya? whoyss: 'bukan aku.'"
   }
  ],
  "letters": [],
@@ -12938,16 +12955,16 @@
  "umkm": [],
  "event": {
   "type": "demo",
-  "ep": 20,
+  "ep": 21,
   "signs": [
-   "SELAMAT|DATANG!",
-   "WARGA BARU|GEL. 2",
-   "6 WARGA|BARU",
+   "BENGKEL|BUKA!",
    "PERTAMA?",
    "KLUB|PERTAMA",
-   "PINJAM|SERATUS?",
+   "RODA|AMAN!",
+   "KOPI|DONG!",
    "PRES|EGA_",
-   "WAPRES|KING INDO"
+   "WAPRES|KING INDO",
+   "LUNAS!"
   ],
   "carry": {
    "Etet_443": "MANTAN|PRESIDEN"
@@ -12958,7 +12975,8 @@
   "sekolah",
   "rumahpresiden",
   "rumahsakit",
-  "rumah"
+  "rumah",
+  "warteg"
  ],
  "usulan": [
   {
@@ -12968,7 +12986,8 @@
   },
   {
    "t": "Bengkel",
-   "st": "menunggu"
+   "st": "dibangun",
+   "ep": 21
   },
   {
    "t": "Bank / mata uang pulau",
