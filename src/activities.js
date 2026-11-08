@@ -123,7 +123,7 @@ export function createActivities(ctx) {
     n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
     if (n.role === 'president' || n.role === 'vicepresident') n.workFor = Infinity;
     if (n.role === 'listen') n.workFor = 60 + Math.random() * 90;
-    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'hide', 'sneak', 'teach', 'sweep'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
+    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'hide', 'sneak', 'teach', 'sweep', 'clip'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
     if (n.role === 'shop') { n.workFor = 4 + Math.random() * 6; n.t = 0; }
     n.yOff = spot && spot.y || 0;
     if (n.role === 'president') { const before = n.obj.userData.body.children.length; presidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
@@ -278,13 +278,15 @@ export function createActivities(ctx) {
     // ep 22: Bu Guru Gina takes attendance (book in one hand, pointing now and then); Zidan sweeps the mosque yard
     else if (p === 'teach') { const c = ph % 5; A(-1.2, c < 1.6 ? -2.5 + Math.sin(ph * 6) * .12 : -1.1, .25, -.15); u.body.rotation.x = -.05; }
     else if (p === 'sweep') { const k = Math.sin(ph * 3.2); A(-1.0 + k * .12, -1.1 - k * .12, .2, -.2); u.body.rotation.y = k * .3; u.body.rotation.x = .12; }
+    // ep 23: Debby, Sekretaris Presiden: clipboard in the left hand, writing down everything the president says, now and then reading it out
+    else if (p === 'clip') { const c = ph % 6; A(-1.15, c < 4 ? -1.3 + Math.sin(ph * 16) * .07 : -2.4 + Math.sin(ph * 5) * .1, .3, c < 4 ? -.35 : -.1); u.body.rotation.x = c < 4 ? .1 : -.04; u.body.position.y = c >= 4 ? Math.abs(Math.sin(ph * 6)) * .03 : 0; }
     else A(0, 0);
   }
   return { compute, assign, update, siteCells, get spots() { return spots; } };
 }
 
 export const ROLE_LINES = {
-  president: ['Aku kan presiden. Lantai paling atas apartemen punya saya!', 'Janji saya: jadi pemimpin yang baik, minn!', 'Mundur dari wapres, nyalon presiden, menang. Namanya strategi!', 'Kali ini dipilih warga, bukan cuma follow duluan.', 'Permintaan presiden? Tunggu komentar kalian.'],
+  president: ['Jadwal saya hari ini? Tanya Sekretaris Debby.', 'Aku kan presiden. Lantai paling atas apartemen punya saya!', 'Janji saya: jadi pemimpin yang baik, minn!', 'Mundur dari wapres, nyalon presiden, menang. Namanya strategi!', 'Kali ini dipilih warga, bukan cuma follow duluan.', 'Permintaan presiden? Tunggu komentar kalian.'],
   vicepresident: ['Saya wakil presiden. Ditunjuk langsung di kolom komentar!', 'Pak Presiden janji jadi pemimpin yang baik. Saya yang catat.', 'Sudah ngopi di Kopi Dong? Enak, lho.'],
   kopdes: ['Antre dulu ya, mau setor ikan ke Kopdes.', 'Capek naiknya, tapi pemandangannya juara.', 'Jangan lihat ke bawah. Pokoknya jangan.'],
   climb: ['Lompat… lompat… jangan lihat ke bawah!', 'Awan ini empuk, tapi licin.', 'Tadi aku jatuh dua kali. Coba lagi!'],

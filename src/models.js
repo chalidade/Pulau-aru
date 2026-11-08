@@ -30,6 +30,10 @@ export function castKit(ch, pose) {
   // ep 22: Bu Guru Gina's attendance book and pen, Zidan's broom (penjaga masjid)
   if (pose === 'teach') { box(b, '#2f5e8a', .26, .34, .05, -.24, .5, .3).rotation.x = -.5; box(b, '#f4eee0', .22, .3, .052, -.24, .505, .3).rotation.x = -.5; box(b, '#c4473a', .02, .16, .02, .3, 1.0, .1); }
   if (pose === 'sweep') { const st = box(b, '#a9784a', .035, 1.3, .035, .26, -.1, .38); st.rotation.x = -.35; const br = box(b, '#d9b45a', .3, .2, .1, .26, -.12, .62); br.rotation.x = -.35; box(b, '#2f7de1', .1, .03, .22, -.3, .42, .22).rotation.x = -1.2; box(b, '#1b4f9a', .08, .03, .03, -.3, .47, .2); }
+  // ep 23: Debby's clipboard with the president's schedule, Bu Guru Gina's study-tour flag, the pupils' yellow tour caps
+  if (pose === 'clip') { const cb = box(b, '#8a5a34', .26, .34, .03, -.22, .48, .32); cb.rotation.x = -.6; const pg = box(b, '#fbf7ee', .22, .26, .032, -.22, .5, .325); pg.rotation.x = -.6; box(b, '#9a9b94', .1, .04, .04, -.22, .8, .27); box(b, '#2f5e8a', .02, .18, .02, .3, .7, .2); }
+  if (pose === 'flag') { add(b, G.cyl6, '#c9a868', .018, 1.5, .018, .3, 1.25, .28); const fl = box(b, '#ffd25a', .42, .26, .015, .52, 1.78, .28); box(b, '#d0483a', .42, .05, .016, .52, 1.9, .28); }
+  if (pose === 'cap') { box(b, '#ffd25a', .42, .1, .42, 0, 1.4, -.01); box(b, '#ffd25a', .3, .03, .2, 0, 1.4, .26); box(b, '#d0483a', .43, .03, .43, 0, 1.43, -.01); }
   if (pose === 'cookie') { box(b, '#e9d8a6', .34, .03, .24, -.1, .66, .36); for (const [x, z] of [[-.2, .3], [-.06, .32], [-.14, .42], [0, .42]]) box(b, '#b07040', .07, .04, .07, x, .69, z); box(b, '#d62828', .06, .06, .06, -.24, .7, .44); }
 }
 export function presidentKit(ch) {
@@ -1128,6 +1132,36 @@ export const BT = {
       // planters and a bench on the plaza, a lamp by the door
       for (const x of [-1.25, 1.25]) { box(g, '#8a5a34', .3, .2, .3, x, .12, .95); add(g, G.ico, '#62bd73', .2, .22, .2, x, .48, .95); }
       const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.08, .1, .08); lamp.position.set(.62, 1.0, .95); g.add(lamp);
+    } },
+  // ep 23: the president's schedule board, kept by Sekretaris Presiden Debby (items from b.items, footer from b.label)
+  papanjadwal: { n: 'Papan Jadwal Presiden', w: 2, h: 1, land: true,
+    build(g, b) {
+      for (const x of [-.6, .6]) { const l = box(g, '#5e3b22', .07, 1.7, .07, x, 0, -.12); l.rotation.x = .12; }
+      box(g, '#5e3b22', 1.5, 1.1, .06, 0, .75, -.02); box(g, '#5e3b22', 1.3, .05, .12, 0, .73, .04);
+      const items = (b && b.items) || ['PR dari Bu Guru Gina'];
+      const c = document.createElement('canvas'); c.width = 512; c.height = 384; const x = c.getContext('2d');
+      x.fillStyle = '#fbfaf5'; x.fillRect(0, 0, 512, 384); x.fillStyle = '#2f5e8a'; x.fillRect(0, 0, 512, 72);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffffff'; x.font = '700 46px "Pixelify Sans", sans-serif'; x.fillText('JADWAL PRESIDEN', 256, 38, 490);
+      x.textAlign = 'left'; x.fillStyle = '#1f2a44';
+      items.slice(0, 4).forEach((t, i) => { let fs = 34; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; while (fs > 18 && x.measureText(t).width > 400) { fs -= 2; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; }
+        x.strokeStyle = '#2f5e8a'; x.lineWidth = 4; x.strokeRect(30, 104 + i * 58, 28, 28); if (i === 0) { x.strokeStyle = '#c0392b'; x.beginPath(); x.moveTo(34, 118 + i * 58); x.lineTo(44, 130 + i * 58); x.lineTo(62, 98 + i * 58); x.stroke(); } x.fillText(t, 74, 120 + i * 58); });
+      x.textAlign = 'center'; x.fillStyle = '#c0392b'; x.font = '700 26px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'Sekretaris: Debby', 256, 356, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 1.05), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.3, .015); g.add(sign);
+    } },
+  // ep 23: the study tour banner by the school (a comment asked for a study tour once a year); the tour itself walks the island (island.json → tour)
+  spandukstudytour: { n: 'Spanduk Study Tour', w: 4, h: 1, land: true,
+    build(g, b) {
+      for (const x of [-1.85, 1.85]) { add(g, G.cyl6, '#c9a868', .05, 2.7, .05, x, 1.35, 0); add(g, G.sph, '#e6b84a', .07, .07, .07, x, 2.72, 0); }
+      const c = document.createElement('canvas'); c.width = 1024; c.height = 256; const x = c.getContext('2d');
+      x.fillStyle = '#ffd25a'; x.fillRect(0, 0, 1024, 256); x.fillStyle = '#2f5e8a'; x.fillRect(0, 0, 1024, 16); x.fillRect(0, 240, 1024, 16);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#c0392b'; x.font = '700 112px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'STUDY TOUR', 512, 100, 980);
+      x.fillStyle = '#1f2a44'; x.font = '700 44px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'Sekolah Pulau Aru · setahun sekali', 512, 196, 980);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const cloth = new THREE.Mesh(new THREE.PlaneGeometry(3.6, .9), new THREE.MeshStandardMaterial({ map: tx, roughness: .9, side: THREE.DoubleSide })); cloth.position.set(0, 2.1, 0); g.add(cloth);
+      for (const y of [1.64, 2.56]) box(g, '#8a6a3a', 3.7, .02, .02, 0, y, 0);
+      const cols = ['#d0483a', '#2f7de1', '#62bd73', '#ffd25a'];
+      for (let i = 0; i < 9; i++) { const f = add(g, G.cone4, cols[i % 4], .1, .16, .02, -1.6 + i * .4, 2.62, 0, Math.PI / 4); f.rotation.z = Math.PI; }
     } },
   papan: { n: 'Papan nama', w: 1, h: 1, land: true, sign: true, build(g, b) { box(g, '#5e3b22', .08, 1, .08, 0, 0, 0); const board = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(splitLabel(b && b.label || 'Pulau'), { size: 46, grain: true }), flatShading: true }), mat('#8a5a34')]); board.scale.set(.95, .48, .06); board.position.set(0, 1, .05); board.castShadow = true; g.add(board); } },
 };

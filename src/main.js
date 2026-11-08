@@ -376,6 +376,44 @@ function stepDemo(n, T) {
   if (loud) { u.armR.rotation.x = u.armL.rotation.x = -2.8 + Math.sin(t * 10) * .2; u.body.position.y = Math.abs(Math.sin(t * 6)) * .08; }
   else { u.armR.rotation.x = -.6; u.armL.rotation.x = -.15; u.body.position.y = 0; }
 }
+// ep 23: the school's study tour (island.json → tour): Bu Guru Gina leads her pupils in yellow caps along tour.route, in a loop
+let tourPath = null;
+function assignTour() {
+  for (const n of npcs) if (n.tour) { if (n.tour.kit && n.tour.kit.length) n.obj.userData.body.remove(...n.tour.kit); n.tour = null; }
+  tourPath = null;
+  const t = S.tour; if (!t || !Array.isArray(t.route) || t.route.length < 2) return;
+  const pts = t.route.map(([x, y]) => [WD.cx2w(x), WD.cy2w(y)]); pts.push(pts[0]);
+  const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
+  tourPath = { pts, cum, L: cum[cum.length - 1], speed: t.speed || 1.0 };
+  [t.guide].concat(t.pupils || []).forEach((nm, i) => { if (!nm) return; const n = npcs.find(m => m.key === 'r:' + nm.toLowerCase() || m.key === 'r:' + clean(nm).toLowerCase()); if (!n || n.aru || n.pres || n.vp || n.tour) return;
+    const before = n.obj.userData.body.children.length; M.castKit(n.obj, i === 0 ? 'flag' : 'cap');
+    n.tour = { i, kit: n.obj.userData.body.children.slice(before), pose: n.castSpot ? n.castSpot.pose : 'still' }; });
+}
+function tourAt(s) {
+  const P = tourPath; s = ((s % P.L) + P.L) % P.L; let k = 1; while (k < P.cum.length - 1 && P.cum[k] < s) k++;
+  const a = P.pts[k - 1], b = P.pts[k], f = (s - P.cum[k - 1]) / Math.max(1e-6, P.cum[k] - P.cum[k - 1]);
+  return [a[0] + (b[0] - a[0]) * f, a[1] + (b[1] - a[1]) * f, Math.atan2(b[0] - a[0], b[1] - a[1])];
+}
+window.__tourAt = s => tourPath ? tourAt(s) : null;
+function stepTour(n, T) {
+  if (!tourPath) { n.tour = null; return; }
+  const d = n.tour, u = n.obj.userData, s0 = window.__tourS != null ? window.__tourS : T * tourPath.speed;
+  const row = d.i === 0 ? 0 : Math.ceil(d.i / 2), lat = d.i === 0 ? 0 : d.i % 2 ? .34 : -.34, s = s0 - row * .95;
+  const [x, z] = tourAt(s), [xa, za] = tourAt(s + .6), [xb, zb] = tourAt(s - .6), yaw = Math.atan2(xa - xb, za - zb);
+  const px = x + Math.cos(yaw) * lat, pz = z - Math.sin(yaw) * lat, w = s * 4.2 + d.i;
+  n.x = px; n.z = pz; n.tx = null; n.obj.position.set(px, surfaceY(px, pz), pz); n.obj.rotation.y = yaw;
+  u.legL.rotation.x = Math.sin(w) * .5; u.legR.rotation.x = -Math.sin(w) * .5; u.body.position.y = Math.abs(Math.cos(w)) * .04; u.body.rotation.x = 0; u.body.rotation.z = 0;
+  let l = -Math.sin(w) * .4, r = Math.sin(w) * .4, lz = 0, rz = 0; const p = d.pose;
+  if (d.i === 0) { r = -2.5 + Math.sin(T * 3) * .08; rz = -.15; l = -1.0; }                 // the guide's flag up high, attendance book in the other hand
+  else if (p === 'point') { r = -1.6 + Math.sin(T * 3) * .1; }                               // Luci 'explains' everything on the way
+  else if (p === 'run') { l = r = -2.7 + Math.sin(T * 9) * .15; }                            // D..A..B..Y: first!
+  else if (p === 'game') { const k = Math.sin(T * 14) * .08; l = -1.25 + k; r = -1.25 - k; lz = .3; rz = -.3; }
+  else if (p === 'ask') { r = -2.0 + Math.sin(T * 2) * .12; }
+  else if (p === 'fold') { l = r = -1.35; lz = .45; rz = -.45; }
+  else if (p === 'faint') { r = -2.6; rz = -.3; }
+  else if (p === 'clip') { l = -1.15; r = -1.3; }
+  u.armL.rotation.x = l; u.armR.rotation.x = r; u.armL.rotation.z = lz; u.armR.rotation.z = rz;
+}
 function stepCloud(n, dt, T) {
   const c = n.cloud, u = n.obj.userData;
   if (c.kind !== 'climb') {
@@ -669,7 +707,7 @@ function frame() {
   fishing.update(dt, T0);
   kebun.update(dt, T0);
   IN.update(dt, T0);
-  for (const n of npcs) { if (n.cloud) { stepCloud(n, dt, T0); continue; } if (n.demo) { stepDemo(n, T0); continue; } acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z) + (n.state === 'work' ? n.yOff || 0 : 0), n.z); }
+  for (const n of npcs) { if (n.cloud) { stepCloud(n, dt, T0); continue; } if (n.demo) { stepDemo(n, T0); continue; } if (n.tour) { stepTour(n, T0); continue; } acts.update(n, dt, T0); n.obj.position.set(n.x, surfaceY(n.x, n.z) + (n.state === 'work' ? n.yOff || 0 : 0), n.z); }
   // camera
   if (cam.attract && !$('start').hidden) { cam.yaw += dt * .05; }
   if (liveOn) cam.yaw += dt * .06;
@@ -797,7 +835,7 @@ function padsFor() {
   return out;
 }
 let padKey = '';
-function applyWorld(animate = false) { const pads = padsFor(), pk = JSON.stringify(pads); if (pk !== padKey) { padKey = pk; WD.setPads(pads); terrain.userData.refresh(); } syncExpansion(animate); rebuildOcc(); rebuildRoadMesh(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); assignCloud(); assignDemo(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
+function applyWorld(animate = false) { const pads = padsFor(), pk = JSON.stringify(pads); if (pk !== padKey) { padKey = pk; WD.setPads(pads); terrain.userData.refresh(); } syncExpansion(animate); rebuildOcc(); rebuildRoadMesh(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); assignCloud(); assignDemo(); assignTour(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
 function markDirty() { dirty = true; store.set(draftKey, JSON.stringify(S)); applyWorld(true); }
 const app = {
   get S() { return S; }, get dirty() { return dirty; }, get base() { try { return JSON.parse(PUB); } catch (e) { return null; } }, role, pop, lamps, curEp,
@@ -858,7 +896,7 @@ function begin(kind, name) {
   trackPlay();
   role.kind = kind; role.name = name || 'Aru'; store.set('pulau-aru-role', JSON.stringify(role));
   if (fishing.st.active) fishing.setActive(false);
-  $('start').hidden = true; cam.attract = false; setPlayerLook(); rebuildNpcs(); assignDemo(); updateFishHud();
+  $('start').hidden = true; cam.attract = false; setPlayerLook(); rebuildNpcs(); assignDemo(); assignTour(); updateFishHud();
   if (kind === 'warga') {
     const [x, z] = fpCenter(LM.stone[0], LM.stone[1] + 2, 2, 1); player.x = x; player.z = z;
     const i = S.residents.findIndex(r => r.n.toLowerCase() === name.toLowerCase());

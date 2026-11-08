@@ -143,6 +143,7 @@ export function openJoin() {
       li('Warga: 2 komentar acak setiap hari.', 'Tulis usulanmu di kolom komentar, dua di antaranya diundi dan diwujudkan.'),
       li(`Presiden${S.president && S.president.n ? ' @' + S.president.n : ' (KOSONG, pemilu lewat like komentar calon)'}: menjabat 1 minggu, 3 permintaan tanpa undian.`, 'Bisa digulingkan, asal punya cara.'),
       li(`Wakil presiden${S.vicePresident && S.vicePresident.n ? ' @' + S.vicePresident.n : ' (KOSONG, like terbanyak kedua)'}: menjabat 1 minggu, 2 permintaan tanpa undian.`, ''),
+      ...(S.secretary && S.secretary.n ? [li(`Sekretaris Presiden: ${S.secretary.t || '@' + S.secretary.n}`, 'Mencatat jadwal presiden (lihat Papan Jadwal di samping mimbar). Tidak bisa membuat permintaan, tapi bisa mengingatkan PR.')] : []),
       li('Yang mentraktir: permintaannya langsung jadi, tanpa undian.', 'Seperti titah dari langit, apa pun itu.')),
     h('a', { class: 'btn treat', href: TREAT_URL, target: '_blank', rel: 'noopener' }, 'Traktir & kirim request di teer.id/chalidade'),
     h('p', { class: 'lede', style: 'margin-top:10px;font-size:13px' }, 'Tulis permintaanmu di pesan traktiran. Semua permintaan tetap mengikuti aturan pulau: tidak menyakiti dan tidak menyinggung siapa pun.'),
