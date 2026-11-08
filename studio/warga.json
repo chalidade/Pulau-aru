@@ -346,6 +346,39 @@
       "pose": "menunduk, menyembunyikan wajah",
       "tempat": "rumah biasa di sebelah ALIF HR",
       "masuk": "ep20"
+    },
+    {
+      "nama": "Bu Guru Gina",
+      "akun": "",
+      "komentar": "bu guru gina",
+      "kartu": "studio/episodes/ep22/komentar/bu-guru-gina.png",
+      "masuk": "ep22",
+      "julukan": "Bu Guru Gina",
+      "sifat": "guru tegas tapi sayang",
+      "peran": "Guru di Sekolah Pulau Aru. Tegas: mengabsen siapa saja yang lewat, memberi PR ke semua orang (termasuk presiden dan bodyguard-nya), dan menyuruh yang ribut maju ke depan kelas. Diam-diam paling sayang ke semua muridnya dan selalu membawa permen untuk yang rajin.",
+      "kalimat": [
+        "Duduk yang rapi, anak-anak!",
+        "PR-nya dikumpulkan besok, termasuk Bapak Presiden."
+      ],
+      "pose": "memegang buku absen, telunjuk terangkat",
+      "tempat": "Sekolah (di depan papan tulis), atau di gerbang sekolah"
+    },
+    {
+      "nama": "panggil aja zidan🤩",
+      "panggilan": "Zidan",
+      "akun": "",
+      "komentar": "aku yg jadi penjaga nya",
+      "kartu": "studio/episodes/ep22/komentar/zidan.png",
+      "masuk": "ep22",
+      "julukan": "Penjaga Masjid",
+      "sifat": "rajin & tertib",
+      "peran": "Penjaga masjid Pulau Aru. Bangun paling pagi, menyapu halaman masjid, merapikan sandal di rak, dan dengan sopan mengingatkan warga melepas alas kaki. Selalu menemukan sandal yang disembunyikan whoyss lalu mengembalikannya ke pemiliknya. Ramah ke semua orang.",
+      "kalimat": [
+        "Sandalnya dilepas dulu ya, kak 🤩",
+        "Sandal siapa ini? Pasti whoyss lagi..."
+      ],
+      "pose": "memegang sapu, tersenyum",
+      "tempat": "halaman masjid"
     }
   ]
 }
