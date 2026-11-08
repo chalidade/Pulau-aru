@@ -123,7 +123,7 @@ export function createActivities(ctx) {
     n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
     if (n.role === 'president' || n.role === 'vicepresident') n.workFor = Infinity;
     if (n.role === 'listen') n.workFor = 60 + Math.random() * 90;
-    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'hide', 'sneak'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
+    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'hide', 'sneak', 'teach', 'sweep'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
     if (n.role === 'shop') { n.workFor = 4 + Math.random() * 6; n.t = 0; }
     n.yOff = spot && spot.y || 0;
     if (n.role === 'president') { const before = n.obj.userData.body.children.length; presidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
@@ -275,13 +275,16 @@ export function createActivities(ctx) {
     else if (p === 'cool') { const c = ph % 8; if (c < 6.5) { A(-.15, -2.45, 0, -.55); u.body.rotation.y = .25; } else { A(-2.6, -2.6, .5, -.5); u.body.rotation.x = .3 * Math.sin((c - 6.5) / 1.5 * Math.PI); } }   // anime pose... then a stumble
     else if (p === 'hide') { A(-2.4, -2.4, .45, -.45); u.body.rotation.x = .28; u.body.position.y = -.03; }   // head down, hands over the face: jangan lihat aku
     else if (p === 'sitlook') { u.body.position.y = -.42; u.legL.rotation.x = -1.5; u.legR.rotation.x = -1.5; A(-.25, -.25, .1, -.1); }   // sitting on the boards, watching the sea
+    // ep 22: Bu Guru Gina takes attendance (book in one hand, pointing now and then); Zidan sweeps the mosque yard
+    else if (p === 'teach') { const c = ph % 5; A(-1.2, c < 1.6 ? -2.5 + Math.sin(ph * 6) * .12 : -1.1, .25, -.15); u.body.rotation.x = -.05; }
+    else if (p === 'sweep') { const k = Math.sin(ph * 3.2); A(-1.0 + k * .12, -1.1 - k * .12, .2, -.2); u.body.rotation.y = k * .3; u.body.rotation.x = .12; }
     else A(0, 0);
   }
   return { compute, assign, update, siteCells, get spots() { return spots; } };
 }
 
 export const ROLE_LINES = {
-  president: ['Janji saya: jadi pemimpin yang baik, minn!', 'Mundur dari wapres, nyalon presiden, menang. Namanya strategi!', 'Kali ini dipilih warga, bukan cuma follow duluan.', 'Permintaan presiden? Tunggu komentar kalian.'],
+  president: ['Aku kan presiden. Lantai paling atas apartemen punya saya!', 'Janji saya: jadi pemimpin yang baik, minn!', 'Mundur dari wapres, nyalon presiden, menang. Namanya strategi!', 'Kali ini dipilih warga, bukan cuma follow duluan.', 'Permintaan presiden? Tunggu komentar kalian.'],
   vicepresident: ['Saya wakil presiden. Ditunjuk langsung di kolom komentar!', 'Pak Presiden janji jadi pemimpin yang baik. Saya yang catat.', 'Sudah ngopi di Kopi Dong? Enak, lho.'],
   kopdes: ['Antre dulu ya, mau setor ikan ke Kopdes.', 'Capek naiknya, tapi pemandangannya juara.', 'Jangan lihat ke bawah. Pokoknya jangan.'],
   climb: ['Lompat… lompat… jangan lihat ke bawah!', 'Awan ini empuk, tapi licin.', 'Tadi aku jatuh dua kali. Coba lagi!'],

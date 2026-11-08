@@ -27,6 +27,9 @@ export function castKit(ch, pose) {
   if (pose === 'hide') { box(b, '#5b5f6b', .4, .14, .4, 0, 1.36, -.02); box(b, '#5b5f6b', .4, .3, .08, 0, 1.18, -.2); }
   // ep 21: whoyss (sneak) still holds the three cart bolts he 'didn't' take
   if (pose === 'sneak') { for (const [x, y] of [[.3, .52], [.36, .47], [.27, .44]]) { add(b, G.cyl6, '#b8bec2', .035, .07, .035, x, y, .26); add(b, G.cyl6, '#8a9196', .055, .02, .055, x, y + .04, .26); } }
+  // ep 22: Bu Guru Gina's attendance book and pen, Zidan's broom (penjaga masjid)
+  if (pose === 'teach') { box(b, '#2f5e8a', .26, .34, .05, -.24, .5, .3).rotation.x = -.5; box(b, '#f4eee0', .22, .3, .052, -.24, .505, .3).rotation.x = -.5; box(b, '#c4473a', .02, .16, .02, .3, 1.0, .1); }
+  if (pose === 'sweep') { const st = box(b, '#a9784a', .035, 1.3, .035, .26, -.1, .38); st.rotation.x = -.35; const br = box(b, '#d9b45a', .3, .2, .1, .26, -.12, .62); br.rotation.x = -.35; }
   if (pose === 'cookie') { box(b, '#e9d8a6', .34, .03, .24, -.1, .66, .36); for (const [x, z] of [[-.2, .3], [-.06, .32], [-.14, .42], [0, .42]]) box(b, '#b07040', .07, .04, .07, x, .69, z); box(b, '#d62828', .06, .06, .06, -.24, .7, .44); }
 }
 export function presidentKit(ch) {
@@ -1074,6 +1077,57 @@ export const BT = {
       const sign = new THREE.Mesh(new THREE.PlaneGeometry(2.04, .42), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.99, .83); g.add(sign);
       // a wrench-shaped hanging lamp
       const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.08, .1, .08); lamp.position.set(.6, 1.45, .3); g.add(lamp);
+    } },
+  // ep 22: the president's second request ("aku kan presiden aku mau apartemen"): the island's first tall building.
+  // Five floors with balconies and windows that light up at night, a glass lobby, a gold penthouse on top for the president.
+  apartemen: { n: 'Apartemen Presiden', w: 5, h: 4, land: true, scale: 1.5,
+    build(g, b) {
+      const F = 1.15, N = 5, W = 2.4, D = 1.7, y0 = .12;
+      box(g, '#bdb6a4', 2.9, .12, 2.3, 0, 0, 0);                                                             // plaza
+      box(g, '#d8d2c2', 1.2, .05, .3, 0, .12, 1.0);                                                          // entrance step
+      for (let i = 0; i < N; i++) {
+        const y = y0 + i * F, top = i === N - 1;
+        box(g, top ? '#e9dcc0' : (i % 2 ? '#f1ece0' : '#ebe4d4'), W, F, D, 0, y, -.15);                         // floor block
+        box(g, '#b8523c', W + .06, .07, D + .06, 0, y + F - .07, -.15);                                        // floor band
+        if (i === 0) {                                                                                        // glass lobby
+          box(g, windowMat, 1.4, .95, .04, 0, y, .71); box(g, '#3a3a38', .05, 1.0, .06, 0, y, .73);
+          box(g, '#3a3a38', 1.5, .06, .06, 0, y + .95, .73);
+          box(g, '#2f3b46', 1.7, .06, .5, 0, y + 1.0, .9);                                                     // canopy
+          for (const x of [-.8, .8]) box(g, '#2f3b46', .05, 1.0, .05, x, y, 1.12);
+          for (const x of [-1.0, 1.0]) box(g, windowMat, .22, .5, .04, x, y + .35, .71);
+        } else {
+          for (const x of [-.85, -.3, .3, .85]) box(g, windowMat, .3, .5, .04, x, y + .3, .71);                // front windows
+          for (const z of [-.6, .1]) { box(g, windowMat, .04, .5, .32, W / 2 + .01, y + .3, z); box(g, windowMat, .04, .5, .32, -W / 2 - .01, y + .3, z); }
+          for (const x of [-.58, .58]) {                                                                      // two balconies per floor
+            box(g, '#cfc8b6', .8, .05, .3, x, y + .02, .85);
+            box(g, '#7b8b94', .8, .25, .03, x, y + .07, 1.0); for (const sx of [-.4, .4]) box(g, '#7b8b94', .03, .25, .3, x + sx, y + .07, .85);
+          }
+          if (i === 2) { box(g, '#e63946', .08, .14, .02, -.38, y + .15, 1.0); box(g, '#2f7de1', .08, .14, .02, -.26, y + .15, 1.0); }   // laundry on a rail
+          if (i === 3) add(g, G.ico, '#62bd73', .1, .12, .1, .8, y + .17, .9);                                // a potted plant
+        }
+        for (const x of [-W / 2, W / 2]) box(g, '#d4c7a8', .1, F, .1, x, y, .69);                             // corner pilasters
+      }
+      // the penthouse on the roof: gold trim, a crown sign and a flag (for the president, naturally)
+      const ry = y0 + N * F;
+      box(g, '#8a8478', W + .1, .1, D + .1, 0, ry, -.15);
+      box(g, '#f7f2e4', 1.3, .7, 1.0, 0, ry + .1, -.35); box(g, '#e6b84a', 1.36, .08, 1.06, 0, ry + .8, -.35);
+      box(g, windowMat, 1.0, .4, .04, 0, ry + .25, .16);
+      for (const x of [-1.1, 1.1]) box(g, '#7b8b94', .03, .25, D, x, ry + .1, -.15);
+      box(g, '#7b8b94', W - .1, .25, .03, 0, ry + .1, .68);
+      const crown = new THREE.Group(); crown.position.set(0, ry + .88, -.35); g.add(crown);
+      box(crown, '#e6b84a', .5, .14, .12, 0, 0, 0); for (const x of [-.2, 0, .2]) add(crown, G.cone4, '#e6b84a', .07, .18, .07, x, .23, 0);
+      add(g, G.cyl6, '#9a9b94', .02, 1.0, .02, .95, ry + .6, -.85);
+      const flag = box(g, '#c4473a', .36, .2, .02, 1.13, ry + .9, -.85); box(g, '#f4eee0', .36, .1, .021, 1.13, ry + .9, -.85);
+      // the sign over the lobby canopy
+      const c = document.createElement('canvas'); c.width = 512; c.height = 128; const x = c.getContext('2d');
+      x.fillStyle = '#1f2a44'; x.fillRect(0, 0, 512, 128); x.strokeStyle = '#e6b84a'; x.lineWidth = 8; x.strokeRect(6, 6, 500, 116);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffd25a'; x.font = '700 60px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'APARTEMEN PRESIDEN', 256, 52, 480);
+      x.fillStyle = '#ffffff'; x.font = '700 24px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'lantai paling atas: khusus presiden', 256, 100, 480);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.6, .4), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, y0 + 1.32, 1.16); g.add(sign);
+      // planters and a bench on the plaza, a lamp by the door
+      for (const x of [-1.25, 1.25]) { box(g, '#8a5a34', .3, .2, .3, x, .12, .95); add(g, G.ico, '#62bd73', .2, .22, .2, x, .48, .95); }
+      const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.08, .1, .08); lamp.position.set(.62, 1.0, .95); g.add(lamp);
     } },
   papan: { n: 'Papan nama', w: 1, h: 1, land: true, sign: true, build(g, b) { box(g, '#5e3b22', .08, 1, .08, 0, 0, 0); const board = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(splitLabel(b && b.label || 'Pulau'), { size: 46, grain: true }), flatShading: true }), mat('#8a5a34')]); board.scale.set(.95, .48, .06); board.position.set(0, 1, .05); board.castShadow = true; g.add(board); } },
 };
