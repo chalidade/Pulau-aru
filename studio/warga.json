@@ -361,7 +361,7 @@
         "PR-nya dikumpulkan besok, termasuk Bapak Presiden."
       ],
       "pose": "memegang buku absen, telunjuk terangkat",
-      "tempat": "Sekolah (di depan papan tulis), atau di gerbang sekolah"
+      "tempat": "gerbang Sekolah (x52 y70), menghadap jalan utama"
     },
     {
       "nama": "panggil aja zidan🤩",
@@ -378,7 +378,7 @@
         "Sandal siapa ini? Pasti whoyss lagi..."
       ],
       "pose": "memegang sapu, tersenyum",
-      "tempat": "halaman masjid"
+      "tempat": "halaman masjid, di depan pintu (x45 y50)"
     }
   ]
 }

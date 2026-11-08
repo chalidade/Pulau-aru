@@ -12194,6 +12194,46 @@
    ],
    "face": 0,
    "pose": "hide"
+  },
+  {
+   "n": "Bu Guru Gina",
+   "ep": 22,
+   "tampil": "Bu Guru Gina",
+   "julukan": "Bu Guru Gina",
+   "sifat": "guru tegas tapi sayang",
+   "kalimat": [
+    "Duduk yang rapi, anak-anak!",
+    "PR-nya dikumpulkan besok, termasuk Bapak Presiden."
+   ],
+   "tempat": "gerbang Sekolah",
+   "spot": [
+    52,
+    70,
+    0.3,
+    0
+   ],
+   "face": 1.57,
+   "pose": "teach"
+  },
+  {
+   "n": "panggil aja zidan",
+   "ep": 22,
+   "tampil": "panggil aja zidan🤩",
+   "julukan": "Penjaga Masjid",
+   "sifat": "rajin & tertib",
+   "kalimat": [
+    "Sandalnya dilepas dulu ya, kak 🤩",
+    "Sandal siapa ini? Pasti whoyss lagi..."
+   ],
+   "tempat": "halaman masjid",
+   "spot": [
+    45,
+    50,
+    0,
+    0
+   ],
+   "face": 0,
+   "pose": "sweep"
   }
  ],
  "buildings": [
@@ -12646,6 +12686,15 @@
    "by": "usulan warga",
    "ep": 21,
    "label": "BENGKEL PULAU"
+  },
+  {
+   "type": "apartemen",
+   "x": 39,
+   "y": 56,
+   "r": 2,
+   "by": "EGA_91",
+   "ep": 22,
+   "label": "APARTEMEN PRESIDEN"
   }
  ],
  "episodes": [
@@ -12859,6 +12908,16 @@
     "usulan warga: Bengkel"
    ],
    "text": "Roda Gerobak Kopi Dong kabur! Alexandre si Pahlawan 'membetulkan', bautnya malah sisa tiga; Luci bilang rodanya tinggal ditiup. Usulan lama di Kotak Usulan akhirnya jadi: Bengkel Pulau di jalan silang, dibiayai lima koin yang dikembalikan Presiden 'EGA_. Warteg resmi dibuka. Bautnya? whoyss: 'bukan aku.'"
+  },
+  {
+   "ep": 22,
+   "date": "8 Nov 2026",
+   "picks": [
+    "'EGA_ (presiden): apartemen",
+    "bu guru gina",
+    "panggil aja zidan: penjaga masjid"
+   ],
+   "text": "Presiden 'EGA_ minta apartemen: berdirilah Apartemen Presiden, gedung bertingkat pertama di pulau, lima lantai dan mahkota emas. Lantai paling atas punya presiden, tapi liftnya belum ada. Bu Guru Gina mulai mengajar di gerbang sekolah (PR untuk presiden, dua untuk bodyguard), Zidan jadi Penjaga Masjid. Kedai Kopi resmi dibuka."
   }
  ],
  "letters": [],
@@ -12976,7 +13035,8 @@
   "rumahpresiden",
   "rumahsakit",
   "rumah",
-  "warteg"
+  "warteg",
+  "kedaikopi"
  ],
  "usulan": [
   {

@@ -29,7 +29,7 @@ export function castKit(ch, pose) {
   if (pose === 'sneak') { for (const [x, y] of [[.3, .52], [.36, .47], [.27, .44]]) { add(b, G.cyl6, '#b8bec2', .035, .07, .035, x, y, .26); add(b, G.cyl6, '#8a9196', .055, .02, .055, x, y + .04, .26); } }
   // ep 22: Bu Guru Gina's attendance book and pen, Zidan's broom (penjaga masjid)
   if (pose === 'teach') { box(b, '#2f5e8a', .26, .34, .05, -.24, .5, .3).rotation.x = -.5; box(b, '#f4eee0', .22, .3, .052, -.24, .505, .3).rotation.x = -.5; box(b, '#c4473a', .02, .16, .02, .3, 1.0, .1); }
-  if (pose === 'sweep') { const st = box(b, '#a9784a', .035, 1.3, .035, .26, -.1, .38); st.rotation.x = -.35; const br = box(b, '#d9b45a', .3, .2, .1, .26, -.12, .62); br.rotation.x = -.35; }
+  if (pose === 'sweep') { const st = box(b, '#a9784a', .035, 1.3, .035, .26, -.1, .38); st.rotation.x = -.35; const br = box(b, '#d9b45a', .3, .2, .1, .26, -.12, .62); br.rotation.x = -.35; box(b, '#2f7de1', .1, .03, .22, -.3, .42, .22).rotation.x = -1.2; box(b, '#1b4f9a', .08, .03, .03, -.3, .47, .2); }
   if (pose === 'cookie') { box(b, '#e9d8a6', .34, .03, .24, -.1, .66, .36); for (const [x, z] of [[-.2, .3], [-.06, .32], [-.14, .42], [0, .42]]) box(b, '#b07040', .07, .04, .07, x, .69, z); box(b, '#d62828', .06, .06, .06, -.24, .7, .44); }
 }
 export function presidentKit(ch) {
