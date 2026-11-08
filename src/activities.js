@@ -123,7 +123,7 @@ export function createActivities(ctx) {
     n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
     if (n.role === 'president' || n.role === 'vicepresident') n.workFor = Infinity;
     if (n.role === 'listen') n.workFor = 60 + Math.random() * 90;
-    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (ps === 'guitar' || ps === 'game' || ps === 'cookie') { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
+    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'hide'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
     if (n.role === 'shop') { n.workFor = 4 + Math.random() * 6; n.t = 0; }
     n.yOff = spot && spot.y || 0;
     if (n.role === 'president') { const before = n.obj.userData.body.children.length; presidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
@@ -267,6 +267,13 @@ export function createActivities(ctx) {
     else if (p === 'guitar') { A(-.9, -1.0 + Math.sin(ph * 12) * .25, .35, -.2); u.body.rotation.x = Math.sin(ph * 3) * .05; }
     else if (p === 'point') { A(-.2, -2.6 + Math.sin(ph * 3) * .2, 0, -.15); u.body.rotation.x = -.06; }
     else if (p === 'game') { const k = Math.sin(ph * 14) * .08; A(-1.25 + k, -1.25 - k, .3, -.3); u.body.rotation.x = .1; }
+    // ep 20 (gelombang 2)
+    else if (p === 'guard') { A(-.55, -.55, .55, -.55); u.body.rotation.y = Math.sin(ph * .7) > .6 ? .45 : Math.sin(ph * .7) < -.6 ? -.45 : 0; }   // hands folded in front, scanning left and right
+    else if (p === 'beg') { const c = ph % 4; A(-1.25 + (c < 1 ? Math.sin(c * 12) * .12 : 0), -1.25, .25, -.25); u.body.rotation.x = .12; u.body.position.y = c < 1 ? Math.abs(Math.sin(c * 9)) * .04 : 0; }   // palms up: pinjam seratus dulu...
+    else if (p === 'rod') { const c = (ph % 9) / 9; A(-1.1, -1.1 + (c > .85 ? -.6 : 0), .15, -.1); u.body.rotation.x = c > .85 ? -.12 : 0; }   // fishing, a big tug now and then (a sandal again)
+    else if (p === 'thumbs') { const c = ph % 2.4; const up = c < .3 || (c > .5 && c < .8); A(up ? -1.9 : -1.5, up ? -1.9 : -1.5, .2, -.2); u.body.position.y = up ? .06 : 0; }   // two thumbs, twice, always twice
+    else if (p === 'cool') { const c = ph % 8; if (c < 6.5) { A(-.15, -2.45, 0, -.55); u.body.rotation.y = .25; } else { A(-2.6, -2.6, .5, -.5); u.body.rotation.x = .3 * Math.sin((c - 6.5) / 1.5 * Math.PI); } }   // anime pose... then a stumble
+    else if (p === 'hide') { A(-2.4, -2.4, .45, -.45); u.body.rotation.x = .28; u.body.position.y = -.03; }   // head down, hands over the face: jangan lihat aku
     else if (p === 'sitlook') { u.body.position.y = -.42; u.legL.rotation.x = -1.5; u.legR.rotation.x = -1.5; A(-.25, -.25, .1, -.1); }   // sitting on the boards, watching the sea
     else A(0, 0);
   }

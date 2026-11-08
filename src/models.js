@@ -16,11 +16,15 @@ export function vicePresidentKit(ch) {
   box(b, '#141414', .4, .17, .38, 0, 1.34, -.01);
   const s1 = box(b, '#e6b84a', .09, .66, .03, 0, .48, .16); s1.rotation.z = -.62; s1.position.y = .76;
 }
-// ep 19: props for the regular cast: senar muliya's guitar, inyuu's game pad, lala's cookie tray
+// ep 19/20: props for the regular cast (guitar, game pad, cookie tray, bodyguard suit, fishing rod, hood)
 export function castKit(ch, pose) {
   const b = ch.userData.body;
   if (pose === 'guitar') { box(b, '#b5651d', .34, .4, .1, .05, .42, .2); box(b, '#2a1a10', .1, .1, .11, .05, .44, .21); box(b, '#6b4226', .06, .5, .05, .38, .6, .2); box(b, '#3a2412', .08, .1, .06, .55, .75, .2); }
   if (pose === 'game') { box(b, '#2b2d42', .3, .08, .14, 0, .62, .38); box(b, '#e63946', .05, .03, .05, .08, .67, .38); box(b, '#43aa8b', .05, .03, .05, -.08, .67, .38); }
+  // ep 20: the bodyguard's dark suit and sunglasses, Rayhan's rod with (as always) a sandal on the hook, NOVA's hood
+  if (pose === 'guard') { box(b, '#16181d', .48, .55, .3, 0, .49, 0); box(b, '#0a0a0a', .32, .07, .03, 0, 1.21, .18); box(b, '#0a0a0a', .03, .1, .03, .19, 1.1, .05); box(b, '#d9d9d9', .08, .2, .02, 0, .8, .155); box(b, '#8b1e1e', .04, .2, .022, 0, .78, .158); }
+  if (pose === 'rod') { const r = box(b, '#6b4226', .04, 1.7, .04, .22, .35, .95); r.rotation.x = 1.0; const l = box(b, '#e8e8e8', .012, 1.42, .012, .22, .24, 1.66); const s1 = box(b, '#2f7de1', .12, .03, .26, .22, .2, 1.66); s1.rotation.x = .5; box(b, '#1b4f9a', .1, .03, .03, .22, .26, 1.6); }
+  if (pose === 'hide') { box(b, '#5b5f6b', .4, .14, .4, 0, 1.36, -.02); box(b, '#5b5f6b', .4, .3, .08, 0, 1.18, -.2); }
   if (pose === 'cookie') { box(b, '#e9d8a6', .34, .03, .24, -.1, .66, .36); for (const [x, z] of [[-.2, .3], [-.06, .32], [-.14, .42], [0, .42]]) box(b, '#b07040', .07, .04, .07, x, .69, z); box(b, '#d62828', .06, .06, .06, -.24, .7, .44); }
 }
 export function presidentKit(ch) {
