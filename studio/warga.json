@@ -20,7 +20,8 @@
       "anggota": [
         "'EGA_ (presiden)",
         "King indo (wapres)",
-        "Cawetssssss (bodyguard)"
+        "Cawetssssss (bodyguard)",
+        "🌸 Debby_l0vata👻 (sekretaris)"
       ],
       "lelucon": "Bodyguard yang terlalu serius menghalangi semua orang, termasuk wapres sendiri."
     }
@@ -379,6 +380,23 @@
       ],
       "pose": "memegang sapu, tersenyum",
       "tempat": "halaman masjid, di depan pintu (x45 y50)"
+    },
+    {
+      "nama": "🌸 Debby_l0vata👻",
+      "panggilan": "Debby",
+      "akun": "",
+      "komentar": "min aku mana ☹️?",
+      "kartu": "studio/episodes/ep23/komentar/debby.jpg",
+      "masuk": "ep23",
+      "julukan": "Sekretaris Presiden",
+      "sifat": "ceria & super sibuk",
+      "peran": "Dulu protes 'min aku mana?' karena belum masuk cerita, sekarang diangkat jadi Sekretaris Presiden 'EGA_. Ceria, jahil sedikit (😜👻), selalu membawa papan jadwal, mencatat semua ucapan presiden (termasuk yang tidak penting), dan sering berdebat dengan bodyguard Cawetssssss soal siapa yang boleh menemui presiden. Kalimat andalannya mengingatkan presiden ke PR dari Bu Guru Gina.",
+      "kalimat": [
+        "Pak Presiden, jadwal Bapak hari ini: PR dari Bu Guru Gina 📋",
+        "Akhirnya aku masuk juga 😜"
+      ],
+      "pose": "memegang papan jadwal/clipboard",
+      "tempat": "Kantor Pulau, di samping presiden"
     }
   ]
 }
