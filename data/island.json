@@ -12074,6 +12074,126 @@
    ],
    "face": 0,
    "pose": "sitlook"
+  },
+  {
+   "n": "Cawetssssss",
+   "ep": 20,
+   "tampil": "Cawetssssss",
+   "julukan": "Si Bodyguard",
+   "sifat": "pengawal serius",
+   "kalimat": [
+    "Mundur! Area presiden!",
+    "Identitas? ...Oh, Aru. Tetap mundur."
+   ],
+   "tempat": "selalu di samping Presiden 'EGA_",
+   "spot": [
+    53,
+    46,
+    0,
+    0.2
+   ],
+   "face": 0,
+   "pose": "guard"
+  },
+  {
+   "n": "Pinjam seratus",
+   "ep": 20,
+   "tampil": "Pinjam seratus 💸",
+   "julukan": "Si Pinjam Seratus",
+   "sifat": "tukang pinjam (lucu)",
+   "kalimat": [
+    "Pinjam seratus dulu...",
+    "Besok dibalikin, sumpah!"
+   ],
+   "tempat": "depan Bank Pulau",
+   "spot": [
+    58,
+    53,
+    0,
+    0
+   ],
+   "face": 3.14,
+   "pose": "beg"
+  },
+  {
+   "n": "_Rayhannn`",
+   "ep": 20,
+   "tampil": "_Rayhannn`",
+   "julukan": "Si Nelayan",
+   "sifat": "sabar & apes",
+   "kalimat": [
+    "Lumayan... sandal lagi 😁👌",
+    "Sabar, ikannya lagi otw."
+   ],
+   "tempat": "dermaga",
+   "spot": [
+    55,
+    99,
+    0.25,
+    0
+   ],
+   "face": 1.57,
+   "pose": "rod"
+  },
+  {
+   "n": "KM GPP TAN",
+   "ep": 20,
+   "tampil": "KM GPP TAN",
+   "julukan": "Si Dua Kali",
+   "sifat": "semangat dobel",
+   "kalimat": [
+    "Aku ikut bang! Aku ikut bang!",
+    "Siap! Siap!"
+   ],
+   "tempat": "jalan silang dekat Kotak Usulan",
+   "spot": [
+    52,
+    52,
+    0,
+    0
+   ],
+   "face": 0,
+   "pose": "thumbs"
+  },
+  {
+   "n": "-VANZwlee",
+   "ep": 20,
+   "tampil": "-VANZwlee",
+   "julukan": "Si Paling Keren",
+   "sifat": "sok keren",
+   "kalimat": [
+    "Namaku... Revan.",
+    "Hmph. Biasa aja."
+   ],
+   "tempat": "dekat batu nama pulau di pantai",
+   "spot": [
+    52,
+    94,
+    0,
+    0
+   ],
+   "face": 3.14,
+   "pose": "cool"
+  },
+  {
+   "n": "NOVA",
+   "ep": 20,
+   "tampil": "NOVA",
+   "julukan": "Si Biasa Aja",
+   "sifat": "ingin biasa saja",
+   "kalimat": [
+    "Aku biasa aja bang...",
+    "Jangan lihat aku, aku orang biasa!"
+   ],
+   "tempat": "rumah biasa di sebelah ALIF HR",
+   "spot": [
+    63,
+    61,
+    0,
+    0
+   ],
+   "face": 0,
+   "pose": "hide"
   }
  ],
  "buildings": [
@@ -12709,6 +12829,19 @@
     "abcdell_011"
    ],
    "text": "14 warga baru dari kolom komentar pindah ke pulau, masing-masing dengan sifatnya: Si Pahlawan, Si Iseng, Si Sok Tahu, Si Gamer, Si Gitar Senar Putus, Si Warga Biasa, Si Penikmat Senja, dan lainnya. Klub Pertama ribut siapa yang pertama; Letisya menang pakai catatan jam. Sapa mereka di tempatnya masing-masing."
+  },
+  {
+   "ep": 20,
+   "date": "8 Nov 2026",
+   "picks": [
+    "Cawetssssss",
+    "Pinjam seratus",
+    "_Rayhannn`",
+    "KM GPP TAN",
+    "-VANZwlee",
+    "NOVA"
+   ],
+   "text": "Gelombang 2: 6 warga baru dari kolom komentar. Cawetssssss jadi bodyguard Presiden 'EGA_ (menghalangi Aru, wapres, bahkan presiden sendiri), Pinjam Seratus nongkrong di depan Bank Pulau, _Rayhannn` memancing di dermaga dan selalu dapat sandal, KM GPP TAN bilang semuanya dua kali, -VANZwlee pose keren dekat batu nama lalu tersandung, NOVA bergabung dengan ALIF HR di Klub Warga Biasa. Sapa mereka di tempatnya."
   }
  ],
  "letters": [],
@@ -12805,14 +12938,14 @@
  "umkm": [],
  "event": {
   "type": "demo",
-  "ep": 18,
+  "ep": 20,
   "signs": [
    "SELAMAT|DATANG!",
-   "WARGA|BARU!",
-   "14 WARGA|BARU",
+   "WARGA BARU|GEL. 2",
+   "6 WARGA|BARU",
    "PERTAMA?",
    "KLUB|PERTAMA",
-   "KENALAN|DULU",
+   "PINJAM|SERATUS?",
    "PRES|EGA_",
    "WAPRES|KING INDO"
   ],

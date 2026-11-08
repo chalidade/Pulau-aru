@@ -1,5 +1,5 @@
 {
- "nextEp": 20,
+ "nextEp": 21,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -25,9 +25,9 @@
   "prev": "EGA_91 (mundur ep 15, lalu jadi presiden ep 16)"
  },
  "openThreads": [
-  "Pemeran tetap (ep 19): 14 warga baru tinggal di pulau, masing-masing di island.json residents[].spot dengan pose sesuai sifat (role 'cast' di src/activities.js); disapa = julukan + kalimat khas. Pakai 1-3 per episode sesuai RUNBOOK 2d. Klub Pertama: Letisya resmi 'yang pertama' (catatan jam) -> D..A..B..Y & princes_nay pasti menuntut lomba ulang. Belum dapat adegan: Aidil (perasa), ALERX (misterius, malam), D4L (boleh?), lala cute (kue).",
+  "Pemeran tetap (ep 19 + ep 20): 20 warga di island.json residents[].spot dengan pose sesuai sifat (role 'cast'); disapa = julukan + kalimat khas. Ep 20 menambah 6: Cawetssssss bodyguard (depan panggung, jas & kacamata hitam, pose 'guard'), Pinjam seratus di depan Bank Pulau ('beg'), _Rayhannn` memancing di dermaga, kailnya selalu dapat sandal ('rod'), KM GPP TAN alun-alun/jalan silang dekat Kotak Usulan, dua jempol dua kali ('thumbs'), -VANZwlee dekat batu nama di pantai, pose anime lalu tersandung ('cool'), NOVA bertudung menutup wajah di sebelah ALIF HR ('hide'). Lelucon berjalan: bodyguard menghalangi Aru, wapres, bahkan presiden ('Identitas dulu'); Pinjam Seratus diberi kue oleh lala; sandal Rayhan disembunyikan whoyss; Revan ditabrak Klub Pertama; Klub Warga Biasa ALIF vs NOVA. Belum dapat adegan: Aidil, ALERX (malam), D4L, Letisya/princes (ep 20 cuma suara D..A..B..Y).",
   "Presiden 'EGA_ (ep 16) & wapres King indo (kingindo131). Kuota: presiden 1/3 (ep 18 Bank Pulau dari Kotak Usulan), wapres 0/2. End card ep 18 (belum dijawab; ep 19 = perkenalan warga): jatah kedua presiden, bengkel, hotel, atau apartemen? -> ambil dari komentar. Kotak Usulan (x50 y51): usulan bengkel, hotel, apartemen masih menunggu.",
-  "Masa jabatan 1 minggu (sampai ~14 Nov). Room terbuka: masjid, sekolah, rumahpresiden, rumahsakit, rumah (ep 18); berikutnya: warteg.",
+  "Masa jabatan 1 minggu (sampai ~14 Nov). Room terbuka: masjid, sekolah, rumahpresiden, rumahsakit, rumah (ep 18); berikutnya: warteg (ep 19 & 20 episode perkenalan, belum membuka room).",
   "Rahasia presiden (ep 13): ia dilantik waktu Aru di Pulau Seberang (ep 4), tanpa pemilu, 'cuma karena follow duluan'. Surat dari Pulau Seberang ternyata dari Penjaga Mercusuar: 'Pemimpin pulau harus dipilih warga, bukan ditunjuk.'",
   "Mantan presiden @Etet_443 warga biasa, selalu muncul dengan plakat MANTAN PRESIDEN (event.carry). 'Dulu aku cuma follow duluan.'",
   "Fitur interaksi (arahan Chalid 6 Nov): bisa interaksi dengan gedung satu per satu, update berkala. Sudah: duduk & pesan makan di Warung Fahmi, kerja shift di Kantor Pulau (src/kerja.js, koin bersama Kebunku). Berikutnya: perosotan waterpark, ayunan sekolah, duduk di Kedai Kopi / Pos Ronda, dst.",
@@ -72,7 +72,8 @@
   "'EGA_ (@.....plengerrr0): aku nyalon min, janji jadi pemimpin yang baik (3 like, PRESIDEN ep 16) + 'wakil saya @King indo' (WAPRES)",
   "wibu cilik pelenger (@sapta.rajo.ghaisa): kakak aku tukang jualan kopidong udah follow (Gerobak Kopi Dong)",
   "usulan lama warga (Kotak Usulan): bank / mata uang pulau (Bank Pulau, jatah presiden 1/3)",
-  "Warga baru ep 19 (komentar 'aku ikut' dkk, jadi pemeran tetap studio/warga.json): Alexandre, whoyss, Aidil YZ, D..A..B..Y a..j..a, princes_nay, Letisya Khianantaa, ALERXMNC, D4L, ALIF HR, lala cute (@alivia_vi), senar muliya (@apriantoro), Luci Ardiansyah (@luciardiansyah), inyuu (@inyuu416), dell_ (@abcdell_011)"
+  "Warga baru ep 19 (komentar 'aku ikut' dkk, jadi pemeran tetap studio/warga.json): Alexandre, whoyss, Aidil YZ, D..A..B..Y a..j..a, princes_nay, Letisya Khianantaa, ALERXMNC, D4L, ALIF HR, lala cute (@alivia_vi), senar muliya (@apriantoro), Luci Ardiansyah (@luciardiansyah), inyuu (@inyuu416), dell_ (@abcdell_011)",
+  "Warga baru ep 20 (gelombang 2, antrean Chalid di komentar.md, jadi pemeran tetap studio/warga.json): Cawetssssss (bodyguard presiden), Pinjam seratus (Farel), _Rayhannn` (nelayan), KM GPP TAN (Fattan), -VANZwlee (Revan), NOVA[★★★'★★™NOV♣♣"
  ],
  "episodes": [
   {
@@ -158,16 +159,22 @@
    "title": "Warga Baru",
    "posted": "manual (menunggu Chalid)",
    "summary": "Episode perkenalan atas permintaan Chalid: 14 warga baru dari kolom komentar jadi pemeran tetap. Cold open Klub Pertama ribut (princes_nay 'aku kan princess', D..A..B..Y 'PERTAMA!'); montase 14 kartu komentar asli + julukan; Presiden EGA menyambut. Adegan: Alexandre Si Pahlawan, whoyss Si Iseng, Luci Si Sok Tahu ('mercusuar buat manggil ikan', Aru: 'itu buat kapal'), inyuu Si Gamer, senar muliya senarnya putus, ALIF 'kenapa harus aku lagi', Letisya menang Klub Pertama pakai catatan jam, dell_ 'hm... senjanya bagus'. Semua ada di web di tempatnya. End card: kamu paling mirip siapa? CTA UMKM."
+  },
+  {
+   "ep": 20,
+   "title": "Warga Baru Gelombang 2",
+   "posted": "manual (menunggu Chalid)",
+   "summary": "Episode perkenalan atas permintaan Chalid: 6 warga baru gelombang 2. Cold open: bodyguard Cawetssssss menghalangi Aru ('Identitas? ...Oh, Aru. Tetap mundur.'); montase 6 kartu komentar asli; Presiden EGA: 'katanya saya yang nyuruh... saya lupa'. Pinjam Seratus minta pinjam, lala cute: 'uangnya nggak ada, mau kue?'; Rayhan memancing dapat sandal lagi (whoyss: 'bukan aku'); Fattan bilang semuanya dua kali; Revan pose anime lalu ditabrak D..A..B..Y ('PERTAMA! Minggir!'); NOVA vs ALIF HR, Klub Warga Biasa. Penutup: bodyguard menghalangi wapres dan meminta identitas presiden sendiri. End card: kamu paling mirip siapa? CTA traktir."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 19,
-   "cta": "umkm"
+   "ep": 20,
+   "cta": "traktir"
   },
-  "nextCta": "traktir"
+  "nextCta": "umkm"
  },
  "notes": [
   "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
@@ -184,14 +191,16 @@
   "Ep 16 (7 Nov pagi): dua komentar dari antrean komentar.md (pilihan Chalid, screenshot asli). Chrome tidak tersambung di sesi cloud, Apify tidak dipakai (antrean sudah terisi). Kode baru: model gerobakkopi, buildings[].seller/lines (penjual bernama tetap di lapaknya), papanpemilu b.win (papan hasil), dialog presiden/wapres baru.",
   "Ep 17 (7 Nov pagi): Apify gagal lagi (run 42333362311), Chrome tidak tersambung, antrean kosong; episode tanpa kartu komentar. Kode baru: model kotakusulan (open: 'usulan', ui.js openUsulan, island.json usulan[]) dan toiletumum.",
   "Ep 18 (7 Nov sore): Apify gagal lagi (APIFY_TOKEN kosong, run 42354430314), Chrome tidak tersambung, antrean kosong; episode tanpa kartu komentar, digerakkan Kotak Usulan. Kode baru: model bankpulau (open: 'bank'), kebun.js openBank (tabungan st.tab + bunga harian), __demo(plots, koin, tab).",
-  "Ep 19 (7 Nov sore): sesuai antrean Chalid di komentar.md (tanpa komentar lain), jadi Apify/Chrome tidak dipakai. Kode baru: residents[].julukan/kalimat/spot/face/pose -> NPC tetap (role 'cast', castKit gitar/stik/kue). Capture kadang menghasilkan frame dengan kotak hitam (e19c11); dibersihkan dengan membandingkan frame tetangga, jangan pakai ambang piksel gelap saja (tiang lampu ikut terdeteksi)."
+  "Ep 19 (7 Nov sore): sesuai antrean Chalid di komentar.md (tanpa komentar lain), jadi Apify/Chrome tidak dipakai. Kode baru: residents[].julukan/kalimat/spot/face/pose -> NPC tetap (role 'cast', castKit gitar/stik/kue). Capture kadang menghasilkan frame dengan kotak hitam (e19c11); dibersihkan dengan membandingkan frame tetangga, jangan pakai ambang piksel gelap saja (tiang lampu ikut terdeteksi).",
+  "Ep 20 (8 Nov pagi): sesuai antrean Chalid di komentar.md (gelombang 2, tanpa komentar lain), jadi Apify/Chrome tidak dipakai; Chrome juga tidak tersambung di sesi cloud -> diposting manual. Kode baru: castPose guard/beg/rod/thumbs/cool/hide dan castKit guard (jas, kacamata), rod (pancing + sandal), hide (tudung). Spot di depan papanpemilu/rumahpresiden membuat kamera close-up masuk ke papan; pilih spot dengan ruang kosong 3 m di depan wajah."
  ],
  "rooms": {
   "open": [
    "masjid",
    "sekolah",
    "rumahpresiden",
-   "rumahsakit"
+   "rumahsakit",
+   "rumah"
   ],
   "order": [
    "masjid",
