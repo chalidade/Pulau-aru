@@ -25,6 +25,8 @@ export function castKit(ch, pose) {
   if (pose === 'guard') { box(b, '#16181d', .48, .55, .3, 0, .49, 0); box(b, '#0a0a0a', .32, .07, .03, 0, 1.21, .18); box(b, '#0a0a0a', .03, .1, .03, .19, 1.1, .05); box(b, '#d9d9d9', .08, .2, .02, 0, .8, .155); box(b, '#8b1e1e', .04, .2, .022, 0, .78, .158); }
   if (pose === 'rod') { const r = box(b, '#6b4226', .04, 1.7, .04, .22, .35, .95); r.rotation.x = 1.0; const l = box(b, '#e8e8e8', .012, 1.42, .012, .22, .24, 1.66); const s1 = box(b, '#2f7de1', .12, .03, .26, .22, .2, 1.66); s1.rotation.x = .5; box(b, '#1b4f9a', .1, .03, .03, .22, .26, 1.6); }
   if (pose === 'hide') { box(b, '#5b5f6b', .4, .14, .4, 0, 1.36, -.02); box(b, '#5b5f6b', .4, .3, .08, 0, 1.18, -.2); }
+  // ep 21: whoyss (sneak) still holds the three cart bolts he 'didn't' take
+  if (pose === 'sneak') { for (const [x, y] of [[.3, .52], [.36, .47], [.27, .44]]) { add(b, G.cyl6, '#b8bec2', .035, .07, .035, x, y, .26); add(b, G.cyl6, '#8a9196', .055, .02, .055, x, y + .04, .26); } }
   if (pose === 'cookie') { box(b, '#e9d8a6', .34, .03, .24, -.1, .66, .36); for (const [x, z] of [[-.2, .3], [-.06, .32], [-.14, .42], [0, .42]]) box(b, '#b07040', .07, .04, .07, x, .69, z); box(b, '#d62828', .06, .06, .06, -.24, .7, .44); }
 }
 export function presidentKit(ch) {
@@ -1030,6 +1032,48 @@ export const BT = {
       box(g, '#6f8a96', .26, .62, .22, 1.0, .1, .3); box(g, '#22313a', .18, .12, .02, 1.0, .5, .415); box(g, '#e6b84a', .12, .03, .02, 1.0, .36, .415);
       for (let i = 0; i < 4; i++) add(g, G.cyl8, '#e6b84a', .09, .03, .09, -.88 + (i % 2) * .02, .1 + i * .035, .62);
       add(g, G.cyl8, '#8a5a34', .12, .2, .12, .85, .1, .68); add(g, G.ico, '#62bd73', .17, .2, .17, .85, .42, .68);
+    } },
+  // ep 21: Bengkel Pulau, the old suggestion from the Kotak Usulan, built after the coffee cart lost a wheel.
+  // An open-front garage: tool wall, workbench, tyre stack, oil drum, an air pump and a spare cart wheel.
+  bengkel: { n: 'Bengkel Pulau', w: 4, h: 3, land: true, scale: 1.45,
+    build(g, b) {
+      box(g, '#a9a49a', 2.1, .08, 1.7, 0, 0, 0);                                                              // concrete floor
+      box(g, '#7d7a72', 1.6, .01, .02, 0, .08, .3); box(g, '#7d7a72', 1.6, .01, .02, 0, .08, -.2);            // floor joints
+      box(g, '#e8c25a', 1.9, 1.6, .08, 0, .08, -.78);                                                         // back wall
+      for (const sx of [-.95, .95]) box(g, '#d9b04a', .08, 1.6, 1.5, sx, .08, -.05);                          // side walls
+      box(g, '#2f3b46', 1.9, .16, .09, 0, .08, -.73);                                                          // dark skirting
+      for (const sx of [-.95, .95]) box(g, '#2f3b46', .1, .16, 1.5, sx, .08, -.05);
+      box(g, '#5f6b74', 2.2, .08, 1.85, 0, 1.68, -.02);                                                        // flat roof
+      for (const sx of [-1.02, 1.02]) box(g, '#2f3b46', .12, 1.62, .12, sx, .08, .72);                        // front posts
+      // shutter rolled up under the roof edge, with stripes
+      add(g, G.cyl8, '#9aa3a8', .1, 1.86, .1, 0, 1.58, .74).rotation.z = Math.PI / 2;
+      // tool wall: pegboard with wrenches, a hammer, a saw outline
+      box(g, '#c99a5a', 1.2, .7, .03, -.15, .75, -.73);
+      for (let i = 0; i < 6; i++) { const w = box(g, '#b8bec2', .04, .32 - (i % 3) * .05, .02, -.6 + i * .12, .95, -.71); w.rotation.z = (i % 2 ? .12 : -.12); }
+      box(g, '#c4473a', .06, .22, .02, .18, 1.0, -.71); box(g, '#3a3a38', .16, .06, .025, .18, 1.2, -.71);
+      box(g, '#b8bec2', .26, .1, .02, .34, .9, -.71);
+      // workbench with a vice and a toolbox
+      box(g, '#7a4a28', 1.1, .06, .36, -.2, .52, -.55); for (const [x, z] of [[-.7, -.68], [.3, -.68], [-.7, -.42], [.3, -.42]]) box(g, '#5e3b22', .05, .52, .05, x, 0, z);
+      box(g, '#4e5a62', .14, .1, .1, -.6, .58, -.45); box(g, '#c4473a', .3, .14, .16, .08, .58, -.55); box(g, '#9e3329', .3, .03, .16, .08, .72, -.55);
+      // the car-less lift: a wooden cart on two stands, being fixed (for any cart that loses a wheel)
+      box(g, '#8a5a34', .9, .08, .5, .1, .42, .15); box(g, '#c4473a', .9, .22, .46, .1, .5, .15);
+      for (const x of [-.25, .45]) box(g, '#4e5a62', .08, .42, .08, x, 0, .15);
+      const wh = add(g, G.cyl8, '#2b2b2b', .2, .06, .2, .62, .2, .42); wh.rotation.x = Math.PI / 2; wh.rotation.z = .25;
+      add(g, G.cyl8, '#9a9b94', .07, .07, .07, .62, .2, .42).rotation.x = Math.PI / 2;
+      // tyre stack outside on the right, oil drum and air pump on the left
+      for (let i = 0; i < 4; i++) { add(g, G.cyl8, '#232323', .22, .1, .22, 1.3, .13 + i * .11, .35); add(g, G.cyl8, '#5a5a5a', .1, .102, .1, 1.3, .13 + i * .11, .35); }
+      add(g, G.cyl8, '#2f6fa8', .16, .44, .16, -1.25, .3, .5); add(g, G.cyl8, '#245a88', .165, .03, .165, -1.25, .52, .5);
+      box(g, '#c4473a', .26, .34, .2, -1.28, .08, .05); box(g, '#f4eee0', .14, .07, .02, -1.28, .3, .16); const hose = box(g, '#1a1a1a', .03, .03, .5, -1.18, .12, .35); hose.rotation.y = .5;
+      // the sign above the door
+      const c = document.createElement('canvas'); c.width = 512; c.height = 128; const x = c.getContext('2d');
+      x.fillStyle = '#2f3b46'; x.fillRect(0, 0, 512, 128); x.fillStyle = '#e8c25a'; for (let i = 0; i < 512; i += 48) { x.beginPath(); x.moveTo(i, 120); x.lineTo(i + 24, 120); x.lineTo(i + 16, 128); x.lineTo(i - 8, 128); x.fill(); }
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffd25a'; x.font = '700 64px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'BENGKEL PULAU', 256, 50, 490);
+      x.fillStyle = '#ffffff'; x.font = '700 24px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'tambal ban · servis gerobak · angin gratis', 256, 98, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      box(g, '#2f3b46', 2.12, .46, .05, 0, 1.76, .8);
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(2.04, .42), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.99, .83); g.add(sign);
+      // a wrench-shaped hanging lamp
+      const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.08, .1, .08); lamp.position.set(.6, 1.45, .3); g.add(lamp);
     } },
   papan: { n: 'Papan nama', w: 1, h: 1, land: true, sign: true, build(g, b) { box(g, '#5e3b22', .08, 1, .08, 0, 0, 0); const board = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(splitLabel(b && b.label || 'Pulau'), { size: 46, grain: true }), flatShading: true }), mat('#8a5a34')]); board.scale.set(.95, .48, .06); board.position.set(0, 1, .05); board.castShadow = true; g.add(board); } },
 };
