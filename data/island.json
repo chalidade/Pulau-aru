@@ -12234,6 +12234,26 @@
    ],
    "face": 0,
    "pose": "sweep"
+  },
+  {
+   "n": "Debby_l0vata",
+   "ep": 23,
+   "tampil": "🌸 Debby_l0vata👻",
+   "julukan": "Sekretaris Presiden",
+   "sifat": "ceria & super sibuk",
+   "kalimat": [
+    "Pak Presiden, jadwal Bapak hari ini: PR dari Bu Guru Gina 📋",
+    "Akhirnya aku masuk juga 😜"
+   ],
+   "tempat": "di samping mimbar, dekat Papan Jadwal Presiden",
+   "spot": [
+    52,
+    45,
+    0.35,
+    0
+   ],
+   "face": 0.3,
+   "pose": "clip"
   }
  ],
  "buildings": [
@@ -12695,6 +12715,31 @@
    "by": "EGA_91",
    "ep": 22,
    "label": "APARTEMEN PRESIDEN"
+  },
+  {
+   "type": "papanjadwal",
+   "x": 51,
+   "y": 44,
+   "r": 0,
+   "label": "Sekretaris: Debby_l0vata",
+   "items": [
+    "PR dari Bu Guru Gina",
+    "Study tour (ikut? katanya nggak)",
+    "Bayar kopi dong",
+    "Cari lift apartemen"
+   ],
+   "by": "Debby_l0vata",
+   "ep": 23
+  },
+  {
+   "type": "spandukstudytour",
+   "x": 53,
+   "y": 71,
+   "r": 3,
+   "label": "STUDY TOUR",
+   "sub": "Sekolah Pulau Aru · setahun sekali",
+   "by": "???",
+   "ep": 23
   }
  ],
  "episodes": [
@@ -12918,6 +12963,15 @@
     "panggil aja zidan: penjaga masjid"
    ],
    "text": "Presiden 'EGA_ minta apartemen: berdirilah Apartemen Presiden, gedung bertingkat pertama di pulau, lima lantai dan mahkota emas. Lantai paling atas punya presiden, tapi liftnya belum ada. Bu Guru Gina mulai mengajar di gerbang sekolah (PR untuk presiden, dua untuk bodyguard), Zidan jadi Penjaga Masjid. Kedai Kopi resmi dibuka."
+  },
+  {
+   "ep": 23,
+   "date": "2026-11-08",
+   "picks": [
+    "🌸 Debby_l0vata👻",
+    "???"
+   ],
+   "text": "Debby ('min aku mana?') diangkat jadi Sekretaris Presiden: Papan Jadwal Presiden di samping mimbar, isinya PR dari Bu Guru Gina. Bodyguard minta identitas, lalu menemukan dua PR-nya sendiri di jadwal.\nKomentar ??? jadi Study Tour Sekolah Pulau Aru (setahun sekali): Bu Guru Gina membawa rombongan bertopi kuning keliling pulau, pemandunya Luci Si Sok Tahu. Apotik resmi dibuka."
   }
  ],
  "letters": [],
@@ -13036,7 +13090,8 @@
   "rumahsakit",
   "rumah",
   "warteg",
-  "kedaikopi"
+  "kedaikopi",
+  "apotik"
  ],
  "usulan": [
   {
@@ -13062,5 +13117,58 @@
    "t": "Apartemen",
    "st": "menunggu"
   }
- ]
+ ],
+ "secretary": {
+  "n": "Debby_l0vata",
+  "t": "🌸 Debby_l0vata👻",
+  "ep": 23
+ },
+ "tour": {
+  "ep": 23,
+  "name": "Study Tour Sekolah Pulau Aru",
+  "guide": "Bu Guru Gina",
+  "pupils": [
+   "D..A..B..Y a..j..a",
+   "princes_nay",
+   "luciardiansyah",
+   "Letisya Khianantaa",
+   "D4L",
+   "inyuu416"
+  ],
+  "route": [
+   [
+    54.2,
+    72
+   ],
+   [
+    54.2,
+    52.2
+   ],
+   [
+    77,
+    52.2
+   ],
+   [
+    36,
+    52.2
+   ],
+   [
+    54.2,
+    52.2
+   ],
+   [
+    54.8,
+    52.2
+   ],
+   [
+    54.8,
+    92
+   ],
+   [
+    54.2,
+    92
+   ]
+  ],
+  "speed": 1.0
+ }
 }
