@@ -1,5 +1,5 @@
 {
- "nextEp": 24,
+ "nextEp": 25,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -42,7 +42,8 @@
   "Pemeran baru ep 22: Bu Guru Gina (gerbang Sekolah x52 y70, pose 'teach', buku absen): memberi PR ke presiden ('Presiden juga murid') dan DUA PR ke bodyguard ('...Siap, Bu.'). Zidan, panggil aja zidan (Penjaga Masjid, halaman masjid x45 y50, pose 'sweep', sapu + sandal biru temuan): 'Sandalnya dilepas dulu ya, kak', menemukan sandal yang disembunyikan whoyss ('Hehe... bukan aku'). Lelucon lanjut: PR presiden dikumpulkan besok? sandal milik siapa (Rayhan?).",
   "Masa jabatan 1 minggu (sampai ~14 Nov). Semua room di urutan sudah terbuka (apotik ep 23). Berikutnya: ruang baru (lobi/penthouse apartemen, kantor pulau, bank) atau interaksi gedung.",
   "Sekretaris Presiden Debby (🌸 Debby_l0vata👻, ep 23): island.json secretary + resident spot (52,45) di samping mimbar, pose 'clip' (papan jadwal). Papan Jadwal Presiden (papanjadwal x51 y44, items[]): PR Bu Guru Gina (dicentang), study tour 'ikut? katanya nggak', bayar kopi dong, cari lift apartemen. Lelucon: bodyguard juga punya dua PR di jadwal; Debby mencatat semua ucapan presiden. Items bisa diperbarui tiap episode.",
-  "Study Tour (ep 23, island.json tour): Bu Guru Gina (bendera) memimpin 6 murid bertopi kuning (DABY, princes, Luci, Letisya, D4L, inyuu) keliling rute jalan utama -> jalan silang (Menara Sinyal, Apartemen) -> dermaga, loop ~2,5 menit di web (main.js assignTour/stepTour, window.__tourS untuk kamera). Spanduk Study Tour (spandukstudytour x53 y71 r3) di depan sekolah. PR: tulis pengalaman study tour, termasuk presiden. End card: study tour berikutnya ke mana? -> ambil dari komentar. Kalau tour diakhiri, hapus island.json tour agar murid kembali ke spot masing-masing."
+  "Study Tour (ep 23, island.json tour): Bu Guru Gina (bendera) memimpin 6 murid bertopi kuning (DABY, princes, Luci, Letisya, D4L, inyuu) keliling rute jalan utama -> jalan silang (Menara Sinyal, Apartemen) -> dermaga, loop ~2,5 menit di web (main.js assignTour/stepTour, window.__tourS untuk kamera). Spanduk Study Tour (spandukstudytour x53 y71 r3) di depan sekolah. PR: tulis pengalaman study tour, termasuk presiden. End card: study tour berikutnya ke mana? -> ambil dari komentar. Kalau tour diakhiri, hapus island.json tour agar murid kembali ke spot masing-masing.",
+  "Hotel Pulau (x58 y83, r1, ep 24) dekat dermaga di sisi timur jalan utama + Buku Tamu Hotel (papanjadwal head/color, x56 y86): Kamar 1 D..A..B..Y, Kamar 2 Pak Presiden (PR?), Kamar 3 Penjaga Mercusuar, Kamar 4 masih kosong -> end card ep 24: siapa tamu kamar 4? (isi dari komentar). Misteri: Penjaga Mercusuar menginap di hotel? Bisa jadi ep berikut: Aru mengetuk kamar 3, kamarnya kosong + surat/petunjuk. DABY & princes keluar dari rombongan study tour, spot di depan pintu hotel. Usulan Kotak Usulan sudah habis semua (hotel/apartemen dibangun) -> butuh usulan baru dari komentar."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -84,7 +85,8 @@
   "??? (komentar 'bu guru gina'): Bu Guru Gina jadi guru Sekolah, pemeran tetap ep 22",
   "panggil aja zidan: aku yg jadi penjaga nya (Zidan, Penjaga Masjid, pemeran tetap ep 22)",
   "🌸 Debby_l0vata👻: min aku mana ☹️? (Sekretaris Presiden ep 23, Papan Jadwal Presiden)",
-  "??? (akun 'bu guru gina'): bikin acara study toor kak biar murid² jadi nyaman di sekolah 1 tahun 1 kali aja kak (Study Tour ep 23)"
+  "??? (akun 'bu guru gina'): bikin acara study toor kak biar murid² jadi nyaman di sekolah 1 tahun 1 kali aja kak (Study Tour ep 23)",
+  "usulan lama warga (Kotak Usulan): hotel (Hotel Pulau ep 24, bukan jatah presiden)"
  ],
  "episodes": [
   {
@@ -194,16 +196,22 @@
    "title": "Sekretaris & Study Tour",
    "posted": "manual (menunggu Chalid)",
    "summary": "Sesuai antrean Chalid (komentar.md, screenshot asli). Cold open: Debby mau ketemu presiden, bodyguard Cawetssssss 'Mundur! Identitas dulu!'. Kartu 2 komentar. Presiden EGA mengangkat Debby jadi Sekretaris Presiden ('Akhirnya aku masuk juga!'); Debby membacakan jadwal: PR dari Bu Guru Gina (Papan Jadwal Presiden di samping mimbar). Payoff: Debby menunjukkan jadwal bodyguard (dua PR), bodyguard 'Silakan lewat, Bu Sekretaris'. Bu Guru Gina: Study Tour setahun sekali, rombongan bertopi kuning (DABY & princes rebutan barisan depan). Pemandu wisata Luci Si Sok Tahu: Menara Sinyal 'buat manggil ikan', Apartemen 'istana seribu lantai', D4L 'Boleh foto?'. Aru: 'Itu apotik' -> apotik dibuka (room terakhir). Gina di gapura: PR tulis pengalaman study tour, termasuk Pak Presiden. End card: study tour berikutnya ke mana? Tanpa CTA."
+  },
+  {
+   "ep": 24,
+   "title": "Hotel Pulau",
+   "posted": "manual (menunggu Chalid)",
+   "summary": "Tidak ada komentar TikTok baru (Apify gagal lagi, APIFY_TOKEN kosong, run 42552373349; Chrome tidak tersambung; komentar.md & traktir kosong). Digerakkan Kotak Usulan (usulan lama terakhir: hotel). Cold open: bodyguard Cawetssssss di depan Hotel Pulau, 'Mau check-in? Identitas dulu!', Aru 'Aku yang bangun hotelnya!', '...Tetap identitas dulu.' Hook: HOTEL BARU! / TAMU MISTERIUS?. KM GPP TAN 'Hotel, bang! Hotel, bang!'. Hotel Pulau dekat dermaga (3 lantai, karpet merah, bel resepsionis). Klub Pertama: DABY 'PERTAMA check-in!', princes 'Kamu kan punya rumah sendiri!'. Presiden EGA pesan kamar paling atas, Aru: 'sudah punya apartemen', EGA: 'Itu buat hari kerja, ini buat liburan.' Bu Guru Gina menagih PR study tour, EGA: 'Ketinggalan... di kamar hotel.' whoyss pegang baut bengkel: 'bukan aku'. Malam: Buku Tamu Hotel, Kamar 3 = Penjaga Mercusuar (payoff hook). End card: siapa tamu kamar 4? CTA traktir. Durasi 55,5 dtk."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 21,
-   "cta": "umkm"
+   "ep": 24,
+   "cta": "traktir"
   },
-  "nextCta": "traktir"
+  "nextCta": "umkm"
  },
  "notes": [
   "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
@@ -224,7 +232,8 @@
   "Ep 20 (8 Nov pagi): sesuai antrean Chalid di komentar.md (gelombang 2, tanpa komentar lain), jadi Apify/Chrome tidak dipakai; Chrome juga tidak tersambung di sesi cloud -> diposting manual. Kode baru: castPose guard/beg/rod/thumbs/cool/hide dan castKit guard (jas, kacamata), rod (pancing + sandal), hide (tudung). Spot di depan papanpemilu/rumahpresiden membuat kamera close-up masuk ke papan; pilih spot dengan ruang kosong 3 m di depan wajah.",
   "Ep 21 (8 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong, run 42439619074), Chrome tidak tersambung, antrean & traktir kosong; episode digerakkan Kotak Usulan (bengkel) tanpa kartu komentar. Kode baru: model bengkel, castKit 'sneak' (tiga baut di tangan whoyss). Gerobak miring + roda menggelinding hanya dipentaskan di shots.py (__cartInit/__cartSet); di web gerobak normal. Kamera di sisi selatan jalan silang sering masuk ke Bank/Toilet/Pos Ronda: ambil sudut dari arah jalan (yaw ~1.35) atau pitch tinggi.",
   "Ep 22 (8 Nov sore): sesuai antrean Chalid di komentar.md (tanpa komentar lain), jadi Apify/Chrome tidak dipakai; Chrome juga tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach) -> diposting manual. Kode baru: model apartemen, castKit/pose 'teach' (Bu Guru Gina) dan 'sweep' (Zidan, sapu + sandal). Lampu jalan di depan lobi apartemen selalu menghalangi kamera dari jalan; ambil sudut dari timur sepanjang plaza (yaw ~1.75). Spot di depan pintu masjid: (45,50).",
-  "Ep 23 (8 Nov malam): sesuai antrean Chalid di komentar.md (tanpa komentar lain), Apify/Chrome tidak dipakai; Chrome tidak tersambung di sesi cloud -> diposting manual. Kode baru: models papanjadwal & spandukstudytour, castKit clip/flag/cap, castPose clip, island.json tour (rombongan berjalan, main.js assignTour/stepTour; nama dicocokkan ke key r:<nama lowercase>, clean() menghapus spasi), secretary di menu aturan. Spot cast di atas mimbar tidak ikut tinggi panggung (surfaceY), jadi taruh cast di tanah. __tgt(x,z,h) sudah menambah groundY. Jangan edit/stash island.json saat capture (game polling). Follower sync bisa konflik di island.json saat rebase: ambil versi upstream lalu terapkan ulang perubahan episode. Mematikan server dengan awk '/[p]ython3 -m http.server/' dalam perintah yang juga memulai server ikut membunuh shell (exit 144): pisahkan perintahnya."
+  "Ep 23 (8 Nov malam): sesuai antrean Chalid di komentar.md (tanpa komentar lain), Apify/Chrome tidak dipakai; Chrome tidak tersambung di sesi cloud -> diposting manual. Kode baru: models papanjadwal & spandukstudytour, castKit clip/flag/cap, castPose clip, island.json tour (rombongan berjalan, main.js assignTour/stepTour; nama dicocokkan ke key r:<nama lowercase>, clean() menghapus spasi), secretary di menu aturan. Spot cast di atas mimbar tidak ikut tinggi panggung (surfaceY), jadi taruh cast di tanah. __tgt(x,z,h) sudah menambah groundY. Jangan edit/stash island.json saat capture (game polling). Follower sync bisa konflik di island.json saat rebase: ambil versi upstream lalu terapkan ulang perubahan episode. Mematikan server dengan awk '/[p]ython3 -m http.server/' dalam perintah yang juga memulai server ikut membunuh shell (exit 144): pisahkan perintahnya.",
+  "Ep 24 (9 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong, run 42552373349), Chrome tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach), antrean & traktir kosong -> episode dari Kotak Usulan, diposting manual. Kode baru: model hotel; papanjadwal menerima b.head & b.color (dipakai Buku Tamu Hotel). Lampu jalan di jalan utama adalah InstancedMesh (warna tiang 4a3a2a, kepala ffcf70) di (-2.2,28.8),(0.8,28.8) dst; shots ep24 punya __hideInst/__showInst untuk menyembunyikannya sementara saat kamera dari jalan. Anggota rombongan tour (island.json tour.pupils) tidak berdiri di spot cast mereka sampai dikeluarkan dari pupils."
  ],
  "rooms": {
   "open": [
