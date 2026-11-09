@@ -354,9 +354,9 @@ function summon(name, quiet) {
   try { store.set(SUM_KEY, JSON.stringify(summoned)); } catch (e) { }
   rebuildNpcs(); acts.assign(npcs);
   const n = npcs.find(m => m.key === 'r:' + k); if (!n) return null;
-  // out of the east side of the stone, a look at the camera, then off to the main street
-  const [sx, sz] = fpCenter(LM.stone[0] + 2.4, LM.stone[1] + .3, 1, 1);
-  if (n.summoned) { n.state = 'stroll'; n.x = sx; n.z = sz; n.wait = 1.4; n.tx = WD.cx2w(SUM_HOME[0]); n.tz = WD.cy2w(LM.stone[1] - 4); n.obj.rotation.y = 0; }
+  // out of the front of the stone (on the sand, in view of the default camera), a look at the camera, then along the beach to the main street
+  const [sx, sz] = fpCenter(LM.stone[0] + .5, LM.stone[1] + 1.4, 1, 1);
+  if (n.summoned) { n.state = 'stroll'; n.x = sx; n.z = sz; n.wait = 1.4; n.tx = WD.cx2w(SUM_HOME[0]); n.tz = sz; n.obj.rotation.y = 0; }
   const g = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, color: 0xffe08a })); g.position.set(sx, surfaceY(sx, sz) + .9, sz); scene.add(g); sparks.push({ g, t: 0 });
   follow = { n, t: 0 };
   if (!quiet) { const i = S.residents.findIndex(r => r.n.toLowerCase() === k); toast(i >= 0 ? `@${n0} keluar dari Batu Nama! Warga #${i + 1}.` : `@${n0} keluar dari Batu Nama! Follow @kita.berkembang supaya namamu juga diukir.`); }
@@ -372,7 +372,7 @@ function assignCloud() {
   for (const n of npcs) if (n.cloud) { n.cloud = null; n.obj.userData.body.position.y = 0; if (n.basket) { n.basket.parent && n.basket.parent.remove(n.basket); n.basket = null; } }
   const cl = clouds[0]; if (!cl) return;
   // only idle strollers go up, so the fishers, woodcutters and builders keep their jobs
-  const pool = npcs.filter(n => !n.aru && !n.pres && !n.vp && n.num && n.role === 'wander').slice(0, 6);
+  const pool = npcs.filter(n => !n.aru && !n.pres && !n.vp && n.num && n.role === 'wander' && !n.summoned).slice(0, 6);
   let k = 0;
   const take = (kind, spot, extra = {}) => { const n = pool[k++]; if (!n) return; n.cloud = { kind, spot, ...extra }; n.role = kind === 'climb' ? 'climb' : 'kopdes'; if (n.kit) { n.obj.userData.body.remove(...n.kit); n.kit = null; } if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }
     if (kind !== 'climb') { const b = new THREE.Mesh(M.G.cyl8, M.mat(kind === 'carry' ? '#b08850' : '#c9a36a')); b.scale.set(.16, .18, .16); b.position.set(0, .62, .26); b.castShadow = true; n.obj.userData.body.add(b); n.basket = b; } };
@@ -403,7 +403,7 @@ function assignDemo() {
   const carry = ev.carry || {}; for (const n of npcs) if (n.cand) { const k = Object.keys(carry).find(k => clean(k).toLowerCase() === n.cand.toLowerCase()); if (k) { n.candSign = placard(carry[k]); n.obj.add(n.candSign); } }
   const sp = S.buildings.find(b => b.type === 'spanduk'); if (!sp) return;
   const f = fpOf(sp), [ox, oz] = fpCenter(sp.x, sp.y, f.w, f.h);
-  const free = n => !n.aru && !n.pres && !n.vp && !n.cand && !n.own && !n.cloud && !n.castSpot, pool = ['wander', 'listen', 'sit', 'shop'].flatMap(r => npcs.filter(n => free(n) && n.role === r));
+  const free = n => !n.aru && !n.pres && !n.vp && !n.cand && !n.own && !n.cloud && !n.castSpot && !n.summoned, pool = ['wander', 'listen', 'sit', 'shop'].flatMap(r => npcs.filter(n => free(n) && n.role === r));
   const signs = ev.signs || DEMO_SIGNS;
   DEMO_SPOTS.forEach(([dx, dz], i) => { const n = pool[i]; if (!n) return;
     if (n.kit) { n.obj.userData.body.remove(...n.kit); n.kit = null; } if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }
