@@ -37,9 +37,9 @@ SEGS = [
     dict(id='s11', seq='e26c11', mood='hype', capy=CY, title=('KLUB PERTAMA', 'selalu rebutan jadi yang pertama', .1, 2.0), lines=[(.1, 'd1'), (1.7, 'p1')]),
     dict(id='s12', seq='e26c12', mood='cheer', capy=CY, dur=3.0, lines=[(1.2, 'e3')]),
     dict(id='s13', seq='e26c13', mood='sail', capy=CY, ccard=('komentar/nelayan.png', .05), lines=[(.1, 'n5'), (4.0, 'y1')]),
-    dict(id='s14', seq='e26c14', mood='ending', fade_out=.6, capy=CY, lines=[(.1, 'n6'), (4.65, 'a3')], endcard=6.9),
+    dict(id='s14', seq='e26c14', mood='ending', fade_out=.6, capy=CY, lines=[(.1, 'n6'), (4.65, 'a3')], endcard=4.5),
 ]
-TOTAL = 59.0
+TOTAL = 60.0
 
 def frames_in(s):
     d = CAP + s['seq']
