@@ -11887,14 +11887,14 @@
     "PERTAMA!",
     "Aku duluan, sumpah!"
    ],
-   "tempat": "antre check-in pertama di depan Hotel Pulau",
+   "tempat": "antre PERTAMA di depan lift kaca Apartemen Presiden",
    "spot": [
-    57,
-    84,
-    0,
-    0.3
+    38,
+    56,
+    0.6,
+    -0.2
    ],
-   "face": 1.57,
+   "face": 0,
    "pose": "run"
   },
   {
@@ -11907,14 +11907,14 @@
     "Hah?! Tega kamu...",
     "Aku kan PRINCESS, harusnya aku pertama 💕"
    ],
-   "tempat": "antre di belakang D..A..B..Y, depan Hotel Pulau",
+   "tempat": "di belakang D..A..B..Y, antre lift Apartemen Presiden",
    "spot": [
-    57,
-    85,
-    -0.2,
-    0.3
+    38,
+    55,
+    1.2,
+    0.4
    ],
-   "face": 1.57,
+   "face": -0.5,
    "pose": "faint"
   },
   {
@@ -12258,6 +12258,38 @@
    ],
    "face": 0.3,
    "pose": "clip"
+  },
+  {
+   "n": "wleeeeeeeeecnt",
+   "ep": 26
+  },
+  {
+   "n": "selia_032",
+   "ep": 26
+  },
+  {
+   "n": "vcxn.mx",
+   "ep": 26
+  },
+  {
+   "n": "muhamatferos197",
+   "ep": 26,
+   "tampil": "muhamatferos197",
+   "julukan": "Nelayan Baru",
+   "sifat": "semangat & polos",
+   "kalimat": [
+    "Aku pengen jadi nelayan, dah follow!",
+    "Bang Rayhan, itu sandal atau ikan?"
+   ],
+   "tempat": "ujung dermaga, dua langkah dari _Rayhannn`",
+   "spot": [
+    55,
+    101,
+    0.25,
+    0
+   ],
+   "face": 1.57,
+   "pose": "rod"
   }
  ],
  "buildings": [
@@ -13036,6 +13068,16 @@
     "Episode KONSEP: kilas balik 7 hari (komentar asli wibu cilik pelenger, 'EGA_, ???)"
    ],
    "text": "Tujuh hari lalu Aru sendirian di pulau ini. Ia membuat satu permintaan: siapa pun yang follow jadi warga, dan setiap komentar jadi kenyataan: warteg, waterpark, menara sinyal, Kopi Dong, presiden pilihan like, apartemen, study tour.\nSekarang hampir 7.000 warga. Papan 'Pulau Aru: 7 Hari' berdiri di dekat Batu Nama."
+  },
+  {
+   "ep": 26,
+   "date": "2026-11-09",
+   "picks": [
+    "@wleeeeeeeeecnt: nama aku ada tapii, kok gak ada karakter aku? (fitur Panggil Karakterku)",
+    "@vcxn.mx: apartemenya kasih lift dong (lift kaca Apartemen Presiden)",
+    "cameo @muhamatferos197: aku pengen jadi nelayan (nelayan di dermaga)"
+   ],
+   "text": "Warga protes: namanya ada di batu, karakternya tidak ada. Sekarang ketuk namamu di Batu Nama (atau buka pulau-aru.web.id/?warga=namamu) dan karaktermu keluar, berlabel nama, lalu jalan-jalan di pulau.\nApartemen Presiden punya lift kaca. Presiden 'EGA_ naik duluan setelah ditanya identitas oleh bodyguard-nya. Di dermaga, nelayan baru muhamatferos197 memancing di samping Rayhan yang lagi-lagi dapat sandal."
   }
  ],
  "letters": [],

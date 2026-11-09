@@ -1,402 +1,419 @@
 {
-  "_tentang": "Pemeran tetap Pulau Aru (dibuat 7 Nov 2026 atas permintaan Chalid). Setiap warga punya sifat yang KONSISTEN di semua episode. Tiap episode ajak 1-3 dari mereka sebagai pemeran pendukung sesuai sifatnya (tidak harus semua). Sifat 'menyebalkan'/'iseng' selalu lucu dan ramah: tidak pernah menghina, tidak jahat, tidak menyasar orang sungguhan. Nama = nama tampilan TikTok mereka; 'akun' kosong kalau handle tidak terlihat di screenshot. 'kartu' = screenshot asli untuk kartu komentar.",
-  "geng": {
-    "Klub Pertama": {
-      "anggota": [
-        "D..A..B..Y a..j..a",
-        "princes_nay",
-        "Letisya Khianantaa"
-      ],
-      "lelucon": "Ketiganya menulis 'pertama' di komentar, jadi selamanya ribut siapa yang sebenarnya pertama. Setiap ada antrean, pembukaan, atau lomba di pulau, mereka muncul berebut posisi depan."
-    },
-    "Klub Warga Biasa": {
-      "anggota": [
-        "ALIF HR",
-        "NOVA[★★★'★★™NOV♣♣"
-      ],
-      "lelucon": "Dua orang yang cuma ingin jadi warga biasa, berlomba siapa yang paling biasa, dan selalu gagal karena selalu jadi pusat perhatian."
-    },
-    "Tim Presiden": {
-      "anggota": [
-        "'EGA_ (presiden)",
-        "King indo (wapres)",
-        "Cawetssssss (bodyguard)",
-        "🌸 Debby_l0vata👻 (sekretaris)"
-      ],
-      "lelucon": "Bodyguard yang terlalu serius menghalangi semua orang, termasuk wapres sendiri."
-    }
+ "_tentang": "Pemeran tetap Pulau Aru (dibuat 7 Nov 2026 atas permintaan Chalid). Setiap warga punya sifat yang KONSISTEN di semua episode. Tiap episode ajak 1-3 dari mereka sebagai pemeran pendukung sesuai sifatnya (tidak harus semua). Sifat 'menyebalkan'/'iseng' selalu lucu dan ramah: tidak pernah menghina, tidak jahat, tidak menyasar orang sungguhan. Nama = nama tampilan TikTok mereka; 'akun' kosong kalau handle tidak terlihat di screenshot. 'kartu' = screenshot asli untuk kartu komentar.",
+ "geng": {
+  "Klub Pertama": {
+   "anggota": [
+    "D..A..B..Y a..j..a",
+    "princes_nay",
+    "Letisya Khianantaa"
+   ],
+   "lelucon": "Ketiganya menulis 'pertama' di komentar, jadi selamanya ribut siapa yang sebenarnya pertama. Setiap ada antrean, pembukaan, atau lomba di pulau, mereka muncul berebut posisi depan."
   },
-  "warga": [
-    {
-      "nama": "Alexandre",
-      "akun": "",
-      "komentar": "aku ikut",
-      "kartu": "studio/episodes/ep19/warga/alexandre.png",
-      "julukan": "Si Pahlawan",
-      "sifat": "pahlawan",
-      "peran": "Selalu yang pertama lari menolong, walaupun masalahnya kecil sekali (kucing turun sendiri, ember jatuh). Berpose heroik setelahnya.",
-      "kalimat": [
-        "Serahkan padaku!",
-        "Tenang, warga! Aku datang!"
-      ],
-      "pose": "tangan di pinggang, dada dibusungkan",
-      "tempat": "berjaga dekat mercusuar",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "whoyss",
-      "akun": "",
-      "komentar": "akuu bg pliss masukinn",
-      "kartu": "studio/episodes/ep19/warga/whoyss.png",
-      "julukan": "Si Iseng",
-      "sifat": "iseng",
-      "peran": "Tukang usil: menukar papan nama, menyembunyikan sandal di pohon kelapa, pura-pura jadi patung. Selalu ketahuan karena ketawa duluan.",
-      "kalimat": [
-        "Hehe... bukan aku.",
-        "Pliss jangan bilang Aru!"
-      ],
-      "pose": "mengendap-endap",
-      "tempat": "di balik semak dekat alun-alun",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "Aidil YZ",
-      "akun": "",
-      "komentar": "aku mau ikut please 🥺",
-      "kartu": "studio/episodes/ep19/warga/aidil.png",
-      "julukan": "Si Mata Berkaca-kaca",
-      "sifat": "perasa",
-      "peran": "Gampang terharu: menangis bahagia setiap ada bangunan baru, pelantikan, bahkan saat dibelikan gorengan. Paling sopan di pulau.",
-      "kalimat": [
-        "Hiks... indah banget 🥺",
-        "Makasih banyaaak..."
-      ],
-      "pose": "mengusap mata",
-      "tempat": "bangku taman",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "D..A..B..Y a..j..a",
-      "akun": "",
-      "komentar": "pertama",
-      "kartu": "studio/episodes/ep19/warga/daby.png",
-      "julukan": "Si Pertama (Asli)",
-      "sifat": "kompetitif",
-      "peran": "Anggota Klub Pertama yang paling ngotot. Lari ke mana-mana supaya jadi yang pertama, termasuk pertama masuk toilet umum yang baru dibuka.",
-      "kalimat": [
-        "PERTAMA!",
-        "Aku duluan, sumpah!"
-      ],
-      "pose": "berlari, tangan terangkat",
-      "tempat": "garis start di jalan utama",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "princes_nay",
-      "akun": "",
-      "komentar": "pertama",
-      "kartu": "studio/episodes/ep19/warga/princes_nay.png",
-      "julukan": "Tuan Putri Pertama",
-      "sifat": "drama",
-      "peran": "Anggota Klub Pertama yang dramatis: semua kejadian kecil jadi sinetron. Merasa dirinya putri pulau, jalan pelan seperti di karpet merah.",
-      "kalimat": [
-        "Hah?! Tega kamu...",
-        "Aku kan PRINCESS, harusnya aku pertama 💕"
-      ],
-      "pose": "tangan di dahi, pura-pura pingsan",
-      "tempat": "dekat panggung/mimbar",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "Letisya Khianantaa",
-      "akun": "",
-      "komentar": "pertama",
-      "kartu": "studio/episodes/ep19/warga/letisya.png",
-      "julukan": "Si Pertama Tenang",
-      "sifat": "kalem-cerdik",
-      "peran": "Anggota Klub Pertama yang paling tenang. Tidak ikut ribut; datang belakangan tapi bawa 'bukti' (catatan jam), lalu dengan santai menang debat.",
-      "kalimat": [
-        "Cek jamnya dulu, ya.",
-        "Santai aja. Aku tahu kok."
-      ],
-      "pose": "melipat tangan, senyum tipis",
-      "tempat": "duduk di dermaga",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "˚｡⋆୨ALERXMNC୧⋆｡˚",
-      "panggilan": "ALERX",
-      "akun": "",
-      "komentar": "kak aku",
-      "kartu": "studio/episodes/ep19/warga/alerxmnc.png",
-      "julukan": "Si Misterius",
-      "sifat": "misterius",
-      "peran": "Muncul tiba-tiba di belakang orang lalu menghilang. Namanya penuh simbol sampai tidak ada yang bisa membacanya. Hanya keluar malam hari.",
-      "kalimat": [
-        "...",
-        "Aku sudah di sini dari tadi."
-      ],
-      "pose": "diam, menatap",
-      "tempat": "dekat mercusuar saat malam",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "D4L",
-      "akun": "",
-      "komentar": "aku ikut boleh",
-      "kartu": "studio/episodes/ep19/warga/d4l.png",
-      "julukan": "Si Boleh?",
-      "sifat": "peragu",
-      "peran": "Selalu minta izin untuk segala hal, bahkan untuk duduk, bernapas, atau ikut tertawa. Sangat sopan, kadang terlambat karena kebanyakan bertanya.",
-      "kalimat": [
-        "Boleh nggak?",
-        "Aku boleh ikut... boleh?"
-      ],
-      "pose": "angkat tangan setengah",
-      "tempat": "berdiri di pinggir kerumunan",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "ALIF HR",
-      "akun": "",
-      "komentar": "aku mau jadi warga biasa bang",
-      "kartu": "studio/episodes/ep19/warga/alif.png",
-      "julukan": "Si Warga Biasa",
-      "sifat": "rendah hati (sial)",
-      "peran": "Cuma ingin jadi warga biasa yang tenang, tapi selalu 'ketiban' sorotan: terpilih jadi relawan, kena undian, berdiri pas di tengah foto.",
-      "kalimat": [
-        "Aku warga biasa aja, bang...",
-        "Kenapa harus aku lagi?!"
-      ],
-      "pose": "garuk kepala",
-      "tempat": "rumah biasa paling biasa",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "lala cute",
-      "akun": "@alivia_vi",
-      "kartu": "studio/episodes/ep19/warga/alivia_vi.png",
-      "julukan": "Si Kue Manis",
-      "sifat": "ceria",
-      "peran": "Paling ceria di pulau. Membagikan kue dan stroberi ke semua orang, termasuk ke Si Iseng yang baru saja menjahilinya.",
-      "kalimat": [
-        "Mau kue? 🍪",
-        "Semangaaat, semuanya! 🍓"
-      ],
-      "pose": "melambai sambil lompat kecil",
-      "tempat": "dekat warung",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "senar muliya",
-      "akun": "@apriantoro",
-      "kartu": "studio/episodes/ep19/warga/apriantoro.png",
-      "julukan": "Si Gitar Senar Putus",
-      "sifat": "menyebalkan (lucu)",
-      "peran": "Musisi pulau. Main gitar keras-keras jam berapa pun, lagunya cuma satu dan senarnya selalu putus di bagian reff. Warga pura-pura tidur.",
-      "kalimat": [
-        "Satu lagu lagi, ya!",
-        "Jreng... eh senarnya putus lagi."
-      ],
-      "pose": "memetik gitar",
-      "tempat": "api unggun",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "Luci Ardiansyah",
-      "akun": "@luciardiansyah",
-      "kartu": "studio/episodes/ep19/warga/luciardiansyah.png",
-      "julukan": "Si Sok Tahu",
-      "sifat": "sok tahu",
-      "peran": "Menjelaskan semua hal dengan sangat yakin dan hampir selalu salah ('Mercusuar itu buat manggil ikan'). Tidak pernah mengaku salah.",
-      "kalimat": [
-        "Itu mah gampang, aku udah tahu.",
-        "Percaya deh sama aku."
-      ],
-      "pose": "telunjuk terangkat, menjelaskan",
-      "tempat": "papan pengumuman",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "inyuu",
-      "akun": "@inyuu416",
-      "kartu": "studio/episodes/ep19/warga/inyuu416.png",
-      "julukan": "Si Gamer",
-      "sifat": "kocak",
-      "peran": "Mengira pulau ini game sungguhan: menyebut rumah 'base', menyebut jatuh ke laut 'respawn', dan mencari tombol 'save' di mana-mana.",
-      "kalimat": [
-        "GG, warga!",
-        "Tunggu, aku respawn dulu."
-      ],
-      "pose": "tangan seperti pegang stik game",
-      "tempat": "taman bermain",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "dell_",
-      "akun": "@abcdell_011",
-      "kartu": "studio/episodes/ep19/warga/abcdell_011.png",
-      "julukan": "Si Penikmat Senja",
-      "sifat": "introvert",
-      "peran": "Pendiam, suka sendirian menonton matahari terbenam di ujung dermaga. Jawabannya cuma 'hm'. Diam-diam paling peduli dan paling sering benar.",
-      "kalimat": [
-        "hm.",
-        "...senjanya bagus."
-      ],
-      "pose": "duduk sendiri, memandang laut",
-      "tempat": "ujung dermaga",
-      "masuk": "ep19"
-    },
-    {
-      "nama": "Cawetssssss",
-      "akun": "",
-      "komentar": "min kata presiden, aku di jadiin bodygrud presiden @'EGA_",
-      "kartu": "studio/episodes/ep20/warga/cawetssssss.jpg",
-      "julukan": "Si Bodyguard",
-      "sifat": "pengawal serius",
-      "peran": "Bodyguard pribadi Presiden 'EGA_ (katanya atas perintah presiden sendiri). Super serius, pakai kacamata hitam, menghalangi siapa pun yang mendekati presiden, termasuk Aru dan wapres King indo. Berjaga bahkan saat presiden ke toilet umum.",
-      "kalimat": [
-        "Mundur! Area presiden!",
-        "Identitas? ...Oh, Aru. Tetap mundur."
-      ],
-      "pose": "tangan di depan, kaki terbuka, menghadap kerumunan",
-      "tempat": "selalu di samping Presiden 'EGA_",
-      "masuk": "ep20"
-    },
-    {
-      "nama": "Pinjam seratus 💸",
-      "panggilan": "Farel",
-      "akun": "",
-      "komentar": "Farel nasar",
-      "kartu": "studio/episodes/ep20/warga/pinjam_seratus.jpg",
-      "julukan": "Si Pinjam Seratus",
-      "sifat": "tukang pinjam (lucu)",
-      "peran": "Namanya Farel, tapi semua memanggilnya sesuai namanya: Pinjam Seratus. Tiap ketemu warga langsung bilang 'pinjam seratus dulu', paling sering antre di Bank Pulau, dan selalu janji 'besok dibalikin'. Tidak pernah jahat, cuma selalu bokek.",
-      "kalimat": [
-        "Pinjam seratus dulu...",
-        "Besok dibalikin, sumpah!"
-      ],
-      "pose": "tangan menengadah",
-      "tempat": "depan Bank Pulau",
-      "masuk": "ep20"
-    },
-    {
-      "nama": "_Rayhannn`👀",
-      "panggilan": "Rayhan",
-      "akun": "",
-      "komentar": "aku mau jadi nelayan 😁👌",
-      "kartu": "studio/episodes/ep20/warga/rayhannn.jpg",
-      "julukan": "Si Nelayan",
-      "sifat": "sabar & apes",
-      "peran": "Nelayan paling sabar di pulau. Memancing dari subuh, tapi yang tersangkut selalu sandal (sandal yang disembunyikan whoyss Si Iseng!). Tetap senyum dan bilang 'lumayan'.",
-      "kalimat": [
-        "Lumayan... sandal lagi 😁👌",
-        "Sabar, ikannya lagi otw."
-      ],
-      "pose": "memegang pancing",
-      "tempat": "dermaga",
-      "masuk": "ep20"
-    },
-    {
-      "nama": "KM GPP TAN 🇦🇱🇦🇱",
-      "panggilan": "Fattan",
-      "akun": "",
-      "komentar": "fattan bang / aku ikut bang",
-      "kartu": "studio/episodes/ep20/warga/km_gpp_tan.jpg",
-      "julukan": "Si Dua Kali",
-      "sifat": "semangat dobel",
-      "peran": "Fattan selalu mengatakan semuanya DUA KALI (komentarnya juga dua). Semangatnya juga dobel: datang dua kali, antre dua kali, tepuk tangan dua kali lebih keras.",
-      "kalimat": [
-        "Aku ikut bang! Aku ikut bang!",
-        "Siap! Siap!"
-      ],
-      "pose": "mengacungkan dua jempol",
-      "tempat": "jalan silang dekat Kotak Usulan (alun-alun kecil)",
-      "masuk": "ep20"
-    },
-    {
-      "nama": "-VANZwlee",
-      "panggilan": "Revan",
-      "akun": "",
-      "komentar": "nama ku revan",
-      "kartu": "studio/episodes/ep20/warga/vanzwlee.jpg",
-      "julukan": "Si Paling Keren",
-      "sifat": "sok keren",
-      "peran": "Revan selalu berpose keren seperti tokoh anime: rambut tertiup angin, muncul dengan gaya, bicara pelan dan dalam. Tapi setiap pose kerennya berakhir tersandung, tercebur, atau ditabrak Klub Pertama yang lari lewat.",
-      "kalimat": [
-        "Namaku... Revan.",
-        "Hmph. Biasa aja."
-      ],
-      "pose": "satu tangan menutupi wajah, gaya anime",
-      "tempat": "dekat batu nama pulau di pantai selatan",
-      "masuk": "ep20"
-    },
-    {
-      "nama": "NOVA[★★★'★★™NOV♣♣",
-      "panggilan": "NOVA",
-      "akun": "",
-      "komentar": "aku boleh ikut jadi orang biasa aja bang",
-      "kartu": "studio/episodes/ep20/warga/nova.jpg",
-      "julukan": "Si Biasa Aja",
-      "sifat": "ingin biasa saja",
-      "peran": "Sama seperti ALIF HR, NOVA cuma ingin jadi orang biasa, tapi namanya paling heboh di pulau (penuh bintang dan simbol). Bersama ALIF HR membentuk Klub Warga Biasa: berlomba siapa yang paling biasa, dan selalu gagal karena jadi pusat perhatian.",
-      "kalimat": [
-        "Aku biasa aja bang...",
-        "Jangan lihat aku, aku orang biasa!"
-      ],
-      "pose": "menunduk, menyembunyikan wajah",
-      "tempat": "rumah biasa di sebelah ALIF HR",
-      "masuk": "ep20"
-    },
-    {
-      "nama": "Bu Guru Gina",
-      "akun": "",
-      "komentar": "bu guru gina",
-      "kartu": "studio/episodes/ep22/komentar/bu-guru-gina.png",
-      "masuk": "ep22",
-      "julukan": "Bu Guru Gina",
-      "sifat": "guru tegas tapi sayang",
-      "peran": "Guru di Sekolah Pulau Aru. Tegas: mengabsen siapa saja yang lewat, memberi PR ke semua orang (termasuk presiden dan bodyguard-nya), dan menyuruh yang ribut maju ke depan kelas. Diam-diam paling sayang ke semua muridnya dan selalu membawa permen untuk yang rajin.",
-      "kalimat": [
-        "Duduk yang rapi, anak-anak!",
-        "PR-nya dikumpulkan besok, termasuk Bapak Presiden."
-      ],
-      "pose": "memegang buku absen, telunjuk terangkat",
-      "tempat": "gerbang Sekolah (x52 y70), menghadap jalan utama"
-    },
-    {
-      "nama": "panggil aja zidan🤩",
-      "panggilan": "Zidan",
-      "akun": "",
-      "komentar": "aku yg jadi penjaga nya",
-      "kartu": "studio/episodes/ep22/komentar/zidan.png",
-      "masuk": "ep22",
-      "julukan": "Penjaga Masjid",
-      "sifat": "rajin & tertib",
-      "peran": "Penjaga masjid Pulau Aru. Bangun paling pagi, menyapu halaman masjid, merapikan sandal di rak, dan dengan sopan mengingatkan warga melepas alas kaki. Selalu menemukan sandal yang disembunyikan whoyss lalu mengembalikannya ke pemiliknya. Ramah ke semua orang.",
-      "kalimat": [
-        "Sandalnya dilepas dulu ya, kak 🤩",
-        "Sandal siapa ini? Pasti whoyss lagi..."
-      ],
-      "pose": "memegang sapu, tersenyum",
-      "tempat": "halaman masjid, di depan pintu (x45 y50)"
-    },
-    {
-      "nama": "🌸 Debby_l0vata👻",
-      "panggilan": "Debby",
-      "akun": "",
-      "komentar": "min aku mana ☹️?",
-      "kartu": "studio/episodes/ep23/komentar/debby.jpg",
-      "masuk": "ep23",
-      "julukan": "Sekretaris Presiden",
-      "sifat": "ceria & super sibuk",
-      "peran": "Dulu protes 'min aku mana?' karena belum masuk cerita, sekarang diangkat jadi Sekretaris Presiden 'EGA_. Ceria, jahil sedikit (😜👻), selalu membawa papan jadwal, mencatat semua ucapan presiden (termasuk yang tidak penting), dan sering berdebat dengan bodyguard Cawetssssss soal siapa yang boleh menemui presiden. Kalimat andalannya mengingatkan presiden ke PR dari Bu Guru Gina.",
-      "kalimat": [
-        "Pak Presiden, jadwal Bapak hari ini: PR dari Bu Guru Gina 📋",
-        "Akhirnya aku masuk juga 😜"
-      ],
-      "pose": "memegang papan jadwal/clipboard",
-      "tempat": "Kantor Pulau, di samping presiden"
-    }
-  ]
+  "Klub Warga Biasa": {
+   "anggota": [
+    "ALIF HR",
+    "NOVA[★★★'★★™NOV♣♣"
+   ],
+   "lelucon": "Dua orang yang cuma ingin jadi warga biasa, berlomba siapa yang paling biasa, dan selalu gagal karena selalu jadi pusat perhatian."
+  },
+  "Tim Presiden": {
+   "anggota": [
+    "'EGA_ (presiden)",
+    "King indo (wapres)",
+    "Cawetssssss (bodyguard)",
+    "🌸 Debby_l0vata👻 (sekretaris)"
+   ],
+   "lelucon": "Bodyguard yang terlalu serius menghalangi semua orang, termasuk wapres sendiri."
+  }
+ },
+ "warga": [
+  {
+   "nama": "Alexandre",
+   "akun": "",
+   "komentar": "aku ikut",
+   "kartu": "studio/episodes/ep19/warga/alexandre.png",
+   "julukan": "Si Pahlawan",
+   "sifat": "pahlawan",
+   "peran": "Selalu yang pertama lari menolong, walaupun masalahnya kecil sekali (kucing turun sendiri, ember jatuh). Berpose heroik setelahnya.",
+   "kalimat": [
+    "Serahkan padaku!",
+    "Tenang, warga! Aku datang!"
+   ],
+   "pose": "tangan di pinggang, dada dibusungkan",
+   "tempat": "berjaga dekat mercusuar",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "whoyss",
+   "akun": "",
+   "komentar": "akuu bg pliss masukinn",
+   "kartu": "studio/episodes/ep19/warga/whoyss.png",
+   "julukan": "Si Iseng",
+   "sifat": "iseng",
+   "peran": "Tukang usil: menukar papan nama, menyembunyikan sandal di pohon kelapa, pura-pura jadi patung. Selalu ketahuan karena ketawa duluan.",
+   "kalimat": [
+    "Hehe... bukan aku.",
+    "Pliss jangan bilang Aru!"
+   ],
+   "pose": "mengendap-endap",
+   "tempat": "di balik semak dekat alun-alun",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "Aidil YZ",
+   "akun": "",
+   "komentar": "aku mau ikut please 🥺",
+   "kartu": "studio/episodes/ep19/warga/aidil.png",
+   "julukan": "Si Mata Berkaca-kaca",
+   "sifat": "perasa",
+   "peran": "Gampang terharu: menangis bahagia setiap ada bangunan baru, pelantikan, bahkan saat dibelikan gorengan. Paling sopan di pulau.",
+   "kalimat": [
+    "Hiks... indah banget 🥺",
+    "Makasih banyaaak..."
+   ],
+   "pose": "mengusap mata",
+   "tempat": "bangku taman",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "D..A..B..Y a..j..a",
+   "akun": "",
+   "komentar": "pertama",
+   "kartu": "studio/episodes/ep19/warga/daby.png",
+   "julukan": "Si Pertama (Asli)",
+   "sifat": "kompetitif",
+   "peran": "Anggota Klub Pertama yang paling ngotot. Lari ke mana-mana supaya jadi yang pertama, termasuk pertama masuk toilet umum yang baru dibuka.",
+   "kalimat": [
+    "PERTAMA!",
+    "Aku duluan, sumpah!"
+   ],
+   "pose": "berlari, tangan terangkat",
+   "tempat": "garis start di jalan utama",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "princes_nay",
+   "akun": "",
+   "komentar": "pertama",
+   "kartu": "studio/episodes/ep19/warga/princes_nay.png",
+   "julukan": "Tuan Putri Pertama",
+   "sifat": "drama",
+   "peran": "Anggota Klub Pertama yang dramatis: semua kejadian kecil jadi sinetron. Merasa dirinya putri pulau, jalan pelan seperti di karpet merah.",
+   "kalimat": [
+    "Hah?! Tega kamu...",
+    "Aku kan PRINCESS, harusnya aku pertama 💕"
+   ],
+   "pose": "tangan di dahi, pura-pura pingsan",
+   "tempat": "dekat panggung/mimbar",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "Letisya Khianantaa",
+   "akun": "",
+   "komentar": "pertama",
+   "kartu": "studio/episodes/ep19/warga/letisya.png",
+   "julukan": "Si Pertama Tenang",
+   "sifat": "kalem-cerdik",
+   "peran": "Anggota Klub Pertama yang paling tenang. Tidak ikut ribut; datang belakangan tapi bawa 'bukti' (catatan jam), lalu dengan santai menang debat.",
+   "kalimat": [
+    "Cek jamnya dulu, ya.",
+    "Santai aja. Aku tahu kok."
+   ],
+   "pose": "melipat tangan, senyum tipis",
+   "tempat": "duduk di dermaga",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "˚｡⋆୨ALERXMNC୧⋆｡˚",
+   "panggilan": "ALERX",
+   "akun": "",
+   "komentar": "kak aku",
+   "kartu": "studio/episodes/ep19/warga/alerxmnc.png",
+   "julukan": "Si Misterius",
+   "sifat": "misterius",
+   "peran": "Muncul tiba-tiba di belakang orang lalu menghilang. Namanya penuh simbol sampai tidak ada yang bisa membacanya. Hanya keluar malam hari.",
+   "kalimat": [
+    "...",
+    "Aku sudah di sini dari tadi."
+   ],
+   "pose": "diam, menatap",
+   "tempat": "dekat mercusuar saat malam",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "D4L",
+   "akun": "",
+   "komentar": "aku ikut boleh",
+   "kartu": "studio/episodes/ep19/warga/d4l.png",
+   "julukan": "Si Boleh?",
+   "sifat": "peragu",
+   "peran": "Selalu minta izin untuk segala hal, bahkan untuk duduk, bernapas, atau ikut tertawa. Sangat sopan, kadang terlambat karena kebanyakan bertanya.",
+   "kalimat": [
+    "Boleh nggak?",
+    "Aku boleh ikut... boleh?"
+   ],
+   "pose": "angkat tangan setengah",
+   "tempat": "berdiri di pinggir kerumunan",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "ALIF HR",
+   "akun": "",
+   "komentar": "aku mau jadi warga biasa bang",
+   "kartu": "studio/episodes/ep19/warga/alif.png",
+   "julukan": "Si Warga Biasa",
+   "sifat": "rendah hati (sial)",
+   "peran": "Cuma ingin jadi warga biasa yang tenang, tapi selalu 'ketiban' sorotan: terpilih jadi relawan, kena undian, berdiri pas di tengah foto.",
+   "kalimat": [
+    "Aku warga biasa aja, bang...",
+    "Kenapa harus aku lagi?!"
+   ],
+   "pose": "garuk kepala",
+   "tempat": "rumah biasa paling biasa",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "lala cute",
+   "akun": "@alivia_vi",
+   "kartu": "studio/episodes/ep19/warga/alivia_vi.png",
+   "julukan": "Si Kue Manis",
+   "sifat": "ceria",
+   "peran": "Paling ceria di pulau. Membagikan kue dan stroberi ke semua orang, termasuk ke Si Iseng yang baru saja menjahilinya.",
+   "kalimat": [
+    "Mau kue? 🍪",
+    "Semangaaat, semuanya! 🍓"
+   ],
+   "pose": "melambai sambil lompat kecil",
+   "tempat": "dekat warung",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "senar muliya",
+   "akun": "@apriantoro",
+   "kartu": "studio/episodes/ep19/warga/apriantoro.png",
+   "julukan": "Si Gitar Senar Putus",
+   "sifat": "menyebalkan (lucu)",
+   "peran": "Musisi pulau. Main gitar keras-keras jam berapa pun, lagunya cuma satu dan senarnya selalu putus di bagian reff. Warga pura-pura tidur.",
+   "kalimat": [
+    "Satu lagu lagi, ya!",
+    "Jreng... eh senarnya putus lagi."
+   ],
+   "pose": "memetik gitar",
+   "tempat": "api unggun",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "Luci Ardiansyah",
+   "akun": "@luciardiansyah",
+   "kartu": "studio/episodes/ep19/warga/luciardiansyah.png",
+   "julukan": "Si Sok Tahu",
+   "sifat": "sok tahu",
+   "peran": "Menjelaskan semua hal dengan sangat yakin dan hampir selalu salah ('Mercusuar itu buat manggil ikan'). Tidak pernah mengaku salah.",
+   "kalimat": [
+    "Itu mah gampang, aku udah tahu.",
+    "Percaya deh sama aku."
+   ],
+   "pose": "telunjuk terangkat, menjelaskan",
+   "tempat": "papan pengumuman",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "inyuu",
+   "akun": "@inyuu416",
+   "kartu": "studio/episodes/ep19/warga/inyuu416.png",
+   "julukan": "Si Gamer",
+   "sifat": "kocak",
+   "peran": "Mengira pulau ini game sungguhan: menyebut rumah 'base', menyebut jatuh ke laut 'respawn', dan mencari tombol 'save' di mana-mana.",
+   "kalimat": [
+    "GG, warga!",
+    "Tunggu, aku respawn dulu."
+   ],
+   "pose": "tangan seperti pegang stik game",
+   "tempat": "taman bermain",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "dell_",
+   "akun": "@abcdell_011",
+   "kartu": "studio/episodes/ep19/warga/abcdell_011.png",
+   "julukan": "Si Penikmat Senja",
+   "sifat": "introvert",
+   "peran": "Pendiam, suka sendirian menonton matahari terbenam di ujung dermaga. Jawabannya cuma 'hm'. Diam-diam paling peduli dan paling sering benar.",
+   "kalimat": [
+    "hm.",
+    "...senjanya bagus."
+   ],
+   "pose": "duduk sendiri, memandang laut",
+   "tempat": "ujung dermaga",
+   "masuk": "ep19"
+  },
+  {
+   "nama": "Cawetssssss",
+   "akun": "",
+   "komentar": "min kata presiden, aku di jadiin bodygrud presiden @'EGA_",
+   "kartu": "studio/episodes/ep20/warga/cawetssssss.jpg",
+   "julukan": "Si Bodyguard",
+   "sifat": "pengawal serius",
+   "peran": "Bodyguard pribadi Presiden 'EGA_ (katanya atas perintah presiden sendiri). Super serius, pakai kacamata hitam, menghalangi siapa pun yang mendekati presiden, termasuk Aru dan wapres King indo. Berjaga bahkan saat presiden ke toilet umum.",
+   "kalimat": [
+    "Mundur! Area presiden!",
+    "Identitas? ...Oh, Aru. Tetap mundur."
+   ],
+   "pose": "tangan di depan, kaki terbuka, menghadap kerumunan",
+   "tempat": "selalu di samping Presiden 'EGA_",
+   "masuk": "ep20"
+  },
+  {
+   "nama": "Pinjam seratus 💸",
+   "panggilan": "Farel",
+   "akun": "",
+   "komentar": "Farel nasar",
+   "kartu": "studio/episodes/ep20/warga/pinjam_seratus.jpg",
+   "julukan": "Si Pinjam Seratus",
+   "sifat": "tukang pinjam (lucu)",
+   "peran": "Namanya Farel, tapi semua memanggilnya sesuai namanya: Pinjam Seratus. Tiap ketemu warga langsung bilang 'pinjam seratus dulu', paling sering antre di Bank Pulau, dan selalu janji 'besok dibalikin'. Tidak pernah jahat, cuma selalu bokek.",
+   "kalimat": [
+    "Pinjam seratus dulu...",
+    "Besok dibalikin, sumpah!"
+   ],
+   "pose": "tangan menengadah",
+   "tempat": "depan Bank Pulau",
+   "masuk": "ep20"
+  },
+  {
+   "nama": "_Rayhannn`👀",
+   "panggilan": "Rayhan",
+   "akun": "",
+   "komentar": "aku mau jadi nelayan 😁👌",
+   "kartu": "studio/episodes/ep20/warga/rayhannn.jpg",
+   "julukan": "Si Nelayan",
+   "sifat": "sabar & apes",
+   "peran": "Nelayan paling sabar di pulau. Memancing dari subuh, tapi yang tersangkut selalu sandal (sandal yang disembunyikan whoyss Si Iseng!). Tetap senyum dan bilang 'lumayan'.",
+   "kalimat": [
+    "Lumayan... sandal lagi 😁👌",
+    "Sabar, ikannya lagi otw."
+   ],
+   "pose": "memegang pancing",
+   "tempat": "dermaga",
+   "masuk": "ep20"
+  },
+  {
+   "nama": "KM GPP TAN 🇦🇱🇦🇱",
+   "panggilan": "Fattan",
+   "akun": "",
+   "komentar": "fattan bang / aku ikut bang",
+   "kartu": "studio/episodes/ep20/warga/km_gpp_tan.jpg",
+   "julukan": "Si Dua Kali",
+   "sifat": "semangat dobel",
+   "peran": "Fattan selalu mengatakan semuanya DUA KALI (komentarnya juga dua). Semangatnya juga dobel: datang dua kali, antre dua kali, tepuk tangan dua kali lebih keras.",
+   "kalimat": [
+    "Aku ikut bang! Aku ikut bang!",
+    "Siap! Siap!"
+   ],
+   "pose": "mengacungkan dua jempol",
+   "tempat": "jalan silang dekat Kotak Usulan (alun-alun kecil)",
+   "masuk": "ep20"
+  },
+  {
+   "nama": "-VANZwlee",
+   "panggilan": "Revan",
+   "akun": "",
+   "komentar": "nama ku revan",
+   "kartu": "studio/episodes/ep20/warga/vanzwlee.jpg",
+   "julukan": "Si Paling Keren",
+   "sifat": "sok keren",
+   "peran": "Revan selalu berpose keren seperti tokoh anime: rambut tertiup angin, muncul dengan gaya, bicara pelan dan dalam. Tapi setiap pose kerennya berakhir tersandung, tercebur, atau ditabrak Klub Pertama yang lari lewat.",
+   "kalimat": [
+    "Namaku... Revan.",
+    "Hmph. Biasa aja."
+   ],
+   "pose": "satu tangan menutupi wajah, gaya anime",
+   "tempat": "dekat batu nama pulau di pantai selatan",
+   "masuk": "ep20"
+  },
+  {
+   "nama": "NOVA[★★★'★★™NOV♣♣",
+   "panggilan": "NOVA",
+   "akun": "",
+   "komentar": "aku boleh ikut jadi orang biasa aja bang",
+   "kartu": "studio/episodes/ep20/warga/nova.jpg",
+   "julukan": "Si Biasa Aja",
+   "sifat": "ingin biasa saja",
+   "peran": "Sama seperti ALIF HR, NOVA cuma ingin jadi orang biasa, tapi namanya paling heboh di pulau (penuh bintang dan simbol). Bersama ALIF HR membentuk Klub Warga Biasa: berlomba siapa yang paling biasa, dan selalu gagal karena jadi pusat perhatian.",
+   "kalimat": [
+    "Aku biasa aja bang...",
+    "Jangan lihat aku, aku orang biasa!"
+   ],
+   "pose": "menunduk, menyembunyikan wajah",
+   "tempat": "rumah biasa di sebelah ALIF HR",
+   "masuk": "ep20"
+  },
+  {
+   "nama": "Bu Guru Gina",
+   "akun": "",
+   "komentar": "bu guru gina",
+   "kartu": "studio/episodes/ep22/komentar/bu-guru-gina.png",
+   "masuk": "ep22",
+   "julukan": "Bu Guru Gina",
+   "sifat": "guru tegas tapi sayang",
+   "peran": "Guru di Sekolah Pulau Aru. Tegas: mengabsen siapa saja yang lewat, memberi PR ke semua orang (termasuk presiden dan bodyguard-nya), dan menyuruh yang ribut maju ke depan kelas. Diam-diam paling sayang ke semua muridnya dan selalu membawa permen untuk yang rajin.",
+   "kalimat": [
+    "Duduk yang rapi, anak-anak!",
+    "PR-nya dikumpulkan besok, termasuk Bapak Presiden."
+   ],
+   "pose": "memegang buku absen, telunjuk terangkat",
+   "tempat": "gerbang Sekolah (x52 y70), menghadap jalan utama"
+  },
+  {
+   "nama": "panggil aja zidan🤩",
+   "panggilan": "Zidan",
+   "akun": "",
+   "komentar": "aku yg jadi penjaga nya",
+   "kartu": "studio/episodes/ep22/komentar/zidan.png",
+   "masuk": "ep22",
+   "julukan": "Penjaga Masjid",
+   "sifat": "rajin & tertib",
+   "peran": "Penjaga masjid Pulau Aru. Bangun paling pagi, menyapu halaman masjid, merapikan sandal di rak, dan dengan sopan mengingatkan warga melepas alas kaki. Selalu menemukan sandal yang disembunyikan whoyss lalu mengembalikannya ke pemiliknya. Ramah ke semua orang.",
+   "kalimat": [
+    "Sandalnya dilepas dulu ya, kak 🤩",
+    "Sandal siapa ini? Pasti whoyss lagi..."
+   ],
+   "pose": "memegang sapu, tersenyum",
+   "tempat": "halaman masjid, di depan pintu (x45 y50)"
+  },
+  {
+   "nama": "🌸 Debby_l0vata👻",
+   "panggilan": "Debby",
+   "akun": "",
+   "komentar": "min aku mana ☹️?",
+   "kartu": "studio/episodes/ep23/komentar/debby.jpg",
+   "masuk": "ep23",
+   "julukan": "Sekretaris Presiden",
+   "sifat": "ceria & super sibuk",
+   "peran": "Dulu protes 'min aku mana?' karena belum masuk cerita, sekarang diangkat jadi Sekretaris Presiden 'EGA_. Ceria, jahil sedikit (😜👻), selalu membawa papan jadwal, mencatat semua ucapan presiden (termasuk yang tidak penting), dan sering berdebat dengan bodyguard Cawetssssss soal siapa yang boleh menemui presiden. Kalimat andalannya mengingatkan presiden ke PR dari Bu Guru Gina.",
+   "kalimat": [
+    "Pak Presiden, jadwal Bapak hari ini: PR dari Bu Guru Gina 📋",
+    "Akhirnya aku masuk juga 😜"
+   ],
+   "pose": "memegang papan jadwal/clipboard",
+   "tempat": "Kantor Pulau, di samping presiden"
+  },
+  {
+   "nama": "muhamatferos197",
+   "panggilan": "Feros",
+   "akun": "@muhamatferos197",
+   "komentar": "bikin pelabuhan kak aku pengen jadi nelayan dah follow",
+   "kartu": "studio/episodes/ep26/komentar/nelayan.png",
+   "masuk": "ep26",
+   "julukan": "Nelayan Baru",
+   "sifat": "semangat & polos",
+   "peran": "Baru follow dan langsung minta jadi nelayan. Memancing di ujung dermaga, dua langkah dari _Rayhannn` (Si Nelayan yang selalu dapat sandal). Polos, selalu bertanya apakah sandal itu termasuk ikan. Masih menunggu pelabuhan sungguhan.",
+   "kalimat": [
+    "Aku pengen jadi nelayan, dah follow!",
+    "Bang Rayhan, itu sandal atau ikan?"
+   ],
+   "pose": "memancing (rod)",
+   "tempat": "ujung dermaga"
+  }
+ ]
 }
