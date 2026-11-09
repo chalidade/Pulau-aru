@@ -12771,6 +12771,23 @@
    ],
    "by": "usulan warga",
    "ep": 24
+  },
+  {
+   "type": "papanjadwal",
+   "x": 52,
+   "y": 90,
+   "r": 3,
+   "head": "PULAU ARU: 7 HARI",
+   "color": "#3a7bbf",
+   "label": "dari sendirian jadi hampir 7.000 warga",
+   "items": [
+    "Hari 1: Aru sendirian",
+    "Hari 3: jalan aspal & sekolah",
+    "Hari 6: presiden pilihan like",
+    "Hari 8: hampir 7.000 warga"
+   ],
+   "by": "warga pulau",
+   "ep": 25
   }
  ],
  "episodes": [
@@ -13011,6 +13028,14 @@
     "Kotak Usulan: hotel"
    ],
    "text": "Usulan lama terakhir di Kotak Usulan terwujud: Hotel Pulau berdiri dekat dermaga (tiga lantai, karpet merah, bel resepsionis). Klub Pertama antre check-in di depan pintu, Presiden 'EGA_ memesan kamar paling atas, dan PR study tour-nya 'ketinggalan di kamar hotel'.\nMalam pertama, Buku Tamu Hotel di samping pintu menulis: Kamar 3, Penjaga Mercusuar. Kamar 4 masih kosong."
+  },
+  {
+   "ep": 25,
+   "date": "2026-11-09",
+   "picks": [
+    "Episode KONSEP: kilas balik 7 hari (komentar asli wibu cilik pelenger, 'EGA_, ???)"
+   ],
+   "text": "Tujuh hari lalu Aru sendirian di pulau ini. Ia membuat satu permintaan: siapa pun yang follow jadi warga, dan setiap komentar jadi kenyataan: warteg, waterpark, menara sinyal, Kopi Dong, presiden pilihan like, apartemen, study tour.\nSekarang hampir 7.000 warga. Papan 'Pulau Aru: 7 Hari' berdiri di dekat Batu Nama."
   }
  ],
  "letters": [],

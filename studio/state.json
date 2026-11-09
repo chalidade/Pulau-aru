@@ -1,5 +1,5 @@
 {
- "nextEp": 25,
+ "nextEp": 26,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -86,7 +86,8 @@
   "panggil aja zidan: aku yg jadi penjaga nya (Zidan, Penjaga Masjid, pemeran tetap ep 22)",
   "🌸 Debby_l0vata👻: min aku mana ☹️? (Sekretaris Presiden ep 23, Papan Jadwal Presiden)",
   "??? (akun 'bu guru gina'): bikin acara study toor kak biar murid² jadi nyaman di sekolah 1 tahun 1 kali aja kak (Study Tour ep 23)",
-  "usulan lama warga (Kotak Usulan): hotel (Hotel Pulau ep 24, bukan jatah presiden)"
+  "usulan lama warga (Kotak Usulan): hotel (Hotel Pulau ep 24, bukan jatah presiden)",
+  "Episode KONSEP ep 25: komentar lama dipakai ulang sebagai kilas balik (wibu cilik pelenger, 'EGA_ x2, ???), bukan komentar baru"
  ],
  "episodes": [
   {
@@ -202,16 +203,22 @@
    "title": "Hotel Pulau",
    "posted": "manual (menunggu Chalid)",
    "summary": "Tidak ada komentar TikTok baru (Apify gagal lagi, APIFY_TOKEN kosong, run 42552373349; Chrome tidak tersambung; komentar.md & traktir kosong). Digerakkan Kotak Usulan (usulan lama terakhir: hotel). Cold open: bodyguard Cawetssssss di depan Hotel Pulau, 'Mau check-in? Identitas dulu!', Aru 'Aku yang bangun hotelnya!', '...Tetap identitas dulu.' Hook: HOTEL BARU! / TAMU MISTERIUS?. KM GPP TAN 'Hotel, bang! Hotel, bang!'. Hotel Pulau dekat dermaga (3 lantai, karpet merah, bel resepsionis). Klub Pertama: DABY 'PERTAMA check-in!', princes 'Kamu kan punya rumah sendiri!'. Presiden EGA pesan kamar paling atas, Aru: 'sudah punya apartemen', EGA: 'Itu buat hari kerja, ini buat liburan.' Bu Guru Gina menagih PR study tour, EGA: 'Ketinggalan... di kamar hotel.' whoyss pegang baut bengkel: 'bukan aku'. Malam: Buku Tamu Hotel, Kamar 3 = Penjaga Mercusuar (payoff hook). End card: siapa tamu kamar 4? CTA traktir. Durasi 55,5 dtk."
+  },
+  {
+   "ep": 25,
+   "title": "7 Hari Lalu Aru Sendirian",
+   "posted": "manual (menunggu Chalid)",
+   "summary": "Episode KONSEP pertama (brief Chalid di komentar.md, RUNBOOK 2e). Tidak ada komentar TikTok baru (Apify gagal lagi, run 42595381844; Chrome tidak tersambung; traktir kosong). Cold open: Aru sendirian di dermaga saat senja, filter buku cerita 3,9 s, hook 7 HARI LALU / ARU SENDIRIAN. Batu Nama: follow = warga. Montase komentar -> kenyataan: warteg (@javaz53), waterpark, menara sinyal (traktiran Sal), Kopi Dong (kartu komentar asli wibu cilik pelenger), presiden pilihan like (kartu asli 'EGA_), apartemen (kartu asli 'EGA_), study tour (kartu asli ???). Angka HAMPIR 7.000 WARGA, Klub Pertama rebutan 'warga pertama', Aru di api unggun: 'Aku nggak sendirian lagi', bodyguard: 'Identitas dulu!' / 'Ini pulauku sendiri!'. Ajakan: Follow, namamu jadi warga. Komentar, ceritanya kamu yang atur. Besok pulau ini jadi apa? Web: papan 'PULAU ARU: 7 HARI' (papanjadwal) di dekat Batu Nama (52,90)."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 24,
-   "cta": "traktir"
+   "ep": 25,
+   "cta": "umkm"
   },
-  "nextCta": "umkm"
+  "nextCta": "traktir"
  },
  "notes": [
   "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
@@ -233,7 +240,8 @@
   "Ep 21 (8 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong, run 42439619074), Chrome tidak tersambung, antrean & traktir kosong; episode digerakkan Kotak Usulan (bengkel) tanpa kartu komentar. Kode baru: model bengkel, castKit 'sneak' (tiga baut di tangan whoyss). Gerobak miring + roda menggelinding hanya dipentaskan di shots.py (__cartInit/__cartSet); di web gerobak normal. Kamera di sisi selatan jalan silang sering masuk ke Bank/Toilet/Pos Ronda: ambil sudut dari arah jalan (yaw ~1.35) atau pitch tinggi.",
   "Ep 22 (8 Nov sore): sesuai antrean Chalid di komentar.md (tanpa komentar lain), jadi Apify/Chrome tidak dipakai; Chrome juga tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach) -> diposting manual. Kode baru: model apartemen, castKit/pose 'teach' (Bu Guru Gina) dan 'sweep' (Zidan, sapu + sandal). Lampu jalan di depan lobi apartemen selalu menghalangi kamera dari jalan; ambil sudut dari timur sepanjang plaza (yaw ~1.75). Spot di depan pintu masjid: (45,50).",
   "Ep 23 (8 Nov malam): sesuai antrean Chalid di komentar.md (tanpa komentar lain), Apify/Chrome tidak dipakai; Chrome tidak tersambung di sesi cloud -> diposting manual. Kode baru: models papanjadwal & spandukstudytour, castKit clip/flag/cap, castPose clip, island.json tour (rombongan berjalan, main.js assignTour/stepTour; nama dicocokkan ke key r:<nama lowercase>, clean() menghapus spasi), secretary di menu aturan. Spot cast di atas mimbar tidak ikut tinggi panggung (surfaceY), jadi taruh cast di tanah. __tgt(x,z,h) sudah menambah groundY. Jangan edit/stash island.json saat capture (game polling). Follower sync bisa konflik di island.json saat rebase: ambil versi upstream lalu terapkan ulang perubahan episode. Mematikan server dengan awk '/[p]ython3 -m http.server/' dalam perintah yang juga memulai server ikut membunuh shell (exit 144): pisahkan perintahnya.",
-  "Ep 24 (9 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong, run 42552373349), Chrome tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach), antrean & traktir kosong -> episode dari Kotak Usulan, diposting manual. Kode baru: model hotel; papanjadwal menerima b.head & b.color (dipakai Buku Tamu Hotel). Lampu jalan di jalan utama adalah InstancedMesh (warna tiang 4a3a2a, kepala ffcf70) di (-2.2,28.8),(0.8,28.8) dst; shots ep24 punya __hideInst/__showInst untuk menyembunyikannya sementara saat kamera dari jalan. Anggota rombongan tour (island.json tour.pupils) tidak berdiri di spot cast mereka sampai dikeluarkan dari pupils."
+  "Ep 24 (9 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong, run 42552373349), Chrome tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach), antrean & traktir kosong -> episode dari Kotak Usulan, diposting manual. Kode baru: model hotel; papanjadwal menerima b.head & b.color (dipakai Buku Tamu Hotel). Lampu jalan di jalan utama adalah InstancedMesh (warna tiang 4a3a2a, kepala ffcf70) di (-2.2,28.8),(0.8,28.8) dst; shots ep24 punya __hideInst/__showInst untuk menyembunyikannya sementara saat kamera dari jalan. Anggota rombongan tour (island.json tour.pupils) tidak berdiri di spot cast mereka sampai dikeluarkan dari pupils.",
+  "Ep 25 (9 Nov sore): episode KONSEP sesuai brief Chalid. Apify gagal lagi (run 42595381844, APIFY_TOKEN kosong), Chrome tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach) -> diposting manual. Kode baru: main.js window.__clock (jam tetap untuk capture, .575 = senja, .62 = malam awal) dan __pulau.surfaceY (berdiri di atas dermaga). compose: overlay 'ccard' (kartu komentar asli di atas footage) dan 'book' (filter buku cerita untuk cold open; render lambat ~2 s/frame). Lokal main sempat divergen dari origin (riwayat ditulis ulang); pakai git checkout -B main origin/main."
  ],
  "rooms": {
   "open": [
@@ -255,6 +263,19 @@
    "warteg",
    "kedaikopi",
    "apotik"
+  ]
+ },
+ "strategy": {
+  "lastFormat": "KONSEP",
+  "tests": [
+   {
+    "ep": 25,
+    "format": "KONSEP",
+    "hook": "7 HARI LALU / ARU SENDIRIAN",
+    "opening": "3D close-up Aru di dermaga senja + filter buku cerita (posterize, hangat, vignette, grain) 0-3,9 s, lalu 3D biasa",
+    "captionStyle": "pendek personal (gaya video viral) + pulau-aru.web.id + #pulaunetizen #alurcerita",
+    "duration": 57
+   }
   ]
  }
 }
