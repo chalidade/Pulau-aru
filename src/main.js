@@ -669,6 +669,7 @@ const fireSources = [];
 function frame() {
   const dt = Math.min(.05, clock.getDelta()); T0 += dt;
   if (tModes[tMode] === 'auto') tClock = (tClock + dt / 360) % 1; else tClock = tModes[tMode] === 'day' ? .3 : .8;
+  if (window.__clock != null) tClock = window.__clock;   // capture hook (studio): fixed time of day, e.g. .58 = senja
   const blocked = !$('start').hidden || !$('sheet').hidden || !$('dialog').hidden;
   // player movement
   let mx = 0, my = 0;
@@ -936,5 +937,5 @@ requestAnimationFrame(frame);
   }, 90000);
 })();
 
-window.__pulau = { renderer, scene, kebun, kerja, roads: roadGroup,  app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
+window.__pulau = { surfaceY: (x, z) => surfaceY(x, z), renderer, scene, kebun, kerja, roads: roadGroup,  app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
 trackVisit();
