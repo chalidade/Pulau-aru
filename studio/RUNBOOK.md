@@ -141,6 +141,37 @@ TikTok decides in the first 1–2 seconds. Every episode must follow these:
    first card at ~0.4 s (`CARD_T`).
 7. Write lines short and spoken: one idea per line, max ~12 words, humour over exposition.
 
+## 2e. Strategi viral (analisa TikTok Studio, 9 Nov 2026; berlaku mulai ep25)
+
+Data: `studio/analytics/`. 7.000 dari 7.020 follower datang dari SATU video ("Kini Aru punya teman", 68K views,
+21,6 s rata-rata tonton, 97% For You). Video itu menjual **premis**: Aru sendirian di pulau, setiap follower jadi
+warga, komentar mengatur cerita. Sejak ep7, views turun ke 400–1.000 karena episode jadi sinetron politik penuh nama
+yang tidak dipahami penonton baru (93% penonton datang dari For You = orang yang belum kenal pulau ini).
+Ep15 dapat 13K views tapi rata-rata cuma 3,3 s: hook-nya tidak cocok dengan isi, jadi algoritma berhenti mendorong.
+
+Aturan:
+1. **Ramah penonton baru.** Setiap video harus bisa dinikmati orang yang belum pernah melihat channel ini. Dalam
+   3 detik pertama premis harus jelas lewat hook/narasi: "pulau ini diatur komentar kalian" atau "follow = jadi warga".
+   Nama tokoh dan lore boleh, tapi jadi bumbu; jelaskan siapa dia dalam 2–3 kata saat pertama muncul
+   ("si bodyguard", "presiden pilihan like").
+2. **Rotasi format.** `state.json → strategy.lastFormat` mencatat format terakhir; gantian:
+   - **KONSEP** (minimal 1x sehari, biasanya run pagi): menjual premis ke penonton baru. Contoh: "7 hari lalu Aru
+     sendirian → sekarang 7.000 warga", "komentarmu jadi bangunan", "namamu terukir di batu kalau follow",
+     before/after pulau, satu komentar random yang jadi sesuatu yang absurd. Emosional/hangat + lucu, sedikit nama.
+   - **CERITA**: episode lanjutan dengan pemeran warga (aturan 2d), tetap memakai aturan 1.
+3. **Hook = janji yang ditepati.** Teks hook harus menggambarkan apa yang benar-benar terjadi di video, bukan
+   clickbait politik ("PRESIDEN MUNDUR?!" tanpa payoff jelas = 3 detik lalu digeser).
+4. **Gaya visual awal.** Video viral memakai ilustrasi 2D bergaya buku cerita (pantai senja, Aru kecil). Untuk
+   episode KONSEP boleh membuka 2–4 detik dengan kartu bergaya ilustrasi/hangat, lalu masuk ke 3D. Catat di
+   `strategy.tests` apakah dipakai, supaya bisa dibandingkan.
+5. **Caption pendek dan personal** (1–2 kalimat, gaya video awal: "Kini Aru punya teman. hayuk join pulau dan atur
+   alur cerita."), lalu `pulau-aru.web.id` dan hashtag. Jangan ringkasan cerita panjang. Kata kunci yang dicari
+   penonton: "alur cerita", "pulau netizen", "netizen city", "diatur netizen"; masukkan salah satunya di caption.
+6. **Ajakan follow yang jelas** di akhir episode KONSEP: "Follow, namamu jadi warga. Komentar, ceritanya kamu yang
+   atur." (Episode CERITA tetap pakai pertanyaan untuk komentar.)
+7. **Catat eksperimen**: tulis di `state.json → strategy.tests[]` `{ep, format, hook, opening, captionStyle}` supaya
+   analisa berikutnya (tarik data TikTok Studio → `studio/analytics/<tanggal>.csv`) bisa melihat apa yang menang.
+
 ## 2d. Pemeran warga (studio/warga.json)
 Chalid wants the island to feel alive through recurring residents with fixed personalities (iseng, pahlawan,
 introvert, sok tahu, menyebalkan, kocak, ...). `studio/warga.json` is the cast list. In every episode, give 1-3 of
