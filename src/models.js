@@ -1129,6 +1129,18 @@ export const BT = {
       x.fillStyle = '#ffffff'; x.font = '700 24px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'lantai paling atas: khusus presiden', 256, 100, 480);
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
       const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.6, .4), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, y0 + 1.32, 1.16); g.add(sign);
+      // ep 26: the glass lift on the east side ("apartemenya kasih lift dong", @vcxn.mx). The cabin rides the shaft (main.js animates g.userData.lift)
+      { const lx = 1.52, lz = .46, top = ry + 1.2, sw = .62, sd = .5, glass = new THREE.MeshStandardMaterial({ color: '#bfe6ff', roughness: .1, metalness: .1, transparent: true, opacity: .3, depthWrite: false });
+        box(g, '#3a4650', sw + .04, .1, sd + .04, lx, .12, lz); box(g, '#3a4650', sw + .04, .1, sd + .04, lx, top, lz);
+        for (const [dx, dz] of [[-1, -1], [1, -1], [-1, 1], [1, 1]]) box(g, '#3a4650', .04, top - .12, .04, lx + dx * sw / 2, .12, lz + dz * sd / 2);
+        for (let i = 1; i <= N; i++) box(g, '#3a4650', sw, .03, .03, lx, y0 + i * F - .05, lz + sd / 2);
+        box(g, glass, sw - .04, top - .22, .01, lx, .22, lz + sd / 2); box(g, glass, .01, top - .22, sd - .04, lx + sw / 2, .22, lz);
+        const cab = new THREE.Group(); cab.position.set(lx, .22, lz); g.add(cab); g.userData.lift = cab; cab.userData.span = [.22, ry + .02];
+        const cw = sw - .1, cd = sd - .08; box(cab, '#e6b84a', cw, .05, cd, 0, 0, 0); box(cab, '#e6b84a', cw, .05, cd, 0, 1.06, 0); box(cab, '#f1ece0', cw, 1.06, .03, 0, .02, -cd / 2 + .02);
+        for (const dx of [-1, 1]) box(cab, '#e6b84a', .03, 1.06, .03, dx * cw / 2, .02, cd / 2);
+        const lt = new THREE.Mesh(G.sph, lanternMat); lt.scale.set(.05, .03, .05); lt.position.set(0, 1.04, 0); cab.add(lt);
+        const lc = document.createElement('canvas'); lc.width = 128; lc.height = 64; const lx2 = lc.getContext('2d'); lx2.fillStyle = '#1f2a44'; lx2.fillRect(0, 0, 128, 64); lx2.fillStyle = '#ffd25a'; lx2.font = '700 40px "Pixelify Sans", sans-serif'; lx2.textAlign = 'center'; lx2.textBaseline = 'middle'; lx2.fillText('LIFT', 64, 34);
+        const lt2 = new THREE.CanvasTexture(lc); lt2.colorSpace = THREE.SRGBColorSpace; const ls = new THREE.Mesh(new THREE.PlaneGeometry(.36, .18), new THREE.MeshStandardMaterial({ map: lt2, roughness: .8 })); ls.position.set(lx, 1.45, lz + sd / 2 + .03); g.add(ls); }
       // planters and a bench on the plaza, a lamp by the door
       for (const x of [-1.25, 1.25]) { box(g, '#8a5a34', .3, .2, .3, x, .12, .95); add(g, G.ico, '#62bd73', .2, .22, .2, x, .48, .95); }
       const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.08, .1, .08); lamp.position.set(.62, 1.0, .95); g.add(lamp);
@@ -1259,7 +1271,7 @@ export function bake(root) {
 }
 export function buildBuilding(b) {
   const d = BT[b.type]; const g = new THREE.Group();
-  if (d.scale) { const inner = new THREE.Group(); inner.scale.setScalar(d.scale); g.add(inner); d.build(inner, b); } else d.build(g, b);
+  if (d.scale) { const inner = new THREE.Group(); inner.scale.setScalar(d.scale); g.add(inner); d.build(inner, b); Object.assign(g.userData, inner.userData); } else d.build(g, b);
   if (!d.noBake && !d.water) bake(g);
   g.userData.def = d; return g;
 }

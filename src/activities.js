@@ -105,6 +105,8 @@ export function createActivities(ctx) {
       if (n.vp) { setRole(n, 'vicepresident', spots.vp[0] || null); return; }
       // ep 19: the regular cast (island.json → residents[].julukan/spot) keep to their own place on the island
       if (n.castSpot) { setRole(n, 'cast', n.castSpot); return; }
+      // ep 26: characters a visitor summoned from the Batu Nama stroll the main street on their own
+      if (n.summoned) { setRole(n, 'wander', null); return; }
       if (n.own) { const sp = spots.own.find(s => s.n === n.own); if (sp) { setRole(n, 'sell', sp); n.workFor = Infinity; return; } }
       // market sellers and the crowd at the stage come first, then the usual jobs
       for (const r of ['sell', 'listen', 'shop']) if (used[r] < spots[r].length) { setRole(n, r, spots[r][used[r]++]); return; }

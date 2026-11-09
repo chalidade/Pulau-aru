@@ -314,18 +314,58 @@ function rebuildNpcs() {
   // ep 19: the regular cast (residents with a julukan and a spot) always live on the island, at their own place, in character
   const castR = S.residents.map((r, i) => ({ r, num: i + 1 })).filter(({ r }) => r.julukan && Array.isArray(r.spot) && !(role.kind === 'warga' && role.name.toLowerCase() === r.n.toLowerCase()) && (!pres || r.n.toLowerCase() !== pres.toLowerCase()) && (!vp || r.n.toLowerCase() !== vp.toLowerCase()) && !carry.concat(owners).some(c => c.toLowerCase() === r.n.toLowerCase()));
   for (const { r, num } of castR) want.push({ key: 'r:' + r.n.toLowerCase(), name: r.tampil || '@' + r.n, num, julukan: r.julukan, kalimat: r.kalimat || [], castSpot: { x: WD.cx2w(r.spot[0]) + (r.spot[2] || 0), z: WD.cy2w(r.spot[1]) + (r.spot[3] || 0), face: r.face || 0, pose: r.pose || 'still' } });
-  const carried = new Set(carry.concat(owners).concat(castR.map(c => c.r.n)).map(c => 'r:' + c.toLowerCase()));
+  // ep 26 "Panggil Karakterku": names a visitor called out of the Batu Nama walk the island as their own character (kept on the device)
+  const taken = new Set(want.map(w => w.key));
+  const sumR = summoned.filter(n => !taken.has('r:' + n.toLowerCase()) && !(role.kind === 'warga' && role.name.toLowerCase() === n.toLowerCase()));
+  for (const n of sumR) { const num = (S.residents.findIndex(r => r.n.toLowerCase() === n.toLowerCase()) + 1) || null; want.push({ key: 'r:' + n.toLowerCase(), name: '@' + n, num, summoned: true }); }
+  const carried = new Set(carry.concat(owners).concat(castR.map(c => c.r.n)).concat(sumR).map(c => 'r:' + c.toLowerCase()));
   for (let i = 0; i < N; i++) { const r = i < res.length ? res[i] : null; const key = r ? 'r:' + r.n.toLowerCase() : 'a:' + i; if (role.kind === 'warga' && key === 'r:' + role.name.toLowerCase()) continue; if (pres && key === 'r:' + pres.toLowerCase()) continue; if (vp && key === 'r:' + vp.toLowerCase()) continue; if (carried.has(key)) continue; want.push(r ? { key, name: '@' + r.n, num: r.num } : { key, name: 'Warga', num: null }); }
-  const old = new Map(npcs.map(n => [n.key, n])); for (const o of old.values()) { delete o.pres; delete o.vp; delete o.cand; delete o.own; delete o.sellLines; delete o.castSpot; delete o.julukan; delete o.kalimat; }
+  const old = new Map(npcs.map(n => [n.key, n])); for (const o of old.values()) { delete o.pres; delete o.vp; delete o.cand; delete o.own; delete o.sellLines; delete o.castSpot; delete o.julukan; delete o.kalimat; delete o.summoned; }
   const next = want.map((w, i) => {
     const o = old.get(w.key); if (o) { old.delete(w.key); Object.assign(o, w); return o; }
     const home = w.aru ? { x: LM.camp[0] + 1, y: LM.camp[1] + 2 } : village[(i * 13 + 5) % Math.min(village.length, 1600)];
-    const obj = makeCharacter(w.aru ? ARU : lookOf(w.name + (w.num || i))); npcGroup.add(obj);
+    const obj = makeCharacter(w.aru ? ARU : lookOf(w.name + (w.summoned ? w.num || '' : w.num || i))); npcGroup.add(obj);
     const x = WD.cx2w(home.x), z = WD.cy2w(home.y);
     return { ...w, obj, x, z, hx: home.x, hy: home.y, wait: Math.random() * 3, tx: null, tz: null, moving: false };
   });
   for (const o of old.values()) { npcGroup.remove(o.obj); if (o.bob) scene.remove(o.bob); }
+  for (const n of next) {   // a floating gold name tag over every summoned character (also seen in the episode videos)
+    if (n.summoned && !n.tag) { n.tag = nameTag(n.name); n.obj.add(n.tag); }
+    if (!n.summoned && n.tag) { n.obj.remove(n.tag); n.tag = null; }
+    if (n.summoned) { n.hx = SUM_HOME[0] + (rankOf(n.key) % 3) - 1; n.hy = SUM_HOME[1] + (rankOf(n.key + 'y') % 9) - 4; }
+  }
   npcs = next;
+}
+// ---------- ep 26: Panggil Karakterku ----------
+const SUM_KEY = 'pulau-aru-karakter', SUM_MAX = 6, SUM_HOME = [54, 80];
+let summoned = []; try { summoned = (JSON.parse(store.get(SUM_KEY) || '[]') || []).map(clean).filter(Boolean).slice(0, SUM_MAX); } catch (e) { summoned = []; }
+let follow = null; const sparks = [];
+function nameTag(text) {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 112; const x = c.getContext('2d');
+  x.font = '700 54px "Pixelify Sans", sans-serif'; const w = Math.min(492, x.measureText(text).width + 44);
+  x.fillStyle = 'rgba(31,42,68,.88)'; x.beginPath(); x.roundRect((512 - w) / 2, 10, w, 80, 16); x.fill(); x.strokeStyle = '#e6b84a'; x.lineWidth = 5; x.stroke();
+  x.fillStyle = '#ffd25a'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(text, 256, 52, 470);
+  const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+  const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tx, depthWrite: false, fog: false })); sp.scale.set(1.5, .33, 1); sp.position.y = 2.05; sp.renderOrder = 5; return sp;
+}
+function summon(name, quiet) {
+  const n0 = clean(name); if (!n0) return null;
+  const k = n0.toLowerCase(); summoned = [n0, ...summoned.filter(s => s.toLowerCase() !== k)].slice(0, SUM_MAX);
+  try { store.set(SUM_KEY, JSON.stringify(summoned)); } catch (e) { }
+  rebuildNpcs(); acts.assign(npcs);
+  const n = npcs.find(m => m.key === 'r:' + k); if (!n) return null;
+  // out of the east side of the stone, a look at the camera, then off to the main street
+  const [sx, sz] = fpCenter(LM.stone[0] + 2.4, LM.stone[1] + .3, 1, 1);
+  if (n.summoned) { n.state = 'stroll'; n.x = sx; n.z = sz; n.wait = 1.4; n.tx = WD.cx2w(SUM_HOME[0]); n.tz = WD.cy2w(LM.stone[1] - 4); n.obj.rotation.y = 0; }
+  const g = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTex, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, color: 0xffe08a })); g.position.set(sx, surfaceY(sx, sz) + .9, sz); scene.add(g); sparks.push({ g, t: 0 });
+  follow = { n, t: 0 };
+  if (!quiet) { const i = S.residents.findIndex(r => r.n.toLowerCase() === k); toast(i >= 0 ? `@${n0} keluar dari Batu Nama! Warga #${i + 1}.` : `@${n0} keluar dari Batu Nama! Follow @kita.berkembang supaya namamu juga diukir.`); }
+  return n;
+}
+function unsummon(name) { const k = clean(name).toLowerCase(); summoned = summoned.filter(s => s.toLowerCase() !== k); try { store.set(SUM_KEY, JSON.stringify(summoned)); } catch (e) { } if (follow && follow.n.key === 'r:' + k) follow = null; rebuildNpcs(); acts.assign(npcs); }
+function stepSummon(dt) {
+  for (let i = sparks.length - 1; i >= 0; i--) { const s = sparks[i]; s.t += dt; const k = s.t / 1.4; s.g.scale.setScalar(.5 + k * 4); s.g.material.opacity = Math.max(0, 1 - k); if (k >= 1) { scene.remove(s.g); sparks.splice(i, 1); } }
+  if (follow && $('start').hidden) { follow.t += dt; if (follow.t > 12 || !npcs.includes(follow.n)) follow = null; }
 }
 // residents on the cloud: a queue at the Kopdes, porters with baskets, and climbers hopping up the steps (one falls now and then)
 function assignCloud() {
@@ -651,7 +691,7 @@ const pv = new THREE.Vector3();
 function updateLabels() {
   const items = [];
   const push = (text, x, y, z, cls, d) => items.push({ text, x, y, z, cls, d });
-  for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (d < (n.aru || n.pres || n.vp ? 12 : 4.5) && (n.num || n.aru || n.pres || n.vp)) push(n.pres ? 'Presiden ' + n.name : n.vp ? 'Wakil Presiden ' + n.name : n.julukan ? n.name + ' · ' + n.julukan : n.name, n.x, n.obj.position.y + 1.6, n.z, n.aru || n.pres || n.vp ? 'gold' : '', d); }
+  for (const n of npcs) { const d = Math.hypot(n.x - player.x, n.z - player.z); if (!n.summoned && d < (n.aru || n.pres || n.vp ? 12 : 4.5) && (n.num || n.aru || n.pres || n.vp)) push(n.pres ? 'Presiden ' + n.name : n.vp ? 'Wakil Presiden ' + n.name : n.julukan ? n.name + ' · ' + n.julukan : n.name, n.x, n.obj.position.y + 1.6, n.z, n.aru || n.pres || n.vp ? 'gold' : '', d); }
   if (room && IN.current) for (const q of IN.current.people) push(q.label, q.x, q.pose === 'lie' ? 1.2 : q.pose === 'sit' || q.pose === 'pray' ? 1.3 : 1.7, q.z, q.label.startsWith('@') ? '' : 'gold', Math.hypot(q.x - player.x, q.z - player.z));
   items.sort((a, b) => a.d - b.d);
   labelPool.forEach((el, i) => {
@@ -704,7 +744,7 @@ function frame() {
   }
   if (player.sit) kerja.pose(player.obj, T0);
   else { player.obj.position.set(player.x, player.y, player.z); animateCharacter(player.obj, player.moving, dt); }
-  kerja.update(dt);
+  kerja.update(dt); stepSummon(dt);
   fishing.update(dt, T0);
   kebun.update(dt, T0);
   IN.update(dt, T0);
@@ -716,6 +756,7 @@ function frame() {
   if (place && !place.erase && place.hx != null && touch) { const [cx, cz] = fpCenter(place.hx, place.hy, 1, 1); tgt.set(cx, 1, cz); }
   if (sail.on) tgt.set(V().x, 1.5, V().z);
   if (room) tgt.set(player.x * .4 + IN.OX * .6, .6, player.z * .4 + IN.OZ * .6 + .5);
+  if (follow && !window.__camTarget && $('start').hidden) { if (player.moving || sail.on || room) follow = null; else tgt.set(follow.n.x, follow.n.obj.position.y + 1, follow.n.z); }
   if (window.__camTarget) tgt.copy(window.__camTarget);
   cam.target.lerp(tgt, Math.min(1, dt * 6));
   cam.sailDist = (cam.sailDist || 0) + ((sail.on ? (sail.boat ? 4 : 10) : 0) - (cam.sailDist || 0)) * Math.min(1, dt * 2);
@@ -767,6 +808,8 @@ function frame() {
   if (shipObj.visible) { shipObj.position.set(sail.x, Math.sin(T0 * .9) * .12 - .1, sail.z); shipObj.rotation.set(Math.sin(T0 * .8) * .02, sail.ry, Math.sin(T0 * .7) * .03 + (sail.on ? Math.min(.06, sail.speed * .006) : 0)); }
   festObj.visible = pop() >= 100;
   if (postLights) postLights.material.opacity = Math.min(1, dk * 1.3);
+  // ep 26: the apartment's glass lift rides up and down (16 s cycle); window.__lift (0..1) pins it for the studio camera
+  for (const o of bObjs) { const c = o.userData.lift; if (!c) continue; const [a, b] = c.userData.span, ph = (T0 % 16) / 16; let k = ph < .3 ? 0 : ph < .45 ? (ph - .3) / .15 : ph < .8 ? 1 : ph < .95 ? 1 - (ph - .8) / .15 : 0; k = k * k * (3 - 2 * k); if (window.__lift != null) k = window.__lift; c.position.y = a + (b - a) * k; }
   for (const o of bObjs) if (o.userData.def.bob && o.userData.b.type !== 'perahu') { o.position.y = Math.sin(T0 * 1.2 + o.position.x) * .08; o.rotation.z = Math.sin(T0 + o.position.x) * .04; }
   mailObj.userData.flag.rotation.x = S.letters.length && (store.get('pulau-aru-seen-letters') | 0) < S.letters.length ? -Math.PI / 2 : 0;
   updateGhost();
@@ -844,6 +887,7 @@ const app = {
   markPublished() { PUB = JSON.stringify(S); dirty = false; store.del(draftKey); applyWorld(); },
   revert() { S = normalize(JSON.parse(PUB)); dirty = false; store.del(draftKey); applyWorld(); },
   replace(d) { S = d; markDirty(); },
+  summon: (n, q) => { const r = summon(n, q); if (r) UI.closeSheet(); return r; }, unsummon, get summoned() { return summoned.slice(); },
 };
 UI.initUI(app);
 kebun.init(); $('b-kebun').onclick = () => kebun.open();
@@ -929,6 +973,8 @@ requestAnimationFrame(frame);
   applyWorld();
   $('st-aru').disabled = false; $('st-aru').textContent = 'Main sebagai Aru'; $('st-join').disabled = false;
   if (LIVE) startLive();
+  // ep 26: pulau-aru.web.id/?warga=<nama> calls that resident's character out of the Batu Nama
+  const wq = new URLSearchParams(location.search).get('warga'); if (wq && clean(wq)) { summon(wq); try { if (!$('st-user').value) $('st-user').value = clean(wq); } catch (e) { } }
   // visitors pick up new published versions without reloading
   setInterval(async () => {
     if (dirty || document.hidden) return;

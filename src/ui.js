@@ -73,11 +73,19 @@ export function openNames() {
   const draw = () => {
     const s = clean(q.value).toLowerCase();
     const list = S.residents.map((r, i) => ({ ...r, i: i + 1 })).filter(r => !s || r.n.toLowerCase().includes(s));
-    grid.replaceChildren(...(list.length ? list.slice(0, 800).map(r => h('div', { class: 'nm' + (r.n.toLowerCase() === me ? ' me' : '') }, h('span', null, '@' + r.n), h('b', null, '#' + r.i)))
-      : [h('div', { class: 'empty', style: 'grid-column:1/-1' }, S.residents.length ? 'Nama itu belum terukir di batu.' : 'Batu ini masih kosong. Nama warga pertama akan terukir di sini.')]));
+    // ep 26: tap a name to call its character out of the stone ("Panggil karakterku")
+    const call = n => app.summon(n);
+    grid.replaceChildren(...(list.length ? list.slice(0, 800).map(r => h('button', { class: 'nm' + (r.n.toLowerCase() === me ? ' me' : ''), title: 'Panggil karakter @' + r.n, onclick: () => call(r.n) }, h('span', null, '@' + r.n), h('b', null, '#' + r.i)))
+      : [h('div', { class: 'empty', style: 'grid-column:1/-1' }, S.residents.length ? 'Nama itu belum terukir di batu.' : 'Batu ini masih kosong. Nama warga pertama akan terukir di sini.'),
+         s ? h('button', { class: 'btn sumbtn', style: 'grid-column:1/-1', onclick: () => call(q.value) }, `Panggil karakter @${clean(q.value)}`) : null].filter(Boolean)));
   };
   q.addEventListener('input', draw); draw();
-  sheet('Batu Nama', h('p', { class: 'lede' }, `${fmt(S.residents.length)} nama sudah diukir di batu dekat pantai. Ingin namamu dihapus? Kirim pesan ke kreator.`), q, grid);
+  const mine = app.summoned;
+  const ownBox = mine.length ? h('div', { class: 'sumlist' }, h('div', { class: 'eyebrow' }, 'Karakter yang kamu panggil'),
+    h('div', { class: 'chips' }, mine.map(n => h('span', { class: 'chip' }, h('a', { href: '#', onclick: e => { e.preventDefault(); call0(n); } }, '@' + n), ' ', h('a', { href: '#', title: 'Pulangkan', onclick: e => { e.preventDefault(); app.unsummon(n); openNames(); } }, '×'))))) : null;
+  function call0(n) { app.summon(n, true); }
+  const how = h('div', { class: 'sumhow' }, h('b', null, 'Panggil karakterku'), h('span', null, ' Ketuk namamu: karaktermu keluar dari batu dan jalan-jalan di pulau. Tampilannya selalu sama untuk namamu. Link langsung: pulau-aru.web.id/?warga=namamu'));
+  sheet('Batu Nama', h('p', { class: 'lede' }, `${fmt(S.residents.length)} nama sudah diukir di batu dekat pantai. Ingin namamu dihapus? Kirim pesan ke kreator.`), how, ownBox, q, grid);
 }
 export function openLight() {
   const S = app.S, L = app.lamps(), recent = S.residents.slice(-12).reverse();

@@ -74,7 +74,7 @@ body.rec .hud,body.rec #prompt,body.rec #act,body.rec #hint{display:none!importa
 .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--sand-dim)}
 .big{font-family:var(--f-display);font-size:44px;font-weight:700;color:var(--lamp);line-height:1;font-variant-numeric:tabular-nums}
 .names{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin-top:10px}
-.nm{background:#4b5550;color:#e7e3d6;font-family:var(--f-display);padding:7px 9px;border-radius:3px;display:flex;justify-content:space-between;gap:6px;min-width:0;box-shadow:inset 0 -2px 0 rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.12)}
+.nm{border:0;text-align:left;cursor:pointer;font-size:inherit;background:#4b5550;color:#e7e3d6;font-family:var(--f-display);padding:7px 9px;border-radius:3px;display:flex;justify-content:space-between;gap:6px;min-width:0;box-shadow:inset 0 -2px 0 rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.12)}
 .nm span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .nm b{font-weight:400;color:#b5b0a0;font-size:12px;font-variant-numeric:tabular-nums}
 .nm.me{background:var(--lamp);color:var(--ink)}
@@ -247,3 +247,9 @@ body.live #hud-r, body.live #hud-l, body.live #prompt, body.live #act, body.live
 .kebun-list{max-height:none}
 .mini.ready{background:var(--leaf);color:var(--ink);font-weight:700}
 .mini:disabled{opacity:.5}
+
+.nm:hover{outline:2px solid var(--lamp)}
+.sumhow{background:#1f2a44;color:#f4eee0;border:2px solid #e6b84a;border-radius:4px;padding:9px 11px;margin:8px 0;font-size:14px;line-height:1.35}
+.sumhow b{color:#ffd25a;font-family:var(--f-display)}
+.sumlist{margin:8px 0}.sumlist .chip a{color:inherit}
+.sumbtn{width:100%;margin-top:6px}
