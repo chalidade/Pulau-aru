@@ -1138,16 +1138,60 @@ export const BT = {
     build(g, b) {
       for (const x of [-.6, .6]) { const l = box(g, '#5e3b22', .07, 1.7, .07, x, 0, -.12); l.rotation.x = .12; }
       box(g, '#5e3b22', 1.5, 1.1, .06, 0, .75, -.02); box(g, '#5e3b22', 1.3, .05, .12, 0, .73, .04);
-      const items = (b && b.items) || ['PR dari Bu Guru Gina'];
+      const items = (b && b.items) || ['PR dari Bu Guru Gina'], hc = (b && b.color) || '#2f5e8a';
       const c = document.createElement('canvas'); c.width = 512; c.height = 384; const x = c.getContext('2d');
-      x.fillStyle = '#fbfaf5'; x.fillRect(0, 0, 512, 384); x.fillStyle = '#2f5e8a'; x.fillRect(0, 0, 512, 72);
-      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffffff'; x.font = '700 46px "Pixelify Sans", sans-serif'; x.fillText('JADWAL PRESIDEN', 256, 38, 490);
+      x.fillStyle = '#fbfaf5'; x.fillRect(0, 0, 512, 384); x.fillStyle = hc; x.fillRect(0, 0, 512, 72);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffffff'; x.font = '700 46px "Pixelify Sans", sans-serif'; x.fillText((b && b.head) || 'JADWAL PRESIDEN', 256, 38, 490);
       x.textAlign = 'left'; x.fillStyle = '#1f2a44';
       items.slice(0, 4).forEach((t, i) => { let fs = 34; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; while (fs > 18 && x.measureText(t).width > 400) { fs -= 2; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; }
         x.strokeStyle = '#2f5e8a'; x.lineWidth = 4; x.strokeRect(30, 104 + i * 58, 28, 28); if (i === 0) { x.strokeStyle = '#c0392b'; x.beginPath(); x.moveTo(34, 118 + i * 58); x.lineTo(44, 130 + i * 58); x.lineTo(62, 98 + i * 58); x.stroke(); } x.fillText(t, 74, 120 + i * 58); });
       x.textAlign = 'center'; x.fillStyle = '#c0392b'; x.font = '700 26px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'Sekretaris: Debby', 256, 356, 490);
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
       const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 1.05), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.3, .015); g.add(sign);
+    } },
+  // ep 24: Hotel Pulau, the last old suggestion from the Kotak Usulan (for study-tour guests and visitors from the pier).
+  // Three floors with numbered windows that light up at night, a glass lobby with a reception desk, a striped awning,
+  // a roof sign and a luggage trolley at the door. b.label = sign, b.sub = small line under it.
+  hotel: { n: 'Hotel Pulau', w: 4, h: 4, land: true, scale: 1.5,
+    build(g, b) {
+      const F = 1.1, N = 3, W = 2.2, D = 1.6, y0 = .12;
+      box(g, '#d9cfb8', 2.6, .12, 2.4, 0, 0, 0);                                                              // forecourt
+      box(g, '#c94f6d', .9, .02, .5, 0, .12, .95);                                                            // red carpet
+      for (let i = 0; i < N; i++) {
+        const y = y0 + i * F;
+        box(g, i % 2 ? '#bfe3dd' : '#a9d8d1', W, F, D, 0, y, -.25);                                            // floor block (sea-green)
+        box(g, '#f7f2e4', W + .06, .07, D + .06, 0, y + F - .07, -.25);                                       // white floor band
+        if (i === 0) {
+          box(g, windowMat, 1.3, .9, .04, 0, y, .56); box(g, '#f7f2e4', .05, .95, .06, 0, y, .58); box(g, '#f7f2e4', 1.4, .06, .06, 0, y + .9, .58);
+          box(g, '#8a5a34', .9, .4, .25, 0, y, .1); box(g, '#e6b84a', .92, .04, .27, 0, y + .4, .1);          // reception desk behind the glass
+          add(g, G.sph, '#e6b84a', .05, .04, .05, .3, y + .46, .12);                                          // the little bell
+          for (const x of [-.85, .85]) box(g, windowMat, .3, .5, .04, x, y + .3, .56);
+        } else {
+          for (const x of [-.75, -.25, .25, .75]) { box(g, windowMat, .3, .5, .04, x, y + .3, .56); box(g, '#f7f2e4', .36, .05, .08, x, y + .26, .58); }
+          for (const z of [-.75, -.15]) { box(g, windowMat, .04, .5, .3, W / 2 + .01, y + .3, z); box(g, windowMat, .04, .5, .3, -W / 2 - .01, y + .3, z); }
+          box(g, '#f7f2e4', W - .1, .04, .22, 0, y, .66); box(g, '#7b8b94', W - .1, .2, .03, 0, y + .04, .77); // balcony rail
+        }
+      }
+      // striped awning over the door, on two gold posts
+      for (let i = 0; i < 6; i++) { const s = box(g, i % 2 ? '#f7f2e4' : '#c94f6d', .25, .05, .7, -.62 + i * .25, y0 + 1.08, .95); s.rotation.x = -.18; }
+      for (const x of [-.7, .7]) box(g, '#e6b84a', .05, 1.05, .05, x, y0, 1.28);
+      // roof: parapet, water tank and the big sign with three stars
+      const ry = y0 + N * F;
+      box(g, '#8a8478', W + .1, .1, D + .1, 0, ry, -.25);
+      add(g, G.cyl8, '#9aa3a8', .2, .35, .2, -.7, ry + .28, -.6);
+      const c = document.createElement('canvas'); c.width = 512; c.height = 160; const x = c.getContext('2d');
+      x.fillStyle = '#c94f6d'; x.fillRect(0, 0, 512, 160); x.strokeStyle = '#ffd25a'; x.lineWidth = 8; x.strokeRect(6, 6, 500, 148);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffd25a'; x.font = '700 72px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'HOTEL PULAU', 256, 62, 480);
+      x.fillStyle = '#ffffff'; x.font = '700 26px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || '★ ★ ★  usulan warga', 256, 126, 480);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      for (const x2 of [-.7, .7]) box(g, '#5f6b74', .05, .45, .05, x2, ry + .1, .3);
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.9, .6), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, ry + .75, .34); g.add(sign);
+      box(g, '#5f6b74', 1.96, .64, .04, 0, ry + .43, .31);
+      // luggage trolley by the door (gold frame, two suitcases), planters, a lamp
+      box(g, '#e6b84a', .5, .03, .3, .98, .3, 1.0); for (const x2 of [.75, 1.21]) box(g, '#e6b84a', .03, .7, .03, x2, .12, 1.0); box(g, '#e6b84a', .5, .03, .03, .98, .82, 1.0);
+      box(g, '#2f7de1', .3, .22, .18, .9, .33, 1.0); box(g, '#e63946', .22, .16, .14, 1.05, .55, 1.0);
+      for (const x2 of [-1.05]) { box(g, '#8a5a34', .3, .2, .3, x2, .12, 1.0); add(g, G.ico, '#62bd73', .2, .22, .2, x2, .48, 1.0); }
+      const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.08, .1, .08); lamp.position.set(-.55, 1.0, .95); g.add(lamp);
     } },
   // ep 23: the study tour banner by the school (a comment asked for a study tour once a year); the tour itself walks the island (island.json → tour)
   spandukstudytour: { n: 'Spanduk Study Tour', w: 4, h: 1, land: true,

@@ -11887,12 +11887,14 @@
     "PERTAMA!",
     "Aku duluan, sumpah!"
    ],
-   "tempat": "garis start di jalan utama",
+   "tempat": "antre check-in pertama di depan Hotel Pulau",
    "spot": [
-    61,
-    58
+    57,
+    84,
+    0,
+    0.3
    ],
-   "face": 3.14,
+   "face": 1.57,
    "pose": "run"
   },
   {
@@ -11905,12 +11907,14 @@
     "Hah?! Tega kamu...",
     "Aku kan PRINCESS, harusnya aku pertama 💕"
    ],
-   "tempat": "dekat panggung/mimbar",
+   "tempat": "antre di belakang D..A..B..Y, depan Hotel Pulau",
    "spot": [
-    53,
-    41
+    57,
+    85,
+    -0.2,
+    0.3
    ],
-   "face": 3.14,
+   "face": 1.57,
    "pose": "faint"
   },
   {
@@ -12723,7 +12727,7 @@
    "r": 0,
    "label": "Sekretaris: Debby_l0vata",
    "items": [
-    "PR dari Bu Guru Gina",
+    "PR study tour (ketinggalan di hotel)",
     "Study tour (ikut? katanya nggak)",
     "Bayar kopi dong",
     "Cari lift apartemen"
@@ -12740,6 +12744,33 @@
    "sub": "Sekolah Pulau Aru · setahun sekali",
    "by": "???",
    "ep": 23
+  },
+  {
+   "type": "hotel",
+   "x": 58,
+   "y": 83,
+   "r": 1,
+   "label": "HOTEL PULAU",
+   "sub": "★ ★ ★  usulan warga",
+   "by": "usulan warga",
+   "ep": 24
+  },
+  {
+   "type": "papanjadwal",
+   "x": 56,
+   "y": 86,
+   "r": 1,
+   "head": "BUKU TAMU HOTEL",
+   "color": "#c94f6d",
+   "label": "Hotel Pulau · check-in di resepsionis",
+   "items": [
+    "Kamar 1: D..A..B..Y (PERTAMA!)",
+    "Kamar 2: Pak Presiden (PR?)",
+    "Kamar 3: Penjaga Mercusuar",
+    "Kamar 4: masih kosong"
+   ],
+   "by": "usulan warga",
+   "ep": 24
   }
  ],
  "episodes": [
@@ -12972,6 +13003,14 @@
     "???"
    ],
    "text": "Debby ('min aku mana?') diangkat jadi Sekretaris Presiden: Papan Jadwal Presiden di samping mimbar, isinya PR dari Bu Guru Gina. Bodyguard minta identitas, lalu menemukan dua PR-nya sendiri di jadwal.\nKomentar ??? jadi Study Tour Sekolah Pulau Aru (setahun sekali): Bu Guru Gina membawa rombongan bertopi kuning keliling pulau, pemandunya Luci Si Sok Tahu. Apotik resmi dibuka."
+  },
+  {
+   "ep": 24,
+   "date": "2026-11-09",
+   "picks": [
+    "Kotak Usulan: hotel"
+   ],
+   "text": "Usulan lama terakhir di Kotak Usulan terwujud: Hotel Pulau berdiri dekat dermaga (tiga lantai, karpet merah, bel resepsionis). Klub Pertama antre check-in di depan pintu, Presiden 'EGA_ memesan kamar paling atas, dan PR study tour-nya 'ketinggalan di kamar hotel'.\nMalam pertama, Buku Tamu Hotel di samping pintu menulis: Kamar 3, Penjaga Mercusuar. Kamar 4 masih kosong."
   }
  ],
  "letters": [],
@@ -13111,11 +13150,13 @@
   },
   {
    "t": "Hotel",
-   "st": "menunggu"
+   "st": "dibangun",
+   "ep": 24
   },
   {
    "t": "Apartemen",
-   "st": "menunggu"
+   "st": "dibangun",
+   "ep": 22
   }
  ],
  "secretary": {
