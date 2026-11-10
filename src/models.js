@@ -34,6 +34,8 @@ export function castKit(ch, pose) {
   if (pose === 'clip') { const cb = box(b, '#8a5a34', .26, .34, .03, -.22, .48, .32); cb.rotation.x = -.6; const pg = box(b, '#fbf7ee', .22, .26, .032, -.22, .5, .325); pg.rotation.x = -.6; box(b, '#9a9b94', .1, .04, .04, -.22, .8, .27); box(b, '#2f5e8a', .02, .18, .02, .3, .7, .2); }
   if (pose === 'flag') { add(b, G.cyl6, '#c9a868', .018, 1.5, .018, .3, 1.25, .28); const fl = box(b, '#ffd25a', .42, .26, .015, .52, 1.78, .28); box(b, '#d0483a', .42, .05, .016, .52, 1.9, .28); }
   if (pose === 'cap') { box(b, '#ffd25a', .42, .1, .42, 0, 1.4, -.01); box(b, '#ffd25a', .3, .03, .2, 0, 1.4, .26); box(b, '#d0483a', .43, .03, .43, 0, 1.43, -.01); }
+  // ep 27: Menteri Keuangan @araa_yinchan: a big calculator in the left hand, a gold coin in the right
+  if (pose === 'calc') { const cb = box(b, '#2b2d42', .2, .28, .04, -.22, .48, .32); cb.rotation.x = -.6; box(b, '#9fd8a8', .15, .06, .042, -.22, .66, .29).rotation.x = -.6; add(b, G.cyl8, '#e6b84a', .06, .015, .06, .3, .62, .3).rotation.x = Math.PI / 2; }
   if (pose === 'cookie') { box(b, '#e9d8a6', .34, .03, .24, -.1, .66, .36); for (const [x, z] of [[-.2, .3], [-.06, .32], [-.14, .42], [0, .42]]) box(b, '#b07040', .07, .04, .07, x, .69, z); box(b, '#d62828', .06, .06, .06, -.24, .7, .44); }
 }
 export function presidentKit(ch) {
@@ -1218,6 +1220,60 @@ export const BT = {
       for (const y of [1.64, 2.56]) box(g, '#8a6a3a', 3.7, .02, .02, 0, y, 0);
       const cols = ['#d0483a', '#2f7de1', '#62bd73', '#ffd25a'];
       for (let i = 0; i < 9; i++) { const f = add(g, G.cone4, cols[i % 4], .1, .16, .02, -1.6 + i * .4, 2.62, 0, Math.PI / 4); f.rotation.z = Math.PI; }
+    } },
+  // ep 27: Gedung Rapat Pulau ("aku mau jadi mentri keuangan, sekalian gedung buat rapat", @araa_yinchan).
+  // An open-front hall (pendopo style) so the meeting is visible from the street: long table, five chairs, the
+  // president's red chair in the middle, the Menteri Keuangan's seat with a big calculator, a KAS PULAU coin jar,
+  // and the agenda whiteboard on the back wall (b.items, up to 4). b.label = sign, b.sub = small line.
+  gedungrapat: { n: 'Gedung Rapat Pulau', w: 5, h: 4, land: true, scale: 1.5,
+    build(g, b) {
+      const tex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d')); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+      const plane = (t, w, h, x, y, z, ry = 0) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: t, roughness: .8 })); m.position.set(x, y, z); m.rotation.y = ry; g.add(m); return m; };
+      const font = (x, fs) => { x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; };
+      box(g, '#c9bfa8', 3.0, .15, 2.3, 0, 0, 0);                                                              // stone plinth
+      box(g, '#b8ae96', 1.3, .08, .3, 0, 0, 1.25);                                                           // front step
+      box(g, '#a8784a', 2.8, .02, 2.1, 0, .15, -.02);                                                        // wooden floor
+      box(g, '#efe2c6', 2.9, 1.75, .1, 0, .15, -1.08);                                                       // back wall
+      for (const sx of [-1.43, 1.43]) box(g, '#e6d6b4', .1, 1.75, 1.0, sx, .15, -.6);                        // short side walls
+      for (const sx of [-1.43, 1.43]) box(g, '#8a5a34', .1, .35, 1.1, sx, .15, .5);                          // low side rails
+      for (const [x, z] of [[-1.42, 1.05], [1.42, 1.05], [-1.42, -.08], [1.42, -.08]]) cyl(g, '#f4eee0', .07, 1.75, x, .15, z, 8);   // white columns
+      box(g, '#7c2f28', 3.1, .12, 2.5, 0, 1.9, -.02);                                                        // beam ring
+      roof4(g, '#8e3a2e', 3.6, .55, 3.0, 0, 2.02, -.02); roof4(g, '#a8443a', 1.6, .45, 1.35, 0, 2.5, -.02);   // two-tier roof
+      add(g, G.sph, '#e6b84a', .09, .09, .09, 0, 3.0, -.02);                                                 // gold finial
+      // the long table with five chairs behind it, all facing the street
+      box(g, '#6b4226', 2.2, .05, .6, 0, .62, -.15); for (const [x, z] of [[-1.0, -.4], [1.0, -.4], [-1.0, .1], [1.0, .1]]) box(g, '#5e3b22', .05, .47, .05, x, .15, z);
+      box(g, '#2f5e8a', 2.22, .2, .02, 0, .47, .16);                                                         // table skirt
+      const seats = [-.84, -.42, 0, .42, .84];
+      seats.forEach((x, i) => { const pres = i === 2, min = i === 3, col = pres ? '#b33a2e' : min ? '#2f7a4a' : '#5e3b22';
+        box(g, col, .3, .05, .28, x, .42, -.62); box(g, col, .3, pres ? .62 : .42, .05, x, .47, -.76);
+        for (const [dx, dz] of [[-.12, -.5], [.12, -.5], [-.12, -.74], [.12, -.74]]) box(g, '#3a2412', .03, .27, .03, x + dx, .15, dz);
+        if (pres) add(g, G.cone4, '#e6b84a', .06, .1, .06, x, 1.15, -.76); });
+      // nameplates on the table
+      const np = (t, x) => { box(g, '#f4eee0', .3, .08, .02, x, .67, .05); plane(tex(256, 64, c => { c.fillStyle = '#f4eee0'; c.fillRect(0, 0, 256, 64); c.fillStyle = '#1f2a44'; c.textAlign = 'center'; c.textBaseline = 'middle'; font(c, 26); c.fillText(t, 128, 34, 246); }), .3, .075, x, .71, .065); };
+      np('PRESIDEN', 0); np('MENTERI KEUANGAN', .42); np('WAPRES', -.42); np('SEKRETARIS', .84); np('WARGA', -.84);
+      // the minister's desk kit: a big calculator and a KAS PULAU coin jar
+      box(g, '#2b2d42', .2, .03, .26, .42, .67, -.2); box(g, '#9fd8a8', .14, .01, .06, .42, .7, -.29); for (let r = 0; r < 3; r++) for (let k = 0; k < 3; k++) box(g, k === 2 && r === 2 ? '#e63946' : '#e8e8e8', .035, .012, .035, .38 + k * .045, .7, -.22 + r * .05);
+      const jar = new THREE.MeshStandardMaterial({ color: '#cfefff', transparent: true, opacity: .45, roughness: .1, depthWrite: false });
+      add(g, G.cyl8, jar, .12, .26, .12, .72, .8, -.2); add(g, G.cyl8, '#e6b84a', .1, .12, .1, .72, .73, -.2); add(g, G.cyl8, '#8a5a34', .125, .03, .125, .72, .95, -.2);
+      box(g, '#c0392b', .2, .05, .01, .72, .76, -.07);
+      // coin stacks for the treasury
+      for (let i = 0; i < 4; i++) add(g, G.cyl8, '#e6b84a', .045, .02, .045, -.15 + (i % 2) * .06, .66 + Math.floor(i / 2) * .02, -.25, 0, false);
+      // the agenda whiteboard on the back wall
+      const items = (b && b.items) || ['Lima koin kotak usulan (Presiden)', 'Pelabuhan untuk nelayan?', 'Usulan rapat dari komentar'];
+      const wb = tex(768, 480, x => { x.fillStyle = '#fbfaf5'; x.fillRect(0, 0, 768, 480); x.fillStyle = '#2f7a4a'; x.fillRect(0, 0, 768, 84);
+        x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#fff'; font(x, 58); x.fillText((b && b.head) || 'AGENDA RAPAT', 384, 44, 740);
+        x.textAlign = 'left'; x.fillStyle = '#1f2a44';
+        items.slice(0, 4).forEach((t, i) => { let fs = 44; font(x, fs); while (fs > 22 && x.measureText(t).width > 640) { fs -= 2; font(x, fs); } x.fillStyle = '#c0392b'; x.fillText((i + 1) + '.', 30, 136 + i * 84); x.fillStyle = '#1f2a44'; x.fillText(t, 84, 136 + i * 84); });
+        x.textAlign = 'right'; x.fillStyle = '#2f7a4a'; font(x, 28); x.fillText((b && b.foot) || 'Menteri Keuangan: @araa_yinchan', 750, 456, 700); });
+      box(g, '#5e3b22', 1.66, 1.0, .04, 0, .9, -1.02); plane(wb, 1.58, .94, 0, 1.4, -.995);
+      // the sign on the roof fascia
+      const sg = tex(1024, 192, x => { x.fillStyle = '#1f3b2a'; x.fillRect(0, 0, 1024, 192); x.strokeStyle = '#e6b84a'; x.lineWidth = 10; x.strokeRect(8, 8, 1008, 176);
+        x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffd25a'; font(x, 92); x.fillText((b && b.label) || 'GEDUNG RAPAT PULAU', 512, 78, 960);
+        x.fillStyle = '#fff'; font(x, 38); x.fillText((b && b.sub) || 'rapat warga · kas pulau · Menteri Keuangan', 512, 152, 960); });
+      box(g, '#1f3b2a', 2.3, .42, .05, 0, 1.48, 1.12); plane(sg, 2.22, .38, 0, 1.69, 1.15);
+      // planters by the step and a lantern
+      for (const x of [-1.2, 1.2]) { box(g, '#8a5a34', .26, .2, .26, x, .15, 1.2); add(g, G.ico, '#62bd73', .18, .2, .18, x, .5, 1.2); }
+      const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.08, .1, .08); lamp.position.set(1.1, 1.78, .5); g.add(lamp);
     } },
   papan: { n: 'Papan nama', w: 1, h: 1, land: true, sign: true, build(g, b) { box(g, '#5e3b22', .08, 1, .08, 0, 0, 0); const board = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(splitLabel(b && b.label || 'Pulau'), { size: 46, grain: true }), flatShading: true }), mat('#8a5a34')]); board.scale.set(.95, .48, .06); board.position.set(0, 1, .05); board.castShadow = true; g.add(board); } },
 };

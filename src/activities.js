@@ -125,7 +125,7 @@ export function createActivities(ctx) {
     n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
     if (n.role === 'president' || n.role === 'vicepresident') n.workFor = Infinity;
     if (n.role === 'listen') n.workFor = 60 + Math.random() * 90;
-    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'hide', 'sneak', 'teach', 'sweep', 'clip'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
+    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'hide', 'sneak', 'teach', 'sweep', 'clip', 'calc'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
     if (n.role === 'shop') { n.workFor = 4 + Math.random() * 6; n.t = 0; }
     n.yOff = spot && spot.y || 0;
     if (n.role === 'president') { const before = n.obj.userData.body.children.length; presidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
@@ -282,6 +282,8 @@ export function createActivities(ctx) {
     else if (p === 'sweep') { const k = Math.sin(ph * 3.2); A(-1.0 + k * .12, -1.1 - k * .12, .2, -.2); u.body.rotation.y = k * .3; u.body.rotation.x = .12; }
     // ep 23: Debby, Sekretaris Presiden: clipboard in the left hand, writing down everything the president says, now and then reading it out
     else if (p === 'clip') { const c = ph % 6; A(-1.15, c < 4 ? -1.3 + Math.sin(ph * 16) * .07 : -2.4 + Math.sin(ph * 5) * .1, .3, c < 4 ? -.35 : -.1); u.body.rotation.x = c < 4 ? .1 : -.04; u.body.position.y = c >= 4 ? Math.abs(Math.sin(ph * 6)) * .03 : 0; }
+    // ep 27: the Menteri Keuangan counts on her calculator and now and then holds a coin up to the light
+    else if (p === 'calc') { const c = ph % 5; A(-1.15, c < 3.6 ? -1.3 + Math.sin(ph * 18) * .06 : -2.5 + Math.sin(ph * 4) * .08, .3, c < 3.6 ? -.35 : -.05); u.body.rotation.x = c < 3.6 ? .1 : -.05; }
     else A(0, 0);
   }
   return { compute, assign, update, siteCells, get spots() { return spots; } };

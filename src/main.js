@@ -313,7 +313,7 @@ function rebuildNpcs() {
   for (const c of owners) { const b = S.buildings.find(b => b.seller && clean(b.seller).toLowerCase() === c.toLowerCase()); want.push({ key: 'r:' + c.toLowerCase(), name: '@' + c, num: (S.residents.findIndex(r => r.n.toLowerCase() === c.toLowerCase()) + 1) || null, own: c.toLowerCase(), sellLines: b.lines || null }); }
   // ep 19: the regular cast (residents with a julukan and a spot) always live on the island, at their own place, in character
   const castR = S.residents.map((r, i) => ({ r, num: i + 1 })).filter(({ r }) => r.julukan && Array.isArray(r.spot) && !(role.kind === 'warga' && role.name.toLowerCase() === r.n.toLowerCase()) && (!pres || r.n.toLowerCase() !== pres.toLowerCase()) && (!vp || r.n.toLowerCase() !== vp.toLowerCase()) && !carry.concat(owners).some(c => c.toLowerCase() === r.n.toLowerCase()));
-  for (const { r, num } of castR) want.push({ key: 'r:' + r.n.toLowerCase(), name: r.tampil || '@' + r.n, num, julukan: r.julukan, kalimat: r.kalimat || [], castSpot: { x: WD.cx2w(r.spot[0]) + (r.spot[2] || 0), z: WD.cy2w(r.spot[1]) + (r.spot[3] || 0), face: r.face || 0, pose: r.pose || 'still' } });
+  for (const { r, num } of castR) want.push({ key: 'r:' + r.n.toLowerCase(), name: r.tampil || '@' + r.n, num, julukan: r.julukan, kalimat: r.kalimat || [], castSpot: { x: WD.cx2w(r.spot[0]) + (r.spot[2] || 0), z: WD.cy2w(r.spot[1]) + (r.spot[3] || 0), face: r.face || 0, pose: r.pose || 'still', y: r.spot[4] || 0 } });
   // ep 26 "Panggil Karakterku": names a visitor called out of the Batu Nama walk the island as their own character (kept on the device)
   const taken = new Set(want.map(w => w.key));
   const sumR = summoned.filter(n => !taken.has('r:' + n.toLowerCase()) && !(role.kind === 'warga' && role.name.toLowerCase() === n.toLowerCase()));
@@ -389,7 +389,7 @@ function placardMat(text) {
   x.fillStyle = '#c0392b'; x.textAlign = 'center'; x.textBaseline = 'middle'; const w = text.split('|'); let fs = 52; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`;
   while (fs > 22 && Math.max(...w.map(t => x.measureText(t).width)) > 236) { fs -= 2; x.font = `700 ${fs}px "Pixelify Sans", sans-serif`; }
   w.forEach((t, i) => x.fillText(t, 128, 80 + (i - (w.length - 1) / 2) * fs * 1.1));
-  const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; const m = new THREE.MeshStandardMaterial({ map: tx, side: THREE.DoubleSide }); placardMats.set(text, m); return m;
+  const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; const m = new THREE.MeshStandardMaterial({ map: tx }); placardMats.set(text, m); return m;
 }
 const DEMO_SIGNS = ['PEMILU!', 'PRESIDEN|DIPILIH WARGA', 'GORENGAN|DIBAYAR!', 'RONDA|JANGAN TIDUR', 'MANGGA|MILIK LADANG', 'SUARA|WARGA!', 'PEMILU|SEKARANG', 'KAMI|MAU MEMILIH'];
 const DEMO_SPOTS = [[1.2, -.3], [2.1, -.5], [3.0, -.3], [3.9, -.5], [1.6, .5], [2.5, .4], [3.4, .5], [4.3, .6]];
@@ -397,18 +397,20 @@ function assignDemo() {
   for (const n of npcs) { if (n.demo) { if (n.demo.sign) n.obj.remove(n.demo.sign); n.role = n.demo.role0; n.demo = null; } if (n.candSign) { n.obj.remove(n.candSign); n.candSign = null; } }
   const ev = S.event; if (!ev || ev.type !== 'demo') return;
   const placard = text => { const g = new THREE.Group(), board = new THREE.Mesh(new THREE.PlaneGeometry(.62, .39), placardMat(text)); board.position.set(0, 2.05, .12); g.add(board);
+    const back = board.clone(); back.rotation.y = Math.PI; back.position.z = .11; g.add(back);   // readable from both sides (ep 27)
     const stick = new THREE.Mesh(M.G.box, M.mat('#8a6a3a')); stick.scale.set(.03, .9, .03); stick.position.set(0, 1.5, .1); g.add(stick); return g; };
   // ep 14: candidates carry their own placard wherever they go (event.presSign / event.vpSign)
   for (const [k, key] of [['pres', 'presSign'], ['vp', 'vpSign']]) { const n = npcs.find(n => n[k]); if (n && ev[key]) { n.candSign = placard(ev[key]); n.obj.add(n.candSign); } }
   const carry = ev.carry || {}; for (const n of npcs) if (n.cand) { const k = Object.keys(carry).find(k => clean(k).toLowerCase() === n.cand.toLowerCase()); if (k) { n.candSign = placard(carry[k]); n.obj.add(n.candSign); } }
-  const sp = S.buildings.find(b => b.type === 'spanduk'); if (!sp) return;
+  // ep 27: event.at picks the building the crowd gathers at (default the spanduk), event.spots overrides the offsets [dx, dz, face]
+  const sp = S.buildings.find(b => b.type === (ev.at || 'spanduk')); if (!sp) return;
   const f = fpOf(sp), [ox, oz] = fpCenter(sp.x, sp.y, f.w, f.h);
   const free = n => !n.aru && !n.pres && !n.vp && !n.cand && !n.own && !n.cloud && !n.castSpot && !n.summoned, pool = ['wander', 'listen', 'sit', 'shop'].flatMap(r => npcs.filter(n => free(n) && n.role === r));
   const signs = ev.signs || DEMO_SIGNS;
-  DEMO_SPOTS.forEach(([dx, dz], i) => { const n = pool[i]; if (!n) return;
+  (ev.spots || DEMO_SPOTS).forEach(([dx, dz, fc], i) => { const n = pool[i]; if (!n) return;
     if (n.kit) { n.obj.userData.body.remove(...n.kit); n.kit = null; } if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }
     const g = placard(signs[i % signs.length]); n.obj.add(g);
-    n.demo = { role0: n.role, x: ox + dx, z: oz + dz, face: Math.PI + (i % 3 - 1) * .15, sign: g, ph: i * .6 }; n.role = 'demo'; n.x = n.demo.x; n.z = n.demo.z; n.tx = null; });
+    n.demo = { role0: n.role, x: ox + dx, z: oz + dz, face: fc != null ? fc : Math.PI + (i % 3 - 1) * .15, sign: g, ph: i * .6 }; n.role = 'demo'; n.x = n.demo.x; n.z = n.demo.z; n.tx = null; });
 }
 function stepDemo(n, T) {
   const d = n.demo, u = n.obj.userData, t = T + d.ph, loud = Math.sin(t * .5) > 0;   // chanting, then resting, in waves
