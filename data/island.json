@@ -12269,7 +12269,21 @@
   },
   {
    "n": "vcxn.mx",
-   "ep": 26
+   "ep": 26,
+   "tampil": "vcxn.mx",
+   "julukan": "Komandan Damkar",
+   "sifat": "terlalu semangat",
+   "kalimat": [
+    "Ada asap? Semprot!",
+    "Siaga 24 jam! ...kecuali pas makan ikan bakar."
+   ],
+   "tempat": "depan Pos Damkar, dekat dermaga",
+   "spot": [
+    53,
+    87
+   ],
+   "face": 1.57,
+   "pose": "damkar"
   },
   {
    "n": "muhamatferos197",
@@ -12311,6 +12325,41 @@
    ],
    "face": 0,
    "pose": "calc"
+  },
+  {
+   "n": "joe.harry88",
+   "ep": 28,
+   "tampil": "joe.harry88",
+   "julukan": "NPC Resmi",
+   "sifat": "NPC (permintaan sendiri)",
+   "kalimat": [
+    "Selamat datang di Pulau Aru."
+   ],
+   "tempat": "pinggir jalan utama, dekat sekolah",
+   "spot": [
+    52,
+    80
+   ],
+   "face": 1.57,
+   "pose": "npc"
+  },
+  {
+   "n": "potasganteng_",
+   "ep": 28,
+   "tampil": "potasganteng_",
+   "julukan": "Ketua Keuangan (katanya)",
+   "sifat": "ngaku-ngaku pejabat",
+   "kalimat": [
+    "Mulai hari ini, aku ketua keuangan!",
+    "Proposal? ...Nanti aku bikin."
+   ],
+   "tempat": "depan Gedung Rapat Pulau",
+   "spot": [
+    41,
+    51
+   ],
+   "face": 0,
+   "pose": "fold"
   }
  ],
  "buildings": [
@@ -12867,6 +12916,26 @@
    "sub": "dari dermawan tanpa nama · traktiran ep 27",
    "by": "Seseorang (Trakteer)",
    "ep": 27
+  },
+  {
+   "type": "lapangangr",
+   "x": 41,
+   "y": 60,
+   "r": 0,
+   "label": "LAPANGAN GOTONG ROYONG",
+   "sub": "jatah terakhir Presiden 'EGA_ · kerja bakti tiap hari",
+   "by": "'EGA_ (presiden)",
+   "ep": 28
+  },
+  {
+   "type": "posdamkar",
+   "x": 48,
+   "y": 84,
+   "r": 3,
+   "label": "POS DAMKAR",
+   "sub": "Komandan: @vcxn.mx · siaga 24 jam",
+   "by": "vcxn.mx",
+   "ep": 28
   }
  ],
  "episodes": [
@@ -13134,6 +13203,17 @@
     "traktiran 5x dermawan tanpa nama: semangat terus, warga jaga warga! (spanduk WARGA JAGA WARGA)"
    ],
    "text": "Satu komentar jadi menteri: @araa_yinchan sekarang Menteri Keuangan pulau, berkantor di Gedung Rapat Pulau di jalan silang barat (meja panjang, kalkulator, toples KAS PULAU, papan agenda).\nAgenda pertama: lima koin kotak usulan yang dipinjam Presiden 'EGA_ ('itu donasi!'). Bodyguard tetap minta identitas, Pinjam Seratus ditolak ('ajukan proposal'). Warga berkumpul dengan plakat, dan dermawan tanpa nama menyumbang spanduk Warga Jaga Warga."
+  },
+  {
+   "ep": 28,
+   "date": "2026-11-10",
+   "picks": [
+    "@.....plengerrr0 ('EGA_, presiden, jatah terakhir 3/3): buat lapangan minn buat gotong royong (Lapangan Gotong Royong + kerja bakti)",
+    "@vcxn.mx: kak tambahin pemadam kebakaran (Pos Damkar + mobil damkar; juga diminta @faaxzy79)",
+    "@joe.harry88: bang aku mau jadi NPC aja (NPC Resmi)",
+    "@potasganteng_: gw jdi ketua keuangan ya (Ketua Keuangan, katanya)"
+   ],
+   "text": "Jatah terakhir Presiden 'EGA_ jadi Lapangan Gotong Royong di barat jalan utama, dan seluruh pulau kerja bakti pertama: Alexandre angkat dua karung, Luci menyapu debu ke atas, Klub Pertama rebutan sapu.\nKomentar @vcxn.mx jadi Pos Damkar dekat dermaga, lengkap dengan mobilnya, dan vcxn.mx jadi Komandan Damkar. Misi pertama: asap di dekat dermaga... ternyata ikan bakar. Ikannya basah kuyup.\n@joe.harry88 resmi jadi NPC (sapa dia di jalan utama), dan @potasganteng_ mengaku ketua keuangan. Menteri Keuangan: 'Ajukan proposal dulu.'"
   }
  ],
  "letters": [],
@@ -13230,59 +13310,66 @@
  "umkm": [],
  "event": {
   "type": "demo",
-  "ep": 27,
-  "at": "gedungrapat",
+  "ep": 28,
+  "at": "lapangangr",
+  "work": true,
+  "tools": [
+   "sapu",
+   "cangkul",
+   "karung",
+   "sapu"
+  ],
   "spots": [
    [
-    -2.1,
-    3.4,
-    3.14
+    -2.6,
+    1.2,
+    0.3
    ],
    [
     -1.2,
-    3.7,
-    3.14
+    2.0,
+    3.1
    ],
    [
-    1.2,
-    3.7,
-    3.14
+    0.6,
+    1.4,
+    -0.4
    ],
    [
+    2.2,
     2.1,
-    3.4,
-    3.14
+    2.8
    ],
    [
-    -2.9,
-    3.8,
-    3.34
+    -3.0,
+    -0.8,
+    1.2
    ],
    [
-    2.9,
-    3.8,
-    2.94
+    -0.6,
+    -0.4,
+    0.0
    ],
    [
-    -3.7,
-    3.5,
-    3.4
+    1.4,
+    -1.0,
+    -1.4
    ],
    [
-    3.7,
-    3.5,
-    2.9
+    3.0,
+    0.2,
+    -1.6
+   ],
+   [
+    -1.8,
+    -2.0,
+    0.6
+   ],
+   [
+    0.4,
+    2.6,
+    3.3
    ]
-  ],
-  "signs": [
-   "RAPAT|PERTAMA!",
-   "MENTERI|ARAA",
-   "LIMA KOIN|MANA?",
-   "WARGA JAGA|WARGA",
-   "KAS|PULAU",
-   "PROPOSAL|DULU",
-   "IDENTITAS|DULU",
-   "PERTAMA|HADIR!"
   ],
   "carry": {
    "Etet_443": "MANTAN|PRESIDEN"

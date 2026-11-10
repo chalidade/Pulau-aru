@@ -414,6 +414,53 @@
    ],
    "pose": "memancing (rod)",
    "tempat": "ujung dermaga"
+  },
+  {
+   "nama": "vcxn.mx",
+   "akun": "@vcxn.mx",
+   "komentar": "kak tambahin pemadam kebakaran biar nanti kalo ada kebakaran langsung padam nanti",
+   "kartu": "studio/episodes/ep28/komentar/damkar.png",
+   "masuk": "ep28",
+   "julukan": "Komandan Damkar",
+   "sifat": "terlalu semangat",
+   "peran": "Minta pos pemadam kebakaran (ep 26 juga minta lift apartemen), lalu jadi komandannya. Helm merah, rompi kuning. Melihat asap sedikit langsung menyemprot, termasuk asap ikan bakar dekat dermaga.",
+   "kalimat": [
+    "Ada asap? Semprot!",
+    "Siaga 24 jam! ...kecuali pas makan ikan bakar."
+   ],
+   "pose": "hormat & mengintai asap (damkar)",
+   "tempat": "depan Pos Damkar, dekat dermaga"
+  },
+  {
+   "nama": "joe.harry88",
+   "akun": "@joe.harry88",
+   "komentar": "bang aku mau jadi NPC aja",
+   "kartu": "studio/episodes/ep28/komentar/npc.png",
+   "masuk": "ep28",
+   "julukan": "NPC Resmi",
+   "sifat": "NPC (permintaan sendiri)",
+   "peran": "Minta jadi NPC, jadi NPC sungguhan: berdiri di pinggir jalan utama dan setiap disapa hanya bilang satu kalimat yang sama. Lambaian tangannya kaku seperti robot.",
+   "kalimat": [
+    "Selamat datang di Pulau Aru."
+   ],
+   "pose": "npc",
+   "tempat": "pinggir jalan utama dekat sekolah"
+  },
+  {
+   "nama": "potasganteng_",
+   "akun": "@potasganteng_",
+   "komentar": "gw jdi ketua keuangan ya",
+   "kartu": "studio/episodes/ep28/komentar/ketua-keuangan.png",
+   "masuk": "ep28",
+   "julukan": "Ketua Keuangan (katanya)",
+   "sifat": "ngaku-ngaku pejabat",
+   "peran": "Mengangkat dirinya sendiri jadi 'ketua keuangan'. Menteri Keuangan araa_yinchan belum menerima proposalnya. Berdiri bersedekap di depan Gedung Rapat Pulau.",
+   "kalimat": [
+    "Mulai hari ini, aku ketua keuangan!",
+    "Proposal? ...Nanti aku bikin."
+   ],
+   "pose": "bersedekap (fold)",
+   "tempat": "depan Gedung Rapat Pulau"
   }
  ]
 }
