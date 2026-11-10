@@ -12290,6 +12290,27 @@
    ],
    "face": 1.57,
    "pose": "rod"
+  },
+  {
+   "n": "araa_yinchan",
+   "ep": 27,
+   "tampil": "araa_yinchan",
+   "julukan": "Menteri Keuangan",
+   "sifat": "teliti & tegas soal koin",
+   "kalimat": [
+    "Mulai hari ini, semua koin pulau aku yang hitung!",
+    "Ditolak. Ajukan proposal."
+   ],
+   "tempat": "kursi Menteri Keuangan di Gedung Rapat Pulau, dengan kalkulator",
+   "spot": [
+    39,
+    48,
+    -0.37,
+    -0.25,
+    0.24
+   ],
+   "face": 0,
+   "pose": "calc"
   }
  ],
  "buildings": [
@@ -12760,9 +12781,9 @@
    "label": "Sekretaris: Debby_l0vata",
    "items": [
     "PR study tour (ketinggalan di hotel)",
-    "Study tour (ikut? katanya nggak)",
+    "Rapat di Gedung Rapat (5 koin?)",
     "Bayar kopi dong",
-    "Cari lift apartemen"
+    "Lantik Menteri Keuangan"
    ],
    "by": "Debby_l0vata",
    "ep": 23
@@ -12820,6 +12841,32 @@
    ],
    "by": "warga pulau",
    "ep": 25
+  },
+  {
+   "type": "gedungrapat",
+   "x": 36,
+   "y": 47,
+   "r": 0,
+   "label": "GEDUNG RAPAT PULAU",
+   "sub": "rapat warga · kas pulau · Menteri Keuangan",
+   "items": [
+    "Lima koin kotak usulan (Presiden)",
+    "Pelabuhan untuk nelayan?",
+    "Usulan rapat dari komentar"
+   ],
+   "foot": "Menteri Keuangan: @araa_yinchan",
+   "by": "araa_yinchan",
+   "ep": 27
+  },
+  {
+   "type": "spandukstudytour",
+   "x": 31,
+   "y": 49,
+   "r": 0,
+   "label": "WARGA JAGA WARGA",
+   "sub": "dari dermawan tanpa nama · traktiran ep 27",
+   "by": "Seseorang (Trakteer)",
+   "ep": 27
   }
  ],
  "episodes": [
@@ -13078,6 +13125,15 @@
     "cameo @muhamatferos197: aku pengen jadi nelayan (nelayan di dermaga)"
    ],
    "text": "Warga protes: namanya ada di batu, karakternya tidak ada. Sekarang ketuk namamu di Batu Nama (atau buka pulau-aru.web.id/?warga=namamu) dan karaktermu keluar, berlabel nama, lalu jalan-jalan di pulau.\nApartemen Presiden punya lift kaca. Presiden 'EGA_ naik duluan setelah ditanya identitas oleh bodyguard-nya. Di dermaga, nelayan baru muhamatferos197 memancing di samping Rayhan yang lagi-lagi dapat sandal."
+  },
+  {
+   "ep": 27,
+   "date": "2026-11-10",
+   "picks": [
+    "@araa_yinchan: aku mau jadi mentri keuangan, sekalian gedung buat rapat (Menteri Keuangan pertama + Gedung Rapat Pulau)",
+    "traktiran 5x dermawan tanpa nama: semangat terus, warga jaga warga! (spanduk WARGA JAGA WARGA)"
+   ],
+   "text": "Satu komentar jadi menteri: @araa_yinchan sekarang Menteri Keuangan pulau, berkantor di Gedung Rapat Pulau di jalan silang barat (meja panjang, kalkulator, toples KAS PULAU, papan agenda).\nAgenda pertama: lima koin kotak usulan yang dipinjam Presiden 'EGA_ ('itu donasi!'). Bodyguard tetap minta identitas, Pinjam Seratus ditolak ('ajukan proposal'). Warga berkumpul dengan plakat, dan dermawan tanpa nama menyumbang spanduk Warga Jaga Warga."
   }
  ],
  "letters": [],
@@ -13174,16 +13230,59 @@
  "umkm": [],
  "event": {
   "type": "demo",
-  "ep": 21,
+  "ep": 27,
+  "at": "gedungrapat",
+  "spots": [
+   [
+    -2.1,
+    3.4,
+    3.14
+   ],
+   [
+    -1.2,
+    3.7,
+    3.14
+   ],
+   [
+    1.2,
+    3.7,
+    3.14
+   ],
+   [
+    2.1,
+    3.4,
+    3.14
+   ],
+   [
+    -2.9,
+    3.8,
+    3.34
+   ],
+   [
+    2.9,
+    3.8,
+    2.94
+   ],
+   [
+    -3.7,
+    3.5,
+    3.4
+   ],
+   [
+    3.7,
+    3.5,
+    2.9
+   ]
+  ],
   "signs": [
-   "BENGKEL|BUKA!",
-   "PERTAMA?",
-   "KLUB|PERTAMA",
-   "RODA|AMAN!",
-   "KOPI|DONG!",
-   "PRES|EGA_",
-   "WAPRES|KING INDO",
-   "LUNAS!"
+   "RAPAT|PERTAMA!",
+   "MENTERI|ARAA",
+   "LIMA KOIN|MANA?",
+   "WARGA JAGA|WARGA",
+   "KAS|PULAU",
+   "PROPOSAL|DULU",
+   "IDENTITAS|DULU",
+   "PERTAMA|HADIR!"
   ],
   "carry": {
    "Etet_443": "MANTAN|PRESIDEN"
@@ -13276,5 +13375,13 @@
    ]
   ],
   "speed": 1
- }
+ },
+ "ministers": [
+  {
+   "role": "Menteri Keuangan",
+   "n": "araa_yinchan",
+   "t": "araa_yinchan",
+   "ep": 27
+  }
+ ]
 }

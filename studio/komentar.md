@@ -5,7 +5,6 @@ Tambahkan komentar di sini kalau mau menentukan sendiri apa yang masuk ke episod
 lalu menghapusnya setelah dipakai. Format satu baris: `@username: isi komentar`.
 
 ## Sisa riset 9 Nov (belum dipakai)
-- `studio/episodes/ep26/komentar/menteri.png` @araa_yinchan: "aku mau jadi mentri keuangan, sekalian gedung buat rapat" (disimpan untuk ep27)
 - Pelabuhan sungguhan (@muhamatferos197 "bikin pelabuhan kak", ep26 baru cameo nelayan)
 
 ## Traktir (langsung diwujudkan, tanpa undian)

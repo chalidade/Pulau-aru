@@ -1,5 +1,5 @@
 {
- "nextEp": 27,
+ "nextEp": 28,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -44,7 +44,8 @@
   "Sekretaris Presiden Debby (🌸 Debby_l0vata👻, ep 23): island.json secretary + resident spot (52,45) di samping mimbar, pose 'clip' (papan jadwal). Papan Jadwal Presiden (papanjadwal x51 y44, items[]): PR Bu Guru Gina (dicentang), study tour 'ikut? katanya nggak', bayar kopi dong, cari lift apartemen. Lelucon: bodyguard juga punya dua PR di jadwal; Debby mencatat semua ucapan presiden. Items bisa diperbarui tiap episode.",
   "Study Tour (ep 23, island.json tour): Bu Guru Gina (bendera) memimpin 6 murid bertopi kuning (DABY, princes, Luci, Letisya, D4L, inyuu) keliling rute jalan utama -> jalan silang (Menara Sinyal, Apartemen) -> dermaga, loop ~2,5 menit di web (main.js assignTour/stepTour, window.__tourS untuk kamera). Spanduk Study Tour (spandukstudytour x53 y71 r3) di depan sekolah. PR: tulis pengalaman study tour, termasuk presiden. End card: study tour berikutnya ke mana? -> ambil dari komentar. Kalau tour diakhiri, hapus island.json tour agar murid kembali ke spot masing-masing.",
   "Hotel Pulau (x58 y83, r1, ep 24) dekat dermaga di sisi timur jalan utama + Buku Tamu Hotel (papanjadwal head/color, x56 y86): Kamar 1 D..A..B..Y, Kamar 2 Pak Presiden (PR?), Kamar 3 Penjaga Mercusuar, Kamar 4 masih kosong -> end card ep 24: siapa tamu kamar 4? (isi dari komentar). Misteri: Penjaga Mercusuar menginap di hotel? Bisa jadi ep berikut: Aru mengetuk kamar 3, kamarnya kosong + surat/petunjuk. DABY & princes keluar dari rombongan study tour, spot di depan pintu hotel. Usulan Kotak Usulan sudah habis semua (hotel/apartemen dibangun) -> butuh usulan baru dari komentar.",
-  "Ep 26 'Panggil Karakterku': ketuk nama di Batu Nama (atau tombol 'Panggil karakter @nama' untuk nama yang belum terukir, atau pulau-aru.web.id/?warga=nama) -> karakter keluar dari sisi timur batu dengan label nama emas (sprite 3D, ikut terekam), jalan ke jalan utama dekat batu (SUM_HOME 54,80) lalu berkeliaran; maks 6 per perangkat (localStorage 'pulau-aru-karakter'), tampilan = lookOf('@nama'+nomor warga). Lift kaca di sisi Apartemen Presiden naik-turun tiap 16 s (window.__lift untuk kamera). Klub Pertama (DABY & princes) pindah antre di depan lift. Nelayan baru muhamatferos197 di ujung dermaga (55,101). End card: karaktermu mau kerja jadi apa? -> ambil dari komentar (nelayan, satpam, guru, tukang konter sudah diminta): bisa jadi fitur 'pilih pekerjaan' untuk karakter yang dipanggil. Ep 27: @araa_yinchan menteri keuangan + gedung rapat (komentar.md)."
+  "Ep 26 'Panggil Karakterku': ketuk nama di Batu Nama (atau tombol 'Panggil karakter @nama' untuk nama yang belum terukir, atau pulau-aru.web.id/?warga=nama) -> karakter keluar dari sisi timur batu dengan label nama emas (sprite 3D, ikut terekam), jalan ke jalan utama dekat batu (SUM_HOME 54,80) lalu berkeliaran; maks 6 per perangkat (localStorage 'pulau-aru-karakter'), tampilan = lookOf('@nama'+nomor warga). Lift kaca di sisi Apartemen Presiden naik-turun tiap 16 s (window.__lift untuk kamera). Klub Pertama (DABY & princes) pindah antre di depan lift. Nelayan baru muhamatferos197 di ujung dermaga (55,101). End card: karaktermu mau kerja jadi apa? -> ambil dari komentar (nelayan, satpam, guru, tukang konter sudah diminta): bisa jadi fitur 'pilih pekerjaan' untuk karakter yang dipanggil. Ep 27: @araa_yinchan menteri keuangan + gedung rapat (komentar.md).",
+  "Ep 27 'Menteri Keuangan & Gedung Rapat': @araa_yinchan Menteri Keuangan (island.json ministers, menu aturan; resident spot di kursi menteri (39,48,-.37,-.25, tinggi .24), pose 'calc' kalkulator + koin). Gedung Rapat Pulau (gedungrapat x36 y47 r0, terbuka depan): meja panjang 5 kursi (WARGA, WAPRES, PRESIDEN merah, MENTERI KEUANGAN hijau, SEKRETARIS), toples KAS PULAU, papan AGENDA RAPAT dari buildings[].items (1. lima koin kotak usulan (Presiden), 2. pelabuhan untuk nelayan?, 3. usulan rapat dari komentar). event demo sekarang di depan Gedung Rapat (event.at/spots) dengan plakat rapat. Spanduk WARGA JAGA WARGA (spandukstudytour x31 y49) dari traktiran. Lelucon lanjut: presiden harus mengembalikan 5 koin (audit menteri), bodyguard minta identitas menteri, Pinjam Seratus disuruh 'ajukan proposal'. End card: rapat berikutnya bahas apa? -> ambil dari komentar. Pelabuhan (muhamatferos197) masih menunggu."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -91,7 +92,9 @@
   "Episode KONSEP ep 25: komentar lama dipakai ulang sebagai kilas balik (wibu cilik pelenger, 'EGA_ x2, ???), bukan komentar baru",
   "wleeeeeeeeecnt: nama aku ada tapii,kok gak ada karakter aku? (fitur Panggil Karakterku ep 26; keluhan serupa @selia_032, @ranz.bae1 ikut dipanggil)",
   "vcxn.mx: apartemenya kasih lift dong btw dah follow dah gabung (lift kaca Apartemen Presiden ep 26)",
-  "muhamatferos197: bikin pelabuhan kak aku pengen jadi nelayan dah follow (cameo nelayan ep 26, pemeran tetap; pelabuhan belum)"
+  "muhamatferos197: bikin pelabuhan kak aku pengen jadi nelayan dah follow (cameo nelayan ep 26, pemeran tetap; pelabuhan belum)",
+  "araa_yinchan: aku mau jadi mentri keuangan, sekalian gedung buat rapat (Menteri Keuangan + Gedung Rapat Pulau ep 27)",
+  "traktiran Seseorang 5x: Semangat terus Bang warga jaga warga! (spanduk WARGA JAGA WARGA ep 27)"
  ],
  "episodes": [
   {
@@ -219,16 +222,22 @@
    "title": "Namamu Ada, Karaktermu Mana?",
    "posted": "https://www.tiktok.com/@kita.berkembang/video/7706329805565873414",
    "summary": "Format CERITA sesuai brief Chalid (komentar.md, screenshot asli). Cold open: Aru di depan Batu Nama + kartu komentar @wleeeeeeeeecnt, hook NAMAMU ADA, / KARAKTERMU MANA?. Aru menyentuh batu -> fitur baru Panggil Karakterku: wleeeeeeeeecnt keluar dengan label nama ('AKU ADA!'), lalu @selia_032 dan @ranz.bae1 ('Sekarang aku kelihatan kan?!'). Kartu komentar @vcxn.mx -> lift kaca Apartemen Presiden; Presiden 'EGA_ 'naik duluan', bodyguard Cawetssssss 'Identitas dulu' / 'Ini liftku sendiri!', Klub Pertama rebutan, EGA naik ke penthouse 'Cepat banget!'. Cameo @muhamatferos197 nelayan baru di samping Rayhan (sandal lagi). CTA: cari namamu di pulau-aru.web.id, panggil karaktermu. End card: karaktermu mau kerja jadi apa? + traktir."
+  },
+  {
+   "ep": 27,
+   "title": "1 Komentar Jadi Menteri",
+   "posted": "manual (menunggu Chalid)",
+   "summary": "Format KONSEP. Antrean komentar.md: @araa_yinchan 'aku mau jadi mentri keuangan, sekalian gedung buat rapat' (screenshot asli). Cold open: araa di balik meja rapat 'Mulai hari ini, semua koin pulau... aku yang hitung!', hook 1 KOMENTAR / JADI MENTERI!. Premis follow = warga. Gedung Rapat Pulau terbuka di jalan silang barat, warga berplakat (event demo). Bodyguard Cawetssssss 'Identitas dulu' / 'Menteri juga identitas dulu'. Presiden 'EGA_ menyambut, menteri memeriksa kas presiden: agenda 1 lima koin kotak usulan, 'Itu donasi!'. Pinjam Seratus 'pinjam seratus dulu?' -> 'Ditolak. Ajukan proposal.' Traktiran 5x tanpa nama -> spanduk WARGA JAGA WARGA. Aru membuka rapat pertama. CTA follow + end card: rapat berikutnya bahas apa? + UMKM."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 26,
-   "cta": "traktir"
+   "ep": 27,
+   "cta": "umkm"
   },
-  "nextCta": "umkm"
+  "nextCta": "traktir"
  },
  "notes": [
   "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
@@ -252,7 +261,8 @@
   "Ep 23 (8 Nov malam): sesuai antrean Chalid di komentar.md (tanpa komentar lain), Apify/Chrome tidak dipakai; Chrome tidak tersambung di sesi cloud -> diposting manual. Kode baru: models papanjadwal & spandukstudytour, castKit clip/flag/cap, castPose clip, island.json tour (rombongan berjalan, main.js assignTour/stepTour; nama dicocokkan ke key r:<nama lowercase>, clean() menghapus spasi), secretary di menu aturan. Spot cast di atas mimbar tidak ikut tinggi panggung (surfaceY), jadi taruh cast di tanah. __tgt(x,z,h) sudah menambah groundY. Jangan edit/stash island.json saat capture (game polling). Follower sync bisa konflik di island.json saat rebase: ambil versi upstream lalu terapkan ulang perubahan episode. Mematikan server dengan awk '/[p]ython3 -m http.server/' dalam perintah yang juga memulai server ikut membunuh shell (exit 144): pisahkan perintahnya.",
   "Ep 24 (9 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong, run 42552373349), Chrome tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach), antrean & traktir kosong -> episode dari Kotak Usulan, diposting manual. Kode baru: model hotel; papanjadwal menerima b.head & b.color (dipakai Buku Tamu Hotel). Lampu jalan di jalan utama adalah InstancedMesh (warna tiang 4a3a2a, kepala ffcf70) di (-2.2,28.8),(0.8,28.8) dst; shots ep24 punya __hideInst/__showInst untuk menyembunyikannya sementara saat kamera dari jalan. Anggota rombongan tour (island.json tour.pupils) tidak berdiri di spot cast mereka sampai dikeluarkan dari pupils.",
   "Ep 25 (9 Nov sore): episode KONSEP sesuai brief Chalid. Apify gagal lagi (run 42595381844, APIFY_TOKEN kosong), Chrome tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach) -> diposting manual. Kode baru: main.js window.__clock (jam tetap untuk capture, .575 = senja, .62 = malam awal) dan __pulau.surfaceY (berdiri di atas dermaga). compose: overlay 'ccard' (kartu komentar asli di atas footage) dan 'book' (filter buku cerita untuk cold open; render lambat ~2 s/frame). Lokal main sempat divergen dari origin (riwayat ditulis ulang); pakai git checkout -B main origin/main.",
-  "Ep 26 (9 Nov sore): sesuai brief Chalid di komentar.md, Apify/Chrome tidak dipakai; Chrome tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach) -> diposting manual. Kode baru: main.js summon()/nameTag()/stepSummon (Panggil Karakterku, app.summon/unsummon, ?warga=), activities assign 'summoned' -> wander, models apartemen lift (g.userData.lift; buildBuilding kini menyalin userData dari grup ber-scale supaya bagian bergerak tidak ikut di-bake). Gapura dermaga berdiri tepat di titik keluar karakter (-3,38): ambil kamera dari utara atau barat. Dermaga cuma selebar 1 sel (x 55, y 97-101). __tgt memakai groundY (dasar laut) di atas dermaga: pakai __camTarget dengan y tetap."
+  "Ep 26 (9 Nov sore): sesuai brief Chalid di komentar.md, Apify/Chrome tidak dipakai; Chrome tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach) -> diposting manual. Kode baru: main.js summon()/nameTag()/stepSummon (Panggil Karakterku, app.summon/unsummon, ?warga=), activities assign 'summoned' -> wander, models apartemen lift (g.userData.lift; buildBuilding kini menyalin userData dari grup ber-scale supaya bagian bergerak tidak ikut di-bake). Gapura dermaga berdiri tepat di titik keluar karakter (-3,38): ambil kamera dari utara atau barat. Dermaga cuma selebar 1 sel (x 55, y 97-101). __tgt memakai groundY (dasar laut) di atas dermaga: pakai __camTarget dengan y tetap.",
+  "Ep 27 (10 Nov pagi): Apify gagal lagi (run 42744535817), Chrome tidak tersambung di sesi cloud (repo sudah ter-attach) -> diposting manual. Episode dari antrean komentar.md (@araa_yinchan) + traktiran tertunda. Kode baru: model gedungrapat (b.items/head/foot/label/sub), castKit/castPose 'calc', resident spot[4] = tinggi (berdiri di lantai gedung), assignDemo memakai event.at (tipe bangunan) dan event.spots [dx,dz,face], plakat demo kini terbaca dari dua sisi, ministers di menu aturan. Kamera dari samping Gedung Rapat terhalang dinding samping belakang: ambil dari depan/serong (yaw -.45..+.35). Apartemen menghalangi kamera yang mundur ke selatan dari gedung rapat: pakai yaw ~-.7 untuk aerial."
  ],
  "rooms": {
   "open": [
@@ -277,7 +287,7 @@
   ]
  },
  "strategy": {
-  "lastFormat": "CERITA",
+  "lastFormat": "KONSEP",
   "tests": [
    {
     "ep": 25,
@@ -293,6 +303,14 @@
     "hook": "NAMAMU ADA, / KARAKTERMU MANA?",
     "opening": "3D Aru di depan Batu Nama (nama-nama terbaca) + kartu komentar asli dari detik 0, tanpa filter buku cerita",
     "captionStyle": "pendek personal + ajakan cari nama di pulau-aru.web.id + #pulaunetizen #alurcerita",
+    "duration": 60
+   },
+   {
+    "ep": 27,
+    "format": "KONSEP",
+    "hook": "1 KOMENTAR / JADI MENTERI!",
+    "opening": "3D close-up menteri baru di balik meja rapat + kartu komentar asli dari detik 0, tanpa filter buku cerita",
+    "captionStyle": "pendek personal + follow=warga + pulau-aru.web.id + #pulaunetizen #alurcerita",
     "duration": 60
    }
   ]
