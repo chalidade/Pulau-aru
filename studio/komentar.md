@@ -4,9 +4,6 @@ Tambahkan komentar di sini kalau mau menentukan sendiri apa yang masuk ke episod
 (bisa diedit langsung di GitHub dari HP). Sesi otomatis memakai yang ada di sini lebih dulu,
 lalu menghapusnya setelah dipakai. Format satu baris: `@username: isi komentar`.
 
-## Sisa riset 9 Nov (belum dipakai)
-- Pelabuhan sungguhan (@muhamatferos197 "bikin pelabuhan kak", ep26 baru cameo nelayan)
-
 ## Traktir (langsung diwujudkan, tanpa undian)
 Traktiran dari teer.id/chalidade masuk otomatis ke studio/traktir.json (kalau secret TRAKTEER_API_KEY sudah diisi). Tulis di sini hanya kalau mau menambah manual.
 

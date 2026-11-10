@@ -294,7 +294,7 @@
     "Sabar, ikannya lagi otw."
    ],
    "pose": "memegang pancing",
-   "tempat": "dermaga",
+   "tempat": "Pelabuhan Nelayan (pindah dari dermaga ep29), di samping Feros",
    "masuk": "ep20"
   },
   {
@@ -405,15 +405,15 @@
    "komentar": "bikin pelabuhan kak aku pengen jadi nelayan dah follow",
    "kartu": "studio/episodes/ep26/komentar/nelayan.png",
    "masuk": "ep26",
-   "julukan": "Nelayan Baru",
+   "julukan": "Nelayan Pertama",
    "sifat": "semangat & polos",
-   "peran": "Baru follow dan langsung minta jadi nelayan. Memancing di ujung dermaga, dua langkah dari _Rayhannn` (Si Nelayan yang selalu dapat sandal). Polos, selalu bertanya apakah sandal itu termasuk ikan. Masih menunggu pelabuhan sungguhan.",
+   "peran": "Baru follow dan langsung minta jadi nelayan; komentarnya jadi Pelabuhan Nelayan (ep29). Memancing di ujung pelabuhan di samping _Rayhannn`. Ikan pertamanya besar sekali, sementara Rayhan tetap dapat sandal. Polos, selalu bertanya apakah sandal itu termasuk ikan.",
    "kalimat": [
-    "Aku pengen jadi nelayan, dah follow!",
+    "Dah follow, dah jadi nelayan!",
     "Bang Rayhan, itu sandal atau ikan?"
    ],
-   "pose": "memancing (rod)",
-   "tempat": "ujung dermaga"
+   "pose": "memancing, ikan di kail (rodfish)",
+   "tempat": "ujung Pelabuhan Nelayan"
   },
   {
    "nama": "vcxn.mx",

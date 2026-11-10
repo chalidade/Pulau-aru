@@ -12129,14 +12129,14 @@
     "Lumayan... sandal lagi 😁👌",
     "Sabar, ikannya lagi otw."
    ],
-   "tempat": "dermaga",
+   "tempat": "Pelabuhan Nelayan, di samping muhamatferos197 (pindah dari dermaga ep 29)",
    "spot": [
-    55,
-    99,
-    0.25,
-    0
+    63,
+    98,
+    0.2,
+    0.4
    ],
-   "face": 1.57,
+   "face": 0,
    "pose": "rod"
   },
   {
@@ -12289,21 +12289,21 @@
    "n": "muhamatferos197",
    "ep": 26,
    "tampil": "muhamatferos197",
-   "julukan": "Nelayan Baru",
+   "julukan": "Nelayan Pertama",
    "sifat": "semangat & polos",
    "kalimat": [
-    "Aku pengen jadi nelayan, dah follow!",
+    "Dah follow, dah jadi nelayan!",
     "Bang Rayhan, itu sandal atau ikan?"
    ],
-   "tempat": "ujung dermaga, dua langkah dari _Rayhannn`",
+   "tempat": "ujung Pelabuhan Nelayan (usulannya sendiri)",
    "spot": [
-    55,
-    101,
-    0.25,
-    0
+    64,
+    98,
+    0.3,
+    0.4
    ],
-   "face": 1.57,
-   "pose": "rod"
+   "face": 0,
+   "pose": "rodfish"
   },
   {
    "n": "araa_yinchan",
@@ -12936,6 +12936,17 @@
    "sub": "Komandan: @vcxn.mx · siaga 24 jam",
    "by": "vcxn.mx",
    "ep": 28
+  },
+  {
+   "type": "pelabuhan",
+   "x": 63,
+   "y": 95,
+   "r": 0,
+   "label": "PELABUHAN NELAYAN",
+   "sub": "usulan @muhamatferos197 · nelayan pertama",
+   "boat": "KM NELAYAN BARU",
+   "by": "muhamatferos197",
+   "ep": 29
   }
  ],
  "episodes": [
@@ -13214,6 +13225,14 @@
     "@potasganteng_: gw jdi ketua keuangan ya (Ketua Keuangan, katanya)"
    ],
    "text": "Jatah terakhir Presiden 'EGA_ jadi Lapangan Gotong Royong di barat jalan utama, dan seluruh pulau kerja bakti pertama: Alexandre angkat dua karung, Luci menyapu debu ke atas, Klub Pertama rebutan sapu.\nKomentar @vcxn.mx jadi Pos Damkar dekat dermaga, lengkap dengan mobilnya, dan vcxn.mx jadi Komandan Damkar. Misi pertama: asap di dekat dermaga... ternyata ikan bakar. Ikannya basah kuyup.\n@joe.harry88 resmi jadi NPC (sapa dia di jalan utama), dan @potasganteng_ mengaku ketua keuangan. Menteri Keuangan: 'Ajukan proposal dulu.'"
+  },
+  {
+   "ep": 29,
+   "date": "2026-11-10",
+   "picks": [
+    "@muhamatferos197: bikin pelabuhan kak aku pengen jadi nelayan dah follow (Pelabuhan Nelayan, nelayan pertama)"
+   ],
+   "text": "Komentar @muhamatferos197 jadi Pelabuhan Nelayan di teluk timur dermaga: dek kayu yang bisa diinjak, lapak Lelang Ikan, peti ikan, dan kapal KM NELAYAN BARU.\nKlub Pertama rebutan menginjak pelabuhan duluan. Feros dan _Rayhannn` memancing berdampingan di ujungnya: Rayhan dapat sandal lagi, Feros dapat ikan besar pertamanya.\nMalam itu lampu mercusuar berkedip tiga kali ke arah laut (sekarang terjadi tiap 30 detik saat malam). Kapal pertama yang datang... bawa siapa?"
   }
  ],
  "letters": [],

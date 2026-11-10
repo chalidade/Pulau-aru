@@ -1,5 +1,5 @@
 {
- "nextEp": 29,
+ "nextEp": 30,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -46,7 +46,8 @@
   "Hotel Pulau (x58 y83, r1, ep 24) dekat dermaga di sisi timur jalan utama + Buku Tamu Hotel (papanjadwal head/color, x56 y86): Kamar 1 D..A..B..Y, Kamar 2 Pak Presiden (PR?), Kamar 3 Penjaga Mercusuar, Kamar 4 masih kosong -> end card ep 24: siapa tamu kamar 4? (isi dari komentar). Misteri: Penjaga Mercusuar menginap di hotel? Bisa jadi ep berikut: Aru mengetuk kamar 3, kamarnya kosong + surat/petunjuk. DABY & princes keluar dari rombongan study tour, spot di depan pintu hotel. Usulan Kotak Usulan sudah habis semua (hotel/apartemen dibangun) -> butuh usulan baru dari komentar.",
   "Ep 26 'Panggil Karakterku': ketuk nama di Batu Nama (atau tombol 'Panggil karakter @nama' untuk nama yang belum terukir, atau pulau-aru.web.id/?warga=nama) -> karakter keluar dari sisi timur batu dengan label nama emas (sprite 3D, ikut terekam), jalan ke jalan utama dekat batu (SUM_HOME 54,80) lalu berkeliaran; maks 6 per perangkat (localStorage 'pulau-aru-karakter'), tampilan = lookOf('@nama'+nomor warga). Lift kaca di sisi Apartemen Presiden naik-turun tiap 16 s (window.__lift untuk kamera). Klub Pertama (DABY & princes) pindah antre di depan lift. Nelayan baru muhamatferos197 di ujung dermaga (55,101). End card: karaktermu mau kerja jadi apa? -> ambil dari komentar (nelayan, satpam, guru, tukang konter sudah diminta): bisa jadi fitur 'pilih pekerjaan' untuk karakter yang dipanggil. Ep 27: @araa_yinchan menteri keuangan + gedung rapat (komentar.md).",
   "Ep 27 'Menteri Keuangan & Gedung Rapat': @araa_yinchan Menteri Keuangan (island.json ministers, menu aturan; resident spot di kursi menteri (39,48,-.37,-.25, tinggi .24), pose 'calc' kalkulator + koin). Gedung Rapat Pulau (gedungrapat x36 y47 r0, terbuka depan): meja panjang 5 kursi (WARGA, WAPRES, PRESIDEN merah, MENTERI KEUANGAN hijau, SEKRETARIS), toples KAS PULAU, papan AGENDA RAPAT dari buildings[].items (1. lima koin kotak usulan (Presiden), 2. pelabuhan untuk nelayan?, 3. usulan rapat dari komentar). event demo sekarang di depan Gedung Rapat (event.at/spots) dengan plakat rapat. Spanduk WARGA JAGA WARGA (spandukstudytour x31 y49) dari traktiran. Lelucon lanjut: presiden harus mengembalikan 5 koin (audit menteri), bodyguard minta identitas menteri, Pinjam Seratus disuruh 'ajukan proposal'. End card: rapat berikutnya bahas apa? -> ambil dari komentar. Pelabuhan (muhamatferos197) masih menunggu.",
-  "Ep 28: Lapangan Gotong Royong (x41 y60, 9x7) dengan event kerja bakti live (island.json event work:true, warga pegang sapu/cangkul/karung). Pos Damkar (x48 y84, r3) + mobil damkar (userData.truck, bisa dijalankan di shot), Komandan Damkar vcxn.mx (pose 'damkar') yang terlalu semangat (menyemprot ikan bakar). joe.harry88 NPC Resmi (pose 'npc', jalan utama x52 y80) hanya bilang 'Selamat datang di Pulau Aru.'. potasganteng_ 'Ketua Keuangan' depan Gedung Rapat, belum mengajukan proposal ke Menteri araa_yinchan -> bisa lanjut: proposal ketua keuangan, lomba di lapangan (17-an?), damkar latihan, kebakaran sungguhan TIDAK. Jatah presiden 'EGA_ sudah habis (3/3); masa jabatan sampai ~ep 29 (14 Nov) -> pemilu berikutnya?"
+  "Ep 28: Lapangan Gotong Royong (x41 y60, 9x7) dengan event kerja bakti live (island.json event work:true, warga pegang sapu/cangkul/karung). Pos Damkar (x48 y84, r3) + mobil damkar (userData.truck, bisa dijalankan di shot), Komandan Damkar vcxn.mx (pose 'damkar') yang terlalu semangat (menyemprot ikan bakar). joe.harry88 NPC Resmi (pose 'npc', jalan utama x52 y80) hanya bilang 'Selamat datang di Pulau Aru.'. potasganteng_ 'Ketua Keuangan' depan Gedung Rapat, belum mengajukan proposal ke Menteri araa_yinchan -> bisa lanjut: proposal ketua keuangan, lomba di lapangan (17-an?), damkar latihan, kebakaran sungguhan TIDAK. Jatah presiden 'EGA_ sudah habis (3/3); masa jabatan sampai ~ep 29 (14 Nov) -> pemilu berikutnya?",
+  "Ep 29: Pelabuhan Nelayan (pelabuhan x63 y95, 4x4, water+walk = dek bisa diinjak) di teluk timur dermaga: lapak LELANG IKAN, peti ikan, bendera, lampu, kapal KM NELAYAN BARU tertambat di sisi timur (g.userData.boat, belum bergerak). muhamatferos197 (Nelayan Pertama, pose 'rodfish' = ikan besar di kail) dan _Rayhannn` (tetap sandal) kini memancing berdampingan di ujung selatan pelabuhan. Mercusuar berkedip 3x tiap 30 dtk saat malam (main.js, window.__lhPhase untuk kamera). End card: 'Kapal pertama bawa siapa?' -> bisa jadi episode kapal dari Pulau Seberang / Penjaga Mercusuar (Kamar 3 hotel) / tamu Kamar 4. Kapal bisa dijalankan & pelelangan ikan bisa jadi interaksi (jual ikan dari fishing.js ke koin)."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -99,7 +100,8 @@
   "'EGA_ (presiden, @.....plengerrr0, tanpa undian, jatah 3/3 terakhir): buat lapangan minn buat gotong royong (Lapangan Gotong Royong + kerja bakti ep 28)",
   "vcxn.mx: kak tambahin pemadam kebakaran biar nanti kalo ada kebakaran langsung padam nanti (Pos Damkar ep 28, vcxn.mx Komandan Damkar; juga @faaxzy79 'tambah pos pemadam kebakaran')",
   "joe.harry88: bang aku mau jadi NPC aja (NPC Resmi ep 28, jalan utama)",
-  "potasganteng_: gw jdi ketua keuangan ya (Ketua Keuangan 'katanya' ep 28, depan Gedung Rapat)"
+  "potasganteng_: gw jdi ketua keuangan ya (Ketua Keuangan 'katanya' ep 28, depan Gedung Rapat)",
+  "muhamatferos197: bikin pelabuhan kak aku pengen jadi nelayan dah follow (Pelabuhan Nelayan ep 29, Nelayan Pertama; antrean komentar.md sisa riset 9 Nov)"
  ],
  "episodes": [
   {
@@ -239,16 +241,22 @@
    "title": "Kerja Bakti Pertama Pulau Aru",
    "posted": "manual (menunggu Chalid)",
    "summary": "Format CERITA sesuai brief Chalid (komentar.md, screenshot asli). Cold open: mobil damkar menyemprot asap di dekat dermaga, Komandan Damkar vcxn.mx 'Ada asap! Semprooot!', hook DAMKAR PERTAMA / SALAH PADAMKAN?!. Premis: komentar kalian jadi kenyataan. Presiden 'EGA_ memakai jatah terakhir (3/3, kartu komentar asli @.....plengerrr0): Lapangan Gotong Royong, kerja bakti pertama. Alexandre angkat dua karung, Luci menyapu debu ke atas ('percaya deh'), Klub Pertama (DABY vs princes) rebutan sapu. Kartu @vcxn.mx -> Pos Damkar + mobilnya, Aru 'lengkap dengan mobilnya'. 'Lapor! Asap di dekat dermaga! Meluncur!' -> ternyata ikan bakar, penjual: 'Ini ikan BAKAR, bukan kebakaran!', vcxn: 'Maaf. Terlalu semangat.' Cameo @joe.harry88 jadi NPC (hanya 'Selamat datang di Pulau Aru.'), @potasganteng_ 'ketua keuangan' -> Menteri araa: 'Ajukan proposal dulu.' End card: pulau ini butuh apa lagi? + CTA traktir. Durasi 60 dtk. Komentar TikTok baru tidak diambil (antrean komentar.md dipakai; Chrome tidak tersambung)."
+  },
+  {
+   "ep": 29,
+   "title": "Mau Jadi Nelayan, Dapat Pelabuhan",
+   "posted": "manual (menunggu Chalid)",
+   "summary": "Format KONSEP. Apify gagal lagi (run 42793189992, APIFY_TOKEN kosong), Chrome tidak tersambung, traktir kosong -> komentar dari antrean komentar.md (sisa riset 9 Nov, screenshot asli ep26): @muhamatferos197 'bikin pelabuhan kak aku pengen jadi nelayan dah follow'. Cold open: Feros di ujung pelabuhan baru mengangkat ikan besar di samping Rayhan, hook MAU JADI NELAYAN / DAPAT PELABUHAN!. Premis follow=warga, komentar=kenyataan. Kilas balik di dermaga lama + kartu komentar asli, Aru 'Pelabuhan? Oke. Kita bangun!', pelabuhan tersusun dari udara, Aru membuka di gerbang PELABUHAN NELAYAN, Klub Pertama (DABY vs princes) rebutan injak pertama. Feros & Rayhan memancing: Rayhan 'Lumayan... sandal lagi', Feros 'itu sandal atau ikan?' lalu 'IKAAAN! Gede banget!'. Aru: 'Selamat. Nelayan pertama Pulau Aru.' Malam: mercusuar berkedip tiga kali ke arah laut. CTA follow + end card: Kapal pertama bawa siapa? + CTA UMKM. Durasi 57,5 dtk. Hanya 1 komentar (tidak ada komentar baru)."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 28,
-   "cta": "traktir"
+   "ep": 29,
+   "cta": "umkm"
   },
-  "nextCta": "umkm"
+  "nextCta": "traktir"
  },
  "notes": [
   "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
@@ -273,7 +281,8 @@
   "Ep 24 (9 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong, run 42552373349), Chrome tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach), antrean & traktir kosong -> episode dari Kotak Usulan, diposting manual. Kode baru: model hotel; papanjadwal menerima b.head & b.color (dipakai Buku Tamu Hotel). Lampu jalan di jalan utama adalah InstancedMesh (warna tiang 4a3a2a, kepala ffcf70) di (-2.2,28.8),(0.8,28.8) dst; shots ep24 punya __hideInst/__showInst untuk menyembunyikannya sementara saat kamera dari jalan. Anggota rombongan tour (island.json tour.pupils) tidak berdiri di spot cast mereka sampai dikeluarkan dari pupils.",
   "Ep 25 (9 Nov sore): episode KONSEP sesuai brief Chalid. Apify gagal lagi (run 42595381844, APIFY_TOKEN kosong), Chrome tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach) -> diposting manual. Kode baru: main.js window.__clock (jam tetap untuk capture, .575 = senja, .62 = malam awal) dan __pulau.surfaceY (berdiri di atas dermaga). compose: overlay 'ccard' (kartu komentar asli di atas footage) dan 'book' (filter buku cerita untuk cold open; render lambat ~2 s/frame). Lokal main sempat divergen dari origin (riwayat ditulis ulang); pakai git checkout -B main origin/main.",
   "Ep 26 (9 Nov sore): sesuai brief Chalid di komentar.md, Apify/Chrome tidak dipakai; Chrome tidak tersambung di sesi cloud (add_repo tidak tersedia, repo sudah ter-attach) -> diposting manual. Kode baru: main.js summon()/nameTag()/stepSummon (Panggil Karakterku, app.summon/unsummon, ?warga=), activities assign 'summoned' -> wander, models apartemen lift (g.userData.lift; buildBuilding kini menyalin userData dari grup ber-scale supaya bagian bergerak tidak ikut di-bake). Gapura dermaga berdiri tepat di titik keluar karakter (-3,38): ambil kamera dari utara atau barat. Dermaga cuma selebar 1 sel (x 55, y 97-101). __tgt memakai groundY (dasar laut) di atas dermaga: pakai __camTarget dengan y tetap.",
-  "Ep 27 (10 Nov pagi): Apify gagal lagi (run 42744535817), Chrome tidak tersambung di sesi cloud (repo sudah ter-attach) -> diposting manual. Episode dari antrean komentar.md (@araa_yinchan) + traktiran tertunda. Kode baru: model gedungrapat (b.items/head/foot/label/sub), castKit/castPose 'calc', resident spot[4] = tinggi (berdiri di lantai gedung), assignDemo memakai event.at (tipe bangunan) dan event.spots [dx,dz,face], plakat demo kini terbaca dari dua sisi, ministers di menu aturan. Kamera dari samping Gedung Rapat terhalang dinding samping belakang: ambil dari depan/serong (yaw -.45..+.35). Apartemen menghalangi kamera yang mundur ke selatan dari gedung rapat: pakai yaw ~-.7 untuk aerial."
+  "Ep 27 (10 Nov pagi): Apify gagal lagi (run 42744535817), Chrome tidak tersambung di sesi cloud (repo sudah ter-attach) -> diposting manual. Episode dari antrean komentar.md (@araa_yinchan) + traktiran tertunda. Kode baru: model gedungrapat (b.items/head/foot/label/sub), castKit/castPose 'calc', resident spot[4] = tinggi (berdiri di lantai gedung), assignDemo memakai event.at (tipe bangunan) dan event.spots [dx,dz,face], plakat demo kini terbaca dari dua sisi, ministers di menu aturan. Kamera dari samping Gedung Rapat terhalang dinding samping belakang: ambil dari depan/serong (yaw -.45..+.35). Apartemen menghalangi kamera yang mundur ke selatan dari gedung rapat: pakai yaw ~-.7 untuk aerial.",
+  "Ep 29 (10 Nov sore): Apify gagal lagi (run 42793189992), Chrome tidak tersambung (tool claude-in-chrome tidak ada; add_repo tidak tersedia, repo sudah ter-attach) -> diposting manual. Hanya satu komentar tersedia (antrean komentar.md), jadi episode KONSEP satu komentar + cameo. Kode baru: model pelabuhan (water+walk, clearTrees: def.clearTrees membuat bangunan air ikut membersihkan pohon), castKit 'rodfish', mercusuar berkedip, __pulau.T0. Kamera: yaw 0 = kamera di selatan, +yaw ke timur; karakter face = yaw kamera untuk menghadap kamera. Di atas dek pakai P.surfaceY (bukan groundY). Mengangkat joran lewat pivot (n.kit dipindah ke Group di tangan) maksimal ~-.6 rad, lebih dari itu ikan keluar frame. Capture DPR2 sesi ini ~0,6-1 s/frame dan sempat menghasilkan frame hitam tunggal (c8, c10, c12): cek lonjakan kecerahan per folder lalu salin frame sebelumnya."
  ],
  "rooms": {
   "open": [
@@ -298,7 +307,7 @@
   ]
  },
  "strategy": {
-  "lastFormat": "CERITA",
+  "lastFormat": "KONSEP",
   "tests": [
    {
     "ep": 25,
@@ -331,6 +340,14 @@
     "opening": "3D close-up Komandan Damkar di samping mobil damkar yang menyemprot asap ikan bakar, flash-forward ke payoff",
     "captionStyle": "pendek personal + komentar=kenyataan + pulau-aru.web.id + #pulaunetizen #alurcerita",
     "duration": 60
+   },
+   {
+    "ep": 29,
+    "format": "KONSEP",
+    "hook": "MAU JADI NELAYAN / DAPAT PELABUHAN!",
+    "opening": "3D close-up nelayan baru mengangkat ikan besar di pelabuhan baru (flash-forward ke payoff), tanpa filter buku cerita",
+    "captionStyle": "pendek personal + komentar=kenyataan + pulau-aru.web.id + #pulaunetizen #alurcerita",
+    "duration": 57.5
    }
   ]
  }
