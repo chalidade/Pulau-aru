@@ -125,7 +125,7 @@ export function createActivities(ctx) {
     n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
     if (n.role === 'president' || n.role === 'vicepresident') n.workFor = Infinity;
     if (n.role === 'listen') n.workFor = 60 + Math.random() * 90;
-    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'hide', 'sneak', 'teach', 'sweep', 'clip', 'calc'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
+    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'hide', 'sneak', 'teach', 'sweep', 'clip', 'calc', 'damkar'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
     if (n.role === 'shop') { n.workFor = 4 + Math.random() * 6; n.t = 0; }
     n.yOff = spot && spot.y || 0;
     if (n.role === 'president') { const before = n.obj.userData.body.children.length; presidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
@@ -262,6 +262,9 @@ export function createActivities(ctx) {
     else if (p === 'faint') { const c = (ph % 6) / 6; A(-.3, -2.6, 0, -.3); u.body.rotation.z = c > .6 ? Math.min(.35, (c - .6) * 2) : 0; u.body.rotation.x = -.12; }   // hand on forehead, sways
     else if (p === 'fold') { A(-1.35, -1.35, .45, -.45); u.body.rotation.y = Math.sin(ph * .4) * .15; }
     else if (p === 'still') { A(0, 0); }
+    else if (p === 'damkar') { const c = ph % 6; A(-.2, c < 1.2 ? -2.7 : -.25, 0, c < 1.2 ? -.6 : 0); u.body.rotation.y = c > 3 && c < 4.5 ? -.4 : 0; }   // a smart salute, then scanning for smoke
+    // ep 28: @joe.harry88 asked to be an NPC: stands stiff, snaps his head left/right, a robotic wave every few seconds
+    else if (p === 'npc') { const c = ph % 4; A(0, c < .7 ? -2.6 : 0, 0, c < .7 ? .25 * Math.sign(Math.sin(ph * 14)) : 0); u.body.rotation.y = c > 2 && c < 3 ? .5 : 0; }
     else if (p === 'ask') { A(-.2, -2.0 + Math.sin(ph * 2) * .15, 0, -.1); u.body.rotation.x = .06; }   // a half-raised hand: boleh?
     else if (p === 'scratch') { A(-.2, -2.7, 0, -.55); u.armR.rotation.x += Math.sin(ph * 10) * .08; }
     else if (p === 'wave') { A(-.4, -2.8, 0, .2 + Math.sin(ph * 8) * .35); u.body.position.y = Math.max(0, Math.sin(ph * 6)) * .12; }

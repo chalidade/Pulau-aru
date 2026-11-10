@@ -391,10 +391,17 @@ function placardMat(text) {
   w.forEach((t, i) => x.fillText(t, 128, 80 + (i - (w.length - 1) / 2) * fs * 1.1));
   const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; const m = new THREE.MeshStandardMaterial({ map: tx }); placardMats.set(text, m); return m;
 }
+function workTool(kind) {
+  const g = new THREE.Group(), b = (c, sx, sy, sz, x, y, z) => { const m = new THREE.Mesh(M.G.box, M.mat(c)); m.scale.set(sx, sy, sz); m.position.set(x, y, z); m.castShadow = true; g.add(m); return m; };
+  if (kind === 'sapu') { b('#a9784a', .035, 1.3, .035, .26, .55, .38).rotation.x = -.35; b('#d9b45a', .3, .2, .1, .26, -.02, .6).rotation.x = -.35; }
+  else if (kind === 'cangkul') { b('#a9784a', .04, 1.2, .04, 0, 1.2, .35).rotation.x = -.3; b('#8a9196', .3, .05, .26, 0, 1.78, .55); }
+  else { const s = new THREE.Mesh(M.G.dode, M.mat('#d8c49a')); s.scale.set(.32, .24, .26); s.position.set(0, 1.62, .02); s.castShadow = true; g.add(s); }
+  return g;
+}
 const DEMO_SIGNS = ['PEMILU!', 'PRESIDEN|DIPILIH WARGA', 'GORENGAN|DIBAYAR!', 'RONDA|JANGAN TIDUR', 'MANGGA|MILIK LADANG', 'SUARA|WARGA!', 'PEMILU|SEKARANG', 'KAMI|MAU MEMILIH'];
 const DEMO_SPOTS = [[1.2, -.3], [2.1, -.5], [3.0, -.3], [3.9, -.5], [1.6, .5], [2.5, .4], [3.4, .5], [4.3, .6]];
 function assignDemo() {
-  for (const n of npcs) { if (n.demo) { if (n.demo.sign) n.obj.remove(n.demo.sign); n.role = n.demo.role0; n.demo = null; } if (n.candSign) { n.obj.remove(n.candSign); n.candSign = null; } }
+  for (const n of npcs) { if (n.demo) { if (n.demo.sign && n.demo.sign.parent) n.demo.sign.parent.remove(n.demo.sign); n.role = n.demo.role0; n.demo = null; } if (n.candSign) { n.obj.remove(n.candSign); n.candSign = null; } }
   const ev = S.event; if (!ev || ev.type !== 'demo') return;
   const placard = text => { const g = new THREE.Group(), board = new THREE.Mesh(new THREE.PlaneGeometry(.62, .39), placardMat(text)); board.position.set(0, 2.05, .12); g.add(board);
     const back = board.clone(); back.rotation.y = Math.PI; back.position.z = .11; g.add(back);   // readable from both sides (ep 27)
@@ -409,12 +416,19 @@ function assignDemo() {
   const signs = ev.signs || DEMO_SIGNS;
   (ev.spots || DEMO_SPOTS).forEach(([dx, dz, fc], i) => { const n = pool[i]; if (!n) return;
     if (n.kit) { n.obj.userData.body.remove(...n.kit); n.kit = null; } if (n.tool) { n.tool.parent && n.tool.parent.remove(n.tool); n.tool = null; }
-    const g = placard(signs[i % signs.length]); n.obj.add(g);
-    n.demo = { role0: n.role, x: ox + dx, z: oz + dz, face: fc != null ? fc : Math.PI + (i % 3 - 1) * .15, sign: g, ph: i * .6 }; n.role = 'demo'; n.x = n.demo.x; n.z = n.demo.z; n.tx = null; });
+    // ep 28: event.work = kerja bakti: instead of a placard each resident gets a tool (broom, hoe or sack) and works in place
+    const tool = ev.work ? (ev.tools || ['sapu', 'cangkul', 'karung'])[i % (ev.tools || [0, 0, 0]).length] : null;
+    const g = tool ? workTool(tool) : placard(signs[i % signs.length]); (tool ? n.obj.userData.body : n.obj).add(g);
+    n.demo = { role0: n.role, x: ox + dx, z: oz + dz, face: fc != null ? fc : Math.PI + (i % 3 - 1) * .15, sign: g, ph: i * .6, tool }; n.role = 'demo'; n.x = n.demo.x; n.z = n.demo.z; n.tx = null; });
 }
 function stepDemo(n, T) {
   const d = n.demo, u = n.obj.userData, t = T + d.ph, loud = Math.sin(t * .5) > 0;   // chanting, then resting, in waves
   n.obj.position.set(d.x, surfaceY(d.x, d.z), d.z); n.obj.rotation.y = d.face; u.legL.rotation.x = u.legR.rotation.x = 0; u.body.rotation.x = 0;
+  if (d.tool) { u.body.rotation.y = 0; u.armL.rotation.z = .2; u.armR.rotation.z = -.2;
+    if (d.tool === 'sapu') { const k = Math.sin(t * 3.2); u.armL.rotation.x = -1.0 + k * .12; u.armR.rotation.x = -1.1 - k * .12; u.body.rotation.y = k * .3; u.body.rotation.x = .12; u.body.position.y = 0; }
+    else if (d.tool === 'cangkul') { const c = (t * 1.1) % 1, up = c < .55 ? c / .55 : 1 - (c - .55) / .45; u.armL.rotation.x = u.armR.rotation.x = -.5 - up * 2.1; u.body.rotation.x = .25 - up * .3; u.body.position.y = 0; }
+    else { u.armL.rotation.x = u.armR.rotation.x = -2.7; u.armL.rotation.z = .35; u.armR.rotation.z = -.35; const w = t * 6; u.legL.rotation.x = Math.sin(w) * .35; u.legR.rotation.x = -Math.sin(w) * .35; u.body.position.y = Math.abs(Math.cos(w)) * .04; }
+    return; }
   if (loud) { u.armR.rotation.x = u.armL.rotation.x = -2.8 + Math.sin(t * 10) * .2; u.body.position.y = Math.abs(Math.sin(t * 6)) * .08; }
   else { u.armR.rotation.x = -.6; u.armL.rotation.x = -.15; u.body.position.y = 0; }
 }

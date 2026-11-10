@@ -36,6 +36,8 @@ export function castKit(ch, pose) {
   if (pose === 'cap') { box(b, '#ffd25a', .42, .1, .42, 0, 1.4, -.01); box(b, '#ffd25a', .3, .03, .2, 0, 1.4, .26); box(b, '#d0483a', .43, .03, .43, 0, 1.43, -.01); }
   // ep 27: Menteri Keuangan @araa_yinchan: a big calculator in the left hand, a gold coin in the right
   if (pose === 'calc') { const cb = box(b, '#2b2d42', .2, .28, .04, -.22, .48, .32); cb.rotation.x = -.6; box(b, '#9fd8a8', .15, .06, .042, -.22, .66, .29).rotation.x = -.6; add(b, G.cyl8, '#e6b84a', .06, .015, .06, .3, .62, .3).rotation.x = Math.PI / 2; }
+  // ep 28: Komandan Damkar @vcxn.mx: red helmet with a brim, a reflective yellow band on the shirt, a radio on the belt
+  if (pose === 'damkar') { box(b, '#d0302a', .42, .16, .42, 0, 1.35, -.01); box(b, '#d0302a', .5, .03, .5, 0, 1.33, -.01); box(b, '#f2c230', .1, .08, .02, 0, 1.4, .22); box(b, '#f2c230', .47, .06, .29, 0, .62, 0); box(b, '#f2c230', .47, .06, .29, 0, .8, 0); box(b, '#2b2b2b', .08, .14, .06, .2, .5, .16); }
   if (pose === 'cookie') { box(b, '#e9d8a6', .34, .03, .24, -.1, .66, .36); for (const [x, z] of [[-.2, .3], [-.06, .32], [-.14, .42], [0, .42]]) box(b, '#b07040', .07, .04, .07, x, .69, z); box(b, '#d62828', .06, .06, .06, -.24, .7, .44); }
 }
 export function presidentKit(ch) {
@@ -1274,6 +1276,77 @@ export const BT = {
       // planters by the step and a lantern
       for (const x of [-1.2, 1.2]) { box(g, '#8a5a34', .26, .2, .26, x, .15, 1.2); add(g, G.ico, '#62bd73', .18, .2, .18, x, .5, 1.2); }
       const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.08, .1, .08); lamp.position.set(1.1, 1.78, .5); g.add(lamp);
+    } },
+  // ep 28 (jatah terakhir Presiden 'EGA_, komentar "buat lapangan minn buat gotong royong"): a grass field for kerja bakti:
+  // pitch lines, two goals, a red-white flag pole, a tool shed with brooms and hoes, sacks, and the name board (b.label / b.sub)
+  lapangangr: { n: 'Lapangan Gotong Royong', w: 9, h: 7, land: true,
+    build(g, b) {
+      const tex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d')); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+      box(g, '#76c25e', 8.8, .05, 6.8, 0, 0, 0);
+      for (let i = 0; i < 6; i++) box(g, i % 2 ? '#6fb957' : '#7cc864', 1.3, .006, 6.0, -3.25 + i * 1.3, .05, 0);   // mowed stripes
+      for (const [w, d, x, z] of [[7.8, .05, 0, -3.0], [7.8, .05, 0, 3.0], [.05, 6.0, -3.9, 0], [.05, 6.0, 3.9, 0], [.05, 6.0, 0, 0]]) box(g, '#f7f7f3', w, .012, d, x, .058, z);
+      for (let a = 0; a < 16; a++) { const t = a / 16 * Math.PI * 2; box(g, '#f7f7f3', .2, .012, .05, Math.cos(t) * .8, .058, Math.sin(t) * .8, -t + Math.PI / 2); }
+      for (const sx of [-1, 1]) { const x = sx * 3.8; for (const z of [-.75, .75]) box(g, '#f7f7f3', .07, 1.0, .07, x, .05, z); box(g, '#f7f7f3', .07, .07, 1.57, x, 1.02, 0);
+        for (let i = 0; i < 4; i++) box(g, '#dcdcd6', .01, .95, .01, x + sx * .25, .05, -.6 + i * .4); box(g, '#dcdcd6', .3, .01, 1.5, x + sx * .14, 1.0, 0); }
+      add(g, G.cyl6, '#d8dad6', .04, 3.6, .04, -3.0, 1.85, -3.25); box(g, '#cfc8b6', .55, .14, .55, -3.0, .05, -3.25);
+      box(g, '#d0483a', .75, .24, .02, -2.6, 3.3, -3.25); box(g, '#f7f7f3', .75, .24, .02, -2.6, 3.06, -3.25);
+      // tool shed (gudang alat kerja bakti) in the back right corner
+      const sh = new THREE.Group(); sh.position.set(3.1, .05, -2.75); g.add(sh);
+      box(sh, '#e8c98a', 1.9, 1.7, 1.0, 0, 0, 0); roof4(sh, '#8e3a2e', 2.3, .55, 1.4, 0, 1.7, 0); box(sh, '#4a2f1d', .9, 1.35, .04, -.2, 0, .51);
+      for (let i = 0; i < 4; i++) { const st = box(sh, '#a9784a', .04, 1.3, .04, .45 + i * .12, 0, .62); st.rotation.z = .1; box(sh, '#d9b45a', .14, .3, .06, .45 + i * .12, 0, .62); }
+      const hoe = box(sh, '#a9784a', .04, 1.3, .04, -.85, 0, .62); hoe.rotation.z = -.12; box(sh, '#8a9196', .22, .16, .04, -.93, 1.2, .64);
+      // sacks and a wheelbarrow, ready for gotong royong
+      for (const [x, z, r] of [[2.1, -2.1, .2], [2.45, -2.0, -.3], [2.25, -1.75, .1]]) { add(g, G.dode, '#d8c49a', .26, .22, .2, x, .25, z).rotation.y = r; }
+      const wb = new THREE.Group(); wb.position.set(1.5, .05, -2.35); wb.rotation.y = .4; g.add(wb);
+      box(wb, '#3a7fc2', .55, .25, .8, 0, .2, 0); add(wb, G.cyl8, '#2b2b2b', .14, .06, .14, 0, .14, .48).rotation.z = Math.PI / 2; for (const x of [-.22, .22]) box(wb, '#5e3b22', .04, .04, .8, x, .3, -.55);
+      // the name board at the front edge, facing the street side (+z)
+      for (const x of [-1.2, 1.2]) box(g, '#5e3b22', .1, 1.75, .1, x, .05, 3.3);
+      const t = tex(768, 220, c => { c.fillStyle = '#2f7a4a'; c.fillRect(0, 0, 768, 220); c.strokeStyle = '#f4eee0'; c.lineWidth = 10; c.strokeRect(10, 10, 748, 200);
+        c.fillStyle = '#ffffff'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 64px "Pixelify Sans", sans-serif'; c.fillText((b && b.label) || 'LAPANGAN GOTONG ROYONG', 384, 82, 720);
+        c.fillStyle = '#ffe08a'; c.font = '700 34px "Pixelify Sans", sans-serif'; c.fillText((b && b.sub) || '', 384, 158, 720); });
+      const m = new THREE.MeshStandardMaterial({ map: t, roughness: .8 });
+      for (const [z, ry] of [[3.36, 0], [3.24, Math.PI]]) { const pl = new THREE.Mesh(new THREE.PlaneGeometry(2.6, .75), m); pl.position.set(0, 1.45, z); pl.rotation.y = ry; g.add(pl); }
+      box(g, '#5e3b22', 2.7, .85, .08, 0, 1.02, 3.3);
+    } },
+  // ep 28 (komentar @vcxn.mx "tambahin pemadam kebakaran"): a red fire post with an open garage, a watch tower with a siren
+  // light and the fire engine parked on the apron (g.userData.truck: unbaked, so a shot can drive it; truck.userData.hose / spray)
+  posdamkar: { n: 'Pos Pemadam Kebakaran', w: 4, h: 6, land: true, scale: 1.5,
+    build(g, b) {
+      const tex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d')); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+      box(g, '#bdb5a2', 2.6, .06, 3.8, 0, 0, 0);                                                        // concrete apron
+      for (let i = 0; i < 5; i++) box(g, i % 2 ? '#f2c230' : '#2b2b2b', .3, .008, .12, -.6 + i * .3, .06, .3);   // hazard stripe at the door
+      box(g, '#c0392b', 2.5, 1.6, 2.1, 0, .06, -.85);                                                  // the station (red)
+      box(g, '#f4eee0', 2.56, .16, 2.16, 0, 1.66, -.85); box(g, '#9a2a20', 2.6, .1, 2.2, 0, 1.82, -.85);
+      box(g, '#2b2b2b', 1.3, 1.15, .04, 0, .06, .2);                                                   // open garage door (dark inside)
+      box(g, '#e6e0d0', 1.42, .08, .06, 0, 1.21, .21); for (const x of [-.71, .71]) box(g, '#e6e0d0', .06, 1.15, .06, x, .06, .21);
+      for (const x of [-1.0, 1.0]) box(g, windowMat, .3, .35, .04, x, .85, .2);
+      // watch tower with the siren light on the back left
+      box(g, '#c0392b', .7, 2.7, .7, -.85, .06, -1.55); box(g, '#f4eee0', .8, .1, .8, -.85, 2.76, -1.55); roof4(g, '#7c2f28', 1.0, .35, 1.0, -.85, 2.86, -1.55);
+      const siren = add(g, G.sph, new THREE.MeshStandardMaterial({ color: '#ff3b30', emissive: '#ff2a1a', emissiveIntensity: 1.2, flatShading: true }), .1, .1, .1, -.85, 3.3, -1.55); g.userData.siren = siren;
+      // hose reel on the wall and a fire hydrant
+      add(g, G.cyl8, '#f2c230', .22, .08, .22, 1.0, .5, .21).rotation.x = Math.PI / 2; add(g, G.cyl8, '#d0483a', .14, .1, .14, 1.0, .5, .23).rotation.x = Math.PI / 2;
+      add(g, G.cyl8, '#d0483a', .08, .32, .08, 1.15, .22, 1.3); add(g, G.sph, '#d0483a', .08, .06, .08, 1.15, .38, 1.3); box(g, '#d0483a', .22, .05, .05, 1.15, .24, 1.3);
+      // sign over the door, both faces
+      const t = tex(512, 128, c => { c.fillStyle = '#f4eee0'; c.fillRect(0, 0, 512, 128); c.fillStyle = '#c0392b'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 66px "Pixelify Sans", sans-serif'; c.fillText((b && b.label) || 'POS DAMKAR', 256, 50, 490); c.font = '700 26px "Pixelify Sans", sans-serif'; c.fillStyle = '#2b2b2b'; c.fillText((b && b.sub) || 'siaga 24 jam', 256, 102, 490); });
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.5, .37), new THREE.MeshStandardMaterial({ map: t, roughness: .8 })); sg.position.set(0, 1.47, .22); g.add(sg);
+      // the fire engine
+      const tr = new THREE.Group(); tr.position.set(0, .06, .85); g.add(tr); g.userData.truck = tr;
+      const R = '#d0302a';
+      box(tr, R, .78, .55, 1.25, 0, .18, -.25); box(tr, R, .78, .66, .55, 0, .18, .62); box(tr, '#2f4a5a', .7, .26, .02, 0, .52, .9);   // body, cab, windscreen
+      for (const x of [-.395, .395]) box(tr, '#2f4a5a', .02, .22, .32, x, .54, .64);
+      box(tr, '#f4eee0', .8, .06, 1.8, 0, .44, .0); box(tr, '#e6e0d0', .82, .05, .06, 0, .18, .9);   // white stripe, bumper
+      for (const x of [-.3, .3]) box(tr, '#ffe9a8', .12, .07, .02, x, .27, .9);
+      box(tr, '#bfc3c7', .06, .06, 1.3, -.24, .76, -.3); box(tr, '#bfc3c7', .06, .06, 1.3, .24, .76, -.3); for (let i = 0; i < 5; i++) box(tr, '#bfc3c7', .5, .04, .04, 0, .78, -.85 + i * .27);   // ladder
+      for (const [x, z] of [[-.4, .55], [.4, .55], [-.4, -.55], [.4, -.55]]) add(tr, G.cyl8, '#1d1d1d', .17, .1, .17, x, .17, z).rotation.z = Math.PI / 2;
+      const lb = new THREE.MeshStandardMaterial({ color: '#3b6dff', emissive: '#2a5bff', emissiveIntensity: 1.0, flatShading: true }), lr = new THREE.MeshStandardMaterial({ color: '#ff3b30', emissive: '#ff2a1a', emissiveIntensity: 1.0, flatShading: true });
+      tr.userData.lights = [box(tr, lr, .14, .08, .1, -.2, .84, .62), box(tr, lb, .14, .08, .1, .2, .84, .62)];
+      const reel = add(tr, G.cyl8, '#f2c230', .16, .2, .16, 0, .9, -.6); reel.rotation.z = Math.PI / 2;
+      // the nozzle on the roof (a spray made of droplets, hidden unless a shot turns it on)
+      const hose = new THREE.Group(); hose.position.set(0, .95, .25); tr.add(hose); tr.userData.hose = hose;
+      box(hose, '#bfc3c7', .08, .08, .45, 0, 0, .1);
+      const wm = new THREE.MeshStandardMaterial({ color: '#cfefff', emissive: '#7fc8ff', emissiveIntensity: .4, transparent: true, opacity: .8, depthWrite: false });
+      const spray = new THREE.Group(); spray.visible = false; hose.add(spray); tr.userData.spray = spray;
+      for (let i = 0; i < 40; i++) { const d = new THREE.Mesh(G.sph, wm); d.scale.setScalar(.04 + (i % 4) * .015); spray.add(d); }
     } },
   papan: { n: 'Papan nama', w: 1, h: 1, land: true, sign: true, build(g, b) { box(g, '#5e3b22', .08, 1, .08, 0, 0, 0); const board = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(splitLabel(b && b.label || 'Pulau'), { size: 46, grain: true }), flatShading: true }), mat('#8a5a34')]); board.scale.set(.95, .48, .06); board.position.set(0, 1, .05); board.castShadow = true; g.add(board); } },
 };
