@@ -125,7 +125,7 @@ function rebuildOcc() {
   cleared = new Uint8Array(W * H);
   for (const p of padsFor()) for (let y = Math.max(0, p.y0); y < Math.min(H, p.y1); y++) for (let x = Math.max(0, p.x0); x < Math.min(W, p.x1); x++) cleared[y * W + x] = 1;
   for (const c of S.construct || []) if (c && c.x != null) for (let y = c.y - 2; y <= c.y + 2; y++) for (let x = c.x - 2; x <= c.x + 2; x++) cleared[y * W + x] = 1;
-  S.buildings.forEach(b => { const d = BT[b.type]; if (!d || d.water || d.float || d.walk || d.arch) return; const f = fpOf(b); if (f.w * f.h < 4) return; const m = d.clear || 1; for (let y = b.y - m; y < b.y + f.h + m; y++) for (let x = b.x - m; x < b.x + f.w + m; x++) if (x >= 0 && y >= 0 && x < W && y < H) cleared[y * W + x] = 1; });
+  S.buildings.forEach(b => { const d = BT[b.type]; if (!d || ((d.water || d.float || d.walk || d.arch) && !d.clearTrees)) return; const f = fpOf(b); if (f.w * f.h < 4) return; const m = d.clear || 1; for (let y = b.y - m; y < b.y + f.h + m; y++) for (let x = b.x - m; x < b.x + f.w + m; x++) if (x >= 0 && y >= 0 && x < W && y < H) cleared[y * W + x] = 1; });
   for (let i = 0; i < W * H; i++) {
     let s = tile[i] === WD.DEEP ? 1 : 0;
     if (occ[i] === -2) s = 1;
@@ -808,9 +808,11 @@ function frame() {
   const L = lamps(), ud = lightObj.userData;
   ud.lamps.forEach((m, i) => { const on = i < L; if ((m.material === M.lampOnMat) !== on) m.material = on ? M.lampOnMat : M.lampOffMat; });
   ud.glass.emissiveIntensity = L > 0 ? .5 + dk * 3.2 : 0;
+  // ep 29: at night the lamp blinks three times every 30 s, out to sea (toward Pulau Seberang and the new harbour)
+  const blink = L > 0 && dk > .3 && ((T0 + (window.__lhPhase || 0)) % 30) < 1.8 && Math.sin(((T0 + (window.__lhPhase || 0)) % 30) / .6 * Math.PI * 2) < 0; if (blink) ud.glass.emissiveIntensity = .2;
   const lg = Math.log10(L + 1);
-  lhLight.intensity = L > 0 ? dk * (8 + lg * 14) : 0; lhLight.distance = 25 + lg * 15;
-  ud.beamMat.opacity = L > 0 ? dk * .06 * Math.min(1.6, .5 + lg / 2) : 0; ud.beam.rotation.y = T0 * .6; ud.beam.scale.set(1 + lg * .3, 1, 1);
+  lhLight.intensity = L > 0 && !blink ? dk * (8 + lg * 14) : 0; lhLight.distance = 25 + lg * 15;
+  ud.beamMat.opacity = L > 0 && !blink ? dk * .06 * Math.min(1.6, .5 + lg / 2) : 0; ud.beam.rotation.y = T0 * .6; ud.beam.scale.set(1 + lg * .3, 1, 1);
   // fires
   fireSources.length = 0; fireSources.push(fireObj);
   for (const o of bObjs) if (o.userData.def.fire) fireSources.push(o);
@@ -999,5 +1001,5 @@ requestAnimationFrame(frame);
   }, 90000);
 })();
 
-window.__pulau = { surfaceY: (x, z) => surfaceY(x, z), renderer, scene, kebun, kerja, roads: roadGroup,  app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
+window.__pulau = { get T0() { return T0; }, surfaceY: (x, z) => surfaceY(x, z), renderer, scene, kebun, kerja, roads: roadGroup,  app, LM, fishing, sail, I2, acts, boats, WD, get expAnim() { return expAnim; }, cam, applyWorld: a => applyWorld(a), toggleRec: () => toggleRec(), get npcs() { return npcs; }, get player() { return player; } };
 trackVisit();

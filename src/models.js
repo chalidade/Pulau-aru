@@ -24,6 +24,8 @@ export function castKit(ch, pose) {
   // ep 20: the bodyguard's dark suit and sunglasses, Rayhan's rod with (as always) a sandal on the hook, NOVA's hood
   if (pose === 'guard') { box(b, '#16181d', .48, .55, .3, 0, .49, 0); box(b, '#0a0a0a', .32, .07, .03, 0, 1.21, .18); box(b, '#0a0a0a', .03, .1, .03, .19, 1.1, .05); box(b, '#d9d9d9', .08, .2, .02, 0, .8, .155); box(b, '#8b1e1e', .04, .2, .022, 0, .78, .158); }
   if (pose === 'rod') { const r = box(b, '#6b4226', .04, 1.7, .04, .22, .35, .95); r.rotation.x = 1.0; const l = box(b, '#e8e8e8', .012, 1.42, .012, .22, .24, 1.66); const s1 = box(b, '#2f7de1', .12, .03, .26, .22, .2, 1.66); s1.rotation.x = .5; box(b, '#1b4f9a', .1, .03, .03, .22, .26, 1.6); }
+  // ep 29: the new harbour's first fisherman (@muhamatferos197) has a real fish on his hook, not a sandal
+  if (pose === 'rodfish') { const r = box(b, '#6b4226', .04, 1.7, .04, .22, .35, .95); r.rotation.x = 1.0; box(b, '#e8e8e8', .012, 1.42, .012, .22, .24, 1.66); const f = add(b, G.sph, new THREE.MeshStandardMaterial({ color: '#b9e2f5', emissive: '#3a6f8f', emissiveIntensity: .25, metalness: .2, roughness: .35, flatShading: true }), .09, .27, .07, .22, .02, 1.66); add(b, G.cone4, '#e8a33a', .13, .14, .04, .22, -.33, 1.66); add(b, G.cone4, '#e8a33a', .03, .1, .06, .22, .1, 1.6); add(b, G.sph, '#1d1d1d', .02, .02, .02, .28, .16, 1.66); }
   if (pose === 'hide') { box(b, '#5b5f6b', .4, .14, .4, 0, 1.36, -.02); box(b, '#5b5f6b', .4, .3, .08, 0, 1.18, -.2); }
   // ep 21: whoyss (sneak) still holds the three cart bolts he 'didn't' take
   if (pose === 'sneak') { for (const [x, y] of [[.3, .52], [.36, .47], [.27, .44]]) { add(b, G.cyl6, '#b8bec2', .035, .07, .035, x, y, .26); add(b, G.cyl6, '#8a9196', .055, .02, .055, x, y + .04, .26); } }
@@ -1347,6 +1349,52 @@ export const BT = {
       const wm = new THREE.MeshStandardMaterial({ color: '#cfefff', emissive: '#7fc8ff', emissiveIntensity: .4, transparent: true, opacity: .8, depthWrite: false });
       const spray = new THREE.Group(); spray.visible = false; hose.add(spray); tr.userData.spray = spray;
       for (let i = 0; i < 40; i++) { const d = new THREE.Mesh(G.sph, wm); d.scale.setScalar(.04 + (i % 4) * .015); spray.add(d); }
+    } },
+  // ep 29 (komentar @muhamatferos197 "bikin pelabuhan kak aku pengen jadi nelayan"): a walkable fishing harbour on the shallow
+  // bay east of the pier. Deck over the whole footprint (water + walk = plank cells), an entrance arch facing the beach (-z),
+  // a little fish-auction shed, fish crates, bollards, lamps and a moored fishing boat KM NELAYAN BARU (g.userData.boat).
+  pelabuhan: { n: 'Pelabuhan Nelayan', w: 4, h: 4, water: true, walk: true, clearTrees: true, clear: 2,
+    build(g, b) {
+      const tex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d')); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+      // deck planks, a darker rim, pilings
+      for (let i = 0; i < 13; i++) box(g, i % 2 ? '#b07a4a' : '#9a663c', 3.9, .08, .29, 0, .22, -1.8 + i * .3);
+      for (const [sx, sz, x, z] of [[4.0, .12, 0, -1.98], [4.0, .12, 0, 1.98], [.12, 4.0, -1.98, 0], [.12, 4.0, 1.98, 0]]) box(g, '#6b4426', sx, .1, sz, x, .2, z);
+      for (const x of [-1.9, -.65, .65, 1.9]) for (const z of [-1.9, -.3, 1.9]) add(g, G.cyl6, '#5e3b22', .09, 1.8, .09, x, -.6, z);
+      // bollards and rope along the sea side
+      for (const x of [-1.5, -.2, 1.1]) { cyl(g, '#2b2b2b', .09, .22, x, .3, 1.82, 8); cyl(g, '#2b2b2b', .12, .04, x, .5, 1.82, 8); }
+      // lamps on the two sea corners
+      for (const x of [-1.85, 1.85]) { cyl(g, '#3a3a3a', .04, 1.9, x, .3, 1.85); const l = add(g, G.sph, new THREE.MeshStandardMaterial({ color: '#ffe9a8', emissive: '#ffcf70', emissiveIntensity: .9, flatShading: true }), .13, .13, .13, x, 2.25, 1.85); l.castShadow = false; }
+      // entrance arch facing the beach, sign on both faces
+      for (const x of [-.75, .75]) box(g, '#2f6f8f', .12, 2.4, .12, x, .3, -1.85);
+      box(g, '#2f6f8f', 1.8, .1, .14, 0, 2.7, -1.85);
+      const t = tex(512, 160, c => { c.fillStyle = '#f4eee0'; c.fillRect(0, 0, 512, 160); c.fillStyle = '#2f6f8f'; c.fillRect(0, 0, 512, 10); c.fillRect(0, 150, 512, 10); c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 62px "Pixelify Sans", sans-serif'; c.fillText((b && b.label) || 'PELABUHAN NELAYAN', 256, 62, 490); c.font = '700 28px "Pixelify Sans", sans-serif'; c.fillStyle = '#2b2b2b'; c.fillText((b && b.sub) || 'Pulau Aru', 256, 122, 490); });
+      const sm = new THREE.MeshStandardMaterial({ map: t, roughness: .8 });
+      box(g, '#2f6f8f', 1.76, .6, .05, 0, 2.08, -1.85);
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.7, .53), sm); sg.position.set(0, 2.38, -1.88); sg.rotation.y = Math.PI; g.add(sg);
+      const sg2 = new THREE.Mesh(new THREE.PlaneGeometry(1.7, .53), sm); sg2.position.set(0, 2.38, -1.82); g.add(sg2);
+      // fish-auction shed on the west half: four posts, a tin roof, a table with fish, a little sign
+      for (const [x, z] of [[-1.85, -1.1], [-.55, -1.1], [-1.85, .5], [-.55, .5]]) box(g, '#8a5a34', .1, 1.9, .1, x, .3, z);
+      box(g, '#7f8c8d', 1.6, .06, 1.9, -1.2, 2.2, -.3); box(g, '#95a5a6', 1.65, .05, .1, -1.2, 2.15, .66);
+      box(g, '#d9cfb8', 1.0, .07, .55, -1.2, .95, -.3); for (const [x, z] of [[-1.6, -.5], [-.8, -.5], [-1.6, -.1], [-.8, -.1]]) box(g, '#8a5a34', .06, .65, .06, x, .3, z);
+      const fishM = new THREE.MeshStandardMaterial({ color: '#8fb3c9', metalness: .3, roughness: .4, flatShading: true });
+      for (let i = 0; i < 4; i++) { const f = add(g, G.sph, fishM, .2, .05, .07, -1.55 + i * .23, 1.05, -.3 + (i % 2 ? .1 : -.1)); f.rotation.y = .4 * (i % 2 ? 1 : -1); }
+      const ts = tex(256, 64, c => { c.fillStyle = '#c0392b'; c.fillRect(0, 0, 256, 64); c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 34px "Pixelify Sans", sans-serif'; c.fillText('LELANG IKAN', 128, 34, 240); });
+      const ls = new THREE.Mesh(new THREE.PlaneGeometry(1.0, .25), new THREE.MeshStandardMaterial({ map: ts, side: THREE.DoubleSide })); ls.position.set(-1.2, 1.95, .71); g.add(ls);
+      // crates of fish and a net pile on the east side
+      for (const [x, z, c] of [[1.4, -1.2, '#2e86c1'], [1.4, -.75, '#e67e22'], [.95, -1.2, '#2e86c1']]) { box(g, c, .4, .26, .38, x, .3, z); for (let k = 0; k < 2; k++) add(g, G.sph, fishM, .14, .04, .05, x - .08 + k * .16, .58, z); }
+      add(g, G.dode, '#6d8a4e', .35, .14, .3, 1.35, .38, -.1);
+      // flag pole
+      cyl(g, '#d0d0d0', .03, 2.6, 1.85, .3, -1.85); box(g, '#e03a3a', .02, .22, .45, 1.85, 2.6, -1.6); box(g, '#f4f4f4', .02, .22, .45, 1.85, 2.38, -1.6);
+      // the moored fishing boat on the sea side, a small cabin and her name on both sides
+      const bt = new THREE.Group(); bt.position.set(2.62, 0, .4); bt.rotation.y = -Math.PI / 2; g.add(bt); g.userData.boat = bt;
+      box(bt, '#1f6fa8', 3.0, .45, 1.0, 0, -.12, 0); box(bt, '#f4eee0', 3.05, .08, 1.05, 0, .33, 0); box(bt, '#7a4b2a', 2.8, .04, .85, 0, .26, 0);
+      const bow = add(bt, G.cone4, '#1f6fa8', .5, .9, .7, 1.85, .1, 0, Math.PI / 4); bow.rotation.z = -Math.PI / 2;
+      box(bt, '#f4eee0', .9, .7, .75, -.6, .3, 0); box(bt, '#c0392b', 1.0, .08, .85, -.6, 1.0, 0); box(bt, '#2f4a5a', .02, .25, .5, -.14, .62, 0);
+      cyl(bt, '#d0d0d0', .03, 1.5, .5, .3, 0); box(bt, '#e03a3a', .02, .18, .35, .5, 1.6, .2); box(bt, '#f4f4f4', .02, .18, .35, .5, 1.42, .2);
+      const tn = tex(512, 96, c => { c.fillStyle = '#1f6fa8'; c.fillRect(0, 0, 512, 96); c.fillStyle = '#fff'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 54px "Pixelify Sans", sans-serif'; c.fillText((b && b.boat) || 'KM NELAYAN BARU', 256, 50, 500); });
+      const nm = new THREE.MeshStandardMaterial({ map: tn });
+      for (const s of [-1, 1]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(2.0, .3), nm); p.position.set(.35, .1, s * .505); if (s < 0) p.rotation.y = Math.PI; bt.add(p); }
+      cyl(g, '#2b2b2b', .09, .22, 1.8, .3, .9, 8); box(g, '#c9b48a', .5, .03, .03, 1.95, .4, .9);   // east bollard + mooring rope
     } },
   papan: { n: 'Papan nama', w: 1, h: 1, land: true, sign: true, build(g, b) { box(g, '#5e3b22', .08, 1, .08, 0, 0, 0); const board = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(splitLabel(b && b.label || 'Pulau'), { size: 46, grain: true }), flatShading: true }), mat('#8a5a34')]); board.scale.set(.95, .48, .06); board.position.set(0, 1, .05); board.castShadow = true; g.add(board); } },
 };
