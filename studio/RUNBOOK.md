@@ -325,6 +325,10 @@ crowds/events, NPC jobs, president/VP changes. Viewers noticed when the ep13 pro
    shot-script JS at all**. Look at them. If something is missing, fix and repeat.
 4. Send one parity screenshot (contact sheet) to Chalid together with the episode in step 7, captioned
    "Sudah ada di web: …". Do not send the episode until this passes.
+5. **Dark/blocked frame check (Chalid, 10 Nov):** before delivering, sample the final mp4 at 4 fps
+   (`ffmpeg -i out.mp4 -vf fps=4,scale=90:-1 f%03d.png`) and flag any run of ≥2 consecutive frames whose mean
+   luminance is < 35 or that are >70% one flat colour (camera inside a wall/roof, as in ep27 at 13–14.5 s).
+   Re-frame that shot (move the camera out, raise it, or skip with `from`) and re-render. Night scenes with lights are fine.
 
 ## 7. Deliver for posting (Chalid posts it from his phone)
 
