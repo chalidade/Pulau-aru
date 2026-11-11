@@ -182,6 +182,30 @@ appear in frame doing a small funny bit true to their trait (vary who appears fr
 Running gags: **Klub Warga Biasa** (ALIF HR vs NOVA), the over-serious bodyguard, and **Klub Pertama**
 (three residents who all commented 'pertama') argue over who was first whenever anything opens.
 
+**Rotasi sorotan (Chalid, 11 Nov — WAJIB):** Klub Pertama muncul di 7 dari 8 episode terakhir dan bodyguard
+("Identitas?") di 5, sementara 20-an warga lain tidak kebagian. Mulai ep32:
+- Klub Pertama dan bodyguard Cawetssssss masing-masing **paling banyak 1x per 4 episode**, dan saat muncul cukup
+  satu gag pendek (≤3 detik). Jangan jadikan mereka cold open/hook.
+- Tiap episode wajib ada **minimal 1 warga yang tidak muncul di 4 episode terakhir** (lihat `strategy.castLog`),
+  utamakan yang belum pernah dapat adegan: Aidil YZ, ALERX, D4L, Letisya, lala cute, inyuu, dell_, -VANZwlee,
+  senar muliya, whoyss, zidan, NOVA/ALIF.
+- Catat siapa saja yang tampil di `state.json → strategy.castLog` (list `{ep, cast:[...]}`, simpan 8 terakhir) dan
+  cek sebelum menulis naskah.
+
+**Subplot drama (Chalid, 11 Nov):** biar pulau terasa hidup, setiap episode boleh (idealnya) memajukan satu
+subplot bersambung 3–5 episode, satu petunjuk/kemajuan per episode, ditutup end card penasaran. Dua jalur:
+1. **Kisah asmara** — HANYA antara tokoh fiksi buatan studio yang jelas dewasa (mis. Penjual Ikan Bakar dan
+   Penjaga Mercusuar, atau tokoh fiksi baru seperti tukang pos). **Jangan pernah** memasangkan akun/follower
+   sungguhan (bisa jadi masih di bawah umur dan itu orang nyata). Gaya manis-kocak: surat tanpa nama, bunga di
+   meja, salah tingkah, warga bergosip. Tanpa adegan fisik selain pegangan tangan/malu-malu.
+2. **Kriminal ringan / misteri** — kocak dan tanpa kekerasan: barang hilang (kas pulau, sandal, ikan bakar,
+   papan nama), jejak kaki, Pos Polisi menyelidiki, warga jadi saksi/detektif. **Pelaku selalu tokoh fiksi atau
+   hewan** (camar, kucing, monyet, NPC buatan) atau ternyata salah paham; akun sungguhan boleh sempat dicurigai
+   secara lucu tapi harus dibersihkan namanya di episode yang sama, tidak pernah jadi pelaku. Tanpa senjata,
+   darah, atau ancaman.
+Lacak subplot aktif di `state.json → openThreads` (judul, episode ke berapa, petunjuk yang sudah dibuka) dan
+tetap ikuti RUNBOOK 2c/2e (hook jujur, premis jelas untuk penonton baru).
+
 ## 3. Write the episode
 
 - 55–60 s, in 10–13 segments, starting with the cold open (see 2c). Roughly:

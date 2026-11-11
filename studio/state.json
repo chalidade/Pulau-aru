@@ -49,7 +49,8 @@
   "Ep 28: Lapangan Gotong Royong (x41 y60, 9x7) dengan event kerja bakti live (island.json event work:true, warga pegang sapu/cangkul/karung). Pos Damkar (x48 y84, r3) + mobil damkar (userData.truck, bisa dijalankan di shot), Komandan Damkar vcxn.mx (pose 'damkar') yang terlalu semangat (menyemprot ikan bakar). joe.harry88 NPC Resmi (pose 'npc', jalan utama x52 y80) hanya bilang 'Selamat datang di Pulau Aru.'. potasganteng_ 'Ketua Keuangan' depan Gedung Rapat, belum mengajukan proposal ke Menteri araa_yinchan -> bisa lanjut: proposal ketua keuangan, lomba di lapangan (17-an?), damkar latihan, kebakaran sungguhan TIDAK. Jatah presiden 'EGA_ sudah habis (3/3); masa jabatan sampai ~ep 29 (14 Nov) -> pemilu berikutnya?",
   "Ep 29: Pelabuhan Nelayan (pelabuhan x63 y95, 4x4, water+walk = dek bisa diinjak) di teluk timur dermaga: lapak LELANG IKAN, peti ikan, bendera, lampu, kapal KM NELAYAN BARU tertambat di sisi timur (g.userData.boat, belum bergerak). muhamatferos197 (Nelayan Pertama, pose 'rodfish' = ikan besar di kail) dan _Rayhannn` (tetap sandal) kini memancing berdampingan di ujung selatan pelabuhan. Mercusuar berkedip 3x tiap 30 dtk saat malam (main.js, window.__lhPhase untuk kamera). End card: 'Kapal pertama bawa siapa?' -> bisa jadi episode kapal dari Pulau Seberang / Penjaga Mercusuar (Kamar 3 hotel) / tamu Kamar 4. Kapal bisa dijalankan & pelelangan ikan bisa jadi interaksi (jual ikan dari fishing.js ke koin).",
   "Ep 30: KM NELAYAN BARU kini berlayar sendiri di web (main.js: tiap 150 dtk, 70 dtk di laut, rute lingkar ke tenggara; window.__boatTheta untuk kamera). Penjaga Mercusuar (island.json storyCast = tokoh cerita non-follower, kit/pose 'keeper': mantel navy, tudung, janggut putih, lentera menyala) berdiri di depan Hotel Pulau (57,84), Buku Tamu: Kamar 3 dicentang (item diawali '✓' = dicentang). Spanduk dekat panggung (52,49) sekarang 'PEMILU SEGERA! 14 NOV'. Klub Pertama (DABY & princes) pindah ke gerbang Pelabuhan Nelayan (64-65,93), menunggu kapal. End card: siapa presiden berikutnya? -> episode berikut: pendaftaran calon dari komentar (aturan ep 15/16: like terbanyak = presiden, kedua = wapres), presiden 'EGA_ & wapres King indo selesai 14 Nov. Misteri lanjut: kenapa Penjaga Mercusuar meninggalkan mercusuar? siapa yang menyalakan lampunya sekarang? tamu Kamar 4?",
-  "Ep 31: PEMILU KE-2 (14 Nov). Meja Pendaftaran Calon (mejadaftar x57 y44 r1, di timur panggung, depan menghadap barat; spanduk b.label/sub/foot) dengan Penjaga Mercusuar sebagai ketua panitia di balik meja (storyCast spot 58,44). Antrean calon live: island.json event demo at 'mejadaftar' (plakat AKU CALON!/PILIH AKU!/JANJI MANIS...) + event.join (kode baru: warga bernama ikut antre tanpa plakat baru) = DABY & princes (paling depan, rebutan), Pinjam Seratus, Etet_443 (plakat MANTAN PRESIDEN). Papan Pemilu (57,50) direset: head 'PEMILU KE-2 · 14 NOV', cands 'namamu?' x4, kursi menunjukkan pemegang sekarang (b.seats), hasil ep16 di b.prev. Aturan: komentar 'aku calon' + 1 janji kampanye; like terbanyak = presiden, kedua = wapres. Gag: bodyguard Cawetssssss menahan presidennya sendiri ('Identitas dulu'); EGA 'tiga like itu banyak'. Janji kampanye DABY: 'semua warga jadi yang pertama'. BUTUH: daftar calon + jumlah like dari komentar TikTok (Apify masih gagal) sebelum 14 Nov -> isi cands, lalu episode hitung suara/pelantikan; kalau sudah selesai hapus event & isi b.win."
+  "Ep 31: PEMILU KE-2 (14 Nov). Meja Pendaftaran Calon (mejadaftar x57 y44 r1, di timur panggung, depan menghadap barat; spanduk b.label/sub/foot) dengan Penjaga Mercusuar sebagai ketua panitia di balik meja (storyCast spot 58,44). Antrean calon live: island.json event demo at 'mejadaftar' (plakat AKU CALON!/PILIH AKU!/JANJI MANIS...) + event.join (kode baru: warga bernama ikut antre tanpa plakat baru) = DABY & princes (paling depan, rebutan), Pinjam Seratus, Etet_443 (plakat MANTAN PRESIDEN). Papan Pemilu (57,50) direset: head 'PEMILU KE-2 · 14 NOV', cands 'namamu?' x4, kursi menunjukkan pemegang sekarang (b.seats), hasil ep16 di b.prev. Aturan: komentar 'aku calon' + 1 janji kampanye; like terbanyak = presiden, kedua = wapres. Gag: bodyguard Cawetssssss menahan presidennya sendiri ('Identitas dulu'); EGA 'tiga like itu banyak'. Janji kampanye DABY: 'semua warga jadi yang pertama'. BUTUH: daftar calon + jumlah like dari komentar TikTok (Apify masih gagal) sebelum 14 Nov -> isi cands, lalu episode hitung suara/pelantikan; kalau sudah selesai hapus event & isi b.win.",
+  "SUBPLOT BARU (Chalid 11 Nov, RUNBOOK 2d): mulai ep32 jalankan dua subplot bersambung, bergantian/sejalan. (a) ASMARA: Penjual Ikan Bakar (fiksi, ep28) diam-diam menaruh ikan bakar terbaik + surat tanpa nama di Mercusuar setiap malam; Penjaga Mercusuar (fiksi, ep30) salah tingkah, warga bergosip siapa pengirimnya. Hanya tokoh fiksi dewasa. (b) MISTERI: kotak kas pulau / sandal-sandal warga hilang satu per satu, jejak kaki kecil di pasir, Pos Polisi menyelidiki dengan para calon polisi dari komentar sebagai detektif; pelakunya akhirnya burung camar yang menimbun barang di atas mercusuar (tokoh fiksi/hewan). Akun sungguhan boleh dicurigai sebentar secara lucu, lalu dibersihkan."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -380,6 +381,88 @@
     "opening": "3D close-up Klub Pertama rebutan di depan Meja Pendaftaran Calon (spanduk terbaca), tanpa filter buku cerita",
     "captionStyle": "pendek personal + ajakan komentar AKU CALON + pulau-aru.web.id + #pulaunetizen #alurcerita",
     "duration": 60
+   }
+  ],
+  "castLog": [
+   {
+    "ep": 24,
+    "cast": [
+     "whoyss",
+     "Cawetssssss",
+     "KM GPP TAN",
+     "Bu Guru Gina",
+     "Klub Pertama"
+    ]
+   },
+   {
+    "ep": 25,
+    "cast": [
+     "Bu Guru Gina",
+     "Klub Pertama",
+     "Cawetssssss"
+    ]
+   },
+   {
+    "ep": 26,
+    "cast": [
+     "Cawetssssss",
+     "Bu Guru Gina",
+     "zidan",
+     "muhamatferos197",
+     "vcxn.mx",
+     "Klub Pertama"
+    ]
+   },
+   {
+    "ep": 27,
+    "cast": [
+     "Cawetssssss",
+     "Pinjam seratus",
+     "KM GPP TAN",
+     "Bu Guru Gina"
+    ]
+   },
+   {
+    "ep": 28,
+    "cast": [
+     "Alexandre",
+     "Luci Ardiansyah",
+     "Bu Guru Gina",
+     "vcxn.mx",
+     "joe.harry88",
+     "potasganteng_",
+     "Klub Pertama"
+    ]
+   },
+   {
+    "ep": 29,
+    "cast": [
+     "KM GPP TAN",
+     "Bu Guru Gina",
+     "muhamatferos197",
+     "Klub Pertama",
+     "_Rayhannn"
+    ]
+   },
+   {
+    "ep": 30,
+    "cast": [
+     "KM GPP TAN",
+     "Bu Guru Gina",
+     "muhamatferos197",
+     "Klub Pertama",
+     "_Rayhannn"
+    ]
+   },
+   {
+    "ep": 31,
+    "cast": [
+     "Pinjam seratus",
+     "Bu Guru Gina",
+     "Klub Pertama",
+     "Cawetssssss",
+     "Etet_443"
+    ]
    }
   ]
  }
