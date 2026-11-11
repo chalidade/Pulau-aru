@@ -12746,20 +12746,35 @@
    "y": 50,
    "r": 0,
    "by": "pemilu warga",
-   "ep": 15,
+   "ep": 31,
    "cands": [
-    "MR Roblox",
-    "Pak Azka",
-    "bocah soleh",
-    "WHO and SHARK",
-    "'EGA_",
-    "??"
+    "namamu?",
+    "namamu?",
+    "namamu?",
+    "namamu?"
    ],
-   "label": "DILANTIK EP 16 · MENJABAT 1 MINGGU",
-   "win": {
+   "label": "LIKE TERBANYAK = PRESIDEN · KEDUA = WAPRES",
+   "prev": {
+    "win": {
+     "pres": "'EGA_",
+     "vp": "King indo",
+     "note": "'EGA_ 3 like · janji: pemimpin yang baik"
+    },
+    "cands": [
+     "MR Roblox",
+     "Pak Azka",
+     "bocah soleh",
+     "WHO and SHARK",
+     "'EGA_",
+     "??"
+    ],
+    "label": "DILANTIK EP 16 · MENJABAT 1 MINGGU"
+   },
+   "head": "PEMILU KE-2 · 14 NOV",
+   "sub": "CALON PRESIDEN: DAFTAR DI KOMENTAR",
+   "seats": {
     "pres": "'EGA_",
-    "vp": "King indo",
-    "note": "'EGA_ 3 like · janji: pemimpin yang baik"
+    "vp": "King indo"
    }
   },
   {
@@ -12947,6 +12962,17 @@
    "boat": "KM NELAYAN BARU",
    "by": "muhamatferos197",
    "ep": 29
+  },
+  {
+   "type": "mejadaftar",
+   "x": 57,
+   "y": 44,
+   "r": 1,
+   "label": "PENDAFTARAN CALON",
+   "sub": "komentar: AKU CALON + janjimu",
+   "foot": "PEMILU 14 NOV · GRATIS",
+   "by": "panitia pemilu",
+   "ep": 31
   }
  ],
  "episodes": [
@@ -13239,6 +13265,12 @@
    "date": "2026-11-11",
    "picks": [],
    "text": "KM NELAYAN BARU berlayar untuk pertama kali dengan kapten @muhamatferos197 (sekarang kapalnya berlayar sendiri tiap beberapa menit).\nSore harinya kapal pulang membawa penumpang dari Pulau Seberang: Penjaga Mercusuar, pengirim surat misterius. Ia menginap di Kamar 3 Hotel Pulau.\nKabarnya: masa jabatan presiden berakhir 14 November. Spanduk PEMILU SEGERA! sudah dipasang dekat panggung. Siapa presiden berikutnya?"
+  },
+  {
+   "ep": 31,
+   "date": "2026-11-11",
+   "picks": [],
+   "text": "Pendaftaran calon presiden untuk PEMILU KE-2 (14 November) resmi dibuka! Meja Pendaftaran Calon berdiri di sebelah panggung, dijaga Penjaga Mercusuar sebagai ketua panitia.\nKlub Pertama rebutan daftar duluan, Pinjam Seratus mau pinjam biaya daftar (gratis!), dan mantan presiden @Etet_443 ikut antre lagi.\nCara jadi calon: komentar \"aku calon\" + satu janji kampanye. Like terbanyak jadi presiden, kedua jadi wakil presiden."
   }
  ],
  "letters": [],
@@ -13335,70 +13367,77 @@
  "umkm": [],
  "event": {
   "type": "demo",
-  "ep": 28,
-  "at": "lapangangr",
-  "work": true,
-  "tools": [
-   "sapu",
-   "cangkul",
-   "karung",
-   "sapu"
+  "ep": 31,
+  "at": "mejadaftar",
+  "signs": [
+   "AKU|CALON!",
+   "PILIH|AKU!",
+   "JANJI|MANIS",
+   "DAFTAR|DULU!",
+   "AKU|DULUAN!",
+   "LIKE|AKU!"
   ],
   "spots": [
    [
-    -2.6,
-    1.2,
-    0.3
-   ],
-   [
-    -1.2,
-    2,
-    3.1
-   ],
-   [
-    0.6,
-    1.4,
-    -0.4
-   ],
-   [
-    2.2,
-    2.1,
-    2.8
-   ],
-   [
-    -3,
-    -0.8,
+    -1.9,
+    -0.95,
     1.2
    ],
    [
-    -0.6,
-    -0.4,
-    0
+    -2.2,
+    -1.65,
+    0.9
    ],
    [
-    1.4,
-    -1,
-    -1.4
-   ],
-   [
-    3,
-    0.2,
-    -1.6
-   ],
-   [
-    -1.8,
-    -2,
+    -2.1,
+    -2.35,
     0.6
    ],
    [
-    0.4,
-    2.6,
-    3.3
+    -1.6,
+    -2.95,
+    0.3
+   ],
+   [
+    -0.9,
+    -3.25,
+    0
+   ],
+   [
+    -2.7,
+    0.55,
+    1.57
    ]
   ],
   "carry": {
    "Etet_443": "MANTAN|PRESIDEN"
-  }
+  },
+  "join": [
+   [
+    "D..A..B..Y a..j..a",
+    -1.15,
+    0.3,
+    1.57
+   ],
+   [
+    "princes_nay",
+    -1.2,
+    -0.35,
+    1.57
+   ],
+   [
+    "Pinjam seratus 💸",
+    -1.0,
+    1.05,
+    2.2
+   ],
+   [
+    "Etet_443",
+    -2.1,
+    1.25,
+    1.57
+   ]
+  ]
  },
  "interiors": [
   "masjid",
@@ -13500,22 +13539,22 @@
   {
    "key": "penjaga-mercusuar",
    "name": "Penjaga Mercusuar",
-   "julukan": "Penjaga Mercusuar",
+   "julukan": "Penjaga Mercusuar · ketua panitia pemilu",
    "kalimat": [
     "Pemimpin pulau harus dipilih warga. Bukan ditunjuk.",
-    "Masa jabatan presiden berakhir 14 November.",
-    "Lenteraku menyala tiap mercusuar berkedip tiga kali."
+    "Pemilu kedua: 14 November. Daftarnya gratis.",
+    "Komentar \"aku calon\", plus satu janji."
    ],
    "spot": [
-    57,
-    84,
-    0.3,
+    58,
+    44,
+    0.25,
     0.5
    ],
    "face": -1.57,
    "pose": "keeper",
    "ep": 30,
-   "tempat": "depan Hotel Pulau (Kamar 3), datang dengan KM NELAYAN BARU"
+   "tempat": "di balik Meja Pendaftaran Calon (ketua panitia pemilu ke-2, ep 31)"
   }
  ]
 }
