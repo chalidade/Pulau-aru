@@ -11887,15 +11887,15 @@
     "PERTAMA!",
     "Aku duluan, sumpah!"
    ],
-   "tempat": "antre PERTAMA di depan lift kaca Apartemen Presiden",
+   "tempat": "gerbang Pelabuhan Nelayan, menunggu kapal (mau jadi yang pertama menyambut)",
    "spot": [
-    38,
-    56,
-    0.6,
-    -0.2
+    64,
+    93,
+    -0.3,
+    0.2
    ],
    "face": 0,
-   "pose": "run"
+   "pose": "wave"
   },
   {
    "n": "princes_nay",
@@ -11907,15 +11907,15 @@
     "Hah?! Tega kamu...",
     "Aku kan PRINCESS, harusnya aku pertama 💕"
    ],
-   "tempat": "di belakang D..A..B..Y, antre lift Apartemen Presiden",
+   "tempat": "gerbang Pelabuhan Nelayan, menunggu kapal (princess selalu duluan)",
    "spot": [
-    38,
-    55,
-    1.2,
-    0.4
+    65,
+    93,
+    0.2,
+    0.1
    ],
-   "face": -0.5,
-   "pose": "faint"
+   "face": 0,
+   "pose": "wave"
   },
   {
    "n": "Letisya Khianantaa",
@@ -12727,9 +12727,9 @@
    "x": 52,
    "y": 49,
    "r": 3,
-   "label": "SELAMAT PRESIDEN BARU!",
+   "label": "PEMILU SEGERA! 14 NOV",
    "by": "warga",
-   "ep": 13
+   "ep": 30
   },
   {
    "type": "menarasinyal",
@@ -12864,11 +12864,11 @@
    "r": 1,
    "head": "BUKU TAMU HOTEL",
    "color": "#c94f6d",
-   "label": "Hotel Pulau · check-in di resepsionis",
+   "label": "Kamar 3 sudah datang! (ep 30)",
    "items": [
     "Kamar 1: D..A..B..Y (PERTAMA!)",
     "Kamar 2: Pak Presiden (PR?)",
-    "Kamar 3: Penjaga Mercusuar",
+    "✓ Kamar 3: Penjaga Mercusuar",
     "Kamar 4: masih kosong"
    ],
    "by": "usulan warga",
@@ -13233,6 +13233,12 @@
     "@muhamatferos197: bikin pelabuhan kak aku pengen jadi nelayan dah follow (Pelabuhan Nelayan, nelayan pertama)"
    ],
    "text": "Komentar @muhamatferos197 jadi Pelabuhan Nelayan di teluk timur dermaga: dek kayu yang bisa diinjak, lapak Lelang Ikan, peti ikan, dan kapal KM NELAYAN BARU.\nKlub Pertama rebutan menginjak pelabuhan duluan. Feros dan _Rayhannn` memancing berdampingan di ujungnya: Rayhan dapat sandal lagi, Feros dapat ikan besar pertamanya.\nMalam itu lampu mercusuar berkedip tiga kali ke arah laut (sekarang terjadi tiap 30 detik saat malam). Kapal pertama yang datang... bawa siapa?"
+  },
+  {
+   "ep": 30,
+   "date": "2026-11-11",
+   "picks": [],
+   "text": "KM NELAYAN BARU berlayar untuk pertama kali dengan kapten @muhamatferos197 (sekarang kapalnya berlayar sendiri tiap beberapa menit).\nSore harinya kapal pulang membawa penumpang dari Pulau Seberang: Penjaga Mercusuar, pengirim surat misterius. Ia menginap di Kamar 3 Hotel Pulau.\nKabarnya: masa jabatan presiden berakhir 14 November. Spanduk PEMILU SEGERA! sudah dipasang dekat panggung. Siapa presiden berikutnya?"
   }
  ],
  "letters": [],
@@ -13488,6 +13494,28 @@
    "n": "araa_yinchan",
    "t": "araa_yinchan",
    "ep": 27
+  }
+ ],
+ "storyCast": [
+  {
+   "key": "penjaga-mercusuar",
+   "name": "Penjaga Mercusuar",
+   "julukan": "Penjaga Mercusuar",
+   "kalimat": [
+    "Pemimpin pulau harus dipilih warga. Bukan ditunjuk.",
+    "Masa jabatan presiden berakhir 14 November.",
+    "Lenteraku menyala tiap mercusuar berkedip tiga kali."
+   ],
+   "spot": [
+    57,
+    84,
+    0.3,
+    0.5
+   ],
+   "face": -1.57,
+   "pose": "keeper",
+   "ep": 30,
+   "tempat": "depan Hotel Pulau (Kamar 3), datang dengan KM NELAYAN BARU"
   }
  ]
 }
