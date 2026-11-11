@@ -825,7 +825,7 @@ export const BT = {
       box(g, '#c4473a', 2.2, .14, .14, 0, 2.2, -.5);
       const c = document.createElement('canvas'); c.width = 512; c.height = 400; const x = c.getContext('2d');
       x.fillStyle = '#fff8e6'; x.fillRect(0, 0, 512, 400); x.fillStyle = '#c4473a'; x.fillRect(0, 0, 512, 64); x.fillStyle = '#f4eee0'; x.fillRect(0, 64, 512, 6);
-      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#fff8e6'; x.font = '700 44px "Pixelify Sans", sans-serif'; x.fillText('PEMILU PULAU ARU', 256, 34, 490);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#fff8e6'; x.font = '700 44px "Pixelify Sans", sans-serif'; x.fillText((b && b.head) || 'PEMILU PULAU ARU', 256, 34, 490);
       // ep 16: once the votes are counted, b.win = { pres, vp, note } turns the board into the results board
       const win = b && b.win;
       if (win) {
@@ -837,7 +837,7 @@ export const BT = {
         x.font = '700 19px "Pixelify Sans", sans-serif'; x.fillStyle = '#6a5a48'; x.fillText('calon: ' + cands.join(' · '), 256, 262, 496);
         x.font = '700 22px "Pixelify Sans", sans-serif'; x.fillStyle = '#3a2412'; x.fillText(win.note || '', 256, 304, 496);
       } else
-      x.fillStyle = '#3a2412', x.font = '700 24px "Pixelify Sans", sans-serif', x.fillText('CALON PRESIDEN', 256, 92);
+      x.fillStyle = '#3a2412', x.font = '700 24px "Pixelify Sans", sans-serif', x.fillText((b && b.sub) || 'CALON PRESIDEN', 256, 92, 490);
       const cols = cands.length > 5 ? 2 : 1, rows = Math.ceil(cands.length / cols), lh = Math.min(42, 210 / rows);
       x.font = `700 ${Math.round(lh * .78)}px "Pixelify Sans", sans-serif`; x.textAlign = 'left';
       if (!win) cands.forEach((n, i) => { const cx = cols === 2 ? 30 + (i % 2) * 245 : 120, cy = 128 + Math.floor(cols === 2 ? i / 2 : i) * lh + lh / 2;
@@ -857,7 +857,7 @@ export const BT = {
         box(g, '#7a4a28', .44, .06, .44, cx, .42, .35); box(g, cush, .4, .06, .4, cx, .48, .35);
         box(g, '#7a4a28', .44, .62, .06, cx, .42, .13); box(g, cush, .36, .46, .03, cx, .5, .17);
         box(g, '#e6b84a', .46, .06, .08, cx, 1.04, .13);
-        const t = new THREE.Mesh(new THREE.PlaneGeometry(.34, .13), tag(lab, win && (lab === 'PRESIDEN' ? win.pres : win.vp))); t.position.set(cx, .27, .58); g.add(t);
+        const t = new THREE.Mesh(new THREE.PlaneGeometry(.34, .13), tag(lab, (win && (lab === 'PRESIDEN' ? win.pres : win.vp)) || (b && b.seats && (lab === 'PRESIDEN' ? b.seats.pres : b.seats.vp)))); t.position.set(cx, .27, .58); g.add(t);
       }
     } },
   // ep 16: a coffee cart run by a resident (komentar @sapta.rajo.ghaisa "wibu cilik pelenger": "aku tukang jualan kopidong").
@@ -986,6 +986,36 @@ export const BT = {
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
       const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.1, .43), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.78, -.09); g.add(sign);
       box(g, '#3a2618', 1.14, .47, .03, 0, 1.555, -.12);
+    } },
+  // ep 31: the candidates' registration desk for the second election (14 Nov): a table with a red-white cloth, a ballot box,
+  // a stack of forms and a pen, two chairs for the committee, and a banner on two poles. Banner text from b.label / b.sub
+  mejadaftar: { n: 'Meja Pendaftaran Calon', w: 2, h: 2, land: true, scale: 1.25,
+    build(g, b) {
+      for (const [lx, lz] of [[-.72, -.12], [.72, -.12], [-.72, .2], [.72, .2]]) box(g, '#5e3b22', .05, .7, .05, lx, 0, lz);   // table legs
+      box(g, '#7a4a28', 1.6, .05, .5, 0, .7, .04);                                                               // table top
+      box(g, '#f4eee0', 1.62, .2, .01, 0, .52, .3); box(g, '#c4473a', 1.62, .2, .01, 0, .32, .3);                 // red-white cloth at the front
+      box(g, '#f4eee0', 1.62, .02, .52, 0, .75, .04);
+      // ballot box: white with a red band and a slot, a folded vote sticking out
+      box(g, '#f7f3ea', .36, .3, .3, -.45, .77, .02); box(g, '#c4473a', .37, .06, .31, -.45, .93, .02); box(g, '#1d1d1b', .18, .012, .04, -.45, 1.07, .02);
+      const v = box(g, '#fff4dc', .1, .08, .01, -.45, 1.07, .02); v.rotation.y = .4;
+      // forms and a pen
+      for (let i = 0; i < 4; i++) { const f = box(g, i % 2 ? '#fffaf0' : '#f2ead8', .22, .006, .3, .1 + i * .012, .77 + i * .006, .06 + i * .01); f.rotation.y = (i - 1.5) * .08; }
+      const pen = box(g, '#2a4a8a', .015, .015, .2, .3, .8, .1); pen.rotation.y = .6;
+      box(g, '#e6b84a', .2, .14, .02, .52, .77, .26);                                                            // little 'GRATIS' plate
+      // two committee chairs behind the table
+      for (const cx of [-.4, .4]) { for (const [lx, lz] of [[-.15, -.4], [.15, -.4], [-.15, -.68], [.15, -.68]]) box(g, '#4a3a2a', .04, .4, .04, cx + lx, 0, lz);
+        box(g, '#5e4632', .38, .05, .36, cx, .4, -.54); box(g, '#5e4632', .38, .5, .05, cx, .45, -.74); }
+      // the banner
+      for (const x of [-.95, .95]) { box(g, '#5e3b22', .06, 2.5, .06, x, 0, -.95); box(g, '#c4473a', .1, .1, .1, x, 2.5, -.95); }
+      const c = document.createElement('canvas'); c.width = 640; c.height = 240; const x = c.getContext('2d');
+      x.fillStyle = '#c4473a'; x.fillRect(0, 0, 640, 120); x.fillStyle = '#f7f3ea'; x.fillRect(0, 120, 640, 120);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#fff8e6'; x.font = '700 62px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'PENDAFTARAN CALON', 320, 52, 610);
+      x.font = '700 34px "Pixelify Sans", sans-serif'; x.fillText('PRESIDEN PULAU ARU', 320, 100, 610);
+      x.fillStyle = '#3a2412'; x.font = '700 38px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'komentar: AKU CALON + janjimu', 320, 160, 610);
+      x.fillStyle = '#c4473a'; x.font = '700 34px "Pixelify Sans", sans-serif'; x.fillText((b && b.foot) || 'PEMILU 14 NOV · GRATIS', 320, 208, 610);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      box(g, '#3a2618', 1.86, .74, .03, 0, 1.58, -.97);
+      const bn = new THREE.Mesh(new THREE.PlaneGeometry(1.8, .68), new THREE.MeshStandardMaterial({ map: tx, roughness: .85 })); bn.position.set(0, 1.95, -.95); g.add(bn);
     } },
   // ep 17: a public toilet from the old residents' suggestions (two doors, sink outside, water tank on the roof)
   toiletumum: { n: 'Toilet Umum', w: 3, h: 2, land: true, scale: 1.45,

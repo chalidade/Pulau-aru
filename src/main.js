@@ -422,6 +422,10 @@ function assignDemo() {
     const tool = ev.work ? (ev.tools || ['sapu', 'cangkul', 'karung'])[i % (ev.tools || [0, 0, 0]).length] : null;
     const g = tool ? workTool(tool) : placard(signs[i % signs.length]); (tool ? n.obj.userData.body : n.obj).add(g);
     n.demo = { role0: n.role, x: ox + dx, z: oz + dz, face: fc != null ? fc : Math.PI + (i % 3 - 1) * .15, sign: g, ph: i * .6, tool }; n.role = 'demo'; n.x = n.demo.x; n.z = n.demo.z; n.tx = null; });
+  // ep 31: event.join = [[name, dx, dz, face], ...] puts named residents (cast or candidates) in the crowd too, keeping their own kit and placard
+  (ev.join || []).forEach(([nm, dx, dz, fc], i) => { const k = String(nm).toLowerCase(), n = npcs.find(m => (m.name || '').toLowerCase() === k || (m.cand || '').toLowerCase() === k || clean(m.name || '').toLowerCase() === clean(k));
+    if (!n || n.demo || n.aru || n.pres || n.vp) return;
+    n.demo = { role0: n.role, x: ox + dx, z: oz + dz, face: fc != null ? fc : Math.PI, sign: null, ph: 3 + i * .7, tool: null }; n.role = 'demo'; n.x = n.demo.x; n.z = n.demo.z; n.tx = null; });
 }
 function stepDemo(n, T) {
   const d = n.demo, u = n.obj.userData, t = T + d.ph, loud = Math.sin(t * .5) > 0;   // chanting, then resting, in waves
