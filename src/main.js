@@ -314,6 +314,8 @@ function rebuildNpcs() {
   // ep 19: the regular cast (residents with a julukan and a spot) always live on the island, at their own place, in character
   const castR = S.residents.map((r, i) => ({ r, num: i + 1 })).filter(({ r }) => r.julukan && Array.isArray(r.spot) && !(role.kind === 'warga' && role.name.toLowerCase() === r.n.toLowerCase()) && (!pres || r.n.toLowerCase() !== pres.toLowerCase()) && (!vp || r.n.toLowerCase() !== vp.toLowerCase()) && !carry.concat(owners).some(c => c.toLowerCase() === r.n.toLowerCase()));
   for (const { r, num } of castR) want.push({ key: 'r:' + r.n.toLowerCase(), name: r.tampil || '@' + r.n, num, julukan: r.julukan, kalimat: r.kalimat || [], castSpot: { x: WD.cx2w(r.spot[0]) + (r.spot[2] || 0), z: WD.cy2w(r.spot[1]) + (r.spot[3] || 0), face: r.face || 0, pose: r.pose || 'still', y: r.spot[4] || 0 } });
+  // ep 30: story characters who are not followers (island.json storyCast, e.g. the Penjaga Mercusuar): always at their spot, in character
+  for (const c of S.storyCast || []) if (c && Array.isArray(c.spot)) want.push({ key: 's:' + c.key, name: c.name, num: null, julukan: c.julukan, kalimat: c.kalimat || [], castSpot: { x: WD.cx2w(c.spot[0]) + (c.spot[2] || 0), z: WD.cy2w(c.spot[1]) + (c.spot[3] || 0), face: c.face || 0, pose: c.pose || 'still', y: c.spot[4] || 0 } });
   // ep 26 "Panggil Karakterku": names a visitor called out of the Batu Nama walk the island as their own character (kept on the device)
   const taken = new Set(want.map(w => w.key));
   const sumR = summoned.filter(n => !taken.has('r:' + n.toLowerCase()) && !(role.kind === 'warga' && role.name.toLowerCase() === n.toLowerCase()));
@@ -828,6 +830,14 @@ function frame() {
   if (postLights) postLights.material.opacity = Math.min(1, dk * 1.3);
   // ep 26: the apartment's glass lift rides up and down (16 s cycle); window.__lift (0..1) pins it for the studio camera
   for (const o of bObjs) { const c = o.userData.lift; if (!c) continue; const [a, b] = c.userData.span, ph = (T0 % 16) / 16; let k = ph < .3 ? 0 : ph < .45 ? (ph - .3) / .15 : ph < .8 ? 1 : ph < .95 ? 1 - (ph - .8) / .15 : 0; k = k * k * (3 - 2 * k); if (window.__lift != null) k = window.__lift; c.position.y = a + (b - a) * k; }
+  // ep 30: KM NELAYAN BARU sails her first route: every 150 s she leaves the harbour, loops out to sea (south-east) and comes
+  // home (70 s at sea). window.__boatTheta (0..2π) pins her on the route for the studio camera; 0 = moored.
+  for (const o of bObjs) { const bt = o.userData.boat; if (!bt) continue; const h = bt.userData.home || (bt.userData.home = { x: bt.position.x, z: bt.position.z, ry: bt.rotation.y });
+    const ph = (T0 + 40) % 150, th = window.__boatTheta != null ? window.__boatTheta : ph < 70 ? (ph / 70) * Math.PI * 2 : 0;
+    const P = t => ({ x: h.x + 6 * (1 - Math.cos(t)) + 3 * Math.sin(t), z: h.z + 7 * Math.sin(t / 2) });
+    if (th <= 0 || th >= Math.PI * 2) { bt.position.set(h.x, Math.sin(T0 * .9) * .04, h.z); bt.rotation.set(0, h.ry, 0); continue; }
+    const a = P(th), c = P(Math.min(Math.PI * 2, th + .05)), dx = c.x - a.x, dz = c.z - a.z, k = Math.min(1, th / .5, (Math.PI * 2 - th) / .5);
+    bt.position.set(a.x, Math.sin(T0 * 1.1) * .06, a.z); bt.rotation.set(Math.sin(T0 * .9) * .03, h.ry + (Math.atan2(-dz, dx) - h.ry) * 1, Math.sin(T0 * .7) * .04 * k); }
   for (const o of bObjs) if (o.userData.def.bob && o.userData.b.type !== 'perahu') { o.position.y = Math.sin(T0 * 1.2 + o.position.x) * .08; o.rotation.z = Math.sin(T0 + o.position.x) * .04; }
   mailObj.userData.flag.rotation.x = S.letters.length && (store.get('pulau-aru-seen-letters') | 0) < S.letters.length ? -Math.PI / 2 : 0;
   updateGhost();
