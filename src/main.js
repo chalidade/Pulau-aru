@@ -224,6 +224,39 @@ function rebuildPosts() {
   posts.add(postLights);
 }
 
+// ep 32: misteri sandal hilang (island.json mystery): a trail of small three-toed prints across the sand to the lighthouse,
+// a white feather where it starts, and a pile of missing sandals on the lighthouse gallery (who put them there?)
+const mysteryGroup = new THREE.Group(); scene.add(mysteryGroup); let mysteryPile = null;
+function rebuildMystery() {
+  mysteryGroup.clear(); if (mysteryPile) { lightObj.remove(mysteryPile); mysteryPile = null; }
+  const m = S.mystery; if (!m) return;
+  const pm = M.mat('#7a6142');
+  if (Array.isArray(m.trail) && m.trail.length > 1) {
+    const pts = m.trail.map(([x, y]) => [WD.cx2w(x), WD.cy2w(y)]); let k = 0;
+    for (let i = 0; i < pts.length - 1; i++) {
+      const [ax, az] = pts[i], [bx, bz] = pts[i + 1], len = Math.hypot(bx - ax, bz - az), dir = Math.atan2(bx - ax, bz - az), n = Math.max(1, Math.floor(len / .42));
+      for (let j = 0; j < n; j++, k++) {
+        const t = j / n, side = k % 2 ? .1 : -.1, px = ax + (bx - ax) * t + Math.cos(dir) * side, pz = az + (bz - az) * t - Math.sin(dir) * side;
+        const pr = new THREE.Group(); pr.position.set(px, surfaceY(px, pz) + .012, pz); pr.rotation.y = dir;
+        for (const a of [-.55, 0, .55]) { const toe = M.box(pr, pm, .045, .014, .17, 0, 0, 0); toe.position.set(Math.sin(a) * .08, 0, Math.cos(a) * .08); toe.rotation.y = a; toe.castShadow = false; }
+        mysteryGroup.add(pr);
+      }
+    }
+  }
+  if (Array.isArray(m.feather)) {
+    const fx = WD.cx2w(m.feather[0]), fz = WD.cy2w(m.feather[1]); const f = new THREE.Mesh(M.G.sph, M.mat('#f7f7f2'));
+    f.scale.set(.035, .012, .13); f.position.set(fx, surfaceY(fx, fz) + .02, fz); f.rotation.y = .7; mysteryGroup.add(f);
+    const q = new THREE.Mesh(M.G.box, M.mat('#d8d4c8')); q.scale.set(.008, .008, .16); q.position.copy(f.position); q.position.y += .006; q.rotation.y = .7; mysteryGroup.add(q);
+  }
+  if (m.pile) {
+    const top = lightObj.userData.top - .65, cols = ['#2f6fb5', '#d0483a', '#f2c94c', '#3a9a5b', '#e07ab0', '#1f2a44', '#ff8a3d', '#8b5a2b', '#7b4fc2', '#e8e2d0'];
+    mysteryPile = new THREE.Group(); mysteryPile.position.set(.62, top + .17, .42);
+    for (let i = 0; i < Math.min(14, m.pile * 2); i++) { const s = new THREE.Group(), lay = Math.floor(i / 5);
+      M.box(s, cols[(i >> 1) % cols.length], .13, .035, .32, 0, 0, 0); M.box(s, '#222222', .14, .05, .03, 0, .03, .06);
+      s.position.set(Math.cos(i * 2.1) * (.16 - lay * .05), lay * .045, Math.sin(i * 2.1) * (.13 - lay * .04)); s.rotation.set((i % 3 - 1) * .2, i * 1.3, (i % 2 ? .25 : -.15)); mysteryPile.add(s); }
+    lightObj.add(mysteryPile);
+  }
+}
 // ---------- buildings ----------
 const bGroup = new THREE.Group(); scene.add(bGroup);
 let bObjs = [], platforms = [], clouds = [];
@@ -634,6 +667,7 @@ function interactables() {
   const at = (x, y, w, hh, dz) => { const [cx, cz] = fpCenter(x, y, w, hh); return { x: cx, z: cz + dz }; };
   L.push({ ...at(LM.stone[0], LM.stone[1], 2, 1, 1.2), label: 'Baca Batu Nama', act: UI.openNames, r: 2 });
   L.push({ ...at(LM.light[0], LM.light[1], 2, 2, 1.8), label: 'Lihat mercusuar', act: UI.openLight, r: 2 });
+  if (S.mystery && Array.isArray(S.mystery.trail) && S.mystery.trail.length) { const [tx, ty] = S.mystery.trail[0]; L.push({ x: WD.cx2w(tx), z: WD.cy2w(ty), label: 'Periksa jejak aneh', act: () => UI.dialog('Jejak kaki aneh', S.mystery.note || 'Jejak kecil bertiga jari... menuju mercusuar.'), r: 1.8, key: 'jejak' }); }
   L.push({ ...at(LM.mail[0], LM.mail[1], 1, 1, .8), label: 'Buka kotak surat', act: UI.openLetters, r: 1.5 });
   L.push({ ...at(LM.board[0], LM.board[1], 2, 1, .9), label: 'Baca aturan', act: UI.openRules, r: 1.6 });
   L.push({ ...at(LM.wreck[0], LM.wreck[1], 3, 2, 1.4), label: 'Periksa perahu', act: UI.openMystery, r: 2.4 });
@@ -911,7 +945,7 @@ function padsFor() {
   return out;
 }
 let padKey = '';
-function applyWorld(animate = false) { const pads = padsFor(), pk = JSON.stringify(pads); if (pk !== padKey) { padKey = pk; WD.setPads(pads); terrain.userData.refresh(); } syncExpansion(animate); rebuildOcc(); rebuildRoadMesh(); rebuildNature(); rebuildBuildings(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); assignCloud(); assignDemo(); assignTour(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
+function applyWorld(animate = false) { const pads = padsFor(), pk = JSON.stringify(pads); if (pk !== padKey) { padKey = pk; WD.setPads(pads); terrain.userData.refresh(); } syncExpansion(animate); rebuildOcc(); rebuildRoadMesh(); rebuildNature(); rebuildBuildings(); rebuildMystery(); rebuildClimbs(); acts.compute(); for (const i of acts.siteCells()) solid[i] = 1; rebuildNpcs(); acts.assign(npcs); assignCloud(); assignDemo(); assignTour(); postCount = -1; rebuildPosts(); stoneObj.userData.paint(S.residents.map(r => r.n), S.residents.length); UI.refreshHud(); }
 function markDirty() { dirty = true; store.set(draftKey, JSON.stringify(S)); applyWorld(true); }
 const app = {
   get S() { return S; }, get dirty() { return dirty; }, get base() { try { return JSON.parse(PUB); } catch (e) { return null; } }, role, pop, lamps, curEp,
