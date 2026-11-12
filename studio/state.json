@@ -1,5 +1,5 @@
 {
- "nextEp": 32,
+ "nextEp": 33,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -50,7 +50,8 @@
   "Ep 29: Pelabuhan Nelayan (pelabuhan x63 y95, 4x4, water+walk = dek bisa diinjak) di teluk timur dermaga: lapak LELANG IKAN, peti ikan, bendera, lampu, kapal KM NELAYAN BARU tertambat di sisi timur (g.userData.boat, belum bergerak). muhamatferos197 (Nelayan Pertama, pose 'rodfish' = ikan besar di kail) dan _Rayhannn` (tetap sandal) kini memancing berdampingan di ujung selatan pelabuhan. Mercusuar berkedip 3x tiap 30 dtk saat malam (main.js, window.__lhPhase untuk kamera). End card: 'Kapal pertama bawa siapa?' -> bisa jadi episode kapal dari Pulau Seberang / Penjaga Mercusuar (Kamar 3 hotel) / tamu Kamar 4. Kapal bisa dijalankan & pelelangan ikan bisa jadi interaksi (jual ikan dari fishing.js ke koin).",
   "Ep 30: KM NELAYAN BARU kini berlayar sendiri di web (main.js: tiap 150 dtk, 70 dtk di laut, rute lingkar ke tenggara; window.__boatTheta untuk kamera). Penjaga Mercusuar (island.json storyCast = tokoh cerita non-follower, kit/pose 'keeper': mantel navy, tudung, janggut putih, lentera menyala) berdiri di depan Hotel Pulau (57,84), Buku Tamu: Kamar 3 dicentang (item diawali '✓' = dicentang). Spanduk dekat panggung (52,49) sekarang 'PEMILU SEGERA! 14 NOV'. Klub Pertama (DABY & princes) pindah ke gerbang Pelabuhan Nelayan (64-65,93), menunggu kapal. End card: siapa presiden berikutnya? -> episode berikut: pendaftaran calon dari komentar (aturan ep 15/16: like terbanyak = presiden, kedua = wapres), presiden 'EGA_ & wapres King indo selesai 14 Nov. Misteri lanjut: kenapa Penjaga Mercusuar meninggalkan mercusuar? siapa yang menyalakan lampunya sekarang? tamu Kamar 4?",
   "Ep 31: PEMILU KE-2 (14 Nov). Meja Pendaftaran Calon (mejadaftar x57 y44 r1, di timur panggung, depan menghadap barat; spanduk b.label/sub/foot) dengan Penjaga Mercusuar sebagai ketua panitia di balik meja (storyCast spot 58,44). Antrean calon live: island.json event demo at 'mejadaftar' (plakat AKU CALON!/PILIH AKU!/JANJI MANIS...) + event.join (kode baru: warga bernama ikut antre tanpa plakat baru) = DABY & princes (paling depan, rebutan), Pinjam Seratus, Etet_443 (plakat MANTAN PRESIDEN). Papan Pemilu (57,50) direset: head 'PEMILU KE-2 · 14 NOV', cands 'namamu?' x4, kursi menunjukkan pemegang sekarang (b.seats), hasil ep16 di b.prev. Aturan: komentar 'aku calon' + 1 janji kampanye; like terbanyak = presiden, kedua = wapres. Gag: bodyguard Cawetssssss menahan presidennya sendiri ('Identitas dulu'); EGA 'tiga like itu banyak'. Janji kampanye DABY: 'semua warga jadi yang pertama'. BUTUH: daftar calon + jumlah like dari komentar TikTok (Apify masih gagal) sebelum 14 Nov -> isi cands, lalu episode hitung suara/pelantikan; kalau sudah selesai hapus event & isi b.win.",
-  "SUBPLOT BARU (Chalid 11 Nov, RUNBOOK 2d): mulai ep32 jalankan dua subplot bersambung, bergantian/sejalan. (a) ASMARA: Penjual Ikan Bakar (fiksi, ep28) diam-diam menaruh ikan bakar terbaik + surat tanpa nama di Mercusuar setiap malam; Penjaga Mercusuar (fiksi, ep30) salah tingkah, warga bergosip siapa pengirimnya. Hanya tokoh fiksi dewasa. (b) MISTERI: kotak kas pulau / sandal-sandal warga hilang satu per satu, jejak kaki kecil di pasir, Pos Polisi menyelidiki dengan para calon polisi dari komentar sebagai detektif; pelakunya akhirnya burung camar yang menimbun barang di atas mercusuar (tokoh fiksi/hewan). Akun sungguhan boleh dicurigai sebentar secara lucu, lalu dibersihkan."
+  "SUBPLOT BARU (Chalid 11 Nov, RUNBOOK 2d): mulai ep32 jalankan dua subplot bersambung, bergantian/sejalan. (a) ASMARA: Penjual Ikan Bakar (fiksi, ep28) diam-diam menaruh ikan bakar terbaik + surat tanpa nama di Mercusuar setiap malam; Penjaga Mercusuar (fiksi, ep30) salah tingkah, warga bergosip siapa pengirimnya. Hanya tokoh fiksi dewasa. (b) MISTERI: kotak kas pulau / sandal-sandal warga hilang satu per satu, jejak kaki kecil di pasir, Pos Polisi menyelidiki dengan para calon polisi dari komentar sebagai detektif; pelakunya akhirnya burung camar yang menimbun barang di atas mercusuar (tokoh fiksi/hewan). Akun sungguhan boleh dicurigai sebentar secara lucu, lalu dibersihkan.",
+  "Ep 32 MISTERI SANDAL HILANG (subplot b, bagian 1 dari 3-5): 7 sandal warga hilang dalam satu malam. Papan BARANG HILANG (papanjadwal x66 y89, timur Pos Penjaga Pantai), @RANUUGLL kini Polisi Pantai (resident spot 68,91, pose point), Aidil YZ menangis di samping papan (spot 66,91, pose cry). Tersangka #1 whoyss dibersihkan di episode yang sama (alibi: tidur di Pos Ronda, ngorok). Petunjuk 1: jejak kecil tiga jari di pantai timur menuju pintu mercusuar + bulu putih (Alexandre menemukannya) = island.json mystery.trail/feather. Petunjuk 2: ALERXMNC 'sudah di sini dari tadi', 'jejaknya naik ke atas'; tumpukan sandal ada di galeri mercusuar (mystery.pile, main.js rebuildMystery). Pelaku (belum diungkap): burung camar yang menimbun barang di atas mercusuar. Episode berikut: tebakan penonton (komentar), kamera jaga malam / Pos Polisi, camar tertangkap basah membawa sandal Aru; lalu kembalikan sandal & hapus mystery. Subplot asmara (Penjual Ikan Bakar x Penjaga Mercusuar) belum dimulai."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -262,16 +263,22 @@
    "title": "Presiden Pulau Dipilih Komentar",
    "posted": "https://www.tiktok.com/@kita.berkembang/video/7706867844796960020",
    "summary": "Format KONSEP (run sore; pagi ep 30 CERITA). Tidak ada komentar baru: Apify gagal lagi (run 42997290536, APIFY_TOKEN kosong), Chrome tidak tersambung, komentar.md & traktir kosong -> episode menjawab end card ep 30 'Siapa presiden berikutnya?' dengan membuka pendaftaran calon. Cold open: Klub Pertama rebutan di depan Meja Pendaftaran ('Aku daftar PERTAMA!' / 'Princess duluan, dong!'), hook PRESIDEN PULAU / DIPILIH KOMENTAR!. Premis follow=warga, presiden dipilih dari komentar. EGA 'menang dengan tiga like' ('Tiga like itu banyak, lho!'), Penjaga Mercusuar ketua panitia ('Masa jabatannya habis 14 November. Pemilu harus diulang.'), Aru membuka pendaftaran, Pinjam Seratus mau pinjam biaya daftar ('Gratis.'), bodyguard menahan presidennya sendiri, mantan presiden Etet daftar lagi ('Kali ini... dipilih beneran.'), Papan Pemilu kosong 'namamu?', cara jadi calon, janji DABY 'semua warga jadi yang pertama'. End card: Mau jadi presiden? Komentar AKU CALON + janji; CTA follow. 60 dtk."
+  },
+  {
+   "ep": 32,
+   "title": "Misteri Sandal Hilang",
+   "posted": "",
+   "summary": "Format CERITA (run pagi; ep 31 KONSEP). Tidak ada komentar baru: Apify gagal lagi (run 43143245294, APIFY_TOKEN kosong), Chrome tidak tersambung, komentar.md & traktir kosong -> episode memulai subplot misteri (RUNBOOK 2d). Cold open: Aidil YZ menangis di depan Papan BARANG HILANG ('Sandalku... HILANG!'), hook SANDAL WARGA / HILANG SATU-SATU!. Premis follow=warga, komentar=cerita. Tujuh sandal hilang termasuk sandal Aru ('cuma punya satu!'). @RANUUGLL Polisi Pantai turun tangan, menuduh whoyss (si tukang sembunyi sandal) -> Aru: semalam dia tidur di Pos Ronda, ngoroknya kedengeran sampai pantai -> tidak bersalah. Jejak kecil tiga jari di pantai timur ('bukan jejak manusia'), Alexandre menemukan bulu putih, ALERXMNC di pintu mercusuar ('Aku sudah di sini dari tadi... jejaknya naik ke atas'), kamera naik: tumpukan sandal di puncak mercusuar. End card: Siapa pencurinya? tulis tebakan + CTA traktir + pengingat pemilu 14 Nov. 60 dtk."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 31,
-   "cta": "follow (KONSEP) + ajakan komentar calon"
+   "ep": 32,
+   "cta": "traktir (end card) + pengingat pemilu AKU CALON"
   },
-  "nextCta": "traktir"
+  "nextCta": "UMKM"
  },
  "notes": [
   "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
@@ -299,7 +306,8 @@
   "Ep 27 (10 Nov pagi): Apify gagal lagi (run 42744535817), Chrome tidak tersambung di sesi cloud (repo sudah ter-attach) -> diposting manual. Episode dari antrean komentar.md (@araa_yinchan) + traktiran tertunda. Kode baru: model gedungrapat (b.items/head/foot/label/sub), castKit/castPose 'calc', resident spot[4] = tinggi (berdiri di lantai gedung), assignDemo memakai event.at (tipe bangunan) dan event.spots [dx,dz,face], plakat demo kini terbaca dari dua sisi, ministers di menu aturan. Kamera dari samping Gedung Rapat terhalang dinding samping belakang: ambil dari depan/serong (yaw -.45..+.35). Apartemen menghalangi kamera yang mundur ke selatan dari gedung rapat: pakai yaw ~-.7 untuk aerial.",
   "Ep 29 (10 Nov sore): Apify gagal lagi (run 42793189992), Chrome tidak tersambung (tool claude-in-chrome tidak ada; add_repo tidak tersedia, repo sudah ter-attach) -> diposting manual. Hanya satu komentar tersedia (antrean komentar.md), jadi episode KONSEP satu komentar + cameo. Kode baru: model pelabuhan (water+walk, clearTrees: def.clearTrees membuat bangunan air ikut membersihkan pohon), castKit 'rodfish', mercusuar berkedip, __pulau.T0. Kamera: yaw 0 = kamera di selatan, +yaw ke timur; karakter face = yaw kamera untuk menghadap kamera. Di atas dek pakai P.surfaceY (bukan groundY). Mengangkat joran lewat pivot (n.kit dipindah ke Group di tangan) maksimal ~-.6 rad, lebih dari itu ikan keluar frame. Capture DPR2 sesi ini ~0,6-1 s/frame dan sempat menghasilkan frame hitam tunggal (c8, c10, c12): cek lonjakan kecerahan per folder lalu salin frame sebelumnya.",
   "Ep 30 (11 Nov pagi): Apify gagal lagi (APIFY_TOKEN kosong, run 42947760663), Chrome tidak tersambung, komentar.md & traktir kosong; episode digerakkan thread ep 29 (kapal pertama) dan masa jabatan presiden yang habis 14 Nov. Video dikirim ke Chalid untuk diposting manual.",
-  "Ep 31 (11 Nov sore): Apify gagal lagi (run 42997290536), Chrome tidak tersambung (tool claude-in-chrome tidak ada) -> video dikirim ke Chalid untuk diposting manual. Kode baru: model mejadaftar, papanpemilu b.head/b.sub/b.seats, event.join. Kamera di sekitar meja: depan meja (barat) penuh antrean berplakat -> pakai helper __clr di shots ep31 (sembunyikan NPC di jalur kamera); selatan meja tertutup Monumen & papan pemilu (jangan kamera dari selatan); presiden EGA berdiri di balik podium -> taruh di (-.75,-10.6) di samping podium dan sembunyikan wapres (__VP). Target kamera pakai P.surfaceY + tinggi, bukan y tetap (tanah di utara panggung lebih tinggi). Capture DPR2 ~1 dtk/frame (2000 frame ~35 mnt)."
+  "Ep 31 (11 Nov sore): Apify gagal lagi (run 42997290536), Chrome tidak tersambung (tool claude-in-chrome tidak ada) -> video dikirim ke Chalid untuk diposting manual. Kode baru: model mejadaftar, papanpemilu b.head/b.sub/b.seats, event.join. Kamera di sekitar meja: depan meja (barat) penuh antrean berplakat -> pakai helper __clr di shots ep31 (sembunyikan NPC di jalur kamera); selatan meja tertutup Monumen & papan pemilu (jangan kamera dari selatan); presiden EGA berdiri di balik podium -> taruh di (-.75,-10.6) di samping podium dan sembunyikan wapres (__VP). Target kamera pakai P.surfaceY + tinggi, bukan y tetap (tanah di utara panggung lebih tinggi). Capture DPR2 ~1 dtk/frame (2000 frame ~35 mnt).",
+  "Ep 32 (12 Nov pagi): Apify gagal lagi (run 43143245294, APIFY_TOKEN kosong), Chrome tidak tersambung (tool claude-in-chrome tidak ada; add_repo tidak tersedia, repo sudah ter-attach) -> video dikirim ke Chalid untuk diposting manual. Kode baru: main.js rebuildMystery (island.json mystery: trail [[cx,cy],...] jejak tiga jari, feather [cx,cy], pile = jumlah sandal di galeri mercusuar, note = teks dialog 'Periksa jejak aneh'). Lokasi pemotretan: Papan BARANG HILANG world (11,33.5) - kamera dari selatan (yaw ~.15); jangan kamera di barat (Pos Penjaga Pantai ber-scale 1.5 menutupi). Semak whoyss (-5.5,-13.5) penuh pohon: pakai __hideInst + yaw -.5. Tumpukan sandal di galeri mercusuar world (27.58, -1.38), kamera yaw -.6 pitch .6 dist ~1.8."
  ],
  "rooms": {
   "open": [
@@ -324,7 +332,7 @@
   ]
  },
  "strategy": {
-  "lastFormat": "KONSEP",
+  "lastFormat": "CERITA",
   "tests": [
    {
     "ep": 25,
@@ -381,19 +389,17 @@
     "opening": "3D close-up Klub Pertama rebutan di depan Meja Pendaftaran Calon (spanduk terbaca), tanpa filter buku cerita",
     "captionStyle": "pendek personal + ajakan komentar AKU CALON + pulau-aru.web.id + #pulaunetizen #alurcerita",
     "duration": 60
+   },
+   {
+    "ep": 32,
+    "format": "CERITA",
+    "hook": "SANDAL WARGA / HILANG SATU-SATU!",
+    "opening": "3D close-up Aidil YZ menangis di depan Papan BARANG HILANG, tanpa filter buku cerita",
+    "captionStyle": "pendek personal + ajakan tebak pelaku di komentar + pulau-aru.web.id + #pulaunetizen #alurcerita",
+    "duration": 60
    }
   ],
   "castLog": [
-   {
-    "ep": 24,
-    "cast": [
-     "whoyss",
-     "Cawetssssss",
-     "KM GPP TAN",
-     "Bu Guru Gina",
-     "Klub Pertama"
-    ]
-   },
    {
     "ep": 25,
     "cast": [
@@ -462,6 +468,16 @@
      "Klub Pertama",
      "Cawetssssss",
      "Etet_443"
+    ]
+   },
+   {
+    "ep": 32,
+    "cast": [
+     "Aidil YZ",
+     "RANUUGLL",
+     "whoyss",
+     "Alexandre",
+     "ALERXMNC"
     ]
    }
   ]

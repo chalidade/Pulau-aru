@@ -11817,7 +11817,21 @@
   },
   {
    "n": "RANUUGLL",
-   "ep": 11
+   "ep": 11,
+   "tampil": "RANUUGLL",
+   "julukan": "Polisi Pantai",
+   "sifat": "penyelidik serius",
+   "kalimat": [
+    "Tenang. Polisi pantai turun tangan!",
+    "Jejak ini... bukan jejak manusia."
+   ],
+   "tempat": "depan Papan Barang Hilang, timur Pos Penjaga Pantai",
+   "spot": [
+    68,
+    91
+   ],
+   "face": 0,
+   "pose": "point"
   },
   {
    "n": "sapta.rajo.ghaisa",
@@ -11869,10 +11883,10 @@
     "Hiks... indah banget 🥺",
     "Makasih banyaaak..."
    ],
-   "tempat": "bangku taman",
+   "tempat": "depan Papan Barang Hilang (sandalnya hilang, ep 32)",
    "spot": [
-    62,
-    42
+    66,
+    91
    ],
    "face": 0,
    "pose": "cry"
@@ -12973,6 +12987,23 @@
    "foot": "PEMILU 14 NOV · GRATIS",
    "by": "panitia pemilu",
    "ep": 31
+  },
+  {
+   "type": "papanjadwal",
+   "x": 66,
+   "y": 89,
+   "r": 0,
+   "head": "BARANG HILANG",
+   "color": "#b5402f",
+   "label": "Lapor ke Pos Penjaga Pantai · @RANUUGLL",
+   "items": [
+    "Sandal Aidil YZ (kiri & kanan)",
+    "Sandal Bu Guru Gina",
+    "Sandal Aru (satu-satunya)",
+    "+4 sandal lagi... siapa pelakunya?"
+   ],
+   "by": "RANUUGLL",
+   "ep": 32
   }
  ],
  "episodes": [
@@ -13271,6 +13302,17 @@
    "date": "2026-11-11",
    "picks": [],
    "text": "Pendaftaran calon presiden untuk PEMILU KE-2 (14 November) resmi dibuka! Meja Pendaftaran Calon berdiri di sebelah panggung, dijaga Penjaga Mercusuar sebagai ketua panitia.\nKlub Pertama rebutan daftar duluan, Pinjam Seratus mau pinjam biaya daftar (gratis!), dan mantan presiden @Etet_443 ikut antre lagi.\nCara jadi calon: komentar \"aku calon\" + satu janji kampanye. Like terbanyak jadi presiden, kedua jadi wakil presiden."
+  },
+  {
+   "ep": 32,
+   "date": "2026-11-12",
+   "picks": [
+    "RANUUGLL",
+    "whoyss",
+    "Aidil YZ",
+    "ALERXMNC"
+   ],
+   "text": "Misteri Sandal Hilang: tujuh sandal warga hilang dalam satu malam, termasuk sandal Aru. Polisi Pantai @RANUUGLL menyelidiki; whoyss sempat dicurigai, tapi semalam ia tidur di Pos Ronda. Jejak kecil tiga jari di pantai timur menuju mercusuar, dan di puncaknya... tumpukan sandal. Siapa pelakunya?"
   }
  ],
  "letters": [],
@@ -13556,5 +13598,37 @@
    "ep": 30,
    "tempat": "di balik Meja Pendaftaran Calon (ketua panitia pemilu ke-2, ep 31)"
   }
- ]
+ ],
+ "mystery": {
+  "ep": 32,
+  "title": "Misteri Sandal Hilang",
+  "trail": [
+   [
+    77,
+    57
+   ],
+   [
+    78.5,
+    56.4
+   ],
+   [
+    80,
+    55.8
+   ],
+   [
+    81.2,
+    55
+   ],
+   [
+    82.2,
+    54.4
+   ]
+  ],
+  "feather": [
+   76.6,
+   57.3
+  ],
+  "pile": 7,
+  "note": "Jejak kecil bertiga jari, mulai dari bulu putih di pasir... dan berhenti di pintu mercusuar. Tujuh sandal warga hilang (ep 32). Siapa pelakunya? Tebak di komentar!"
+ }
 }
