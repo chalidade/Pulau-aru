@@ -44,6 +44,9 @@ export function castKit(ch, pose) {
   // ep 28: Komandan Damkar @vcxn.mx: red helmet with a brim, a reflective yellow band on the shirt, a radio on the belt
   if (pose === 'damkar') { box(b, '#d0302a', .42, .16, .42, 0, 1.35, -.01); box(b, '#d0302a', .5, .03, .5, 0, 1.33, -.01); box(b, '#f2c230', .1, .08, .02, 0, 1.4, .22); box(b, '#f2c230', .47, .06, .29, 0, .62, 0); box(b, '#f2c230', .47, .06, .29, 0, .8, 0); box(b, '#2b2b2b', .08, .14, .06, .2, .5, .16); }
   if (pose === 'cookie') { box(b, '#e9d8a6', .34, .03, .24, -.1, .66, .36); for (const [x, z] of [[-.2, .3], [-.06, .32], [-.14, .42], [0, .42]]) box(b, '#b07040', .07, .04, .07, x, .69, z); box(b, '#d62828', .06, .06, .06, -.24, .7, .44); }
+  // ep 33: the two detectives from the comments (@mhmmdalfaiz0, @ngala.tcl): brown checked detective hat, a magnifying glass held up to the eye
+  if (pose === 'detektif') { box(b, '#7a5a3a', .42, .16, .42, 0, 1.36, -.01); box(b, '#7a5a3a', .54, .03, .54, 0, 1.35, -.01); box(b, '#5a3f26', .43, .04, .43, 0, 1.4, -.01); box(b, '#c9a24a', .1, .05, .02, .12, 1.42, .22);
+    add(b, G.cyl6, '#3a2a1a', .025, .26, .025, .3, .86, .34); const ring = add(b, G.cyl8, '#c9a24a', .12, .02, .12, .3, 1.06, .36); ring.rotation.x = Math.PI / 2; const gl = add(b, G.cyl8, new THREE.MeshStandardMaterial({ color: '#cfeaf5', emissive: '#7fb8d0', emissiveIntensity: .35, transparent: true, opacity: .6 }), .1, .022, .1, .3, 1.06, .36); gl.rotation.x = Math.PI / 2; gl.castShadow = false; }
 }
 export function presidentKit(ch) {
   const b = ch.userData.body;
@@ -1185,6 +1188,22 @@ export const BT = {
       const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.08, .1, .08); lamp.position.set(.62, 1.0, .95); g.add(lamp);
     } },
   // ep 23: the president's schedule board, kept by Sekretaris Presiden Debby (items from b.items, footer from b.label)
+  // ep 33: Kamera Jaga Malam: the detectives' night camera on a pole by the lighthouse, aimed at its door (+z at r=0).
+  // A blinking red REC light (userData.led), a small sign; b.label = who installed it.
+  cctv: { n: 'Kamera Jaga Malam', w: 1, h: 1, land: true,
+    build(g, b) {
+      add(g, G.cyl6, '#9a9b94', .2, .12, .2, 0, .06, 0); add(g, G.cyl6, '#6b6f75', .05, 2.5, .05, 0, 1.25, 0);
+      box(g, '#6b6f75', .06, .06, .42, 0, 2.38, .12); const cam = box(g, '#f2f2ee', .26, .22, .46, 0, 2.3, .36); cam.rotation.x = .18; box(g, '#f2f2ee', .34, .04, .5, 0, 2.53, .34);
+      add(g, G.cyl8, '#111318', .08, .06, .08, 0, 2.38, .62).rotation.x = Math.PI / 2 - .18;
+      const led = add(g, G.sph, new THREE.MeshBasicMaterial({ color: '#ff2a2a' }), .035, .035, .035, .09, 2.47, .6, 0, false); g.userData.led = led;
+      const c = document.createElement('canvas'); c.width = 512; c.height = 256; const x = c.getContext('2d');
+      x.fillStyle = '#1f2a44'; x.fillRect(0, 0, 512, 256); x.fillStyle = '#ffd25a'; x.fillRect(0, 0, 512, 12); x.fillRect(0, 244, 512, 12);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ff4a3a'; x.font = '700 40px "Pixelify Sans", sans-serif'; x.fillText('● REC', 256, 50, 480);
+      x.fillStyle = '#ffffff'; x.font = '700 50px "Pixelify Sans", sans-serif'; x.fillText('KAMERA JAGA MALAM', 256, 118, 490);
+      x.fillStyle = '#ffd25a'; x.font = '700 28px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'Detektif Pantai', 256, 196, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sign = new THREE.Mesh(new THREE.PlaneGeometry(.9, .45), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.25, -.06); sign.rotation.y = Math.PI; g.add(sign); box(g, '#1f2a44', .92, .47, .02, 0, 1.015, -.04);
+    } },
   papanjadwal: { n: 'Papan Jadwal Presiden', w: 2, h: 1, land: true,
     build(g, b) {
       for (const x of [-.6, .6]) { const l = box(g, '#5e3b22', .07, 1.7, .07, x, 0, -.12); l.rotation.x = .12; }
@@ -1527,6 +1546,20 @@ export function wreck() {
   box(g, '#8a6a4a', .6, .06, .18, -1.2, 0, -.7).rotation.y = -.4;
   // coiled rope (the first clue)
   add(g, new THREE.TorusGeometry(.18, .05, 4, 8), '#c9b27a', 1, 1, 1, .9, .06, -.4).rotation.x = Math.PI / 2;
+  return g;
+}
+// ep 33: the sandal thief, a seagull (camar) holding a sandal in its beak. Faces +z; wings in userData for flapping.
+export function seagull() {
+  const g = new THREE.Group();
+  add(g, G.sph, '#f7f7f2', .16, .14, .26, 0, .22, 0); add(g, G.sph, '#f7f7f2', .1, .1, .1, 0, .36, .2);
+  add(g, G.cone4, '#9aa3ad', .08, .16, .05, 0, .24, -.3).rotation.x = -Math.PI / 2;
+  const bk = add(g, G.cone4, '#f2b632', .035, .12, .035, 0, .35, .33); bk.rotation.x = Math.PI / 2; add(g, G.box, '#d0483a', .02, .02, .02, 0, .335, .34);
+  for (const x of [-.055, .055]) add(g, G.sph, '#111111', .018, .018, .018, x, .38, .27);
+  for (const x of [-.05, .05]) { add(g, G.cyl6, '#f2a03a', .012, .12, .012, x, .06, 0); add(g, G.box, '#f2a03a', .05, .01, .06, x, .005, .02); }
+  const wing = s => { const w = new THREE.Group(); w.position.set(s * .12, .27, .02); add(w, G.box, '#c9ced4', .34, .025, .2, s * .17, 0, 0); add(w, G.box, '#2b2d33', .1, .026, .18, s * .37, 0, -.01); g.add(w); return w; };
+  const wl = wing(-1), wr = wing(1);
+  const sd = new THREE.Group(); sd.position.set(0, .3, .44); add(sd, G.box, '#ff8a3d', .12, .03, .28, 0, 0, 0); add(sd, G.box, '#222222', .13, .04, .03, 0, .02, -.06); sd.rotation.set(.3, .4, 0); g.add(sd);
+  g.userData = { wl, wr, sandal: sd };
   return g;
 }
 export function lighthouse() {

@@ -226,9 +226,9 @@ function rebuildPosts() {
 
 // ep 32: misteri sandal hilang (island.json mystery): a trail of small three-toed prints across the sand to the lighthouse,
 // a white feather where it starts, and a pile of missing sandals on the lighthouse gallery (who put them there?)
-const mysteryGroup = new THREE.Group(); scene.add(mysteryGroup); let mysteryPile = null;
+const mysteryGroup = new THREE.Group(); scene.add(mysteryGroup); let mysteryPile = null, mysteryGull = null;
 function rebuildMystery() {
-  mysteryGroup.clear(); if (mysteryPile) { lightObj.remove(mysteryPile); mysteryPile = null; }
+  mysteryGroup.clear(); if (mysteryPile) { lightObj.remove(mysteryPile); mysteryPile = null; } if (mysteryGull) { lightObj.remove(mysteryGull); mysteryGull = null; }
   const m = S.mystery; if (!m) return;
   const pm = M.mat('#7a6142');
   if (Array.isArray(m.trail) && m.trail.length > 1) {
@@ -256,6 +256,14 @@ function rebuildMystery() {
       s.position.set(Math.cos(i * 2.1) * (.16 - lay * .05), lay * .045, Math.sin(i * 2.1) * (.13 - lay * .04)); s.rotation.set((i % 3 - 1) * .2, i * 1.3, (i % 2 ? .25 : -.15)); mysteryPile.add(s); }
     lightObj.add(mysteryPile);
   }
+  // ep 33: the thief caught on the Kamera Jaga Malam: a seagull guarding the pile with a sandal in its beak; every 40 s it circles the lamp
+  if (m.gull) { mysteryGull = M.seagull(); mysteryGull.scale.setScalar(1.3); mysteryGull.userData.home = new THREE.Vector3(.1, lightObj.userData.top - .5, .9); mysteryGull.position.copy(mysteryGull.userData.home); lightObj.add(mysteryGull); }
+}
+function stepGull(T) {
+  const g = mysteryGull; if (!g) return; const u = g.userData, h = u.home, c = window.__gullT != null ? window.__gullT : T % 40;
+  if (c < 7) { const a0 = Math.atan2(h.z, h.x), k = Math.sin(c / 7 * Math.PI), a = a0 + c / 7 * Math.PI * 2, r = .9 + 1.8 * k; g.position.set(Math.cos(a) * r, h.y + 1.0 * k, Math.sin(a) * r);
+    g.rotation.y = -a; const f = Math.sin(T * 14) * .7; u.wl.rotation.z = f; u.wr.rotation.z = -f; }
+  else { g.position.copy(h); g.rotation.y = 1.2 + Math.sin(T * .7) * .4; u.wl.rotation.z = u.wr.rotation.z = 0; g.children[1].position.y = .36 + Math.max(0, Math.sin(T * 3)) * .02; }
 }
 // ---------- buildings ----------
 const bGroup = new THREE.Group(); scene.add(bGroup);
@@ -853,6 +861,8 @@ function frame() {
   const lg = Math.log10(L + 1);
   lhLight.intensity = L > 0 && !blink ? dk * (8 + lg * 14) : 0; lhLight.distance = 25 + lg * 15;
   ud.beamMat.opacity = L > 0 && !blink ? dk * .06 * Math.min(1.6, .5 + lg / 2) : 0; ud.beam.rotation.y = T0 * .6; ud.beam.scale.set(1 + lg * .3, 1, 1);
+  stepGull(T0);
+  for (const o of bObjs) if (o.userData.led) o.userData.led.visible = (T0 % 1.2) < .7;
   // fires
   fireSources.length = 0; fireSources.push(fireObj);
   for (const o of bObjs) if (o.userData.def.fire) fireSources.push(o);
