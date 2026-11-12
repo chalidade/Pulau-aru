@@ -11977,12 +11977,14 @@
     "Boleh nggak?",
     "Aku boleh ikut... boleh?"
    ],
-   "tempat": "berdiri di pinggir kerumunan",
+   "tempat": "ikut jaga malam di Kamera Jaga Malam (ep 33)",
    "spot": [
-    61,
-    46
+    76,
+    56,
+    0,
+    -0.1
    ],
-   "face": 0,
+   "face": 1.4,
    "pose": "ask"
   },
   {
@@ -12067,12 +12069,14 @@
     "GG, warga!",
     "Tunggu, aku respawn dulu."
    ],
-   "tempat": "taman bermain",
+   "tempat": "jaga malam di Kamera Jaga Malam (sandal umpannya ikut dicuri camar, ep 33)",
    "spot": [
-    51,
-    74
+    77,
+    56,
+    0,
+    0.2
    ],
-   "face": 3.14,
+   "face": 1.57,
    "pose": "game"
   },
   {
@@ -12374,6 +12378,46 @@
    ],
    "face": 0,
    "pose": "fold"
+  },
+  {
+   "n": "mhmmdalfaiz0",
+   "ep": 33,
+   "tampil": "mhmmdalfaiz0",
+   "julukan": "Detektif Pantai",
+   "sifat": "teliti, kaca pembesar ke mana-mana",
+   "kalimat": [
+    "Jejak tiga jari... tercatat!",
+    "Pelaku selalu kembali ke tempat kejadian."
+   ],
+   "tempat": "di samping Kamera Jaga Malam dekat mercusuar",
+   "spot": [
+    79,
+    56,
+    0,
+    -0.2
+   ],
+   "face": 1.2,
+   "pose": "detektif"
+  },
+  {
+   "n": "ngala.tcl",
+   "ep": 33,
+   "tampil": "ngala.tcl",
+   "julukan": "Detektif Pantai",
+   "sifat": "tenang, jago menunggu",
+   "kalimat": [
+    "Ssst... kita tunggu malam.",
+    "Kamera sudah merekam. Sabar."
+   ],
+   "tempat": "di samping Kamera Jaga Malam dekat mercusuar",
+   "spot": [
+    80,
+    56,
+    -0.1,
+    0.25
+   ],
+   "face": 1.9,
+   "pose": "detektif"
   }
  ],
  "buildings": [
@@ -12995,15 +13039,24 @@
    "r": 0,
    "head": "BARANG HILANG",
    "color": "#b5402f",
-   "label": "Lapor ke Pos Penjaga Pantai · @RANUUGLL",
+   "label": "Terekam Kamera Jaga Malam · Detektif Pantai",
    "items": [
     "Sandal Aidil YZ (kiri & kanan)",
-    "Sandal Bu Guru Gina",
     "Sandal Aru (satu-satunya)",
-    "+4 sandal lagi... siapa pelakunya?"
+    "Sandal umpan inyuu (ep 33)",
+    "✓ Pelaku: BURUNG CAMAR?!"
    ],
    "by": "RANUUGLL",
    "ep": 32
+  },
+  {
+   "type": "cctv",
+   "x": 78,
+   "y": 55,
+   "r": 3,
+   "label": "Detektif @mhmmdalfaiz0 & @ngala.tcl",
+   "by": "mhmmdalfaiz0 & ngala.tcl",
+   "ep": 33
   }
  ],
  "episodes": [
@@ -13308,6 +13361,15 @@
    "date": "2026-11-12",
    "picks": [],
    "text": "Misteri Sandal Hilang: tujuh sandal warga hilang dalam satu malam, termasuk sandal Aru. Polisi Pantai @RANUUGLL menyelidiki; whoyss sempat dicurigai, tapi semalam ia tidur di Pos Ronda. Jejak kecil tiga jari di pantai timur menuju mercusuar, dan di puncaknya... tumpukan sandal. Siapa pelakunya?"
+  },
+  {
+   "ep": 33,
+   "date": "2026-11-12",
+   "picks": [
+    "mhmmdalfaiz0",
+    "ngala.tcl"
+   ],
+   "text": "Detektif dari Komentar: @mhmmdalfaiz0 dan @ngala.tcl, yang mendaftar jadi polisi di kolom komentar, dilantik jadi Detektif Pantai. Mereka memasang Kamera Jaga Malam di depan mercusuar dengan sandal inyuu sebagai umpan. Jam dua pagi, kamera merekam pelakunya: seekor burung camar yang membawa sandal ke puncak mercusuar. Tapi kenapa camar mengumpulkan sandal?"
   }
  ],
  "letters": [],
@@ -13524,9 +13586,7 @@
   "guide": "Bu Guru Gina",
   "pupils": [
    "luciardiansyah",
-   "Letisya Khianantaa",
-   "D4L",
-   "inyuu416"
+   "Letisya Khianantaa"
   ],
   "route": [
    [
@@ -13595,7 +13655,7 @@
   }
  ],
  "mystery": {
-  "ep": 32,
+  "ep": 33,
   "title": "Misteri Sandal Hilang",
   "trail": [
    [
@@ -13623,7 +13683,8 @@
    76.6,
    57.3
   ],
-  "pile": 7,
-  "note": "Jejak kecil bertiga jari, mulai dari bulu putih di pasir... dan berhenti di pintu mercusuar. Tujuh sandal warga hilang (ep 32). Siapa pelakunya? Tebak di komentar!"
+  "pile": 8,
+  "note": "Tertangkap Kamera Jaga Malam: seekor burung camar membawa sandal ke puncak mercusuar! Delapan sandal (termasuk sandal umpan inyuu) ada di sana. Tapi kenapa camar mengumpulkan sandal? Tebak di komentar!",
+  "gull": true
  }
 }

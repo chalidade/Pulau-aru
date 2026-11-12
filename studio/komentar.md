@@ -15,8 +15,7 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 - @fathan.9987: "aku ingin jadi presiden"
 - @wkwkbwa: "aku calonn"
 - @ormis_123: "aku mau jadi wapres" (calon wapres)
-Lainnya: @sanel1276 minta rumah di pantai; @salmanajalah3 mau jadi pilot (perlu bandara); @mhmmdalfaiz0, @ngala.tcl calon polisi
-(cocok jadi detektif subplot sandal hilang).
+Lainnya: @sanel1276 minta rumah di pantai; @salmanajalah3 mau jadi pilot (perlu bandara).
 
 ## Traktir (langsung diwujudkan, tanpa undian)
 Traktiran dari teer.id/chalidade masuk otomatis ke studio/traktir.json (kalau secret TRAKTEER_API_KEY sudah diisi). Tulis di sini hanya kalau mau menambah manual.
