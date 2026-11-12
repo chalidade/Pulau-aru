@@ -4,6 +4,20 @@ Tambahkan komentar di sini kalau mau menentukan sendiri apa yang masuk ke episod
 (bisa diedit langsung di GitHub dari HP). Sesi otomatis memakai yang ada di sini lebih dulu,
 lalu menghapusnya setelah dipakai. Format satu baris: `@username: isi komentar`.
 
+## CALON PRESIDEN PEMILU KE-2 (dikumpulkan Chalid/Claude 12 Nov dari komentar ep31; untuk episode pemilu 14 Nov)
+Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemilu, lalu hapus. Janji fiksi untuk pulau
+(bukan politik nyata). Sudah dibalas di TikTok ("pendaftaran diterima").
+- @.....plengerrr0 (Presiden 'EGA_, petahana): "aku calon janjiku akan menyejaterahkan rakyatt"
+- @xzxxxxx67 (Hafidz): "tidak ada bullying tidak ada korupsi"
+- @catuk.tamluk: "gw bakal hapus korup"
+- @rizyanzet: "Kalo saya terpilih saya mau buat patung presiden pertama ..."
+- @wakwawww536437 (Opal): "aku calon presiden aku opal ..."
+- @fathan.9987: "aku ingin jadi presiden"
+- @wkwkbwa: "aku calonn"
+- @ormis_123: "aku mau jadi wapres" (calon wapres)
+Lainnya: @sanel1276 minta rumah di pantai; @salmanajalah3 mau jadi pilot (perlu bandara); @mhmmdalfaiz0, @ngala.tcl calon polisi
+(cocok jadi detektif subplot sandal hilang).
+
 ## Traktir (langsung diwujudkan, tanpa undian)
 Traktiran dari teer.id/chalidade masuk otomatis ke studio/traktir.json (kalau secret TRAKTEER_API_KEY sudah diisi). Tulis di sini hanya kalau mau menambah manual.
 
