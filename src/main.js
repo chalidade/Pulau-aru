@@ -263,7 +263,7 @@ function stepGull(T) {
   const g = mysteryGull; if (!g) return; const u = g.userData, h = u.home, c = window.__gullT != null ? window.__gullT : T % 40;
   if (c < 7) { const a0 = Math.atan2(h.z, h.x), k = Math.sin(c / 7 * Math.PI), a = a0 + c / 7 * Math.PI * 2, r = .9 + 1.8 * k; g.position.set(Math.cos(a) * r, h.y + 1.0 * k, Math.sin(a) * r);
     g.rotation.y = -a; const f = Math.sin(T * 14) * .7; u.wl.rotation.z = f; u.wr.rotation.z = -f; }
-  else { g.position.copy(h); g.rotation.y = 1.2 + Math.sin(T * .7) * .4; u.wl.rotation.z = u.wr.rotation.z = 0; g.children[1].position.y = .36 + Math.max(0, Math.sin(T * 3)) * .02; }
+  else { g.position.copy(h); g.rotation.y = 1.2 + Math.sin(T * .7) * .4; u.wl.rotation.z = 1.25; u.wr.rotation.z = -1.25; g.children[1].position.y = .36 + Math.max(0, Math.sin(T * 3)) * .02; }
 }
 // ---------- buildings ----------
 const bGroup = new THREE.Group(); scene.add(bGroup);
