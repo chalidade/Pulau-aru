@@ -125,7 +125,7 @@ export function createActivities(ctx) {
     n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
     if (n.role === 'president' || n.role === 'vicepresident') n.workFor = Infinity;
     if (n.role === 'listen') n.workFor = 60 + Math.random() * 90;
-    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'rodfish', 'hide', 'sneak', 'teach', 'sweep', 'clip', 'calc', 'damkar', 'keeper', 'detektif'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
+    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'rodfish', 'hide', 'sneak', 'teach', 'sweep', 'clip', 'calc', 'damkar', 'keeper', 'detektif', 'pilot'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
     if (n.role === 'shop') { n.workFor = 4 + Math.random() * 6; n.t = 0; }
     n.yOff = spot && spot.y || 0;
     if (n.role === 'president') { const before = n.obj.userData.body.children.length; presidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
@@ -290,6 +290,8 @@ export function createActivities(ctx) {
     // ep 27: the Menteri Keuangan counts on her calculator and now and then holds a coin up to the light
     else if (p === 'calc') { const c = ph % 5; A(-1.15, c < 3.6 ? -1.3 + Math.sin(ph * 18) * .06 : -2.5 + Math.sin(ph * 4) * .08, .3, c < 3.6 ? -.35 : -.05); u.body.rotation.x = c < 3.6 ? .1 : -.05; }
     // ep 33: a detective scans the ground through the magnifying glass, leaning in, turning slowly
+    // ep 35: the pilot salutes now and then and gives a thumbs up toward his plane
+    else if (p === 'pilot') { const c = ph % 6; A(-.1, c < 1.3 ? -2.7 : c < 2.5 ? -1.6 : -.1, 0, c < 1.3 ? -.65 : -.1); u.body.rotation.x = c < 1.3 ? -.05 : 0; u.body.rotation.y = c > 3.5 && c < 5 ? .5 : 0; }
     else if (p === 'detektif') { A(-.2, -1.75 + Math.sin(ph * 2.2) * .05, 0, -.1); u.body.rotation.x = .16 + Math.sin(ph * .9) * .06; u.body.rotation.y = Math.sin(ph * .5) * .45; }
     else A(0, 0);
   }

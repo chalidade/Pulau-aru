@@ -47,6 +47,10 @@ export function castKit(ch, pose) {
   // ep 33: the two detectives from the comments (@mhmmdalfaiz0, @ngala.tcl): brown checked detective hat, a magnifying glass held up to the eye
   if (pose === 'detektif') { box(b, '#7a5a3a', .42, .16, .42, 0, 1.36, -.01); box(b, '#7a5a3a', .54, .03, .54, 0, 1.35, -.01); box(b, '#5a3f26', .43, .04, .43, 0, 1.4, -.01); box(b, '#c9a24a', .1, .05, .02, .12, 1.42, .22);
     add(b, G.cyl6, '#3a2a1a', .025, .26, .025, .3, .86, .34); const ring = add(b, G.cyl8, '#c9a24a', .12, .02, .12, .3, 1.06, .36); ring.rotation.x = Math.PI / 2; const gl = add(b, G.cyl8, new THREE.MeshStandardMaterial({ color: '#cfeaf5', emissive: '#7fb8d0', emissiveIntensity: .35, transparent: true, opacity: .6 }), .1, .022, .1, .3, 1.06, .36); gl.rotation.x = Math.PI / 2; gl.castShadow = false; }
+  // ep 35: the island's first pilot (@salmanajalah3): white shirt with gold epaulettes, a navy cap with a gold band, aviator shades, wings badge
+  if (pose === 'pilot') { box(b, '#f7f5ef', .46, .5, .29, 0, .5, 0); for (const x of [-.2, .2]) box(b, '#c9a24a', .1, .03, .2, x, 1.0, 0); box(b, '#c9a24a', .14, .04, .02, -.1, .88, .148);
+    box(b, '#1f2a44', .4, .12, .4, 0, 1.38, -.01); box(b, '#c9a24a', .41, .04, .41, 0, 1.38, -.01); box(b, '#111', .3, .03, .14, 0, 1.36, .2); box(b, '#c9a24a', .07, .05, .02, 0, 1.44, .2);
+    box(b, '#1a1a1a', .3, .06, .03, 0, 1.21, .18); box(b, '#2b2d33', .06, .14, .015, 0, .78, .15); }
 }
 export function presidentKit(ch) {
   const b = ch.userData.body;
@@ -1291,6 +1295,79 @@ export const BT = {
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
       const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.5, .47), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 1.25, .05); g.add(sg); box(g, '#5e3b22', 1.55, .5, .04, 0, 1.0, .02);
     } },
+  // ep 35 (komentar @salmanajalah3, "mau jadi pilot", diminta dua kali): Bandara Pulau Aru on the open east field. A runway
+  // along local x (white centre dashes, threshold bars, edge lights), a small terminal with a sign on both faces, a control
+  // tower with a glass cab, a windsock, and a little high-wing plane (g.userData.plane, flown by main.js stepPlane: takes off,
+  // circles the island trailing the banner b.banner, lands, taxis back). Runway on the -z half, terminal on the +z half.
+  bandara: { n: 'Bandara Pulau', w: 16, h: 6, water: true, walk: true, clearTrees: true, clear: 2,
+    build(g, b) {
+      const tex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d')); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+      const DY = .24;   // deck height above the sea (matches the harbour deck)
+      // plank deck over the whole footprint, a darker rim and pilings down into the water
+      for (let i = 0; i < 20; i++) box(g, i % 2 ? '#c2bdaf' : '#b0ab9b', 15.6, .08, .3, 0, DY - .08, -2.85 + i * .3);
+      for (const [sx, sz, x, z] of [[16.0, .14, 0, -2.95], [16.0, .14, 0, 2.95], [.14, 6.0, -7.95, 0], [.14, 6.0, 7.95, 0]]) box(g, '#6b4426', sx, .12, sz, x, DY - .1, z);
+      for (let x = -7; x <= 7; x += 2) for (const z of [-2.7, 0, 2.7]) add(g, G.cyl6, '#5e3b22', .11, 2.2, .11, x, DY - 1.0, z);
+      // runway surface on the -z half, centre dashes, threshold bars, edge lights
+      box(g, '#3b3e44', 15.2, .05, 2.4, 0, DY, -1.5);
+      for (let i = 0; i < 9; i++) box(g, '#f4f1ea', .8, .055, .12, -5.6 + i * 1.4, DY, -1.5);
+      for (const s of [-1, 1]) for (let k = 0; k < 6; k++) box(g, '#f4f1ea', .5, .056, .14, s * 7.0, DY, -2.3 + k * .36);
+      for (const s of [-1, 1]) box(g, '#f2c94c', 15.2, .052, .06, 0, DY, s * 1.17 - 1.5);
+      const lamp = new THREE.MeshStandardMaterial({ color: '#ffe3a0', emissive: '#ffb84a', emissiveIntensity: .9, flatShading: true });
+      for (let i = 0; i < 9; i++) for (const z of [-2.6, -.4]) { const l = add(g, G.sph, lamp, .06, .06, .06, -7.0 + i * 1.75, DY + .08, z); l.castShadow = false; }
+      // terminal on the +z half, front (sign + doors) faces the runway (-z)
+      const T = new THREE.Group(); T.position.set(-3.4, DY, 1.75); g.add(T);
+      box(T, '#f2efe6', 4.4, 2.9, 1.5, 0, 0, 0); box(T, '#2f6f8f', 4.6, .16, 1.7, 0, 2.9, 0);
+      const glassM = new THREE.MeshStandardMaterial({ color: '#7fb8d0', emissive: '#ffd27a', emissiveIntensity: .05, roughness: .2, flatShading: true });
+      for (const x of [-1.5, -.7, .7, 1.5]) box(T, x === 0 ? glassM : glassM, .62, 1.1, .06, x, 1.2, -.78);
+      box(T, '#2c3e50', .85, 2.0, .06, 0, 0, -.78); box(T, glassM, .34, 1.8, .07, -.2, .05, -.79); box(T, glassM, .34, 1.8, .07, .2, .05, -.79);
+      const st = tex(1024, 220, c => { c.fillStyle = '#2f6f8f'; c.fillRect(0, 0, 1024, 220); c.fillStyle = '#ffd25a'; c.fillRect(0, 0, 1024, 12); c.fillRect(0, 208, 1024, 12); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#ffffff'; c.font = '700 92px "Pixelify Sans", sans-serif'; c.fillText((b && b.label) || 'BANDARA PULAU ARU', 512, 86, 1000); c.fillStyle = '#ffd25a'; c.font = '700 44px "Pixelify Sans", sans-serif'; c.fillText((b && b.sub) || '', 512, 170, 1000); });
+      const sm = new THREE.MeshStandardMaterial({ map: st, roughness: .8 });
+      box(T, '#2f6f8f', 4.2, .9, .12, 0, 3.06, -.78);
+      for (const s of [-1, 1]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(4.1, .88), sm); p.position.set(0, 3.51, -.78 + (s < 0 ? -.07 : .07)); if (s < 0) p.rotation.y = Math.PI; T.add(p); }
+      // benches in front of the terminal
+      for (const x of [-5.1, -1.7]) { box(g, '#a8743f', .9, .07, .32, x, DY + .35, .45); for (const sx of [-.38, .38]) box(g, '#4a4f57', .05, .4, .3, x + sx, DY, .45); }
+      // control tower by the terminal
+      const CT = new THREE.Group(); CT.position.set(2.6, DY, 1.9); g.add(CT);
+      cyl(CT, '#f2efe6', .38, 4.6, 0, 0, 0, 8);
+      box(CT, '#2f6f8f', 1.3, .12, 1.3, 0, 4.6, 0); box(CT, new THREE.MeshStandardMaterial({ color: '#8fd0e8', emissive: '#bfe8ff', emissiveIntensity: .25, roughness: .1, flatShading: true }), 1.15, .75, 1.15, 0, 4.72, 0);
+      box(CT, '#2f6f8f', 1.4, .12, 1.4, 0, 5.47, 0); cyl(CT, '#d0d0d0', .03, .7, 0, 5.59, 0); const bl = add(CT, G.sph, new THREE.MeshStandardMaterial({ color: '#ff4a3a', emissive: '#ff2a1a', emissiveIntensity: 1.2 }), .08, .08, .08, 0, 6.33, 0); bl.castShadow = false;
+      // windsock on the sea corner
+      cyl(g, '#d0d0d0', .04, 2.6, 6.8, DY, -2.3); const ws = new THREE.Group(); ws.position.set(6.8, DY + 2.5, -2.3); ws.rotation.y = -.6; g.add(ws);
+      for (let i = 0; i < 4; i++) { const sk = add(ws, G.cyl8, i % 2 ? '#f4f1ea' : '#ff7a2a', .2 - i * .03, .3, .2 - i * .03, .15 + i * .3, 0, 0); sk.rotation.z = Math.PI / 2 - .12; }
+      g.userData.sock = ws;
+      // the plane parked at the west end of the runway, nose east (+x)
+      const pl = plane(b); pl.position.set(-6.2, DY + .05, -1.5); pl.rotation.y = Math.PI / 2; g.add(pl); g.userData.plane = pl; g.userData.DY = DY;
+    } },
+  // ep 35 (komentar @darsetecuu "tambah rumah buat makanan"): Rumah Makan Pulau, taken literally too: an open-front eatery
+  // with a striped awning, a counter, a menu board (b.items), tables outside, and inside a tiny "KAMAR NASI" where a grilled
+  // fish sleeps in a little bed (the food got its own room). Front faces +z at r=0.
+  rumahmakan: { n: 'Rumah Makan', w: 3, h: 3, land: true,
+    build(g, b) {
+      const tex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d')); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+      box(g, '#c9a46a', 2.9, .06, 2.9, 0, 0, 0);
+      box(g, '#f4d9a6', 2.8, 3.1, .12, 0, 0, -1.1); for (const s of [-1, 1]) box(g, '#f4d9a6', .12, 3.1, 1.6, s * 1.34, 0, -.36);
+      box(g, '#b8523c', 3.0, .14, 1.9, 0, 3.1, -.3); box(g, '#f4d9a6', 2.8, .55, .12, 0, 2.55, .43);
+      for (let i = 0; i < 7; i++) { const a = box(g, i % 2 ? '#ffffff' : '#d0483a', .42, .06, .8, -1.26 + i * .42, 2.5, .8); a.rotation.x = -.35; }
+      // counter with pots and plates
+      box(g, '#8a5a34', 2.2, .95, .45, 0, 0, -.2); box(g, '#5e3b22', 2.3, .06, .52, 0, .95, -.2);
+      for (const [x, c] of [[-.7, '#3a3a3a'], [-.25, '#7f8c8d']]) { cyl(g, c, .17, .22, x, 1.0, -.25, 8); }
+      const fishM = new THREE.MeshStandardMaterial({ color: '#c47a3a', roughness: .6, flatShading: true });
+      for (let i = 0; i < 3; i++) { add(g, G.cyl8, '#f4f1ea', .14, .02, .14, .25 + i * .32, 1.0, -.15); const f = add(g, G.sph, fishM, .12, .04, .05, .25 + i * .32, 1.04, -.15); f.rotation.y = .5; }
+      // the KAMAR NASI on the back wall: a little shelf-bed with a pillow, a blanket and a sleeping fish
+      box(g, '#ffffff', .9, .06, .4, .7, 1.55, -.88); box(g, '#5e3b22', .06, .3, .4, .27, 1.55, -.88); box(g, '#5e3b22', .06, .2, .4, 1.13, 1.55, -.88);
+      add(g, G.sph, '#ffffff', .1, .05, .08, .38, 1.66, -.88); const fs = add(g, G.sph, fishM, .22, .07, .08, .62, 1.66, -.86); fs.rotation.y = Math.PI / 2 * 0; box(g, '#7ab0e0', .48, .04, .36, .85, 1.62, -.86);
+      const kn = tex(256, 80, c => { c.fillStyle = '#fbfaf5'; c.fillRect(0, 0, 256, 80); c.fillStyle = '#c0392b'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 40px "Pixelify Sans", sans-serif'; c.fillText('KAMAR IKAN', 128, 30, 240); c.fillStyle = '#1f2a44'; c.font = '700 22px "Pixelify Sans", sans-serif'; c.fillText('jangan berisik, lagi tidur', 128, 64, 240); });
+      const kp = new THREE.Mesh(new THREE.PlaneGeometry(.8, .25), new THREE.MeshStandardMaterial({ map: kn })); kp.position.set(.7, 2.0, -1.03); g.add(kp);
+      // menu board on the left inner wall area
+      const items = (b && b.items) || ['Ikan Bakar', 'Nasi Kucing', 'Es Kelapa'];
+      const mn = tex(256, 320, c => { c.fillStyle = '#23332b'; c.fillRect(0, 0, 256, 320); c.fillStyle = '#ffd25a'; c.textAlign = 'center'; c.font = '700 40px "Pixelify Sans", sans-serif'; c.fillText('MENU', 128, 46); c.fillStyle = '#ffffff'; c.font = '700 28px "Pixelify Sans", sans-serif'; items.slice(0, 5).forEach((t, i) => c.fillText(t, 128, 104 + i * 48, 240)); });
+      const mp = new THREE.Mesh(new THREE.PlaneGeometry(.62, .78), new THREE.MeshStandardMaterial({ map: mn })); mp.position.set(-.7, 1.85, -1.03); g.add(mp);
+      // sign above the front
+      const sg = tex(512, 160, c => { c.fillStyle = '#d0483a'; c.fillRect(0, 0, 512, 160); c.fillStyle = '#ffd25a'; c.fillRect(0, 0, 512, 8); c.fillRect(0, 152, 512, 8); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#ffffff'; c.font = '700 64px "Pixelify Sans", sans-serif'; c.fillText((b && b.label) || 'RUMAH MAKAN', 256, 62, 490); c.fillStyle = '#ffd25a'; c.font = '700 28px "Pixelify Sans", sans-serif'; c.fillText((b && b.sub) || '', 256, 122, 490); });
+      const sp = new THREE.Mesh(new THREE.PlaneGeometry(2.6, .8), new THREE.MeshStandardMaterial({ map: sg, roughness: .8 })); sp.position.set(0, 3.55, .38); g.add(sp); box(g, '#5e3b22', 2.66, .86, .08, 0, 3.12, .32);
+      // tables outside with stools and plates
+      for (const x of [-.8, .8]) { cyl(g, '#a8743f', .32, .05, x, .7, 1.0, 8); cyl(g, '#5e3b22', .05, .7, x, 0, 1.0); add(g, G.cyl8, '#f4f1ea', .1, .015, .1, x - .08, .76, .95); for (const dz of [-.5, .5]) cyl(g, '#d0483a', .14, .42, x + dz * .9, 0, 1.0 + (dz > 0 ? .15 : -.15), 8); }
+    } },
   papanjadwal: { n: 'Papan Jadwal Presiden', w: 2, h: 1, land: true,
     build(g, b) {
       for (const x of [-.6, .6]) { const l = box(g, '#5e3b22', .07, 1.7, .07, x, 0, -.12); l.rotation.x = .12; }
@@ -1636,6 +1713,36 @@ export function wreck() {
   return g;
 }
 // ep 33: the sandal thief, a seagull (camar) holding a sandal in its beak. Faces +z; wings in userData for flapping.
+// ep 35: the island's first plane (Bandara Pulau): a little white high-wing plane with a red stripe, nose along +z (so
+// main.js can lookAt along the flight path), spinning propeller (userData.prop), a pilot in the cockpit, and a banner on a
+// rope behind the tail (userData.banner, text b.banner) shown only in the air.
+export function plane(b) {
+  const g = new THREE.Group(), tex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d')); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+  const W = '#f7f5ef', R = '#d0483a';
+  box(g, W, .62, .62, 2.3, 0, .55, .1); box(g, R, .64, .1, 2.32, 0, .78, .1); add(g, G.cone4, W, .44, .9, .44, 0, .86, -1.45, Math.PI / 4).rotation.x = -Math.PI / 2;
+  box(g, W, .56, .55, .45, 0, .58, 1.45); add(g, G.cyl8, '#d0d0d0', .15, .2, .15, 0, .86, 1.75).rotation.x = Math.PI / 2;
+  const prop = new THREE.Group(); prop.position.set(0, .86, 1.87); g.add(prop); box(prop, '#2b2b2b', .08, 1.1, .04, 0, -.55, 0); g.userData.prop = prop;
+  box(g, new THREE.MeshStandardMaterial({ color: '#2f4a5a', roughness: .2, flatShading: true }), .64, .3, .7, 0, .92, .75);
+  // pilot: head with a navy cap
+  add(g, G.sph, '#d9a478', .13, .14, .13, 0, 1.12, .55); box(g, '#1f2a44', .27, .08, .27, 0, 1.2, .55); box(g, '#1f2a44', .2, .03, .12, 0, 1.2, .72);
+  // high wing with struts, red tips
+  box(g, W, 4.2, .07, .7, 0, 1.22, .55); for (const s of [-1, 1]) { box(g, R, .35, .075, .71, s * 1.95, 1.22, .55); const st = box(g, '#9a9b94', .04, .75, .04, s * .7, .55, .55); st.rotation.z = -s * .6; }
+  // tail
+  box(g, W, 1.5, .05, .42, 0, .95, -1.75); box(g, W, .05, .62, .5, 0, .95, -1.8); box(g, R, .06, .2, .5, 0, 1.38, -1.8);
+  // gear
+  for (const s of [-1, 1]) { box(g, '#7f8c8d', .04, .3, .04, s * .38, 0, .55); add(g, G.cyl8, '#222', .13, .08, .13, s * .4, .13, .55).rotation.z = Math.PI / 2; }
+  add(g, G.cyl8, '#222', .09, .06, .09, 0, .1, 1.45).rotation.z = Math.PI / 2; box(g, '#7f8c8d', .04, .25, .04, 0, .1, 1.45);
+  const nt = tex(256, 64, c => { c.fillStyle = W; c.fillRect(0, 0, 256, 64); c.fillStyle = '#1f2a44'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 40px "Pixelify Sans", sans-serif'; c.fillText('PK-ARU', 128, 34, 240); });
+  for (const s of [-1, 1]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(.8, .2), new THREE.MeshStandardMaterial({ map: nt })); p.position.set(s * .315, .55, -.55); p.rotation.y = s * Math.PI / 2; g.add(p); }
+  // banner on a rope
+  const bn = new THREE.Group(); g.add(bn); g.userData.banner = bn;
+  const rope = box(bn, '#c9b48a', .02, .02, 1.6, 0, .85, -2.7);
+  const bt = tex(1024, 192, c => { c.fillStyle = '#fbfaf5'; c.fillRect(0, 0, 1024, 192); c.fillStyle = '#d0483a'; c.fillRect(0, 0, 1024, 14); c.fillRect(0, 178, 1024, 14); c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 104px "Pixelify Sans", sans-serif'; c.fillText((b && b.banner) || 'HALO WARGA!', 512, 100, 1000); });
+  const bm = new THREE.MeshStandardMaterial({ map: bt, roughness: .9 });
+  for (const s of [-1, 1]) { const bp = new THREE.Mesh(new THREE.PlaneGeometry(4.2, .8), bm); bp.position.set(s * .01, .7, -5.6); bp.rotation.y = s * Math.PI / 2; bp.castShadow = false; bn.add(bp); }
+  bn.visible = false;
+  return g;
+}
 export function seagull() {
   const g = new THREE.Group();
   add(g, G.sph, '#f7f7f2', .16, .14, .26, 0, .22, 0); add(g, G.sph, '#f7f7f2', .1, .1, .1, 0, .36, .2);

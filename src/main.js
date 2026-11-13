@@ -888,6 +888,7 @@ function frame() {
     if (th <= 0 || th >= Math.PI * 2) { bt.position.set(h.x, Math.sin(T0 * .9) * .04, h.z); bt.rotation.set(0, h.ry, 0); continue; }
     const a = P(th), c = P(Math.min(Math.PI * 2, th + .05)), dx = c.x - a.x, dz = c.z - a.z, k = Math.min(1, th / .5, (Math.PI * 2 - th) / .5);
     bt.position.set(a.x, Math.sin(T0 * 1.1) * .06, a.z); bt.rotation.set(Math.sin(T0 * .9) * .03, h.ry + (Math.atan2(-dz, dx) - h.ry) * 1, Math.sin(T0 * .7) * .04 * k); }
+  stepPlane(T0);
   for (const o of bObjs) if (o.userData.def.bob && o.userData.b.type !== 'perahu') { o.position.y = Math.sin(T0 * 1.2 + o.position.x) * .08; o.rotation.z = Math.sin(T0 + o.position.x) * .04; }
   mailObj.userData.flag.rotation.x = S.letters.length && (store.get('pulau-aru-seen-letters') | 0) < S.letters.length ? -Math.PI / 2 : 0;
   updateGhost();
@@ -945,6 +946,34 @@ function syncExpansion(animate) {
   expAnim = null; WD.setExpansion(want, 1); terrain.userData.refresh();
 }
 // stages and markets get a level plaza; the stage's plaza reaches out front where the crowd gathers
+// ep 35: the Bandara Pulau plane. Every 130 s it rolls down the runway, takes off, circles the whole island (radius ~50 m,
+// ~17 m up) trailing its banner, lands from the west and taxis back. window.__planeU (0..1 along the flight, or -1 = parked)
+// pins it for the studio camera; window.__planeObj is the plane.
+function stepPlane(T0) {
+  for (const o of bObjs) { const pl = o.userData.plane; if (!pl) continue; window.__planeObj = pl; const ud = pl.userData;
+    if (!ud.curve) { o.updateMatrixWorld(true); const V = THREE.Vector3, L = (x, y, z) => new V(x, y, z).applyMatrix4(o.matrixWorld);
+      const DY = o.userData.DY || 0; const A = L(-6.2, DY + .05, -1.5), B = L(7.4, DY + .05, -1.5), dir = B.clone().sub(A).normalize(), alt = A.y + 17, R = 50;
+      const out = B.clone().addScaledVector(dir, 12); out.y = A.y + 7; const a0 = Math.atan2(out.z, out.x);
+      const Q1 = A.clone().addScaledVector(dir, -24); Q1.y = A.y + 10; const aQ = Math.atan2(Q1.z, Q1.x);
+      const tan = new V(-Math.sin(a0), 0, Math.cos(a0)), s = tan.dot(dir) >= 0 ? 1 : -1;
+      let d = ((aQ - a0) * s) % (Math.PI * 2); if (d < 0) d += Math.PI * 2; if (d < Math.PI) d += Math.PI * 2;
+      const pts = [A, L(-2.5, DY + .05, -1.5), L(2.5, DY + .35, -1.5), L(7.4, DY + 1.7, -1.5), out];
+      const n = Math.max(4, Math.round(d / (Math.PI / 4))); for (let i = 1; i < n; i++) { const a = a0 + s * d * i / n; pts.push(new V(Math.cos(a) * R, alt, Math.sin(a) * R)); }
+      const Q2 = A.clone().addScaledVector(dir, -11); Q2.y = A.y + 4; const Q3 = A.clone().addScaledVector(dir, -2.5); Q3.y = A.y + .8;
+      pts.push(Q1, Q2, Q3, L(-4.5, DY + .05, -1.5), L(0, DY + .05, -1.5), L(5.5, DY + .05, -1.5));
+      ud.curve = new THREE.CatmullRomCurve3(pts, false, 'centripetal'); ud.A = A; ud.E = L(5.5, DY + .05, -1.5); ud.dir = dir; ud.home = { p: pl.position.clone(), ry: pl.rotation.y }; ud.prevYaw = null; }
+    const ph = (T0 + 25) % 130, F = 52; let u = window.__planeU != null ? window.__planeU : ph < F ? ph / F : -1;
+    if (u >= 0 && u <= 1) { const e = u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2, c = ud.curve, p = c.getPointAt(Math.min(.9999, e)), q = c.getPointAt(Math.min(1, e + .002));
+      if (q.distanceTo(p) < 1e-4) q.copy(p).add(ud.dir);
+      pl.position.copy(o.worldToLocal(p.clone())); pl.lookAt(q); const yaw = Math.atan2(q.x - p.x, q.z - p.z); let dy = ud.prevYaw == null ? 0 : yaw - ud.prevYaw; if (dy > Math.PI) dy -= Math.PI * 2; if (dy < -Math.PI) dy += Math.PI * 2; ud.prevYaw = yaw;
+      ud.bank = (ud.bank || 0) * .9 + Math.max(-.6, Math.min(.6, -dy * 40)) * .1; pl.rotateZ(ud.bank);
+      ud.prop.rotation.z = T0 * 40; ud.banner.visible = p.y > ud.A.y + 2.5; if (ud.banner.visible) ud.banner.rotation.y = Math.sin(T0 * 3) * .03; }
+    else { ud.prevYaw = null; ud.bank = 0; ud.banner.visible = false; const k = window.__planeU != null ? 1 : Math.min(1, Math.max(0, (ph - F) / 12));
+      // taxi back from the end of the landing roll to the parking spot (turned around), then turn nose east again
+      const e = k * k * (3 - 2 * k), from = o.worldToLocal(ud.E.clone()); pl.position.set(from.x + (ud.home.p.x - from.x) * e, ud.home.p.y, ud.home.p.z);
+      pl.rotation.set(0, k < 1 ? ud.home.ry + Math.PI * Math.min(1, k * 6) * (k < .85 ? 1 : (1 - k) / .15) : ud.home.ry, 0); ud.prop.rotation.z = k < 1 ? T0 * 25 : 0; }
+    if (o.userData.sock) o.userData.sock.rotation.z = Math.sin(T0 * 1.7) * .08; }
+}
 function padsFor() {
   const out = [];
   for (const b of S.buildings) {
