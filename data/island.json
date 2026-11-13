@@ -12033,12 +12033,14 @@
     "Satu lagu lagi, ya!",
     "Jreng... eh senarnya putus lagi."
    ],
-   "tempat": "api unggun",
+   "tempat": "teras Rumah Pantai (ep 34), main gitar syukuran",
    "spot": [
-    69,
-    70
+    71,
+    88,
+    0,
+    0
    ],
-   "face": -1.57,
+   "face": 0,
    "pose": "guitar"
   },
   {
@@ -12418,6 +12420,10 @@
    ],
    "face": 1.9,
    "pose": "detektif"
+  },
+  {
+   "n": "sanel1276",
+   "ep": 34
   }
  ],
  "buildings": [
@@ -13039,12 +13045,12 @@
    "r": 0,
    "head": "BARANG HILANG",
    "color": "#b5402f",
-   "label": "Terekam Kamera Jaga Malam · Detektif Pantai",
+   "label": "KASUS DITUTUP · Detektif Pantai",
    "items": [
-    "Sandal Aidil YZ (kiri & kanan)",
-    "Sandal Aru (satu-satunya)",
-    "Sandal umpan inyuu (ep 33)",
-    "✓ Pelaku: BURUNG CAMAR?!"
+    "✓ Pelaku: burung camar (buat sarang)",
+    "✓ 8 sandal kembali: Rak Sandal masjid",
+    "✓ Camar pindah ke Taman Pulau",
+    "Sandal Aru: jadi selimut bayi camar"
    ],
    "by": "RANUUGLL",
    "ep": 32
@@ -13057,6 +13063,36 @@
    "label": "Detektif @mhmmdalfaiz0 & @ngala.tcl",
    "by": "mhmmdalfaiz0 & ngala.tcl",
    "ep": 33
+  },
+  {
+   "type": "tamancamar",
+   "x": 64,
+   "y": 58,
+   "r": 2,
+   "label": "TAMAN PULAU",
+   "sub": "permintaan @alexander______24",
+   "by": "alexander______24",
+   "ep": 34
+  },
+  {
+   "type": "rumahpantai",
+   "x": 70,
+   "y": 85,
+   "r": 0,
+   "label": "RUMAH PANTAI",
+   "sub": "rumah @sanel1276",
+   "by": "sanel1276",
+   "ep": 34
+  },
+  {
+   "type": "raksandal",
+   "x": 46,
+   "y": 51,
+   "r": 0,
+   "label": "SANDAL KEMBALI",
+   "sub": "dari sarang camar · ambil punyamu",
+   "by": "panggil aja zidan",
+   "ep": 34
   }
  ],
  "episodes": [
@@ -13370,6 +13406,15 @@
     "ngala.tcl"
    ],
    "text": "Detektif dari Komentar: @mhmmdalfaiz0 dan @ngala.tcl, yang mendaftar jadi polisi di kolom komentar, dilantik jadi Detektif Pantai. Mereka memasang Kamera Jaga Malam di depan mercusuar dengan sandal inyuu sebagai umpan. Jam dua pagi, kamera merekam pelakunya: seekor burung camar yang membawa sandal ke puncak mercusuar. Tapi kenapa camar mengumpulkan sandal?"
+  },
+  {
+   "ep": 34,
+   "date": "2026-11-13",
+   "picks": [
+    "alexander______24",
+    "sanel1276"
+   ],
+   "text": "Sarang dari Sandal: ternyata camar mencuri delapan sandal untuk membuat sarang bagi tiga bayinya di puncak mercusuar. Komentar @alexander______24 minta taman, jadilah Taman Pulau dengan Rumah Camar di tengahnya, dan keluarga camar pindah ke sana. Sandal warga kembali di Rak Sandal dekat masjid (dijaga zidan), kecuali sandal Aru yang jadi selimut bayi camar. Komentar @sanel1276 minta rumah di pantai: Rumah Pantai berdiri, senar muliya main gitar syukuran. Kasih nama tiga bayi camar di komentar!"
   }
  ],
  "letters": [],
@@ -13655,36 +13700,11 @@
   }
  ],
  "mystery": {
-  "ep": 33,
-  "title": "Misteri Sandal Hilang",
-  "trail": [
-   [
-    77,
-    57
-   ],
-   [
-    78.5,
-    56.4
-   ],
-   [
-    80,
-    55.8
-   ],
-   [
-    81.2,
-    55
-   ],
-   [
-    82.2,
-    54.4
-   ]
-  ],
-  "feather": [
-   76.6,
-   57.3
-  ],
-  "pile": 8,
-  "note": "Tertangkap Kamera Jaga Malam: seekor burung camar membawa sandal ke puncak mercusuar! Delapan sandal (termasuk sandal umpan inyuu) ada di sana. Tapi kenapa camar mengumpulkan sandal? Tebak di komentar!",
-  "gull": true
+  "ep": 34,
+  "title": "Misteri Sandal Hilang (selesai)",
+  "trail": [],
+  "pile": 0,
+  "note": "Kasus ditutup! Camar mengumpulkan sandal untuk sarang tiga bayinya. Keluarga camar sekarang tinggal di Rumah Camar, Taman Pulau; sandal dikembalikan di Rak Sandal dekat masjid. Sandal Aru jadi selimut bayi camar. Kasih nama bayi camarnya di komentar!",
+  "gull": false
  }
 }
