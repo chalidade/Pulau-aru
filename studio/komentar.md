@@ -15,6 +15,7 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 - @fathan.9987: "aku ingin jadi presiden"
 - @wkwkbwa: "aku calonn"
 - @ormis_123: "aku mau jadi wapres" (calon wapres)
+- @whatiathis8: "aku mau jadi presiden udah like" (13 Nov)
 Lainnya: @salmanajalah3 mau jadi pilot (perlu bandara).
 
 ## Permintaan bangunan dari komentar (12 Nov malam, sudah dibalas "kucatat")
