@@ -1204,6 +1204,93 @@ export const BT = {
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
       const sign = new THREE.Mesh(new THREE.PlaneGeometry(.9, .45), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.25, -.06); sign.rotation.y = Math.PI; g.add(sign); box(g, '#1f2a44', .92, .47, .02, 0, 1.015, -.04);
     } },
+  // ep 34: Taman Pulau (comment @alexander______24 "taman"). Paths in a cross, hedges, flower beds, benches, two trees, lamps,
+  // a gate arch (b.label / b.sub) and in the middle the Rumah Camar: a pole with a nest made of the stolen sandals, where the
+  // seagull from the ep 32-33 mystery now lives with three chicks under Aru's orange sandal. Gate faces +z at r=0.
+  tamancamar: { n: 'Taman Pulau', w: 7, h: 6, land: true, walk: true, clearTrees: true,
+    build(g, b) {
+      box(g, '#6cbf5a', 6.8, .05, 5.8, 0, 0, 0); box(g, '#e6dcc4', .9, .06, 5.8, 0, 0, 0); box(g, '#e6dcc4', 6.8, .06, .9, 0, 0, 0);
+      add(g, G.cyl8, '#e6dcc4', 1.25, .065, 1.25, 0, .03, 0, 0, false);
+      // hedges around, gap at the gate (+z)
+      box(g, '#3f8a42', 6.8, .45, .3, 0, 0, -2.75); for (const s of [-1, 1]) { box(g, '#3f8a42', .3, .45, 5.8, s * 3.25, 0, 0); box(g, '#3f8a42', 2.75, .45, .3, s * 1.98, 0, 2.75); }
+      // flower beds in the four corners
+      const cols = ['#f06b8a', '#ffd25a', '#f4f1ea', '#b48cf0', '#ff9b52'];
+      for (const [qx, qz] of [[-1.85, -1.5], [1.85, -1.5], [-1.85, 1.5], [1.85, 1.5]]) { box(g, '#8a5a34', 1.9, .16, 1.5, qx, 0, qz); box(g, '#5d3e24', 1.75, .04, 1.35, qx, .16, qz);
+        for (let i = 0; i < 14; i++) { const x = qx - .75 + ((i * 37) % 15) / 10, z = qz - .55 + ((i * 53) % 11) / 10; add(g, G.cyl6, '#3f8a42', .015, .3, .015, x, .32, z, 0, false); add(g, G.sph, cols[(i + Math.round(qx)) % 5], .08, .07, .08, x, .48, z); } }
+      // trees in the back corners
+      for (const s of [-1, 1]) { add(g, G.cyl6, '#6b4a2e', .1, 1.4, .1, s * 2.6, .7, -2.2); add(g, G.ico, '#4f9a45', .75, .7, .75, s * 2.6, 1.8, -2.2); add(g, G.ico, '#62ad55', .5, .5, .5, s * 2.6 + .3, 2.3, -2.0); }
+      // benches facing the Rumah Camar
+      const bench = (x, z, ry) => { const p = new THREE.Group(); p.position.set(x, 0, z); p.rotation.y = ry; box(p, '#a8743f', 1.1, .07, .38, 0, .42, 0); box(p, '#a8743f', 1.1, .3, .06, 0, .55, -.18); for (const sx of [-.45, .45]) box(p, '#4a4f57', .06, .42, .34, sx, 0, 0); g.add(p); };
+      bench(-1.3, .9, Math.PI); bench(1.3, .9, Math.PI); bench(-1.3, -.9, 0); bench(1.3, -.9, 0);
+      // lamps by the gate
+      for (const s of [-1, 1]) { add(g, G.cyl6, '#2f3237', .04, 2.3, .04, s * 1.1, 1.15, 2.4); const l = new THREE.Mesh(G.sph, lanternMat); l.scale.set(.12, .14, .12); l.position.set(s * 1.1, 2.35, 2.4); g.add(l); }
+      // gate arch with the sign
+      for (const s of [-1, 1]) box(g, '#8a5a34', .14, 2.6, .14, s * .62, 0, 2.75);
+      box(g, '#8a5a34', 1.6, .12, .16, 0, 2.6, 2.75);
+      const c = document.createElement('canvas'); c.width = 512; c.height = 200; const x = c.getContext('2d');
+      x.fillStyle = '#2f6b3a'; x.fillRect(0, 0, 512, 200); x.fillStyle = '#ffd25a'; x.fillRect(0, 0, 512, 10); x.fillRect(0, 190, 512, 10);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffffff'; x.font = '700 70px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'TAMAN PULAU', 256, 78, 490);
+      x.fillStyle = '#ffd25a'; x.font = '700 32px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || '', 256, 150, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      for (const ry of [0, Math.PI]) { const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.5, .6), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 2.2, 2.75 + (ry ? -.09 : .09)); sg.rotation.y = ry; g.add(sg); }
+      box(g, '#2f6b3a', 1.52, .62, .16, 0, 1.89, 2.75);
+      // the Rumah Camar: pole, platform, a nest of sandals, the gull and three chicks
+      add(g, G.cyl8, '#9a9b94', .45, .25, .45, 0, .12, 0); add(g, G.cyl6, '#8a5a34', .09, 2.4, .09, 0, 1.35, 0);
+      for (const a of [0, 2.1, 4.2]) { const st = box(g, '#8a5a34', .05, .9, .05, Math.cos(a) * .22, 1.75, Math.sin(a) * .22); st.rotation.set(Math.sin(a) * .5, 0, -Math.cos(a) * .5); }
+      add(g, G.cyl8, '#a8743f', .62, .07, .62, 0, 2.58, 0);
+      const nest = new THREE.Group(); nest.position.set(0, 2.62, 0); g.add(nest);
+      const sc = ['#2f6fb5', '#d0483a', '#f2c94c', '#3a9a5b', '#e07ab0', '#1f2a44', '#7b4fc2', '#e8e2d0'];
+      for (let i = 0; i < 16; i++) { const a = i / 16 * Math.PI * 2, s = new THREE.Group(); s.position.set(Math.cos(a) * .42, (i % 2) * .05 + .03, Math.sin(a) * .42); s.rotation.set(.5 * (i % 2 ? 1 : -1), -a, .25);
+        add(s, G.box, sc[i % 8], .13, .035, .3, 0, 0, 0); add(s, G.box, '#222222', .14, .05, .03, 0, .03, .06); nest.add(s); }
+      add(nest, G.cyl8, '#c9a46a', .36, .05, .36, 0, .03, 0);
+      const gull = seagull(); gull.userData.sandal.visible = false; gull.scale.setScalar(1.05); gull.position.set(-.12, .03, -.18); gull.rotation.y = .5; gull.userData.wl.rotation.z = 1.25; gull.userData.wr.rotation.z = -1.25; nest.add(gull);
+      const chicks = [];
+      for (const [cx, cz] of [[.12, .12], [-.12, .2], [.24, -.08]]) { const ch = new THREE.Group(); ch.position.set(cx, .05, cz); ch.rotation.y = Math.atan2(cx, cz);
+        add(ch, G.sph, '#d9d6cc', .085, .08, .085, 0, .08, 0); add(ch, G.sph, '#e3e0d6', .06, .06, .06, 0, .18, .02); const bk = add(ch, G.cone4, '#f2b632', .022, .06, .022, 0, .18, .09); bk.rotation.x = Math.PI / 2;
+        for (const ex of [-.025, .025]) add(ch, G.sph, '#111111', .011, .011, .011, ex, .2, .065); nest.add(ch); chicks.push(ch); }
+      const blanket = new THREE.Group(); blanket.position.set(.05, .14, .12); blanket.rotation.set(-.15, .5, .08); add(blanket, G.box, '#ff8a3d', .2, .03, .34, 0, 0, 0); add(blanket, G.box, '#222222', .21, .04, .03, 0, .02, -.07); nest.add(blanket);
+      // small sign on the pole
+      const c2 = document.createElement('canvas'); c2.width = 512; c2.height = 220; const y = c2.getContext('2d'); y.fillStyle = '#fbfaf5'; y.fillRect(0, 0, 512, 220); y.fillStyle = '#2f6fb5'; y.fillRect(0, 0, 512, 70);
+      y.textAlign = 'center'; y.textBaseline = 'middle'; y.fillStyle = '#ffffff'; y.font = '700 50px "Pixelify Sans", sans-serif'; y.fillText('RUMAH CAMAR', 256, 37, 490);
+      y.fillStyle = '#1f2a44'; y.font = '700 30px "Pixelify Sans", sans-serif'; y.fillText('3 bayi camar · belum punya nama', 256, 115, 490); y.fillStyle = '#c0392b'; y.fillText('Jangan ambil sandal lagi ya!', 256, 172, 490);
+      const t2 = new THREE.CanvasTexture(c2); t2.colorSpace = THREE.SRGBColorSpace; t2.anisotropy = 4;
+      const s2 = new THREE.Mesh(new THREE.PlaneGeometry(.75, .32), new THREE.MeshStandardMaterial({ map: t2, roughness: .8 })); s2.position.set(0, 1.25, .11); g.add(s2);
+      g.userData.gull = gull; g.userData.chicks = chicks; g.userData.nest = nest;
+    } },
+  // ep 34: Rumah Pantai (comment @sanel1276 "rumah di pantai"): a pastel stilt house on the sand with a thatched roof, a porch
+  // with railing and steps, a hammock and a surfboard. b.label / b.sub on the porch sign. Door faces +z at r=0.
+  rumahpantai: { n: 'Rumah Pantai', w: 3, h: 3, land: true,
+    build(g, b) {
+      for (const [x, z] of [[-1.1, -1.1], [1.1, -1.1], [-1.1, .5], [1.1, .5], [-1.1, 1.3], [1.1, 1.3]]) box(g, '#7a5534', .14, .62, .14, x, 0, z);
+      box(g, '#b98a56', 2.5, .1, 2.8, 0, .6, .1);
+      box(g, '#7cc4d8', 2.3, 2.2, 1.7, 0, .7, -.45); box(g, '#ffffff', 2.34, .1, 1.74, 0, .7, -.45); box(g, '#ffffff', 2.34, .08, 1.74, 0, 2.86, -.45);
+      box(g, '#5e3b22', .62, 1.75, .06, 0, .7, .42); add(g, G.sph, '#f2c94c', .03, .03, .03, .2, 1.55, .46);
+      for (const x of [-.75, .75]) { box(g, '#ffffff', .62, .62, .05, x, 1.5, .42); box(g, windowMat, .5, .5, .06, x, 1.56, .42); }
+      add(g, G.cone4, '#c9a46a', 2.05, 1.2, 1.75, 0, 3.5, -.45, Math.PI / 4); box(g, '#b08a52', 2.7, .08, 1.2, 0, 2.75, .9);
+      for (const x of [-1.15, 1.15]) box(g, '#7a5534', .08, 2.05, .08, x, .7, 1.4);
+      for (const s of [-1, 1]) box(g, '#ffffff', .9, .06, .06, s * .8, 1.32, 1.4); for (const s of [-1, 1]) for (let i = 0; i < 4; i++) box(g, '#ffffff', .04, .6, .04, s * (.45 + i * .23), .7, 1.4);
+      for (let i = 0; i < 4; i++) box(g, '#b98a56', .7, .07, .26, 0, .48 - i * .15, 1.55 + i * .22);
+      // hammock between the posts on the right, surfboard leaning on the left
+      const hm = add(g, G.box, '#e07a3a', .07, .05, 1.1, 1.08, 1.0, .95); hm.rotation.x = 0; const hm2 = add(g, G.box, '#f2c94c', .5, .04, .9, 1.4, .78, .55); hm2.rotation.z = .2;
+      const sb = add(g, G.sph, '#ff6b6b', .16, 1.0, .05, -1.45, .9, 1.2); sb.rotation.z = .22; add(g, G.box, '#ffffff', .03, 1.6, .055, -1.43, .1, 1.2).rotation.z = .22;
+      const c = document.createElement('canvas'); c.width = 512; c.height = 180; const x = c.getContext('2d'); x.fillStyle = '#f7efe0'; x.fillRect(0, 0, 512, 180);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#2b6a85'; x.font = '700 64px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'RUMAH PANTAI', 256, 66, 490);
+      x.fillStyle = '#c0392b'; x.font = '700 34px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || '', 256, 135, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.25, .44), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 2.55, 1.46); g.add(sg);
+    } },
+  // ep 34: Rak Sandal Kembali by the mosque: the sandals from the gull's nest, lined up by Penjaga Masjid zidan for owners to take.
+  raksandal: { n: 'Rak Sandal Kembali', w: 2, h: 1, land: true,
+    build(g, b) {
+      for (const x of [-.75, .75]) box(g, '#5e3b22', .07, .95, .4, x, 0, 0);
+      const sc = ['#2f6fb5', '#d0483a', '#f2c94c', '#3a9a5b', '#e07ab0', '#1f2a44', '#7b4fc2', '#e8e2d0'];
+      for (const [k, yy] of [[0, .12], [1, .5], [2, .88]]) { box(g, '#8a5a34', 1.55, .05, .42, 0, yy, 0); if (k < 2) for (let i = 0; i < 4; i++) for (const d of [-.06, .06]) { const s = new THREE.Group(); s.position.set(-.55 + i * .37 + d, yy + .07, .02); s.rotation.x = -.35; add(s, G.box, sc[(i + k * 4) % 8], .1, .03, .26, 0, 0, 0); add(s, G.box, '#222222', .11, .04, .03, 0, .02, .05); g.add(s); } }
+      const c = document.createElement('canvas'); c.width = 512; c.height = 160; const x = c.getContext('2d'); x.fillStyle = '#3a9a5b'; x.fillRect(0, 0, 512, 160);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffffff'; x.font = '700 54px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'SANDAL KEMBALI', 256, 58, 490);
+      x.fillStyle = '#ffd25a'; x.font = '700 30px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'ambil punyamu', 256, 120, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.5, .47), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 1.25, .05); g.add(sg); box(g, '#5e3b22', 1.55, .5, .04, 0, 1.0, .02);
+    } },
   papanjadwal: { n: 'Papan Jadwal Presiden', w: 2, h: 1, land: true,
     build(g, b) {
       for (const x of [-.6, .6]) { const l = box(g, '#5e3b22', .07, 1.7, .07, x, 0, -.12); l.rotation.x = .12; }
