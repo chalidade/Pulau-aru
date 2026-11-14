@@ -1026,7 +1026,7 @@ export const BT = {
     } },
   // ep 36: campaign promise of candidate @rizyanzet ("kalau saya terpilih saya mau buat patung presiden pertama"): a stone
   // statue of a generic figure in a cap and sash, one hand raised, on a stepped plinth with a plate. Plate text from b.label
-  patungpresiden: { n: 'Patung Presiden Pertama', w: 2, h: 2, land: true, scale: 1.3,
+  patungpresiden: { n: 'Patung Presiden', w: 2, h: 2, land: true, scale: 1.3,
     build(g, b) {
       box(g, '#b9b2a2', 1.5, .14, 1.5, 0, 0, 0); box(g, '#cfc8b8', 1.1, .5, 1.1, 0, .14, 0); box(g, '#d9d3c4', .9, .08, .9, 0, .64, 0);
       const st = '#a8a69e', st2 = '#97958d';

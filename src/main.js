@@ -464,13 +464,14 @@ function assignDemo() {
     const g = tool ? workTool(tool) : placard(signs[i % signs.length]); (tool ? n.obj.userData.body : n.obj).add(g);
     n.demo = { role0: n.role, x: ox + dx, z: oz + dz, face: fc != null ? fc : Math.PI + (i % 3 - 1) * .15, sign: g, ph: i * .6, tool }; n.role = 'demo'; n.x = n.demo.x; n.z = n.demo.z; n.tx = null; });
   // ep 31: event.join = [[name, dx, dz, face], ...] puts named residents (cast or candidates) in the crowd too, keeping their own kit and placard
-  (ev.join || []).forEach(([nm, dx, dz, fc], i) => { const k = String(nm).toLowerCase(), n = npcs.find(m => (m.name || '').toLowerCase() === k || (m.cand || '').toLowerCase() === k || clean(m.name || '').toLowerCase() === clean(k));
+  // ep 36: an optional 5th value lifts the resident (e.g. onto the Mimbar stage for the debate: dy = stage height)
+  (ev.join || []).forEach(([nm, dx, dz, fc, dy], i) => { const k = String(nm).toLowerCase(), n = npcs.find(m => (m.name || '').toLowerCase() === k || (m.cand || '').toLowerCase() === k || clean(m.name || '').toLowerCase() === clean(k));
     if (!n || n.demo || n.aru || n.pres || n.vp) return;
-    n.demo = { role0: n.role, x: ox + dx, z: oz + dz, face: fc != null ? fc : Math.PI, sign: null, ph: 3 + i * .7, tool: null }; n.role = 'demo'; n.x = n.demo.x; n.z = n.demo.z; n.tx = null; });
+    n.demo = { role0: n.role, x: ox + dx, z: oz + dz, face: fc != null ? fc : Math.PI, sign: null, ph: 3 + i * .7, tool: null, dy: dy || 0 }; n.role = 'demo'; n.x = n.demo.x; n.z = n.demo.z; n.tx = null; });
 }
 function stepDemo(n, T) {
   const d = n.demo, u = n.obj.userData, t = T + d.ph, loud = Math.sin(t * .5) > 0;   // chanting, then resting, in waves
-  n.obj.position.set(d.x, surfaceY(d.x, d.z), d.z); n.obj.rotation.y = d.face; u.legL.rotation.x = u.legR.rotation.x = 0; u.body.rotation.x = 0;
+  n.obj.position.set(d.x, surfaceY(d.x, d.z) + (d.dy || 0), d.z); n.obj.rotation.y = d.face; u.legL.rotation.x = u.legR.rotation.x = 0; u.body.rotation.x = 0;
   if (d.tool) { u.body.rotation.y = 0; u.armL.rotation.z = .2; u.armR.rotation.z = -.2;
     if (d.tool === 'sapu') { const k = Math.sin(t * 3.2); u.armL.rotation.x = -1.0 + k * .12; u.armR.rotation.x = -1.1 - k * .12; u.body.rotation.y = k * .3; u.body.rotation.x = .12; u.body.position.y = 0; }
     else if (d.tool === 'cangkul') { const c = (t * 1.1) % 1, up = c < .55 ? c / .55 : 1 - (c - .55) / .45; u.armL.rotation.x = u.armR.rotation.x = -.5 - up * 2.1; u.body.rotation.x = .25 - up * .3; u.body.position.y = 0; }

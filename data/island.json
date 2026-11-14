@@ -12444,6 +12444,26 @@
    ],
    "face": 0,
    "pose": "pilot"
+  },
+  {
+   "n": "xzxxxxx67",
+   "ep": 36
+  },
+  {
+   "n": "catuk.tamluk",
+   "ep": 36
+  },
+  {
+   "n": "wakwawww536437",
+   "ep": 36
+  },
+  {
+   "n": "fathan.9987",
+   "ep": 36
+  },
+  {
+   "n": "wkwkbwa",
+   "ep": 36
   }
  ],
  "buildings": [
@@ -12811,7 +12831,7 @@
    "x": 52,
    "y": 49,
    "r": 3,
-   "label": "PEMILU SEGERA! 14 NOV",
+   "label": "DEBAT CALON PRESIDEN",
    "by": "warga",
    "ep": 30
   },
@@ -12832,10 +12852,15 @@
    "by": "pemilu warga",
    "ep": 31,
    "cands": [
-    "namamu?",
-    "namamu?",
-    "namamu?",
-    "namamu?"
+    "'EGA_ (petahana)",
+    "Hafidz",
+    "catuk.tamluk",
+    "rizyanzet",
+    "Opal",
+    "fathan.9987",
+    "wkwkbwa",
+    "whatiathis8",
+    "ormis_123 (wapres)"
    ],
    "label": "LIKE TERBANYAK = PRESIDEN · KEDUA = WAPRES",
    "prev": {
@@ -12854,8 +12879,8 @@
     ],
     "label": "DILANTIK EP 16 · MENJABAT 1 MINGGU"
    },
-   "head": "PEMILU KE-2 · 14 NOV",
-   "sub": "CALON PRESIDEN: DAFTAR DI KOMENTAR",
+   "head": "PEMILU KE-2 · DEBAT",
+   "sub": "9 CALON · LIKE SEDANG DIHITUNG",
    "seats": {
     "pres": "'EGA_",
     "vp": "King indo"
@@ -13052,9 +13077,9 @@
    "x": 57,
    "y": 44,
    "r": 1,
-   "label": "PENDAFTARAN CALON",
-   "sub": "komentar: AKU CALON + janjimu",
-   "foot": "PEMILU 14 NOV · GRATIS",
+   "label": "KOTAK SUARA",
+   "sub": "pendaftaran DITUTUP · 9 calon",
+   "foot": "HASIL: EPISODE BERIKUTNYA",
    "by": "panitia pemilu",
    "ep": 31
   },
@@ -13121,7 +13146,7 @@
    "r": 2,
    "label": "BANDARA PULAU ARU",
    "sub": "permintaan @salmanajalah3 · pilot pertama",
-   "banner": "PEMILU PRESIDEN SEGERA!",
+   "banner": "DEBAT CALON PRESIDEN!",
    "by": "salmanajalah3",
    "ep": 35
   },
@@ -13134,6 +13159,15 @@
    "sub": "usulan @darsetecuu · makanannya punya kamar",
    "by": "darsetecuu",
    "ep": 35
+  },
+  {
+   "type": "spanduk",
+   "x": 52,
+   "y": 47,
+   "r": 3,
+   "label": "PULAU TANPA BULLYING",
+   "by": "xzxxxxx67",
+   "ep": 36
   }
  ],
  "episodes": [
@@ -13465,6 +13499,15 @@
     "darsetecuu"
    ],
    "text": "Mau Jadi Pilot, Dapat Bandara: komentar @salmanajalah3 yang ingin jadi pilot (sudah dua kali minta) jadi Bandara Pulau Aru di pantai timur, lengkap dengan landasan, menara, dan pesawat kecil PK-ARU yang terbang memutari pulau membawa spanduk PEMILU PRESIDEN SEGERA!. Revan jadi penumpang pertama, salmanajalah3 Pilot Pertama. Komentar @darsetecuu 'tambah rumah buat makanan' jadi Rumah Makan, dan makanannya punya kamar sendiri: Kamar Ikan. Pesawat PK-ARU terbang ke mana berikutnya?"
+  },
+  {
+   "ep": 36,
+   "date": "2026-11-14",
+   "picks": [
+    "xzxxxxx67",
+    "rizyanzet"
+   ],
+   "text": "Debat Calon Presiden: masa jabatan Presiden 'EGA_ habis, sembilan calon dari komentar naik ke Mimbar membawa plakat janji, dengan Bu Guru Gina sebagai moderator. Janji @xzxxxxx67 (Hafidz) 'tidak ada bullying, tidak ada korupsi' jadi spanduk PULAU TANPA BULLYING, dan janji @rizyanzet 'patung presiden pertama' mulai dibangun (kalau dia menang). Meja pendaftaran kini jadi Kotak Suara. Like sedang dihitung: siapa presiden berikutnya?"
   }
  ],
  "letters": [],
@@ -13520,7 +13563,15 @@
    ]
   ]
  },
- "construct": [],
+ "construct": [
+  {
+   "type": "patungpresiden",
+   "by": "rizyanzet",
+   "ep": 36,
+   "x": 62,
+   "y": 43
+  }
+ ],
  "supporters": [
   {
    "n": "Sal",
@@ -13561,75 +13612,137 @@
  "umkm": [],
  "event": {
   "type": "demo",
-  "ep": 31,
-  "at": "mejadaftar",
+  "ep": 36,
+  "at": "mimbar",
   "signs": [
-   "AKU|CALON!",
-   "PILIH|AKU!",
-   "JANJI|MANIS",
-   "DAFTAR|DULU!",
-   "AKU|DULUAN!",
-   "LIKE|AKU!"
+   "DEBAT|CALON!",
+   "JANJI|DITAGIH!",
+   "PILIH|DI KOMENTAR",
+   "LIKE|CALONMU!",
+   "5 KOIN|BALIKIN!",
+   "SUARA|WARGA!"
   ],
   "spots": [
    [
-    -1.9,
-    -0.95,
-    1.2
+    -1.0,
+    3.0,
+    3.14
    ],
    [
-    -2.2,
-    -1.65,
-    0.9
+    0.0,
+    3.1,
+    3.14
    ],
    [
-    -2.1,
-    -2.35,
-    0.6
+    1.0,
+    3.0,
+    3.14
    ],
    [
-    -1.6,
-    -2.95,
-    0.3
+    -0.6,
+    3.9,
+    3.14
    ],
    [
-    -0.9,
-    -3.25,
-    0
+    0.5,
+    4.0,
+    3.14
    ],
    [
-    -2.7,
-    0.55,
-    1.57
+    1.5,
+    3.9,
+    3.14
    ]
   ],
+  "presSign": "SEJAHTERA-|KAN RAKYAT",
   "carry": {
-   "Etet_443": "MANTAN|PRESIDEN"
+   "Etet_443": "MANTAN|PRESIDEN",
+   "xzxxxxx67": "TANPA BULLYING|TANPA KORUPSI",
+   "catuk.tamluk": "HAPUS|KORUPSI",
+   "rizyanzet": "PATUNG|PRESIDEN",
+   "wakwawww536437": "AKU|OPAL",
+   "fathan.9987": "AKU INGIN|JADI PRESIDEN",
+   "wkwkbwa": "AKU|CALONN",
+   "whatiathis8": "UDAH|LIKE!",
+   "ormis_123": "CALON|WAPRES"
   },
   "join": [
    [
-    "D..A..B..Y a..j..a",
-    -1.15,
+    "xzxxxxx67",
+    -0.8,
+    -0.7,
+    0,
+    0.55
+   ],
+   [
+    "catuk.tamluk",
+    -1.25,
+    -0.15,
+    0.2,
+    0.55
+   ],
+   [
+    "rizyanzet",
+    1.3,
+    -0.75,
+    -0.1,
+    0.55
+   ],
+   [
+    "wakwawww536437",
+    1.3,
+    0.1,
+    -0.3,
+    0.55
+   ],
+   [
+    "fathan.9987",
+    -2.2,
+    -0.6,
+    0.6
+   ],
+   [
+    "wkwkbwa",
+    -2.3,
     0.3,
-    1.57
+    0.6
    ],
    [
-    "princes_nay",
-    -1.2,
-    -0.35,
-    1.57
+    "whatiathis8",
+    2.3,
+    0.6,
+    -0.6
    ],
    [
-    "Pinjam seratus 💸",
-    -1,
-    1.05,
-    2.2
+    "ormis_123",
+    2.4,
+    1.4,
+    -0.6
+   ],
+   [
+    "Bu Guru Gina",
+    -1.05,
+    0.95,
+    0.5,
+    0.55
    ],
    [
     "Etet_443",
-    -2.1,
-    1.25,
-    1.57
+    -0.4,
+    4.9,
+    3.14
+   ],
+   [
+    "ALIF HR",
+    2.0,
+    3.5,
+    3.14
+   ],
+   [
+    "NOVA",
+    2.6,
+    3.7,
+    3.14
    ]
   ]
  },
