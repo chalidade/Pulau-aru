@@ -4,13 +4,18 @@ Tambahkan komentar di sini kalau mau menentukan sendiri apa yang masuk ke episod
 (bisa diedit langsung di GitHub dari HP). Sesi otomatis memakai yang ada di sini lebih dulu,
 lalu menghapusnya setelah dipakai. Format satu baris: `@username: isi komentar`.
 
+## HASIL PEMILU KE-2 (untuk ep 37) — MOHON DIISI CHALID
+Ep 36 = debat; hasil dijanjikan episode berikutnya. Apify masih mati, jadi jumlah like komentar "aku calon" di video ep31
+belum bisa dihitung otomatis. Tulis di sini like tiap calon (contoh `@xzxxxxx67: 5`), atau langsung siapa presiden & wapresnya.
+Kalau kosong, ep 37 memakai urutan like yang bisa dibaca saat itu / menunda pengumuman.
+
 ## CALON PRESIDEN PEMILU KE-2 (dikumpulkan Chalid/Claude 12 Nov dari komentar ep31; untuk episode pemilu 14 Nov)
 Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemilu, lalu hapus. Janji fiksi untuk pulau
 (bukan politik nyata). Sudah dibalas di TikTok ("pendaftaran diterima").
 - @.....plengerrr0 (Presiden 'EGA_, petahana): "aku calon janjiku akan menyejaterahkan rakyatt"
-- @xzxxxxx67 (Hafidz): "tidak ada bullying tidak ada korupsi"
+- @xzxxxxx67 (Hafidz): "tidak ada bullying tidak ada korupsi" (dipakai ep 36: spanduk PULAU TANPA BULLYING)
 - @catuk.tamluk: "gw bakal hapus korup"
-- @rizyanzet: "Kalo saya terpilih saya mau buat patung presiden pertama ..."
+- @rizyanzet: "Kalo saya terpilih saya mau buat patung presiden pertama ..." (dipakai ep 36: lokasi Patung Presiden)
 - @wakwawww536437 (Opal): "aku calon presiden aku opal ..."
 - @fathan.9987: "aku ingin jadi presiden"
 - @wkwkbwa: "aku calonn"
