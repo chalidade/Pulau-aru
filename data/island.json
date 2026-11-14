@@ -12424,6 +12424,26 @@
   {
    "n": "sanel1276",
    "ep": 34
+  },
+  {
+   "n": "salmanajalah3",
+   "ep": 35,
+   "tampil": "salmanajalah3",
+   "julukan": "Pilot Pertama",
+   "sifat": "gagah tapi gampang mabuk udara",
+   "kalimat": [
+    "Penumpang, pasang sabuk pengaman! Kita terbang!",
+    "Landasan aman, Kapten Aru!"
+   ],
+   "tempat": "di samping pesawat PK-ARU, Bandara Pulau",
+   "spot": [
+    99,
+    95,
+    -0.5,
+    0.1
+   ],
+   "face": 0,
+   "pose": "pilot"
   }
  ],
  "buildings": [
@@ -13093,6 +13113,27 @@
    "sub": "dari sarang camar · ambil punyamu",
    "by": "panggil aja zidan",
    "ep": 34
+  },
+  {
+   "type": "bandara",
+   "x": 86,
+   "y": 90,
+   "r": 2,
+   "label": "BANDARA PULAU ARU",
+   "sub": "permintaan @salmanajalah3 · pilot pertama",
+   "banner": "PEMILU PRESIDEN SEGERA!",
+   "by": "salmanajalah3",
+   "ep": 35
+  },
+  {
+   "type": "rumahmakan",
+   "x": 70,
+   "y": 74,
+   "r": 0,
+   "label": "RUMAH MAKAN",
+   "sub": "usulan @darsetecuu · makanannya punya kamar",
+   "by": "darsetecuu",
+   "ep": 35
   }
  ],
  "episodes": [
@@ -13415,6 +13456,15 @@
     "sanel1276"
    ],
    "text": "Sarang dari Sandal: ternyata camar mencuri delapan sandal untuk membuat sarang bagi tiga bayinya di puncak mercusuar. Komentar @alexander______24 minta taman, jadilah Taman Pulau dengan Rumah Camar di tengahnya, dan keluarga camar pindah ke sana. Sandal warga kembali di Rak Sandal dekat masjid (dijaga zidan), kecuali sandal Aru yang jadi selimut bayi camar. Komentar @sanel1276 minta rumah di pantai: Rumah Pantai berdiri, senar muliya main gitar syukuran. Kasih nama tiga bayi camar di komentar!"
+  },
+  {
+   "ep": 35,
+   "date": "2026-11-14",
+   "picks": [
+    "salmanajalah3",
+    "darsetecuu"
+   ],
+   "text": "Mau Jadi Pilot, Dapat Bandara: komentar @salmanajalah3 yang ingin jadi pilot (sudah dua kali minta) jadi Bandara Pulau Aru di pantai timur, lengkap dengan landasan, menara, dan pesawat kecil PK-ARU yang terbang memutari pulau membawa spanduk PEMILU PRESIDEN SEGERA!. Revan jadi penumpang pertama, salmanajalah3 Pilot Pertama. Komentar @darsetecuu 'tambah rumah buat makanan' jadi Rumah Makan, dan makanannya punya kamar sendiri: Kamar Ikan. Pesawat PK-ARU terbang ke mana berikutnya?"
   }
  ],
  "letters": [],
