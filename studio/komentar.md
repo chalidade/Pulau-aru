@@ -26,6 +26,10 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 - Rumah warga (@adamfahriganteng, @nenkrahma16) — rumah pantai @sanel1276 SUDAH (ep 34)
 - Sekolah & mall (diminta berulang sejak 10 Nov)
 
+## Dari komentar 14 Nov malam (sudah dibalas)
+- Nama 3 bayi camar (end card ep34): @xonixccx_ "nini nono nana" -> pakai Nini, Nono, Nana
+- @umi.cholifah164: "min bikin rumah sakit"
+
 ## Traktir (langsung diwujudkan, tanpa undian)
 Traktiran dari teer.id/chalidade masuk otomatis ke studio/traktir.json (kalau secret TRAKTEER_API_KEY sudah diisi). Tulis di sini hanya kalau mau menambah manual.
 
