@@ -1,5 +1,5 @@
 {
- "nextEp": 35,
+ "nextEp": 36,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -53,7 +53,8 @@
   "SUBPLOT BARU (Chalid 11 Nov, RUNBOOK 2d): mulai ep32 jalankan dua subplot bersambung, bergantian/sejalan. (a) ASMARA: Penjual Ikan Bakar (fiksi, ep28) diam-diam menaruh ikan bakar terbaik + surat tanpa nama di Mercusuar setiap malam; Penjaga Mercusuar (fiksi, ep30) salah tingkah, warga bergosip siapa pengirimnya. Hanya tokoh fiksi dewasa. (b) MISTERI: kotak kas pulau / sandal-sandal warga hilang satu per satu, jejak kaki kecil di pasir, Pos Polisi menyelidiki dengan para calon polisi dari komentar sebagai detektif; pelakunya akhirnya burung camar yang menimbun barang di atas mercusuar (tokoh fiksi/hewan). Akun sungguhan boleh dicurigai sebentar secara lucu, lalu dibersihkan.",
   "Ep 32 MISTERI SANDAL HILANG (subplot b, bagian 1 dari 3-5): 7 sandal warga hilang dalam satu malam. Papan BARANG HILANG (papanjadwal x66 y89, timur Pos Penjaga Pantai), @RANUUGLL kini Polisi Pantai (resident spot 68,91, pose point), Aidil YZ menangis di samping papan (spot 66,91, pose cry). Tersangka #1 whoyss dibersihkan di episode yang sama (alibi: tidur di Pos Ronda, ngorok). Petunjuk 1: jejak kecil tiga jari di pantai timur menuju pintu mercusuar + bulu putih (Alexandre menemukannya) = island.json mystery.trail/feather. Petunjuk 2: ALERXMNC 'sudah di sini dari tadi', 'jejaknya naik ke atas'; tumpukan sandal ada di galeri mercusuar (mystery.pile, main.js rebuildMystery). Pelaku (belum diungkap): burung camar yang menimbun barang di atas mercusuar. Episode berikut: tebakan penonton (komentar), kamera jaga malam / Pos Polisi, camar tertangkap basah membawa sandal Aru; lalu kembalikan sandal & hapus mystery. Subplot asmara (Penjual Ikan Bakar x Penjaga Mercusuar) belum dimulai.",
   "Ep 33 MISTERI SANDAL HILANG bagian 2: @mhmmdalfaiz0 & @ngala.tcl (calon polisi dari komentar ep31) jadi Detektif Pantai (resident spot 79,56 & 80,56 di samping kamera, kit/pose 'detektif': topi cokelat + kaca pembesar). Kamera Jaga Malam (cctv x78 y55 r3, lampu REC berkedip) diarahkan ke pintu mercusuar. Umpan: sandal inyuu (inyuu & D4L keluar dari rombongan study tour, kini ikut jaga malam di 77,56 & 76,56). Jam dua pagi kamera merekam PELAKUNYA: burung camar (island.json mystery.gull; M.seagull bertengger di galeri mercusuar dengan sandal di paruh, terbang memutari lampu tiap 40 dtk). Tumpukan sandal kini 8 (mystery.pile). End card: KENAPA camar ngumpulin sandal? -> episode berikut (bagian 3): ambil tebakan penonton dari komentar; payoff hangat yang direncanakan: camar membuat sarang dari sandal untuk anak-anaknya (telur/anak camar di tumpukan), warga membuatkan Rumah Camar / sarang pengganti, sandal dikembalikan ke pemilik (Aidil, Aru, inyuu, Bu Guru Gina), lalu hapus mystery. Detektif bisa dapat lencana/Pos Detektif.",
-  "Ep 34 MISTERI SANDAL HILANG bagian 3 (SELESAI): camar membuat sarang dari 8 sandal untuk 3 bayinya. Taman Pulau (tamancamar x64 y58 r2, gerbang menghadap utara, @alexander______24) dengan Rumah Camar di tengah (tiang + sarang sandal + induk camar + 3 bayi yang mengangguk minta makan, sandal oranye Aru jadi selimut; main.js menganimasikan userData.chicks). island.json mystery: pile 0, gull false, trail kosong (kasus ditutup). Rak Sandal Kembali (raksandal x46 y51) dekat masjid, dijaga zidan. Rumah Pantai (rumahpantai x70 y85, @sanel1276); senar muliya (resident 'apriantoro') pindah ke depan Rumah Pantai (71,88) dengan gitar. Papan BARANG HILANG: KASUS DITUTUP, item 'Sandal Aru' belum dicentang. End card: kasih nama 3 bayi camar -> episode berikut bisa memakai nama dari komentar (pasang di papan Rumah Camar). Subplot berikut: ASMARA (Penjual Ikan Bakar & Penjaga Mercusuar), atau pemilu 14 Nov dari daftar calon di komentar.md."
+  "Ep 34 MISTERI SANDAL HILANG bagian 3 (SELESAI): camar membuat sarang dari 8 sandal untuk 3 bayinya. Taman Pulau (tamancamar x64 y58 r2, gerbang menghadap utara, @alexander______24) dengan Rumah Camar di tengah (tiang + sarang sandal + induk camar + 3 bayi yang mengangguk minta makan, sandal oranye Aru jadi selimut; main.js menganimasikan userData.chicks). island.json mystery: pile 0, gull false, trail kosong (kasus ditutup). Rak Sandal Kembali (raksandal x46 y51) dekat masjid, dijaga zidan. Rumah Pantai (rumahpantai x70 y85, @sanel1276); senar muliya (resident 'apriantoro') pindah ke depan Rumah Pantai (71,88) dengan gitar. Papan BARANG HILANG: KASUS DITUTUP, item 'Sandal Aru' belum dicentang. End card: kasih nama 3 bayi camar -> episode berikut bisa memakai nama dari komentar (pasang di papan Rumah Camar). Subplot berikut: ASMARA (Penjual Ikan Bakar & Penjaga Mercusuar), atau pemilu 14 Nov dari daftar calon di komentar.md.",
+  "Ep 35: Bandara Pulau Aru (bandara x86 y90 r2) + pesawat PK-ARU terbang tiap 130 dtk membawa spanduk (b.banner, sekarang 'PEMILU PRESIDEN SEGERA!' - ganti setelah pemilu). Pilot Pertama @salmanajalah3 (resident spot 99,95). Rumah Makan (x70 y74) dengan Kamar Ikan. End card: 'Pesawat PK-ARU terbang ke mana?' -> bisa jadi episode rute (Pulau Seberang?). PEMILU KE-2 dijanjikan 'sebentar lagi' (narasi ep 35) - papan pemilu bilang 14 Nov; episode berikut sebaiknya pemilu/hitung like calon di komentar.md. Kamera: landasan di z 38.5 world, pesawat parkir (44.2,38.5) hidung ke timur, lepas landas ke barat; window.__planeU pin; chase helper di shots ep35 (__pp/__pdir); kamera dari luar lingkaran (yaw atan2(p.x,p.z)) agar pulau jadi latar. Tiang menara (x~35) menutupi kamera dari tenggara."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -111,7 +112,9 @@
   "mhmmdalfaiz0: calon polisi (komentar ep31, antrean komentar.md) -> Detektif Pantai ep 33",
   "ngala.tcl: calon polisi (komentar ep31, antrean komentar.md) -> Detektif Pantai ep 33",
   "alexander______24: taman (antrean komentar.md 12 Nov) -> Taman Pulau + Rumah Camar ep 34",
-  "sanel1276: rumah di pantai (antrean komentar.md) -> Rumah Pantai ep 34"
+  "sanel1276: rumah di pantai (antrean komentar.md) -> Rumah Pantai ep 34",
+  "salmanajalah3: mau jadi pilot (antrean komentar.md, diminta 2x) -> Bandara Pulau Aru + pesawat PK-ARU, Pilot Pertama ep 35",
+  "darsetecuu: tambah rumah buat makanan (antrean komentar.md) -> Rumah Makan dengan Kamar Ikan ep 35"
  ],
  "episodes": [
   {
@@ -287,16 +290,22 @@
    "title": "Sarang dari Sandal",
    "posted": "https://www.tiktok.com/@kita.berkembang/video/7707509410574339348",
    "summary": "Format CERITA (run pagi; ep 33 KONSEP). Apify gagal lagi (run 43353925860), Chrome tidak tersambung -> dua permintaan dari antrean komentar.md (@alexander______24 taman, @sanel1276 rumah di pantai; kartu memakai username asli + keterangan, tanpa foto). Misteri sandal bagian 3 (penutup): cold open sarang dari 8 sandal + 3 bayi camar di galeri mercusuar ('Sandal kita... jadi SARANG BAYI?!'), hook SANDAL DICURI / JADI SARANG BAYI!. Premis komentar=cerita + dua kartu komentar di detik ~3. Recap kamera malam, Alexandre 'Serahkan padaku! Aku naik!', Aidil 'Hiks... indah banget', Aru 'warga butuh sandal, camar butuh rumah'. Taman Pulau (x64 y58) dengan Rumah Camar di tengah: keluarga camar pindah. zidan di Rak Sandal Kembali dekat masjid. Rumah Pantai (x70 y85), senar muliya main gitar syukuran (senar putus). Aru: 'Sandalku? Biar jadi selimut bayi camar aja.' End card: Kasih nama 3 bayi camar! + CTA UMKM + 'Besok: PEMILU 14 NOV'. 58 dtk."
+  },
+  {
+   "ep": 35,
+   "title": "Mau Jadi Pilot, Dapat Bandara",
+   "posted": "belum (dikirim ke Chalid untuk posting manual 14 Nov pagi; video: https://github.com/chalidade/Pulau-aru/raw/videos/episodes/pulau-aru-ep35.mp4)",
+   "summary": "Format KONSEP (run pagi 14 Nov; ep 34 CERITA). Melanjutkan pekerjaan ep 35 yang terhenti 13 Nov sore (kode bandara/pesawat/rumah makan + suara sudah ada, tapi island.json & video belum). Apify gagal lagi (run 43547779026), Chrome tidak tersambung -> dua permintaan antrean komentar.md: @salmanajalah3 (pilot) dan @darsetecuu (rumah buat makanan); kartu memakai username asli + keterangan, tanpa foto. Cold open: PK-ARU lepas landas di depan terminal, hook MAU JADI PILOT, / DAPAT BANDARA!. Premis 'pulau ini diatur komentar kalian, follow = warga' + dua kartu komentar. Bandara Pulau Aru (bandara x86 y90 r2, dek di laut selatan lapangan timur), Revan (-VANZwlee) penumpang pertama, salmanajalah3 Pilot Pertama (resident spot 99,95 pose pilot) memberi hormat, pesawat terbang memutari pulau membawa spanduk PEMILU PRESIDEN SEGERA! (Revan: 'pulau kita kelihatan kayak kue'). Rumah Makan (x70 y74 r0) dengan Kamar Ikan, lala cute menawarkan kue. End card: Pesawat PK-ARU terbang ke mana? + CTA traktir + 'Segera: PEMILU PRESIDEN KE-2'. 57 dtk."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 34,
-   "cta": "UMKM"
+   "ep": 35,
+   "cta": "traktir"
   },
-  "nextCta": "traktir"
+  "nextCta": "UMKM"
  },
  "notes": [
   "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
@@ -327,7 +336,8 @@
   "Ep 31 (11 Nov sore): Apify gagal lagi (run 42997290536), Chrome tidak tersambung (tool claude-in-chrome tidak ada) -> video dikirim ke Chalid untuk diposting manual. Kode baru: model mejadaftar, papanpemilu b.head/b.sub/b.seats, event.join. Kamera di sekitar meja: depan meja (barat) penuh antrean berplakat -> pakai helper __clr di shots ep31 (sembunyikan NPC di jalur kamera); selatan meja tertutup Monumen & papan pemilu (jangan kamera dari selatan); presiden EGA berdiri di balik podium -> taruh di (-.75,-10.6) di samping podium dan sembunyikan wapres (__VP). Target kamera pakai P.surfaceY + tinggi, bukan y tetap (tanah di utara panggung lebih tinggi). Capture DPR2 ~1 dtk/frame (2000 frame ~35 mnt).",
   "Ep 32 (12 Nov pagi): Apify gagal lagi (run 43143245294, APIFY_TOKEN kosong), Chrome tidak tersambung (tool claude-in-chrome tidak ada; add_repo tidak tersedia, repo sudah ter-attach) -> video dikirim ke Chalid untuk diposting manual. Kode baru: main.js rebuildMystery (island.json mystery: trail [[cx,cy],...] jejak tiga jari, feather [cx,cy], pile = jumlah sandal di galeri mercusuar, note = teks dialog 'Periksa jejak aneh'). Lokasi pemotretan: Papan BARANG HILANG world (11,33.5) - kamera dari selatan (yaw ~.15); jangan kamera di barat (Pos Penjaga Pantai ber-scale 1.5 menutupi). Semak whoyss (-5.5,-13.5) penuh pohon: pakai __hideInst + yaw -.5. Tumpukan sandal di galeri mercusuar world (27.58, -1.38), kamera yaw -.6 pitch .6 dist ~1.8.",
   "Ep 33 (12 Nov sore): Apify gagal lagi (run 43193707877), Chrome tidak tersambung (tool claude-in-chrome tidak ada; add_repo tidak tersedia, repo sudah ter-attach) -> video dikirim ke Chalid untuk diposting manual. Kode baru: BT.cctv (b.label, userData.led berkedip di loop main.js), castKit/castPose 'detektif', M.seagull() (userData wl/wr/sandal) + main.js stepGull (mystery.gull; window.__gullT 0-7 = terbang memutar, >=7 bertengger). Gagak/camar untuk shot dibuat di shots ep33 lewat dynamic import('/src/models.js'). NPC cast ditemukan dengan __N(tampil) (mis. 'inyuu', bukan 'inyuu416'). Anggota tour.pupils memakai topi kuning & tidak berdiri di spot: inyuu & D4L dikeluarkan dari pupils. Kamera dekat galeri mercusuar saat malam (clock .63) silau oleh kaca lampu: pakai clock .585. Prev warm 150 di sesi ini ~90 dtk/shot, capture DPR2 ~0,77 dtk/frame.",
-  "Ep 34 (13 Nov pagi): Apify gagal lagi (run 43353925860), Chrome tidak tersambung (tool claude-in-chrome tidak ada; add_repo tidak tersedia, repo sudah ter-clone) -> video dikirim ke Chalid untuk diposting manual. Kode baru: BT.tamancamar (userData.nest/gull/chicks), BT.rumahpantai, BT.raksandal. Kamera: Rak Sandal hanya bagus dari timur (yaw ~1.25-1.4); di selatannya ada kotak gelap. Di taman, kamera dari utara menembus gapura -> pakai yaw 0 (dari selatan) untuk Aru di bawah Rumah Camar. Sarang di mercusuar untuk cold open = klon nest taman ditempel ke lighthouse (shots ep34 SETUP34). Capture DPR2 ~0,75 dtk/frame."
+  "Ep 34 (13 Nov pagi): Apify gagal lagi (run 43353925860), Chrome tidak tersambung (tool claude-in-chrome tidak ada; add_repo tidak tersedia, repo sudah ter-clone) -> video dikirim ke Chalid untuk diposting manual. Kode baru: BT.tamancamar (userData.nest/gull/chicks), BT.rumahpantai, BT.raksandal. Kamera: Rak Sandal hanya bagus dari timur (yaw ~1.25-1.4); di selatannya ada kotak gelap. Di taman, kamera dari utara menembus gapura -> pakai yaw 0 (dari selatan) untuk Aru di bawah Rumah Camar. Sarang di mercusuar untuk cold open = klon nest taman ditempel ke lighthouse (shots ep34 SETUP34). Capture DPR2 ~0,75 dtk/frame.",
+  "Ep 35 (14 Nov pagi): sesi ep 35 sebelumnya (13 Nov sore) terhenti setelah push kode + suara; sesi ini menyelesaikan ep 35 (penempatan island.json, capture, video). Apify gagal lagi (run 43547779026), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> video dikirim ke Chalid untuk diposting manual. Suara: n5 diganti 'sebentar lagi' (bukan 'besok'), tambah r2. Capture DPR2 ~0,85 dtk/frame; beberapa frame hitam tunggal di c15 ditambal dari frame sebelumnya. look.py/prev pertama di sesi baru lama (~90 dtk/shot) -> jalankan di background."
  ],
  "rooms": {
   "open": [
@@ -352,7 +362,7 @@
   ]
  },
  "strategy": {
-  "lastFormat": "CERITA",
+  "lastFormat": "KONSEP",
   "tests": [
    {
     "ep": 25,
@@ -433,18 +443,17 @@
     "opening": "3D close-up sarang sandal + 3 bayi camar di galeri mercusuar, tanpa filter buku cerita",
     "captionStyle": "pendek personal + ajakan kasih nama bayi camar + pulau-aru.web.id + #pulaunetizen #alurcerita",
     "duration": 58
+   },
+   {
+    "ep": 35,
+    "format": "KONSEP",
+    "hook": "MAU JADI PILOT, / DAPAT BANDARA!",
+    "opening": "3D pesawat PK-ARU lepas landas di depan terminal bertuliskan BANDARA PULAU ARU (flash-forward ke payoff), tanpa filter buku cerita",
+    "captionStyle": "pendek personal + komentar=kenyataan + pulau-aru.web.id + #pulaunetizen #alurcerita",
+    "duration": 57
    }
   ],
   "castLog": [
-   {
-    "ep": 27,
-    "cast": [
-     "Cawetssssss",
-     "Pinjam seratus",
-     "KM GPP TAN",
-     "Bu Guru Gina"
-    ]
-   },
    {
     "ep": 28,
     "cast": [
@@ -514,6 +523,14 @@
      "Aidil YZ",
      "panggil aja zidan",
      "senar muliya"
+    ]
+   },
+   {
+    "ep": 35,
+    "cast": [
+     "-VANZwlee",
+     "salmanajalah3",
+     "lala cute"
     ]
    }
   ]

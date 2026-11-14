@@ -16,12 +16,9 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 - @wkwkbwa: "aku calonn"
 - @ormis_123: "aku mau jadi wapres" (calon wapres)
 - @whatiathis8: "aku mau jadi presiden udah like" (13 Nov)
-Lainnya: @salmanajalah3 mau jadi pilot (perlu bandara).
 
 ## Permintaan bangunan dari komentar (12 Nov malam, sudah dibalas "kucatat")
 - Rumah warga (@adamfahriganteng, @nenkrahma16) — rumah pantai @sanel1276 SUDAH (ep 34)
-- Rumah makan (@darsetecuu "tambah rumah buat makanan")
-- Bandara (@salmanajalah3 mau jadi pilot, sudah 2x minta)
 - Sekolah & mall (diminta berulang sejak 10 Nov)
 
 ## Traktir (langsung diwujudkan, tanpa undian)
