@@ -1024,6 +1024,25 @@ export const BT = {
       box(g, '#3a2618', 1.86, .74, .03, 0, 1.58, -.97);
       const bn = new THREE.Mesh(new THREE.PlaneGeometry(1.8, .68), new THREE.MeshStandardMaterial({ map: tx, roughness: .85 })); bn.position.set(0, 1.95, -.95); g.add(bn);
     } },
+  // ep 36: campaign promise of candidate @rizyanzet ("kalau saya terpilih saya mau buat patung presiden pertama"): a stone
+  // statue of a generic figure in a cap and sash, one hand raised, on a stepped plinth with a plate. Plate text from b.label
+  patungpresiden: { n: 'Patung Presiden Pertama', w: 2, h: 2, land: true, scale: 1.3,
+    build(g, b) {
+      box(g, '#b9b2a2', 1.5, .14, 1.5, 0, 0, 0); box(g, '#cfc8b8', 1.1, .5, 1.1, 0, .14, 0); box(g, '#d9d3c4', .9, .08, .9, 0, .64, 0);
+      const st = '#a8a69e', st2 = '#97958d';
+      for (const x of [-.11, .11]) box(g, st2, .14, .55, .16, x, .72, 0);                // legs
+      box(g, st, .44, .55, .26, 0, 1.27, 0);                                               // body (coat)
+      const sash = box(g, '#c4473a', .08, .6, .02, 0, 1.24, .14); sash.rotation.z = .6;      // red-white sash
+      box(g, st, .34, .32, .3, 0, 1.82, 0); box(g, st2, .38, .08, .34, 0, 2.12, 0); box(g, st2, .3, .1, .28, 0, 2.18, 0);   // head and cap (peci)
+      box(g, st, .12, .45, .12, -.28, 1.4, 0);                                             // left arm down
+      const ar = box(g, st, .12, .5, .12, .3, 1.55, 0); ar.rotation.z = -2.6;              // right arm raised (waving)
+      const c = document.createElement('canvas'); c.width = 384; c.height = 128; const x = c.getContext('2d');
+      x.fillStyle = '#3a3226'; x.fillRect(0, 0, 384, 128); x.strokeStyle = '#e6b84a'; x.lineWidth = 6; x.strokeRect(5, 5, 374, 118);
+      x.fillStyle = '#e6b84a'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = '700 40px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'PRESIDEN PERTAMA', 192, 48, 360);
+      x.font = '700 26px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'PULAU ARU', 192, 92, 360);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const pl = new THREE.Mesh(new THREE.PlaneGeometry(.78, .26), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); pl.position.set(0, .39, .556); g.add(pl);
+    } },
   // ep 17: a public toilet from the old residents' suggestions (two doors, sink outside, water tank on the roof)
   toiletumum: { n: 'Toilet Umum', w: 3, h: 2, land: true, scale: 1.45,
     build(g) {
