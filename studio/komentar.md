@@ -31,8 +31,7 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 
 
 ## Dari komentar 15 Nov (sudah dibalas)
-- @april_stecu989: "tambahin kapal pesiar raksasa aku jadi kaptennya udah paket lengkap"
-- @david.p.h3: "saya pramugari udah follow" (cocok dengan bandara ep35)
+(@april_stecu989 kapal pesiar & @david.p.h3 pramugari sudah dipakai di ep 38)
 
 ## Traktir (langsung diwujudkan, tanpa undian)
 Traktiran dari teer.id/chalidade masuk otomatis ke studio/traktir.json (kalau secret TRAKTEER_API_KEY sudah diisi). Tulis di sini hanya kalau mau menambah manual.

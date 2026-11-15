@@ -12474,6 +12474,46 @@
   {
    "n": "umi.cholifah164",
    "ep": 37
+  },
+  {
+   "n": "april_stecu989",
+   "ep": 38,
+   "tampil": "april_stecu989",
+   "julukan": "Kapten Kapal Pesiar",
+   "sifat": "percaya diri, 'paket lengkap'",
+   "kalimat": [
+    "Kapten April di sini! Paket lengkap!",
+    "Semua penumpang, siap berlayar!"
+   ],
+   "tempat": "kaki tangga kapal, Pelabuhan Nelayan",
+   "spot": [
+    65,
+    97,
+    0.2,
+    0.7
+   ],
+   "face": 3.14,
+   "pose": "kapten"
+  },
+  {
+   "n": "david.p.h3",
+   "ep": 38,
+   "tampil": "david.p.h3",
+   "julukan": "Pramugari (salah kendaraan)",
+   "sifat": "ramah, kebiasaan pesawat",
+   "kalimat": [
+    "Selamat datang di penerbangan... eh, pelayaran!",
+    "Pintu darurat ada di kiri dan kanan."
+   ],
+   "tempat": "kaki tangga kapal, Pelabuhan Nelayan",
+   "spot": [
+    66,
+    97,
+    0.25,
+    0.4
+   ],
+   "face": 3.14,
+   "pose": "pramugari"
   }
  ],
  "buildings": [
@@ -13129,8 +13169,8 @@
    "by": "alexander______24",
    "ep": 34,
    "names": "NINI · NONO · NANA",
-   "bandage": 1,
-   "namesBy": "xonixccx_"
+   "namesBy": "xonixccx_",
+   "away": 1
   },
   {
    "type": "rumahpantai",
@@ -13194,6 +13234,19 @@
    "status": "SUDAH SEMBUH ✓",
    "by": "umi.cholifah164",
    "ep": 37
+  },
+  {
+   "type": "kapalpesiar",
+   "x": 61,
+   "y": 102,
+   "r": 0,
+   "label": "KAPAL PESIAR ARU",
+   "sub": "Kapten @april_stecu989 · pramugari @david.p.h3",
+   "gx": -2.7,
+   "gl": 3.9,
+   "passenger": "NONO",
+   "by": "april_stecu989",
+   "ep": 38
   }
  ],
  "episodes": [
@@ -13543,6 +13596,15 @@
     "umi.cholifah164"
    ],
    "text": "Rumah Sakit Hewan: tiga bayi camar kini punya nama dari komentar @xonixccx_, Nini, Nono, dan Nana. Nono belajar terbang lalu sayapnya keseleo, jadi permintaan @umi.cholifah164 'bikin rumah sakit' diwujudkan: Rumah Sakit Hewan di tenggara Taman Pulau, dengan Luci sebagai dokter hewan (katanya). Nono pulang ke sarang berperban. EGA mengembalikan lima koin; like pemilu masih dihitung."
+  },
+  {
+   "ep": 38,
+   "date": "2026-11-15",
+   "picks": [
+    "@april_stecu989: tambahin kapal pesiar raksasa aku jadi kaptennya udah paket lengkap (Kapal Pesiar Aru, Kapten April)",
+    "@david.p.h3: saya pramugari udah follow (pramugari di kapal pesiar)"
+   ],
+   "text": "Satu komentar jadi kapal pesiar raksasa: Kapal Pesiar Aru berlabuh di selatan Pelabuhan Nelayan, dengan Kapten April (@april_stecu989) di kaki tangganya.\nPramugari @david.p.h3 ikut bertugas, walau 'pesawatnya penuh': peragaan keselamatan di kapal. Ikan Rayhan kabur semua.\nKlub Pertama berebut jadi penumpang pertama, tapi Nono yang sudah sembuh terbang duluan ke pagar haluan: PENUMPANG PERTAMA: NONO."
   }
  ],
  "letters": [],

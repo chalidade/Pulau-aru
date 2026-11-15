@@ -1743,7 +1743,7 @@ export const BT = {
         for (const s of [-1, 1]) { const w = add(ch, G.box, '#cfccc2', .02, .07, .12, s * .09, .07, -.01); w.rotation.z = s * .4; }
         g.add(ch); chicks.push(ch); g.userData.chickBase = 2.03;
         const pt = tex(256, 80, c => { c.fillStyle = '#fbfaf5'; c.fillRect(0, 0, 256, 80); c.fillStyle = '#1d2b4a'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 30px "Pixelify Sans", sans-serif'; c.fillText('PENUMPANG PERTAMA:', 128, 24, 246); c.fillStyle = '#c0392b'; c.font = '700 34px "Pixelify Sans", sans-serif'; c.fillText(String(b.passenger), 128, 58, 246); });
-        const ps = new THREE.Mesh(new THREE.PlaneGeometry(.7, .22), new THREE.MeshStandardMaterial({ map: pt, side: THREE.DoubleSide })); ps.position.set(5.9, 1.8, -1.87); g.add(ps); }
+        const ps = new THREE.Mesh(new THREE.PlaneGeometry(.7, .22), new THREE.MeshStandardMaterial({ map: pt, side: THREE.DoubleSide })); ps.position.set(5.9, 1.8, -1.88); ps.rotation.y = Math.PI; g.add(ps); }
       g.userData.chicks = chicks;
       bake(g);
     } },
