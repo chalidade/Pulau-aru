@@ -47,6 +47,10 @@ export function castKit(ch, pose) {
   // ep 33: the two detectives from the comments (@mhmmdalfaiz0, @ngala.tcl): brown checked detective hat, a magnifying glass held up to the eye
   if (pose === 'detektif') { box(b, '#7a5a3a', .42, .16, .42, 0, 1.36, -.01); box(b, '#7a5a3a', .54, .03, .54, 0, 1.35, -.01); box(b, '#5a3f26', .43, .04, .43, 0, 1.4, -.01); box(b, '#c9a24a', .1, .05, .02, .12, 1.42, .22);
     add(b, G.cyl6, '#3a2a1a', .025, .26, .025, .3, .86, .34); const ring = add(b, G.cyl8, '#c9a24a', .12, .02, .12, .3, 1.06, .36); ring.rotation.x = Math.PI / 2; const gl = add(b, G.cyl8, new THREE.MeshStandardMaterial({ color: '#cfeaf5', emissive: '#7fb8d0', emissiveIntensity: .35, transparent: true, opacity: .6 }), .1, .022, .1, .3, 1.06, .36); gl.rotation.x = Math.PI / 2; gl.castShadow = false; }
+  // ep 37: Luci Ardiansyah, 'dokter hewan (katanya)' at the Rumah Sakit Hewan: white coat, a stethoscope, a round head mirror
+  if (pose === 'dokter') { box(b, '#fbfbf7', .5, .62, .32, 0, .4, 0); box(b, '#dfe6ea', .06, .5, .02, 0, .5, .165); box(b, '#2f9a7a', .1, .1, .02, -.14, .82, .165);
+    for (const s of [-1, 1]) box(b, '#2b2d33', .025, .3, .025, s * .09, .82, .17); add(b, G.cyl8, '#9aa3ad', .045, .02, .045, 0, .7, .18).rotation.x = Math.PI / 2;
+    box(b, '#2b2d33', .42, .04, .42, 0, 1.42, -.01); const mr = add(b, G.cyl8, new THREE.MeshStandardMaterial({ color: '#dfe9ee', metalness: .6, roughness: .2, emissive: '#7a8a90', emissiveIntensity: .2 }), .09, .02, .09, 0, 1.47, .22); mr.rotation.x = Math.PI / 2; }
   // ep 35: the island's first pilot (@salmanajalah3): white shirt with gold epaulettes, a navy cap with a gold band, aviator shades, wings badge
   if (pose === 'pilot') { box(b, '#f7f5ef', .46, .5, .29, 0, .5, 0); for (const x of [-.2, .2]) box(b, '#c9a24a', .1, .03, .2, x, 1.0, 0); box(b, '#c9a24a', .14, .04, .02, -.1, .88, .148);
     box(b, '#1f2a44', .4, .12, .4, 0, 1.38, -.01); box(b, '#c9a24a', .41, .04, .41, 0, 1.38, -.01); box(b, '#111', .3, .03, .14, 0, 1.36, .2); box(b, '#c9a24a', .07, .05, .02, 0, 1.44, .2);
@@ -1271,11 +1275,13 @@ export const BT = {
       for (const [cx, cz] of [[.12, .12], [-.12, .2], [.24, -.08]]) { const ch = new THREE.Group(); ch.position.set(cx, .05, cz); ch.rotation.y = Math.atan2(cx, cz);
         add(ch, G.sph, '#d9d6cc', .085, .08, .085, 0, .08, 0); add(ch, G.sph, '#e3e0d6', .06, .06, .06, 0, .18, .02); const bk = add(ch, G.cone4, '#f2b632', .022, .06, .022, 0, .18, .09); bk.rotation.x = Math.PI / 2;
         for (const ex of [-.025, .025]) add(ch, G.sph, '#111111', .011, .011, .011, ex, .2, .065); nest.add(ch); chicks.push(ch); }
+      // ep 37: Nono (the middle chick) came back from the Rumah Sakit Hewan with a little white bandage on its wing
+      if (b && b.bandage != null && chicks[b.bandage]) { const c0 = chicks[b.bandage]; box(c0, '#ffffff', .05, .07, .1, .075, .05, -.01); box(c0, '#ffffff', .05, .07, .1, -.075, .05, -.01); box(c0, '#e35050', .052, .02, .02, .076, .1, -.01); }
       const blanket = new THREE.Group(); blanket.position.set(.05, .14, .12); blanket.rotation.set(-.15, .5, .08); add(blanket, G.box, '#ff8a3d', .2, .03, .34, 0, 0, 0); add(blanket, G.box, '#222222', .21, .04, .03, 0, .02, -.07); nest.add(blanket);
       // small sign on the pole
       const c2 = document.createElement('canvas'); c2.width = 512; c2.height = 220; const y = c2.getContext('2d'); y.fillStyle = '#fbfaf5'; y.fillRect(0, 0, 512, 220); y.fillStyle = '#2f6fb5'; y.fillRect(0, 0, 512, 70);
       y.textAlign = 'center'; y.textBaseline = 'middle'; y.fillStyle = '#ffffff'; y.font = '700 50px "Pixelify Sans", sans-serif'; y.fillText('RUMAH CAMAR', 256, 37, 490);
-      y.fillStyle = '#1f2a44'; y.font = '700 30px "Pixelify Sans", sans-serif'; y.fillText('3 bayi camar · belum punya nama', 256, 115, 490); y.fillStyle = '#c0392b'; y.fillText('Jangan ambil sandal lagi ya!', 256, 172, 490);
+      y.fillStyle = '#1f2a44'; y.font = '700 30px "Pixelify Sans", sans-serif'; y.fillText((b && b.names) ? (b.names + ' · nama dari komentar') : '3 bayi camar · belum punya nama', 256, 115, 490); y.fillStyle = '#c0392b'; y.fillText('Jangan ambil sandal lagi ya!', 256, 172, 490);
       const t2 = new THREE.CanvasTexture(c2); t2.colorSpace = THREE.SRGBColorSpace; t2.anisotropy = 4;
       const s2 = new THREE.Mesh(new THREE.PlaneGeometry(.75, .32), new THREE.MeshStandardMaterial({ map: t2, roughness: .8 })); s2.position.set(0, 1.25, .11); g.add(s2);
       g.userData.gull = gull; g.userData.chicks = chicks; g.userData.nest = nest;
@@ -1301,6 +1307,38 @@ export const BT = {
       x.fillStyle = '#c0392b'; x.font = '700 34px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || '', 256, 135, 490);
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
       const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.25, .44), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 2.55, 1.46); g.add(sg);
+    } },
+  // ep 37 (komentar @umi.cholifah164 "min bikin rumah sakit"): Rumah Sakit Hewan next to Taman Pulau, built when Nono, one of
+  // the three Rumah Camar chicks (named Nini, Nono, Nana by @xonixccx_), sprained its wing. White one-storey clinic (~2.3x a
+  // person), mint roof band, a tall door, a sign on the front (b.label / b.sub) with a green paw, a porch with a little exam
+  // table and a chick bed, and a board 'PASIEN PERTAMA: NONO'. Door faces +z at r=0.
+  rshewan: { n: 'Rumah Sakit Hewan', w: 5, h: 5, land: true, clearTrees: true,
+    build(g, b) {
+      const tex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d')); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+      const paw = (x, cx, cy, r, col) => { x.fillStyle = col; x.beginPath(); x.ellipse(cx, cy + r * .35, r * .62, r * .5, 0, 0, 6.29); x.fill(); for (const [dx, dy] of [[-.62, -.38], [-.22, -.72], [.22, -.72], [.62, -.38]]) { x.beginPath(); x.arc(cx + dx * r, cy + dy * r, r * .22, 0, 6.29); x.fill(); } };
+      box(g, '#cfd6d2', 4.4, .16, 3.6, 0, 0, -.3);
+      box(g, '#f7f6f0', 4.0, 3.0, 2.6, 0, .16, -.6); box(g, '#7fd1b9', 4.1, .28, 2.7, 0, 3.12, -.6); box(g, '#f7f6f0', 4.06, .1, 2.66, 0, 3.4, -.6);
+      add(g, G.cone4, '#5fb59c', 3.1, .9, 2.1, 0, 3.95, -.6, Math.PI / 4);
+      // tall door (taller than a person) with a mint frame, and two windows with a green stripe
+      box(g, '#7fd1b9', 1.1, 2.15, .06, 0, .16, .7); box(g, new THREE.MeshStandardMaterial({ color: '#cfe8ee', roughness: .2, emissive: '#9ad', emissiveIntensity: .1 }), .9, 2.0, .07, 0, .16, .71); box(g, '#2b2d33', .04, 1.9, .075, 0, .2, .72);
+      for (const x of [-1.4, 1.4]) { box(g, '#7fd1b9', .9, .9, .05, x, 1.35, .7); box(g, windowMat, .76, .76, .06, x, 1.42, .7); box(g, '#f7f6f0', .76, .05, .065, x, 1.78, .7); }
+      // front sign
+      const st = tex(768, 220, x => { x.fillStyle = '#ffffff'; x.fillRect(0, 0, 768, 220); x.fillStyle = '#2f9a7a'; x.fillRect(0, 0, 768, 14); x.fillRect(0, 206, 768, 14); paw(x, 90, 112, 62, '#2f9a7a'); paw(x, 678, 112, 62, '#2f9a7a');
+        x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#1f5e4c'; x.font = '700 74px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'RUMAH SAKIT HEWAN', 384, 88, 520);
+        x.fillStyle = '#c0392b'; x.font = '700 34px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || '', 384, 164, 520); });
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(3.0, .86), new THREE.MeshStandardMaterial({ map: st, roughness: .8 })); sg.position.set(0, 2.62, .76); g.add(sg); box(g, '#2f9a7a', 3.08, .94, .06, 0, 2.15, .72);
+      // porch roof on two posts
+      box(g, '#5fb59c', 4.2, .1, 1.3, 0, 2.3, 1.3); for (const x of [-1.95, 1.95]) box(g, '#f7f6f0', .12, 2.15, .12, x, .16, 1.85);
+      // exam table with a towel and a chick bed (a basket with a little pillow) on the porch, left of the door
+      box(g, '#9aa3ad', .9, .07, .5, -1.25, .82, 1.25); for (const [dx, dz] of [[-.38, -.18], [.38, -.18], [-.38, .18], [.38, .18]]) box(g, '#7f8a93', .05, .66, .05, -1.25 + dx, .16, 1.25 + dz); box(g, '#bfe6f2', .7, .03, .4, -1.25, .89, 1.25);
+      add(g, G.cyl8, '#b98a56', .22, .1, .22, -1.1, .97, 1.25); add(g, G.cyl8, '#ffffff', .18, .05, .18, -1.1, 1.0, 1.25);
+      // board 'PASIEN PERTAMA' right of the door
+      for (const x of [1.0, 1.6]) box(g, '#8a5a34', .06, 1.2, .06, x, .16, 1.6);
+      const bt = tex(512, 300, x => { x.fillStyle = '#fbfaf5'; x.fillRect(0, 0, 512, 300); x.fillStyle = '#2f9a7a'; x.fillRect(0, 0, 512, 72); x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#fff'; x.font = '700 46px "Pixelify Sans", sans-serif'; x.fillText('PASIEN PERTAMA', 256, 38, 490);
+        x.fillStyle = '#1f2a44'; x.font = '700 64px "Pixelify Sans", sans-serif'; x.fillText((b && b.patient) || 'NONO', 256, 128, 490); x.font = '700 32px "Pixelify Sans", sans-serif'; x.fillText((b && b.note) || 'bayi camar · sayap keseleo', 256, 196, 490); x.fillStyle = '#2f9a7a'; x.fillText((b && b.status) || 'SUDAH SEMBUH ✓', 256, 254, 490); });
+      const bs = new THREE.Mesh(new THREE.PlaneGeometry(.9, .53), new THREE.MeshStandardMaterial({ map: bt, roughness: .8 })); bs.position.set(1.3, 1.15, 1.64); g.add(bs); box(g, '#8a5a34', .96, .59, .04, 1.3, .855, 1.61);
+      // a green paw lamp on each corner
+      for (const x of [-2.05, 2.05]) { const l = new THREE.Mesh(G.sph, lanternMat); l.scale.set(.12, .12, .12); l.position.set(x, 2.1, .78); g.add(l); }
     } },
   // ep 34: Rak Sandal Kembali by the mosque: the sandals from the gull's nest, lined up by Penjaga Masjid zidan for owners to take.
   raksandal: { n: 'Rak Sandal Kembali', w: 2, h: 1, land: true,
