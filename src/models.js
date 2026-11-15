@@ -49,7 +49,7 @@ export function castKit(ch, pose) {
     add(b, G.cyl6, '#3a2a1a', .025, .26, .025, .3, .86, .34); const ring = add(b, G.cyl8, '#c9a24a', .12, .02, .12, .3, 1.06, .36); ring.rotation.x = Math.PI / 2; const gl = add(b, G.cyl8, new THREE.MeshStandardMaterial({ color: '#cfeaf5', emissive: '#7fb8d0', emissiveIntensity: .35, transparent: true, opacity: .6 }), .1, .022, .1, .3, 1.06, .36); gl.rotation.x = Math.PI / 2; gl.castShadow = false; }
   // ep 37: Luci Ardiansyah, 'dokter hewan (katanya)' at the Rumah Sakit Hewan: white coat, a stethoscope, a round head mirror
   if (pose === 'dokter') { box(b, '#fbfbf7', .5, .62, .32, 0, .4, 0); box(b, '#dfe6ea', .06, .5, .02, 0, .5, .165); box(b, '#2f9a7a', .1, .1, .02, -.14, .82, .165);
-    for (const s of [-1, 1]) box(b, '#2b2d33', .025, .3, .025, s * .09, .82, .17); add(b, G.cyl8, '#9aa3ad', .045, .02, .045, 0, .7, .18).rotation.x = Math.PI / 2;
+    for (const s of [-1, 1]) box(b, '#2b2d33', .022, .14, .022, s * .08, .86, .17); add(b, G.cyl8, '#9aa3ad', .045, .02, .045, 0, .84, .18).rotation.x = Math.PI / 2;
     box(b, '#2b2d33', .42, .04, .42, 0, 1.42, -.01); const mr = add(b, G.cyl8, new THREE.MeshStandardMaterial({ color: '#dfe9ee', metalness: .6, roughness: .2, emissive: '#7a8a90', emissiveIntensity: .2 }), .09, .02, .09, 0, 1.47, .22); mr.rotation.x = Math.PI / 2; }
   // ep 35: the island's first pilot (@salmanajalah3): white shirt with gold epaulettes, a navy cap with a gold band, aviator shades, wings badge
   if (pose === 'pilot') { box(b, '#f7f5ef', .46, .5, .29, 0, .5, 0); for (const x of [-.2, .2]) box(b, '#c9a24a', .1, .03, .2, x, 1.0, 0); box(b, '#c9a24a', .14, .04, .02, -.1, .88, .148);
@@ -1276,7 +1276,7 @@ export const BT = {
         add(ch, G.sph, '#d9d6cc', .085, .08, .085, 0, .08, 0); add(ch, G.sph, '#e3e0d6', .06, .06, .06, 0, .18, .02); const bk = add(ch, G.cone4, '#f2b632', .022, .06, .022, 0, .18, .09); bk.rotation.x = Math.PI / 2;
         for (const ex of [-.025, .025]) add(ch, G.sph, '#111111', .011, .011, .011, ex, .2, .065); nest.add(ch); chicks.push(ch); }
       // ep 37: Nono (the middle chick) came back from the Rumah Sakit Hewan with a little white bandage on its wing
-      if (b && b.bandage != null && chicks[b.bandage]) { const c0 = chicks[b.bandage]; box(c0, '#ffffff', .05, .07, .1, .075, .05, -.01); box(c0, '#ffffff', .05, .07, .1, -.075, .05, -.01); box(c0, '#e35050', .052, .02, .02, .076, .1, -.01); }
+      if (b && b.bandage != null && chicks[b.bandage]) { const c0 = chicks[b.bandage]; box(c0, '#ffffff', .06, .09, .13, .08, .03, -.01); box(c0, '#ffffff', .19, .035, .13, 0, .1, -.01); box(c0, '#e35050', .062, .025, .025, .081, .08, .03); }
       const blanket = new THREE.Group(); blanket.position.set(.05, .14, .12); blanket.rotation.set(-.15, .5, .08); add(blanket, G.box, '#ff8a3d', .2, .03, .34, 0, 0, 0); add(blanket, G.box, '#222222', .21, .04, .03, 0, .02, -.07); nest.add(blanket);
       // small sign on the pole
       const c2 = document.createElement('canvas'); c2.width = 512; c2.height = 220; const y = c2.getContext('2d'); y.fillStyle = '#fbfaf5'; y.fillRect(0, 0, 512, 220); y.fillStyle = '#2f6fb5'; y.fillRect(0, 0, 512, 70);

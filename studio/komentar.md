@@ -8,6 +8,9 @@ lalu menghapusnya setelah dipakai. Format satu baris: `@username: isi komentar`.
 Ep 36 = debat; hasil dijanjikan episode berikutnya. Apify masih mati, jadi jumlah like komentar "aku calon" di video ep31
 belum bisa dihitung otomatis. Tulis di sini like tiap calon (contoh `@xzxxxxx67: 5`), atau langsung siapa presiden & wapresnya.
 Kalau kosong, ep 37 memakai urutan like yang bisa dibaca saat itu / menunda pengumuman.
+**Update ep 37 (15 Nov pagi):** masih kosong dan Apify masih gagal, jadi hasil TIDAK dikarang: ep 37 = episode bayi camar + Rumah
+Sakit Hewan, dengan beat singkat "like masih dihitung" (tanpa janji waktu). Isi like di sini supaya episode berikutnya bisa
+mengumumkan presiden & wapres.
 
 ## CALON PRESIDEN PEMILU KE-2 (dikumpulkan Chalid/Claude 12 Nov dari komentar ep31; untuk episode pemilu 14 Nov)
 Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemilu, lalu hapus. Janji fiksi untuk pulau
@@ -26,9 +29,6 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 - Rumah warga (@adamfahriganteng, @nenkrahma16) — rumah pantai @sanel1276 SUDAH (ep 34)
 - Sekolah & mall (diminta berulang sejak 10 Nov)
 
-## Dari komentar 14 Nov malam (sudah dibalas)
-- Nama 3 bayi camar (end card ep34): @xonixccx_ "nini nono nana" -> pakai Nini, Nono, Nana
-- @umi.cholifah164: "min bikin rumah sakit"
 
 ## Traktir (langsung diwujudkan, tanpa undian)
 Traktiran dari teer.id/chalidade masuk otomatis ke studio/traktir.json (kalau secret TRAKTEER_API_KEY sudah diisi). Tulis di sini hanya kalau mau menambah manual.

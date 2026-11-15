@@ -12047,19 +12047,21 @@
    "n": "luciardiansyah",
    "ep": 19,
    "tampil": "Luci Ardiansyah",
-   "julukan": "Si Sok Tahu",
+   "julukan": "Si Sok Tahu (dokter hewan, katanya)",
    "sifat": "sok tahu",
    "kalimat": [
-    "Itu mah gampang, aku udah tahu.",
-    "Percaya deh sama aku."
+    "Diagnosa saya: kebanyakan makan sandal!",
+    "Saya dokter. ...Dokter apa ya? Pokoknya dokter."
    ],
-   "tempat": "papan pengumuman",
+   "tempat": "teras Rumah Sakit Hewan (ep 37), memeriksa siapa saja",
    "spot": [
-    60,
-    69
+    73,
+    70,
+    0.4,
+    0
    ],
    "face": 0,
-   "pose": "point"
+   "pose": "dokter"
   },
   {
    "n": "inyuu416",
@@ -12464,6 +12466,14 @@
   {
    "n": "wkwkbwa",
    "ep": 36
+  },
+  {
+   "n": "xonixccx_",
+   "ep": 37
+  },
+  {
+   "n": "umi.cholifah164",
+   "ep": 37
   }
  ],
  "buildings": [
@@ -13078,8 +13088,8 @@
    "y": 44,
    "r": 1,
    "label": "KOTAK SUARA",
-   "sub": "pendaftaran DITUTUP · 9 calon",
-   "foot": "HASIL: EPISODE BERIKUTNYA",
+   "sub": "9 calon · LIKE SEDANG DIHITUNG",
+   "foot": "5 KOIN EGA: SUDAH KEMBALI ✓",
    "by": "panitia pemilu",
    "ep": 31
   },
@@ -13117,7 +13127,10 @@
    "label": "TAMAN PULAU",
    "sub": "permintaan @alexander______24",
    "by": "alexander______24",
-   "ep": 34
+   "ep": 34,
+   "names": "NINI · NONO · NANA",
+   "bandage": 1,
+   "namesBy": "xonixccx_"
   },
   {
    "type": "rumahpantai",
@@ -13168,6 +13181,19 @@
    "label": "PULAU TANPA BULLYING",
    "by": "xzxxxxx67",
    "ep": 36
+  },
+  {
+   "type": "rshewan",
+   "x": 72,
+   "y": 66,
+   "r": 0,
+   "label": "RUMAH SAKIT HEWAN",
+   "sub": "permintaan @umi.cholifah164",
+   "patient": "NONO",
+   "note": "bayi camar · sayap keseleo",
+   "status": "SUDAH SEMBUH ✓",
+   "by": "umi.cholifah164",
+   "ep": 37
   }
  ],
  "episodes": [
@@ -13508,6 +13534,15 @@
     "rizyanzet"
    ],
    "text": "Debat Calon Presiden: masa jabatan Presiden 'EGA_ habis, sembilan calon dari komentar naik ke Mimbar membawa plakat janji, dengan Bu Guru Gina sebagai moderator. Janji @xzxxxxx67 (Hafidz) 'tidak ada bullying, tidak ada korupsi' jadi spanduk PULAU TANPA BULLYING, dan janji @rizyanzet 'patung presiden pertama' mulai dibangun (kalau dia menang). Meja pendaftaran kini jadi Kotak Suara. Like sedang dihitung: siapa presiden berikutnya?"
+  },
+  {
+   "ep": 37,
+   "date": "2026-11-15",
+   "picks": [
+    "xonixccx_",
+    "umi.cholifah164"
+   ],
+   "text": "Rumah Sakit Hewan: tiga bayi camar kini punya nama dari komentar @xonixccx_, Nini, Nono, dan Nana. Nono belajar terbang lalu sayapnya keseleo, jadi permintaan @umi.cholifah164 'bikin rumah sakit' diwujudkan: Rumah Sakit Hewan di tenggara Taman Pulau, dengan Luci sebagai dokter hewan (katanya). Nono pulang ke sarang berperban. EGA mengembalikan lima koin; like pemilu masih dihitung."
   }
  ],
  "letters": [],
