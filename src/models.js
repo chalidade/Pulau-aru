@@ -55,6 +55,13 @@ export function castKit(ch, pose) {
   if (pose === 'pilot') { box(b, '#f7f5ef', .46, .5, .29, 0, .5, 0); for (const x of [-.2, .2]) box(b, '#c9a24a', .1, .03, .2, x, 1.0, 0); box(b, '#c9a24a', .14, .04, .02, -.1, .88, .148);
     box(b, '#1f2a44', .4, .12, .4, 0, 1.38, -.01); box(b, '#c9a24a', .41, .04, .41, 0, 1.38, -.01); box(b, '#111', .3, .03, .14, 0, 1.36, .2); box(b, '#c9a24a', .07, .05, .02, 0, 1.44, .2);
     box(b, '#1a1a1a', .3, .06, .03, 0, 1.21, .18); box(b, '#2b2d33', .06, .14, .015, 0, .78, .15); }
+  // ep 38: the cruise ship's captain (@april_stecu989): white uniform with gold shoulder boards and buttons, a white captain's cap
+  // with a black peak and a gold badge; the flight attendant (@david.p.h3): navy uniform, red neck scarf, a small navy pillbox hat
+  if (pose === 'kapten') { box(b, '#fbfbf7', .48, .52, .31, 0, .48, 0); for (const x of [-.2, .2]) { box(b, '#1a1a1a', .11, .03, .2, x, 1.0, 0); box(b, '#d8b25a', .11, .012, .2, x, 1.031, 0); }
+    for (const y of [.58, .7, .82]) box(b, '#d8b25a', .035, .035, .02, 0, y, .16);
+    box(b, '#ffffff', .44, .14, .44, 0, 1.38, -.01); box(b, '#ffffff', .48, .05, .48, 0, 1.5, -.02); box(b, '#111111', .44, .035, .05, 0, 1.38, .22); box(b, '#111111', .3, .025, .14, 0, 1.36, .27); box(b, '#d8b25a', .1, .06, .02, 0, 1.44, .225); }
+  if (pose === 'pramugari') { box(b, '#1f2a5a', .48, .55, .31, 0, .46, 0); box(b, '#d0302a', .26, .07, .1, 0, .95, .13); const k = box(b, '#d0302a', .08, .16, .03, .07, .8, .16); k.rotation.z = .3;
+    box(b, '#d8b25a', .1, .035, .02, -.13, .82, .157); box(b, '#1f2a5a', .26, .12, .22, 0, 1.4, .02); box(b, '#d8b25a', .27, .03, .23, 0, 1.42, .02); }
 }
 export function presidentKit(ch) {
   const b = ch.userData.body;
@@ -1277,6 +1284,8 @@ export const BT = {
         for (const ex of [-.025, .025]) add(ch, G.sph, '#111111', .011, .011, .011, ex, .2, .065); nest.add(ch); chicks.push(ch); }
       // ep 37: Nono (the middle chick) came back from the Rumah Sakit Hewan with a little white bandage on its wing
       if (b && b.bandage != null && chicks[b.bandage]) { const c0 = chicks[b.bandage]; box(c0, '#ffffff', .06, .09, .13, .08, .03, -.01); box(c0, '#ffffff', .19, .035, .13, 0, .1, -.01); box(c0, '#e35050', .062, .025, .025, .081, .08, .03); }
+      // ep 38: Nono flew off to the cruise ship (first passenger); b.away hides that chick from the nest
+      if (b && b.away != null && chicks[b.away]) chicks[b.away].visible = false;
       const blanket = new THREE.Group(); blanket.position.set(.05, .14, .12); blanket.rotation.set(-.15, .5, .08); add(blanket, G.box, '#ff8a3d', .2, .03, .34, 0, 0, 0); add(blanket, G.box, '#222222', .21, .04, .03, 0, .02, -.07); nest.add(blanket);
       // small sign on the pole
       const c2 = document.createElement('canvas'); c2.width = 512; c2.height = 220; const y = c2.getContext('2d'); y.fillStyle = '#fbfaf5'; y.fillRect(0, 0, 512, 220); y.fillStyle = '#2f6fb5'; y.fillRect(0, 0, 512, 70);
@@ -1668,6 +1677,75 @@ export const BT = {
       const nm = new THREE.MeshStandardMaterial({ map: tn });
       for (const s of [-1, 1]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(2.0, .3), nm); p.position.set(.35, .1, s * .505); if (s < 0) p.rotation.y = Math.PI; bt.add(p); }
       cyl(g, '#2b2b2b', .09, .22, 1.8, .3, .9, 8); box(g, '#c9b48a', .5, .03, .03, 1.95, .4, .9);   // east bollard + mooring rope
+    } },
+  // ep 38 (komentar @april_stecu989 "tambahin kapal pesiar raksasa aku jadi kaptennya"): a giant white cruise ship moored south of
+  // the Pelabuhan Nelayan, a gangway (north side, -z at r=0) down to the harbour deck. Navy hull with the name on both sides, three
+  // white decks with window rows (glow at night), the bridge at the bow, a red funnel with a horn, orange lifeboats, a pool on top.
+  // b.label = ship name, b.sub = small line under it, b.gx = gangway x (local), b.passenger = a chick perched on the bow rail
+  // (g.userData.chicks, bobbed by main.js like the Rumah Camar chicks), g.userData.horn = the horn on the funnel.
+  kapalpesiar: { n: 'Kapal Pesiar', w: 16, h: 5, water: true, deep: true, clearTrees: false,
+    build(g, b) {
+      const tex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d')); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+      const hullShape = (L, B, tip) => { const s = new THREE.Shape(); s.moveTo(-L, -B + .3); s.quadraticCurveTo(-L, -B, -L + .3, -B); s.lineTo(L - tip, -B); s.quadraticCurveTo(L - tip * .25, -B * .75, L, 0); s.quadraticCurveTo(L - tip * .25, B * .75, L - tip, B); s.lineTo(-L + .3, B); s.quadraticCurveTo(-L, B, -L, B - .3); s.closePath(); return s; };
+      const slab = (color, L, B, tip, y0, h, m) => { const geo = new THREE.ExtrudeGeometry(hullShape(L, B, tip), { depth: h, bevelEnabled: false }); const o = new THREE.Mesh(geo, m || mat(color)); o.rotation.x = -Math.PI / 2; o.position.y = y0; o.castShadow = true; o.receiveShadow = true; g.add(o); return o; };
+      // hull: navy below, a red boot stripe at the waterline, a white band on top, a teak main deck
+      slab('#b8322c', 7.55, 1.97, 3.2, -.6, .75);
+      slab('#1d2b4a', 7.6, 2.0, 3.2, .1, 1.25);
+      slab('#f4f2ec', 7.62, 2.02, 3.2, 1.35, .3);
+      slab('#c89a62', 7.4, 1.88, 3.0, 1.62, .06);
+      // the ship's name on both sides of the hull and a small line under it
+      const nt = tex(1024, 160, c => { c.fillStyle = '#1d2b4a'; c.fillRect(0, 0, 1024, 160); c.fillStyle = '#ffffff'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 88px "Pixelify Sans", sans-serif'; c.fillText((b && b.label) || 'KAPAL PESIAR ARU', 512, 64, 1000); c.font = '700 34px "Pixelify Sans", sans-serif'; c.fillStyle = '#f2c94c'; c.fillText((b && b.sub) || 'pelabuhan: Pulau Aru', 512, 134, 1000); });
+      const nm = new THREE.MeshStandardMaterial({ map: nt, roughness: .7 });
+      for (const s of [-1, 1]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(6.4, 1.0), nm); p.position.set(-.6, .78, s * 2.01); if (s < 0) p.rotation.y = Math.PI; g.add(p); }
+      // portholes along the hull
+      for (const s of [-1, 1]) for (let i = 0; i < 9; i++) { const x = -6.8 + i * .55; if (x > -3.9 && x < 2.7) continue; const ph = add(g, G.cyl8, windowMat, .09, .03, .09, x, .78, s * 2.015); ph.rotation.x = Math.PI / 2; }
+      // superstructure: three white decks stepping back, a blue window row on each (glows at night)
+      const decks = [[-6.4, 3.6, 1.8, 1.68, 1.0], [-5.8, 2.6, 1.7, 2.68, .9], [-4.9, 1.2, 1.55, 3.58, .85]];
+      for (const [x0, x1, hw, y, h] of decks) {
+        box(g, '#fbfaf6', x1 - x0, h, hw * 2, (x0 + x1) / 2, y, 0);
+        for (const s of [-1, 1]) box(g, windowMat, x1 - x0 - .3, h * .38, .03, (x0 + x1) / 2, y + h * .38, s * (hw + .005));
+        box(g, '#e4e2dc', x1 - x0 + .1, .06, hw * 2 + .12, (x0 + x1) / 2, y + h, 0);
+      }
+      // bridge at the front of the top deck, with dark wrap-around windows and wings
+      box(g, '#fbfaf6', 1.6, .95, 3.6, 2.0, 3.58, 0); box(g, '#22303d', .04, .38, 3.2, 2.81, 3.98, 0); for (const s of [-1, 1]) box(g, '#22303d', 1.2, .38, .03, 2.0, 3.98, s * 1.805);
+      box(g, '#e4e2dc', 1.7, .06, 3.7, 2.0, 4.53, 0);
+      // mast with a radar bar and a light
+      cyl(g, '#e9e7e1', .05, 1.3, 1.8, 4.59, 0); const rad = box(g, '#3a3a3a', .1, .06, .9, 1.8, 5.55, 0); g.userData.radar = rad;
+      add(g, G.sph, new THREE.MeshStandardMaterial({ color: '#fff4c8', emissive: '#ffd56a', emissiveIntensity: 1.2, flatShading: true }), .08, .08, .08, 1.8, 5.95, 0).castShadow = false;
+      // red funnel with a white band and a black cap; the horn on its front
+      add(g, G.cyl8, '#c0392b', .62, 1.7, .5, -2.9, 4.43 + .85, 0); add(g, G.cyl8, '#ffffff', .64, .3, .52, -2.9, 5.1, 0); add(g, G.cyl8, '#1a1a1a', .64, .18, .52, -2.9, 6.2, 0);
+      const ft = tex(256, 128, c => { c.fillStyle = '#ffffff'; c.fillRect(0, 0, 256, 128); c.fillStyle = '#c0392b'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 80px "Pixelify Sans", sans-serif'; c.fillText('ARU', 128, 68); });
+      for (const s of [-1, 1]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(.7, .32), new THREE.MeshStandardMaterial({ map: ft })); p.position.set(-2.9, 5.25, s * .53); if (s < 0) p.rotation.y = Math.PI; g.add(p); }
+      const horn = new THREE.Group(); horn.position.set(-2.22, 5.55, 0); g.add(horn); g.userData.horn = horn;
+      add(horn, G.cyl8, '#d8b25a', .07, .35, .07, .15, 0, 0).rotation.z = Math.PI / 2; const bell = add(horn, G.cone6, '#d8b25a', .14, .2, .14, .38, 0, 0); bell.rotation.z = Math.PI / 2;
+      // orange lifeboats hanging along deck 2
+      for (const s of [-1, 1]) for (const x of [-4.8, -3.3, -1.8, -.3, 1.2]) { add(g, G.sph, '#f07a22', .55, .2, .2, x, 2.95, s * 1.95); box(g, '#9a9b94', .04, .5, .04, x - .35, 2.95, s * 1.85); box(g, '#9a9b94', .04, .5, .04, x + .35, 2.95, s * 1.85); }
+      // pool and deck chairs on the top deck, behind the funnel
+      box(g, '#e4e2dc', 1.4, .12, 1.8, -4.3, 4.43, 0); box(g, new THREE.MeshStandardMaterial({ color: '#47b7e0', emissive: '#1a6f9a', emissiveIntensity: .25, roughness: .2 }), 1.2, .02, 1.6, -4.3, 4.55, 0);
+      for (const z of [-.95, .95]) for (const x of [-4.8, -3.8]) { const ch = box(g, '#ffffff', .22, .05, .55, x, 4.52, z); ch.rotation.z = .1; }
+      // railings: posts and a white rail around the main deck and the bow
+      for (const s of [-1, 1]) { box(g, '#ffffff', 14.6, .04, .04, -.2, 2.05, s * 1.86); for (let i = 0; i < 25; i++) box(g, '#ffffff', .03, .4, .03, -7.2 + i * .6, 1.66, s * 1.86); }
+      const bowRail = new THREE.Mesh(new THREE.TubeGeometry(new THREE.QuadraticBezierCurve3(new THREE.Vector3(4.4, 2.05, -1.84), new THREE.Vector3(7.9, 2.05, 0), new THREE.Vector3(4.4, 2.05, 1.84)), 16, .025, 4), mat('#ffffff')); g.add(bowRail);
+      // a flag at the stern and a small bow flag
+      cyl(g, '#d0d0d0', .03, 1.4, -7.3, 1.68, 0); box(g, '#e03a3a', .02, .22, .45, -7.3, 2.86, .24); box(g, '#f4f4f4', .02, .22, .45, -7.3, 2.64, .24);
+      // anchor on the bow
+      for (const s of [-1, 1]) { box(g, '#2b2b2b', .06, .35, .03, 5.6, .95, s * 1.5); box(g, '#2b2b2b', .3, .05, .03, 5.6, .95, s * 1.51); }
+      // gangway from the main deck (north side) down to the harbour deck, with handrails
+      const gx = (b && b.gx != null) ? b.gx : -2.9, L = (b && b.gl) || 3.6, drop = 1.62 - .3, len = Math.hypot(L, drop), ang = Math.atan2(drop, L);
+      const gw = new THREE.Group(); gw.position.set(gx, 1.62, -1.9); gw.rotation.x = -ang; g.add(gw);
+      add(gw, G.box, '#b07a4a', .72, .06, len, 0, -.03, -len / 2); for (const s of [-1, 1]) { add(gw, G.box, '#ffffff', .04, .04, len, s * .36, .55, -len / 2); for (let i = 0; i <= 5; i++) add(gw, G.box, '#ffffff', .03, .55, .03, s * .36, .27, -i * len / 5); }
+      for (let i = 0; i < 8; i++) add(gw, G.box, '#8a5a34', .7, .03, .04, 0, .01, -.2 - i * len / 8);
+      // the passenger: a little seagull chick perched on the bow rail (ep 38: Nono, first flight, first passenger)
+      const chicks = [];
+      if (b && b.passenger) { const ch = new THREE.Group(); ch.position.set(6.6, 2.03, -.55); ch.rotation.y = Math.PI / 2 + .9; ch.scale.setScalar(1.6);
+        add(ch, G.sph, '#d9d6cc', .085, .08, .085, 0, .08, 0); add(ch, G.sph, '#e3e0d6', .06, .06, .06, 0, .18, .02); const bk = add(ch, G.cone4, '#f2b632', .022, .06, .022, 0, .18, .09); bk.rotation.x = Math.PI / 2;
+        for (const ex of [-.025, .025]) add(ch, G.sph, '#111111', .011, .011, .011, ex, .2, .065);
+        for (const s of [-1, 1]) { const w = add(ch, G.box, '#cfccc2', .02, .07, .12, s * .09, .07, -.01); w.rotation.z = s * .4; }
+        g.add(ch); chicks.push(ch); g.userData.chickBase = 2.03;
+        const pt = tex(256, 80, c => { c.fillStyle = '#fbfaf5'; c.fillRect(0, 0, 256, 80); c.fillStyle = '#1d2b4a'; c.textAlign = 'center'; c.textBaseline = 'middle'; c.font = '700 30px "Pixelify Sans", sans-serif'; c.fillText('PENUMPANG PERTAMA:', 128, 24, 246); c.fillStyle = '#c0392b'; c.font = '700 34px "Pixelify Sans", sans-serif'; c.fillText(String(b.passenger), 128, 58, 246); });
+        const ps = new THREE.Mesh(new THREE.PlaneGeometry(.7, .22), new THREE.MeshStandardMaterial({ map: pt, side: THREE.DoubleSide })); ps.position.set(5.9, 1.8, -1.87); g.add(ps); }
+      g.userData.chicks = chicks;
+      bake(g);
     } },
   papan: { n: 'Papan nama', w: 1, h: 1, land: true, sign: true, build(g, b) { box(g, '#5e3b22', .08, 1, .08, 0, 0, 0); const board = new THREE.Mesh(G.box, [mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), mat('#8a5a34'), new THREE.MeshStandardMaterial({ map: textTexture(splitLabel(b && b.label || 'Pulau'), { size: 46, grain: true }), flatShading: true }), mat('#8a5a34')]); board.scale.set(.95, .48, .06); board.position.set(0, 1, .05); board.castShadow = true; g.add(board); } },
 };

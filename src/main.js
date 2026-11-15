@@ -865,7 +865,7 @@ function frame() {
   stepGull(T0);
   for (const o of bObjs) if (o.userData.led) o.userData.led.visible = (T0 % 1.2) < .7;
   // ep 34: the Rumah Camar chicks in Taman Pulau bob and beg; the parent gull looks around
-  for (const o of bObjs) if (o.userData.chicks) { o.userData.chicks.forEach((c, i) => { const p = Math.max(0, Math.sin(T0 * 3.2 + i * 2.1)); c.position.y = .05 + p * .05; c.rotation.x = -p * .35; }); if (o.userData.gull) o.userData.gull.rotation.y = .5 + Math.sin(T0 * .6) * .5; }
+  for (const o of bObjs) if (o.userData.chicks) { const cb = o.userData.chickBase != null ? o.userData.chickBase : .05; o.userData.chicks.forEach((c, i) => { const p = Math.max(0, Math.sin(T0 * 3.2 + i * 2.1)); c.position.y = cb + p * .05; c.rotation.x = -p * .35; }); if (o.userData.gull) o.userData.gull.rotation.y = .5 + Math.sin(T0 * .6) * .5; }
   // fires
   fireSources.length = 0; fireSources.push(fireObj);
   for (const o of bObjs) if (o.userData.def.fire) fireSources.push(o);
@@ -885,7 +885,7 @@ function frame() {
   // home (70 s at sea). window.__boatTheta (0..2π) pins her on the route for the studio camera; 0 = moored.
   for (const o of bObjs) { const bt = o.userData.boat; if (!bt) continue; const h = bt.userData.home || (bt.userData.home = { x: bt.position.x, z: bt.position.z, ry: bt.rotation.y });
     const ph = (T0 + 40) % 150, th = window.__boatTheta != null ? window.__boatTheta : ph < 70 ? (ph / 70) * Math.PI * 2 : 0;
-    const P = t => ({ x: h.x + 6 * (1 - Math.cos(t)) + 3 * Math.sin(t), z: h.z + 7 * Math.sin(t / 2) });
+    const P = t => ({ x: h.x + 6 * (1 - Math.cos(t)) + 3 * Math.sin(t), z: h.z + 3 * Math.sin(t / 2) });   // ep 38: amplitude 7 -> 3 so the route stays north of the cruise ship
     if (th <= 0 || th >= Math.PI * 2) { bt.position.set(h.x, Math.sin(T0 * .9) * .04, h.z); bt.rotation.set(0, h.ry, 0); continue; }
     const a = P(th), c = P(Math.min(Math.PI * 2, th + .05)), dx = c.x - a.x, dz = c.z - a.z, k = Math.min(1, th / .5, (Math.PI * 2 - th) / .5);
     bt.position.set(a.x, Math.sin(T0 * 1.1) * .06, a.z); bt.rotation.set(Math.sin(T0 * .9) * .03, h.ry + (Math.atan2(-dz, dx) - h.ry) * 1, Math.sin(T0 * .7) * .04 * k); }

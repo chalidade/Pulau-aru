@@ -125,7 +125,7 @@ export function createActivities(ctx) {
     n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
     if (n.role === 'president' || n.role === 'vicepresident') n.workFor = Infinity;
     if (n.role === 'listen') n.workFor = 60 + Math.random() * 90;
-    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'rodfish', 'hide', 'sneak', 'teach', 'sweep', 'clip', 'calc', 'damkar', 'keeper', 'detektif', 'pilot', 'dokter'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
+    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'rodfish', 'hide', 'sneak', 'teach', 'sweep', 'clip', 'calc', 'damkar', 'keeper', 'detektif', 'pilot', 'dokter', 'kapten', 'pramugari'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
     if (n.role === 'shop') { n.workFor = 4 + Math.random() * 6; n.t = 0; }
     n.yOff = spot && spot.y || 0;
     if (n.role === 'president') { const before = n.obj.userData.body.children.length; presidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
@@ -293,6 +293,8 @@ export function createActivities(ctx) {
     // ep 35: the pilot salutes now and then and gives a thumbs up toward his plane
     else if (p === 'pilot') { const c = ph % 6; A(-.1, c < 1.3 ? -2.7 : c < 2.5 ? -1.6 : -.1, 0, c < 1.3 ? -.65 : -.1); u.body.rotation.x = c < 1.3 ? -.05 : 0; u.body.rotation.y = c > 3.5 && c < 5 ? .5 : 0; }
     // ep 37: the 'doctor' listens with the stethoscope, then raises a finger with a very confident (wrong) diagnosis
+    else if (p === 'kapten') { const c = ph % 7; A(-.15, c < 1.6 ? -2.75 : c < 4 ? -.35 : -1.9 + Math.sin(ph * 3) * .15, 0, c < 1.6 ? -.7 : c < 4 ? 0 : -.5); u.body.rotation.x = c < 1.6 ? -.06 : 0; u.body.rotation.y = c > 4.5 ? Math.sin(ph) * .3 : 0; }   // salute, then points out to sea
+    else if (p === 'pramugari') { const c = ph % 6; if (c < 2.6) { A(-1.5, -1.5, -1.25, 1.25); u.body.rotation.y = Math.sin(ph * 2) * .15; } else if (c < 4) A(-1.0, -1.0, .35, -.35); else A(-.2, -2.2 + Math.sin(ph * 6) * .3, 0, .4); }   // safety demo: exits left and right, then hands folded, then a wave
     else if (p === 'dokter') { const c = ph % 6; A(c < 3 ? -1.4 : -.2, c < 3 ? -.9 : -2.7 + Math.sin(ph * 5) * .1, .25, c < 3 ? -.2 : -.1); u.body.rotation.x = c < 3 ? .2 : -.06; }
     else if (p === 'detektif') { A(-.2, -1.75 + Math.sin(ph * 2.2) * .05, 0, -.1); u.body.rotation.x = .16 + Math.sin(ph * .9) * .06; u.body.rotation.y = Math.sin(ph * .5) * .45; }
     else A(0, 0);
