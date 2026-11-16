@@ -1,5 +1,5 @@
 {
- "nextEp": 40,
+ "nextEp": 41,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -58,7 +58,9 @@
   "Ep 36 DEBAT CALON PRESIDEN (pemilu ke-2): island.json event demo at 'mimbar' -> 9 calon di/di samping Mimbar dengan plakat janji (event.carry; event.join kini menerima nilai ke-5 dy = tinggi panggung .55, kode main.js), Bu Guru Gina moderator di depan panggung, penonton berplakat di jalan utama, Etet (MANTAN PRESIDEN) + ALIF HR & NOVA di penonton. EGA memegang plakat SEJAHTERAKAN RAKYAT (event.presSign). Meja pendaftaran = KOTAK SUARA (pendaftaran DITUTUP, 9 calon). Papan Pemilu: 9 nama calon, 'LIKE SEDANG DIHITUNG'. Spanduk PULAU TANPA BULLYING (x52 y47 r3, janji @xzxxxxx67 Hafidz). Lokasi bangun Patung Presiden (construct patungpresiden x62 y43, model BT.patungpresiden siap; janji @rizyanzet, dibangun kalau ia menang - kalau kalah, bisa tetap dibangun sebagai lelucon/penghibur Etet). Pesawat PK-ARU membawa spanduk DEBAT CALON PRESIDEN! HASIL PEMILU DIJANJIKAN EPISODE BERIKUTNYA (ep 37): aturan = like terbanyak di komentar 'aku calon' ep 31 jadi presiden, kedua wapres. Butuh jumlah like dari Chalid (Apify mati). EGA: 'lima koinnya aku kembalikan. Besok.' -> bayar di ep 37. Setelah hasil: papanpemilu b.win, island.json president/vicePresident, hapus event demo debat atau ganti pelantikan, ganti banner bandara.",
   "Ep 37: Rumah Sakit Hewan (rshewan x72 y66 r0, @umi.cholifah164) dengan papan PASIEN PERTAMA: NONO (b.patient/note/status); Luci Ardiansyah kini 'dokter hewan (katanya)' di terasnya (resident spot 73,70 pose dokter, castKit dokter). Bayi camar bernama Nini, Nono, Nana (@xonixccx_, tamancamar b.names), Nono berperban (b.bandage=1). End card: 'Nono sembuh, terbang ke mana dulu?' -> episode berikut bisa Nono terbang pertama kali (pakai jawaban komentar). EGA sudah mengembalikan 5 koin (mejadaftar foot). PEMILU KE-2 MASIH MENUNGGU LIKE dari Chalid (komentar.md); jangan dikarang. Rumah sakit manusia sudah ada sejak ep 7 (x62 y79).",
   "Ep 38: Kapal Pesiar Aru (kapalpesiar x61 y102 r0, 16x5 di laut selatan Pelabuhan Nelayan, b.gx/b.gl = tangga ke dek pelabuhan) dengan Kapten April (@april_stecu989, resident spot 65,97 pose kapten: hormat lalu menunjuk laut) dan Pramugari @david.p.h3 (spot 66,97 pose pramugari: peragaan keselamatan 'pintu darurat di kiri dan kanan' - lelucon: pramugari salah kendaraan, 'pesawatnya penuh'). Nono sembuh (perban dilepas), terbang pertama langsung ke kapal = PENUMPANG PERTAMA: NONO (b.passenger, anak camar di pagar haluan; tamancamar b.away=1 menyembunyikan Nono dari sarang). Klub Pertama kalah cepat. Rute KM NELAYAN BARU dipersempit (amplitudo z 3). Kapal belum berlayar: end card 'Kapal ini berlayar ke mana dulu?' -> episode berikut bisa pelayaran pertama (Pulau Seberang?) dengan jawaban komentar. PEMILU KE-2 masih menunggu like dari Chalid (tidak disebut di ep 38).",
-  "Ep 39: Jalan Warga (roads segment [36,77,53,78], papan JALAN WARGA x53 y79) dengan Rumah Ganteng (@adamfahriganteng, cermin emas raksasa; adam berdiri di depan cermin, pose cool) dan Rumah Kebun (@nenkrahma16, kebun bunga + kursi goyang; nen melambai). Pinjam Seratus pindah ke antara dua rumah (mau 'pinjam rumahnya'), dell_ duduk di kursi goyang Rumah Kebun (numpang, 'hm.'). TIGA KAVLING KOSONG 'rumahmu?' (kavling x37 y74, x45 y79, x49 y79) menunggu komentar -> isi dengan permintaan rumah berikutnya (end card: 'Rumahmu mau warna apa?'; type rumahwarga b.wall/b.roof/b.deco). Model baru: BT.rumahwarga, BT.kavling."
+  "Ep 39: Jalan Warga (roads segment [36,77,53,78], papan JALAN WARGA x53 y79) dengan Rumah Ganteng (@adamfahriganteng, cermin emas raksasa; adam berdiri di depan cermin, pose cool) dan Rumah Kebun (@nenkrahma16, kebun bunga + kursi goyang; nen melambai). Pinjam Seratus pindah ke antara dua rumah (mau 'pinjam rumahnya'), dell_ duduk di kursi goyang Rumah Kebun (numpang, 'hm.'). TIGA KAVLING KOSONG 'rumahmu?' (kavling x37 y74, x45 y79, x49 y79) menunggu komentar -> isi dengan permintaan rumah berikutnya (end card: 'Rumahmu mau warna apa?'; type rumahwarga b.wall/b.roof/b.deco). Model baru: BT.rumahwarga, BT.kavling.",
+  "Ep 40: Mall Pulau Aru (mall x68 y80 r2, Jalan Pasar/jalan timur y77-78, permintaan 'mall' berulang) dengan pintu otomatis geser (userData.slide; main.js membuka saat pemain mendekat, window.__doorOpen untuk studio), TOKO BAJU, TOKO BUNGA, dan unit kosong DISEWAKAN ('jualan apa? tulis di komentar!', b.empty/b.emptySub) -> isi toko ketiga dari jawaban komentar (ganti label bay '???' lewat b.empty/emptySub atau tambah b.shop3). D4L berdiri di depan pintu ('boleh masuk?'), Aidil YZ terharu di depan Toko Baju, Letisya di depan unit kosong (dikeluarkan dari tour.pupils supaya tetap di spot).",
+  "SUBPLOT ASMARA (mulai ep 40, bagian 1/3-5): Penjaga Mercusuar (storyCast, kini berdiri di depan Toko Bunga Mall, pose keeperbunga = buket di balik punggung, malu) memesan buket 'SUDAH DIPESAN untuk: P.M.' ('Bukan buat siapa-siapa... Buat mercusuar.'). Petunjuk #1: sebuah buket. Pasangan HARUS tokoh fiksi studio yang jelas dewasa (mis. Penjual Ikan Bakar fiksi baru, atau tukang pos fiksi) - jangan akun sungguhan. Petunjuk berikut bisa: surat tanpa nama di mercusuar, buket diantar ke warung ikan bakar, warga bergosip. Spot lama Penjaga di meja pemilu disimpan di storyCast.oldSpot; pemilu ke-2 masih menunggu like dari Chalid."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -126,7 +128,8 @@
   "april_stecu989: tambahin kapal pesiar raksasa aku jadi kaptennya udah paket lengkap (antrean komentar.md 15 Nov) -> Kapal Pesiar Aru (kapalpesiar x61 y102) + Kapten April ep 38",
   "david.p.h3: saya pramugari udah follow (antrean komentar.md 15 Nov) -> Pramugari di kapal pesiar ep 38",
   "adamfahriganteng: rumah warga (antrean komentar.md 12 Nov; teks asli tidak tercatat, kartu 'rumah warga') -> Rumah Ganteng (rumahwarga x41 y74, cermin raksasa) di Jalan Warga ep 39",
-  "nenkrahma16: rumah warga (antrean komentar.md 12 Nov; teks asli tidak tercatat, kartu 'rumah warga') -> Rumah Kebun (rumahwarga x45 y74, kebun bunga + kursi goyang) di Jalan Warga ep 39"
+  "nenkrahma16: rumah warga (antrean komentar.md 12 Nov; teks asli tidak tercatat, kartu 'rumah warga') -> Rumah Kebun (rumahwarga x45 y74, kebun bunga + kursi goyang) di Jalan Warga ep 39",
+  "permintaan berulang 'mall' (komentar.md 'Sekolah & mall, diminta berulang sejak 10 Nov', tanpa username tercatat) -> Mall Pulau Aru (mall x68 y80 r2) ep 40"
  ],
  "episodes": [
   {
@@ -338,10 +341,10 @@
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 38,
-   "cta": "UMKM"
+   "ep": 40,
+   "cta": "traktir"
   },
-  "nextCta": "traktir (ep 40 atau 41)"
+  "nextCta": "UMKM atau follow (ep 42 atau 43)"
  },
  "notes": [
   "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
@@ -377,7 +380,8 @@
   "Ep 36 (14 Nov sore): Apify gagal lagi (run 43581753162, APIFY_TOKEN kosong), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> komentar dari antrean komentar.md (calon presiden). Hasil pemilu TIDAK dikarang: like belum bisa dihitung, jadi ep 36 = debat dan hasil dijanjikan ep 37; Chalid diminta mengisi jumlah like calon di komentar.md. Kamera: EGA di balik podium tertutup podium dari depan -> pindahkan di shot ke (-.8,-10.45) di samping podium (y +.55) dan sembunyikan wapres. Lokasi patung: dari tenggara terhalang papan WATERPARK, pakai yaw .35 dan jarak <=1.7. Capture DPR2 ~0,9-1,1 dtk/frame.",
   "Ep 37 (15 Nov pagi): Apify gagal lagi (run 43668984774), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> video dikirim ke Chalid untuk diposting manual. Hasil pemilu ditunda lagi karena like tidak bisa dihitung. Kode baru: BT.rshewan, castKit/pose 'dokter', tamancamar b.names/b.bandage. Penempatan: lereng timur Taman Pulau turun ke teluk - (71,62) membuat bangunan tenggelam 1,3 m (fpGround mengambil titik terendah, kena air); area datar 0,8 m ada di x70-75 y64-70. Sesi sempat mati di tengah capture (exit 137) - server & capture dijalankan ulang; jalankan sleep pendek (<=4 mnt) saat menunggu.",
   "Ep 38 (15 Nov sore): Apify gagal lagi (run 43700504318), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> video dikirim ke Chalid untuk diposting manual. Kode baru: BT.kapalpesiar (b.label/sub/gx/gl/passenger; userData.chicks + chickBase dianimasikan main.js), castKit/castPose 'kapten' & 'pramugari', tamancamar b.away, rute boat amplitudo 3. Kamera: KM NELAYAN BARU tertambat di sisi timur pelabuhan menghalangi close-up kru -> shots ep38 memakai __boatTheta = PI (kapal di laut). Pramugari harus di x<=10.9 (tepi dek pelabuhan x 11).",
-  "Ep 39 (16 Nov pagi): Apify gagal lagi (run 43793745829), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> antrean komentar.md (rumah warga @adamfahriganteng & @nenkrahma16, teks asli tidak tercatat, kartu 'rumah warga' avatar huruf). Penempatan: sekolah (x49 y70 r3) menutupi y70-75 x49-52, jadi rumah di sisi utara Jalan Warga hanya x<=47. Kamera dari selatan jalan menabrak pohon di x40-50 y79-82 -> shots ep39 menyembunyikan instance pohon z 22.9-26.5 (SETUP39). b.x/b.y = sudut kiri-atas footprint. Capture DPR2 berjalan di background."
+  "Ep 39 (16 Nov pagi): Apify gagal lagi (run 43793745829), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> antrean komentar.md (rumah warga @adamfahriganteng & @nenkrahma16, teks asli tidak tercatat, kartu 'rumah warga' avatar huruf). Penempatan: sekolah (x49 y70 r3) menutupi y70-75 x49-52, jadi rumah di sisi utara Jalan Warga hanya x<=47. Kamera dari selatan jalan menabrak pohon di x40-50 y79-82 -> shots ep39 menyembunyikan instance pohon z 22.9-26.5 (SETUP39). b.x/b.y = sudut kiri-atas footprint. Capture DPR2 berjalan di background.",
+  "Ep 40 (16 Nov sore): Apify gagal lagi (run 43841991606), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> tidak ada komentar baru; antrean komentar.md hanya permintaan berulang 'mall' tanpa username, jadi episode tanpa kartu komentar (username/foto tidak dikarang). Kode baru: BT.mall (pintu otomatis, buket b.order, unit b.empty), castKit/castPose 'keeperbunga'. Penempatan: kolam/teluk di x77-82 y81-90 (mall di x>=74 kena air); rumahsakit x62 y79 memakan sampai x67 -> mall x68. Warung di utara jalan (y74-76) menghalangi kamera rendah dari utara: pakai dist <=4.5 atau pitch >=1.0. Letisya ikut tour sekolah (island.json tour.pupils) sehingga tidak pernah di spot -> dikeluarkan dari pupils. Capture DPR2 ~1,1 dtk/frame."
  ],
  "rooms": {
   "open": [
@@ -402,7 +406,7 @@
   ]
  },
  "strategy": {
-  "lastFormat": "KONSEP",
+  "lastFormat": "CERITA",
   "tests": [
    {
     "ep": 25,
@@ -523,19 +527,17 @@
     "opening": "3D close-up Adam di depan cermin emas raksasa Rumah Ganteng, tanpa filter buku cerita; payoff 3 kavling kosong rumahmu?",
     "captionStyle": "pendek personal + kredit 2 username + pulau-aru.web.id + #pulaunetizen #alurcerita",
     "duration": 58.5
+   },
+   {
+    "ep": 40,
+    "format": "CERITA",
+    "hook": "KALIAN MINTA MALL, / INI JADINYA!",
+    "opening": "3D close-up D4L di depan pintu otomatis mall yang membuka sendiri (flash-forward gag pintu), tanpa filter buku cerita, tanpa kartu komentar (tidak ada komentar baru)",
+    "captionStyle": "pendek personal + pertanyaan toko ketiga + pulau-aru.web.id + teer.id + #pulaunetizen #alurcerita",
+    "duration": 60
    }
   ],
   "castLog": [
-   {
-    "ep": 32,
-    "cast": [
-     "Aidil YZ",
-     "RANUUGLL",
-     "whoyss",
-     "Alexandre",
-     "ALERXMNC"
-    ]
-   },
    {
     "ep": 33,
     "cast": [
@@ -597,6 +599,15 @@
      "nenkrahma16",
      "Pinjam seratus",
      "dell_"
+    ]
+   },
+   {
+    "ep": 40,
+    "cast": [
+     "D4L",
+     "Aidil YZ",
+     "Letisya Khianantaa",
+     "Penjaga Mercusuar"
     ]
    }
   ]

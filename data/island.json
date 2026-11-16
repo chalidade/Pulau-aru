@@ -11883,12 +11883,14 @@
     "Hiks... indah banget 🥺",
     "Makasih banyaaak..."
    ],
-   "tempat": "depan Papan Barang Hilang (sandalnya hilang, ep 32)",
+   "tempat": "depan Toko Baju, Mall Pulau (ep 40): terharu",
    "spot": [
-    66,
-    91
+    75,
+    79,
+    0,
+    0.1
    ],
-   "face": 0,
+   "face": 2.7,
    "pose": "cry"
   },
   {
@@ -11941,12 +11943,14 @@
     "Cek jamnya dulu, ya.",
     "Santai aja. Aku tahu kok."
    ],
-   "tempat": "duduk di dermaga",
+   "tempat": "depan unit kosong Mall Pulau (ep 40)",
    "spot": [
-    55,
-    98
+    69,
+    79,
+    0,
+    0.2
    ],
-   "face": 0,
+   "face": 3.14,
    "pose": "fold"
   },
   {
@@ -11977,14 +11981,14 @@
     "Boleh nggak?",
     "Aku boleh ikut... boleh?"
    ],
-   "tempat": "ikut jaga malam di Kamera Jaga Malam (ep 33)",
+   "tempat": "depan pintu otomatis Mall Pulau (ep 40): boleh masuk?",
    "spot": [
-    76,
-    56,
-    0,
-    -0.1
+    72,
+    79,
+    0.5,
+    0.2
    ],
-   "face": 1.4,
+   "face": 0,
    "pose": "ask"
   },
   {
@@ -13349,6 +13353,19 @@
    "label": "JALAN WARGA",
    "by": "",
    "ep": 39
+  },
+  {
+   "type": "mall",
+   "x": 68,
+   "y": 80,
+   "r": 2,
+   "label": "MALL PULAU ARU",
+   "sub": "permintaan warga · dibuka ep 40",
+   "order": "SUDAH DIPESAN|untuk: P.M. ♥",
+   "empty": "DISEWAKAN",
+   "emptySub": "jualan apa?|tulis di|komentar!",
+   "by": "",
+   "ep": 40
   }
  ],
  "episodes": [
@@ -13716,6 +13733,14 @@
     "@nenkrahma16: rumah warga (Rumah Kebun dengan kebun bunga dan kursi goyang, Jalan Warga)"
    ],
    "text": "Dua komentar minta rumah, jadilah Jalan Warga: jalan baru di barat jalan utama, dekat sekolah.\nRumah Ganteng milik @adamfahriganteng lengkap dengan cermin emas segede pintu ('namanya ganteng, cerminnya wajib'), Rumah Kebun milik @nenkrahma16 dengan kebun bunga dan kursi goyang.\nPinjam Seratus mau pinjam rumahnya, dell_ numpang di kursi goyang. Tiga kavling masih kosong: rumahmu?"
+  },
+  {
+   "ep": 40,
+   "date": "2026-11-16",
+   "picks": [
+    "permintaan warga: mall (berkali-kali sejak 10 Nov)"
+   ],
+   "text": "Kalian minta mall berkali-kali, jadi Mall Pulau Aru resmi dibuka di jalan timur: Toko Baju, Toko Bunga, dan satu unit DISEWAKAN. Toko ketiga jualan apa? Tulis di komentar!\nD4L di depan pintu otomatis: 'Permisi... boleh masuk?' Pintunya terbuka sendiri, ia malah membungkuk 'makasih, pintu', lalu pintunya tertutup lagi.\nAidil terharu ('tokonya baru tiga'), Letisya santai di depan unit kosong.\nDi Toko Bunga satu buket SUDAH DIPESAN untuk 'P.M.', dan Penjaga Mercusuar menyembunyikan buket di balik punggung. 'Bukan buat siapa-siapa... buat mercusuar.' Petunjuk #1."
   }
  ],
  "letters": [],
@@ -14007,8 +14032,7 @@
   "name": "Study Tour Sekolah Pulau Aru",
   "guide": "Bu Guru Gina",
   "pupils": [
-   "luciardiansyah",
-   "Letisya Khianantaa"
+   "luciardiansyah"
   ],
   "route": [
    [
@@ -14060,20 +14084,26 @@
    "name": "Penjaga Mercusuar",
    "julukan": "Penjaga Mercusuar · ketua panitia pemilu",
    "kalimat": [
-    "Pemimpin pulau harus dipilih warga. Bukan ditunjuk.",
-    "Pemilu kedua: 14 November. Daftarnya gratis.",
-    "Komentar \"aku calon\", plus satu janji."
+    "Bunga ini? Bukan buat siapa-siapa.",
+    "...Buat mercusuar.",
+    "Pemimpin pulau harus dipilih warga. Bukan ditunjuk."
    ],
    "spot": [
+    71,
+    79,
+    -0.2,
+    -0.1
+   ],
+   "face": 0,
+   "pose": "keeperbunga",
+   "ep": 30,
+   "tempat": "depan Toko Bunga Mall Pulau, menyembunyikan buket (ep 40)",
+   "oldSpot": [
     58,
     44,
     0.25,
     0.5
-   ],
-   "face": -1.57,
-   "pose": "keeper",
-   "ep": 30,
-   "tempat": "di balik Meja Pendaftaran Calon (ketua panitia pemilu ke-2, ep 31)"
+   ]
   }
  ],
  "mystery": {

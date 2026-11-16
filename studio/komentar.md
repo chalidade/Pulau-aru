@@ -27,7 +27,8 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 
 ## Permintaan bangunan dari komentar (12 Nov malam, sudah dibalas "kucatat")
 - Rumah warga @adamfahriganteng & @nenkrahma16 SUDAH (ep 39, Jalan Warga) — rumah pantai @sanel1276 SUDAH (ep 34). Tiga kavling kosong menunggu permintaan rumah berikutnya.
-- Sekolah & mall (diminta berulang sejak 10 Nov)
+- Mall SUDAH (ep 40, Mall Pulau Aru di jalan timur; toko ketiga masih DISEWAKAN, isinya dari komentar). Sekolah sudah ada sejak awal.
+- Chalid: Apify masih gagal (APIFY_TOKEN?), jadi tolong tulis di sini 2-3 komentar terbaru (format `@username: isi`) supaya episode berikutnya punya kartu komentar asli, termasuk jawaban "toko ketiga jualan apa?" dan "rumahmu mau warna apa?".
 
 
 ## Dari komentar 15 Nov (sudah dibalas)
