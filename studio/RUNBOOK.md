@@ -16,6 +16,12 @@ The person who owns all this is Chalid. Message him with `SendUserMessage` for t
 
 ---
 
+
+> **LARANGAN (Chalid, 16 Nov 2026):** akses TikTok Shop akun ini dicabut 12 Nov 23:11 karena "Risky Account
+> Behaviour" — kemungkinan besar terpicu balasan komentar otomatis beruntun (30+ balasan per sesi, jeda ~4 detik).
+> Sesi otomatis **TIDAK BOLEH membalas komentar** di TikTok sama sekali, dan tidak boleh mengirim pesan/like massal.
+> Posting video lewat Studio (maks. 2x sehari, sekali per sesi) tetap boleh. Balasan komentar dilakukan Chalid sendiri.
+
 ## 0. Setup (fresh container)
 
 1. Attach and clone both repos, with push access:
