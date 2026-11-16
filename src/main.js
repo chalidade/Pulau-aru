@@ -864,6 +864,9 @@ function frame() {
   ud.beamMat.opacity = L > 0 && !blink ? dk * .06 * Math.min(1.6, .5 + lg / 2) : 0; ud.beam.rotation.y = T0 * .6; ud.beam.scale.set(1 + lg * .3, 1, 1);
   stepGull(T0);
   for (const o of bObjs) if (o.userData.led) o.userData.led.visible = (T0 % 1.2) < .7;
+  // ep 40: Mall Pulau's automatic sliding door opens when the player walks up to it (window.__doorOpen 0..1 overrides, for the studio)
+  for (const o of bObjs) { const sl = o.userData.slide; if (!sl) continue; const w = o.localToWorld(sl.pt.clone()); const near = Math.hypot(player.obj.position.x - w.x, player.obj.position.z - w.z) < 2.0;
+    const tgt = window.__doorOpen != null ? window.__doorOpen : near ? 1 : 0; sl.open += (tgt - sl.open) * Math.min(1, dt * 6); sl.L.position.x = -sl.x - sl.open * .86; sl.R.position.x = sl.x + sl.open * .86; }
   // ep 34: the Rumah Camar chicks in Taman Pulau bob and beg; the parent gull looks around
   for (const o of bObjs) if (o.userData.chicks) { const cb = o.userData.chickBase != null ? o.userData.chickBase : .05; o.userData.chicks.forEach((c, i) => { const p = Math.max(0, Math.sin(T0 * 3.2 + i * 2.1)); c.position.y = cb + p * .05; c.rotation.x = -p * .35; }); if (o.userData.gull) o.userData.gull.rotation.y = .5 + Math.sin(T0 * .6) * .5; }
   // fires

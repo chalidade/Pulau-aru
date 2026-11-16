@@ -57,6 +57,8 @@ export function castKit(ch, pose) {
     box(b, '#1a1a1a', .3, .06, .03, 0, 1.21, .18); box(b, '#2b2d33', .06, .14, .015, 0, .78, .15); }
   // ep 38: the cruise ship's captain (@april_stecu989): white uniform with gold shoulder boards and buttons, a white captain's cap
   // with a black peak and a gold badge; the flight attendant (@david.p.h3): navy uniform, red neck scarf, a small navy pillbox hat
+  // ep 40: the Penjaga Mercusuar, blushing, hides a bouquet from the Mall's flower shop behind his back
+  if (pose === 'keeperbunga') { castKit(ch, 'keeper'); const q = new THREE.Group(); q.position.set(.05, .62, -.26); q.rotation.x = .5; b.add(q); add(q, G.cone6, '#f7f1e3', .1, .26, .1, 0, 0, 0); for (let j = 0; j < 6; j++) add(q, G.sph, j % 2 ? '#d0302a' : '#f06b8a', .045, .045, .045, Math.cos(j) * .06, .16 + (j % 3) * .025, Math.sin(j) * .06); for (const x of [-.11, .11]) box(b, '#f08a8a', .07, .035, .01, x, 1.0, .205); }
   if (pose === 'kapten') { box(b, '#fbfbf7', .48, .52, .31, 0, .48, 0); for (const x of [-.2, .2]) { box(b, '#1a1a1a', .11, .03, .2, x, 1.0, 0); box(b, '#d8b25a', .11, .012, .2, x, 1.031, 0); }
     for (const y of [.58, .7, .82]) box(b, '#d8b25a', .035, .035, .02, 0, y, .16);
     box(b, '#ffffff', .44, .14, .44, 0, 1.38, -.01); box(b, '#ffffff', .48, .05, .48, 0, 1.5, -.02); box(b, '#111111', .44, .035, .05, 0, 1.38, .22); box(b, '#111111', .3, .025, .14, 0, 1.36, .27); box(b, '#d8b25a', .1, .06, .02, 0, 1.44, .225); }
@@ -1369,6 +1371,89 @@ export const BT = {
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
       const sg = new THREE.Mesh(new THREE.BoxGeometry(1.0, .5, .04), [mat('#5e3b22'), mat('#5e3b22'), mat('#5e3b22'), mat('#5e3b22'), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 }), mat('#5e3b22')]); sg.position.set(.7, 1.3, 1.1); sg.castShadow = true; g.add(sg);
       for (let i = 0; i < 3; i++) add(g, G.dode, '#8a7d6a', .1 + i * .02, .08, .1, -.6 + i * .5, .12, -.4 + (i % 2) * .5);
+    } },
+  // ep 40 (permintaan warga berulang sejak 10 Nov: "mall"): Mall Pulau Aru on the east street (Jalan Pasar). Two-storey block
+  // (~3.1x a person), a big sign band (b.label / b.sub), and on the ground floor three shop windows with their own signs: TOKO BAJU
+  // (two mannequins), TOKO BUNGA (flower buckets, and on the counter one bouquet with a tag b.order, default 'SUDAH DIPESAN: P.M.'),
+  // and an empty unit 'DISEWAKAN' (b.empty / b.emptySub, the shop the comments decide). The automatic sliding glass door
+  // (g.userData.slide) is opened by main.js when the player walks up to it (or window.__doorOpen = 0..1). Door faces +z at r=0.
+  mall: { n: 'Mall Pulau', w: 9, h: 5, land: true, clearTrees: true,
+    build(g, b) {
+      b = b || {};
+      const tex = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d')); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+      const plane = (t, w, h, x, y, z, parent = g) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshStandardMaterial({ map: t, roughness: .8 })); m.position.set(x, y, z); parent.add(m); return m; };
+      const glassMat = new THREE.MeshStandardMaterial({ color: '#cfe8f2', transparent: true, opacity: .28, roughness: .05, metalness: .3, depthWrite: false });
+      const F = 1.0;   // front face of the wall
+      box(g, '#cfcac0', 8.8, .16, 4.8, 0, 0, 0);                        // pavement slab
+      box(g, '#f3efe6', 8.0, 4.3, 3.4, 0, .16, F - 1.7);                 // body
+      box(g, '#ffffff', 8.2, .3, 3.6, 0, 4.46, F - 1.7);                 // parapet
+      box(g, '#d9d4c8', 8.0, .25, .25, 0, 2.55, F + .02);                // cornice between the floors
+      // upper floor: a big sign band with the name
+      box(g, '#2a6f97', 7.6, 1.55, .12, 0, 2.82, F + .02);
+      const st = tex(1024, 220, x => { x.fillStyle = '#2a6f97'; x.fillRect(0, 0, 1024, 220); x.textAlign = 'center'; x.textBaseline = 'middle';
+        x.fillStyle = '#ffd25a'; x.font = '700 104px "Pixelify Sans", sans-serif'; x.fillText(b.label || 'MALL PULAU ARU', 512, 82, 980);
+        x.fillStyle = '#ffffff'; x.font = '700 40px "Pixelify Sans", sans-serif'; x.fillText(b.sub || 'permintaan warga', 512, 174, 980); });
+      plane(st, 7.2, 1.42, 0, 3.6, F + .09);
+      for (const x of [-3.9, 3.9]) add(g, G.sph, '#ffd25a', .1, .1, .1, x, 3.6, F + .12);
+      // a shop window: coloured back wall, items, glass, frame and its own sign above
+      const bay = (x0, x1, label, col, items) => {
+        const w = x1 - x0, cx = (x0 + x1) / 2;
+        box(g, col, w - .1, 2.1, .04, cx, .3, F + .01);
+        box(g, '#e8e2d4', w - .1, .12, .34, cx, .3, F + .17);
+        items(cx, w);
+        const gl = new THREE.Mesh(new THREE.PlaneGeometry(w - .14, 2.0), glassMat); gl.position.set(cx, 1.36, F + .36); g.add(gl);
+        box(g, '#4a4f57', w, .08, .4, cx, .22, F + .2); box(g, '#4a4f57', w, .1, .4, cx, 2.36, F + .2);
+        for (const x of [x0 + .03, x1 - .03]) box(g, '#4a4f57', .07, 2.2, .4, x, .2, F + .2);
+        const lt = tex(512, 128, c => { c.fillStyle = '#fffaf0'; c.fillRect(0, 0, 512, 128); c.fillStyle = col; c.fillRect(0, 0, 512, 16); c.fillRect(0, 112, 512, 16); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#2b2b2b'; c.font = '700 66px "Pixelify Sans", sans-serif'; c.fillText(label, 256, 66, 490); });
+        plane(lt, Math.min(w - .2, 1.6), .4, cx, 2.24, F + .42);
+      };
+      // TOKO BAJU: two mannequins in shirts, a little rack
+      bay(-3.9, -1.0, 'TOKO BAJU', '#e8604c', (cx) => {
+        for (const [dx, sh] of [[-.6, '#f2c94c'], [.55, '#4aa3df']]) { const x = cx + dx;
+          box(g, '#cfcac0', .3, .06, .3, x, .42, F + .2); box(g, '#9a9b94', .04, .5, .04, x, .48, F + .2);
+          box(g, sh, .42, .55, .24, x, .95, F + .2); box(g, '#3b4a6b', .38, .4, .22, x, .58, F + .2); add(g, G.sph, '#efe6d8', .13, .15, .13, x, 1.66, F + .2);
+          for (const s of [-1, 1]) box(g, sh, .1, .4, .12, x + s * .27, 1.06, F + .2); }
+        box(g, '#8a5a34', .9, .05, .05, cx, 1.85, F + .12); for (let i = 0; i < 4; i++) box(g, ['#c46a8a', '#43aa8b', '#f7f1e3', '#e8a33a'][i], .16, .42, .04, cx - .3 + i * .2, 1.42, F + .12);
+      });
+      // automatic sliding door in the middle (opened by main.js)
+      const dx0 = -1.0, dx1 = 1.0;
+      box(g, '#4a4f57', 2.0, .14, .42, 0, 2.3, F + .2); for (const x of [dx0 + .04, dx1 - .04]) box(g, '#4a4f57', .08, 2.3, .42, x, .16, F + .2);
+      box(g, '#20262e', 1.84, 2.14, .02, 0, .16, F + .01);   // dark lobby behind
+      const doorMat = new THREE.MeshStandardMaterial({ color: '#bfe3f2', transparent: true, opacity: .45, roughness: .05, metalness: .3 });
+      const mk = s => { const d = new THREE.Group(); d.position.set(s * .46, 0, F + .22); g.add(d);
+        const p = new THREE.Mesh(new THREE.BoxGeometry(.9, 2.12, .04), doorMat); p.position.set(0, 1.22, 0); d.add(p);
+        box(d, '#9aa3ad', .9, .05, .05, 0, 2.25, 0); box(d, '#9aa3ad', .9, .05, .05, 0, .16, 0); box(d, '#9aa3ad', .04, 2.12, .05, -s * .43, .16, 0);
+        box(d, '#ffd25a', .5, .06, .045, 0, 1.25, .01); return d; };
+      const dl = mk(-1), dr = mk(1);
+      const ot = tex(512, 96, c => { c.fillStyle = '#20262e'; c.fillRect(0, 0, 512, 96); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#7fe0ff'; c.font = '700 50px "Pixelify Sans", sans-serif'; c.fillText('PINTU OTOMATIS', 256, 50, 490); });
+      plane(ot, 1.5, .28, 0, 2.22 + .2, F + .43);
+      box(g, '#2a6f97', 2.4, .08, 1.1, 0, 2.62, F + .55);   // canopy
+      box(g, '#b23a3a', 1.6, .02, .9, 0, .16, F + .9);       // red mat
+      g.userData.slide = { L: dl, R: dr, x: .46, open: 0, pt: new THREE.Vector3(0, 0, F + 1.0) };
+      // TOKO BUNGA: buckets of flowers, a counter with one bouquet and its tag
+      bay(1.0, 2.5, 'BUNGA', '#43aa8b', (cx) => {
+        const cols = ['#f06b8a', '#ffd25a', '#f4f1ea', '#b48cf0', '#ff9b52', '#e8604c'];
+        for (let i = 0; i < 3; i++) { const x = cx - .45 + i * .45; add(g, G.cyl8, '#6f7f8a', .14, .26, .14, x, .55, F + .14);
+          for (let j = 0; j < 5; j++) add(g, G.sph, cols[(i * 2 + j) % 6], .06, .06, .06, x - .08 + (j % 3) * .08, .72 + Math.floor(j / 3) * .07, F + .1 + (j % 2) * .07); }
+        box(g, '#8a5a34', 1.2, .5, .26, cx, 1.0, F + .17);
+        const bq = new THREE.Group(); bq.position.set(cx + .15, 1.5, F + .2); g.add(bq);
+        add(bq, G.cone6, '#f7f1e3', .13, .32, .13, 0, .0, 0, 0); for (let j = 0; j < 7; j++) add(bq, G.sph, j % 2 ? '#d0302a' : '#f06b8a', .055, .055, .055, Math.cos(j) * .08, .2 + (j % 3) * .03, Math.sin(j) * .08);
+        box(bq, '#c0392b', .02, .1, .02, -.12, -.05, .08);
+        const tt = tex(256, 128, c => { c.fillStyle = '#fffaf0'; c.fillRect(0, 0, 256, 128); c.strokeStyle = '#c0392b'; c.lineWidth = 8; c.strokeRect(4, 4, 248, 120); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#c0392b';
+          const [a, z] = (b.order || 'SUDAH DIPESAN|untuk: P.M. ♥').split('|'); c.font = '700 34px "Pixelify Sans", sans-serif'; c.fillText(a, 128, 44, 240); c.fillStyle = '#2b2b2b'; c.font = '700 32px "Pixelify Sans", sans-serif'; c.fillText(z || '', 128, 92, 240); });
+        plane(tt, .44, .22, cx - .25, 1.62, F + .32);
+        g.userData.bouquet = bq;
+      });
+      // the empty unit: a 'DISEWAKAN' poster that asks the comments what it should sell
+      bay(2.5, 3.9, '???', '#9a9b94', (cx) => {
+        const pt = tex(256, 320, c => { c.fillStyle = '#fffaf0'; c.fillRect(0, 0, 256, 320); c.fillStyle = '#d0483a'; c.fillRect(0, 0, 256, 70); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#fff'; c.font = '700 44px "Pixelify Sans", sans-serif'; c.fillText(b.empty || 'DISEWAKAN', 128, 38, 244);
+          c.fillStyle = '#2b2b2b'; c.font = '700 34px "Pixelify Sans", sans-serif'; const L = (b.emptySub || 'jualan apa?|tulis di|komentar!').split('|'); L.forEach((l, i) => c.fillText(l, 128, 130 + i * 56, 244)); });
+        plane(pt, .8, 1.0, cx, 1.35, F + .1);
+        for (let i = 0; i < 3; i++) box(g, '#c9a27a', .3, .26, .3, cx - .4 + i * .35, .42, F + .2 - (i % 2) * .05);   // empty cardboard boxes
+      });
+      // planters and a bench in front
+      for (const x of [-3.5, 3.5]) { box(g, '#9a9b94', .7, .45, .7, x, .16, F + 1.5); add(g, G.ico, '#3f8a42', .45, .45, .45, x, .95, F + 1.5); }
+      box(g, '#8a5a34', 1.3, .08, .4, -2.0, .55, F + 1.55); for (const x of [-2.5, -1.5]) box(g, '#5e3b22', .08, .4, .36, x, .16, F + 1.55);
     } },
   // ep 37 (komentar @umi.cholifah164 "min bikin rumah sakit"): Rumah Sakit Hewan next to Taman Pulau, built when Nono, one of
   // the three Rumah Camar chicks (named Nini, Nono, Nana by @xonixccx_), sprained its wing. White one-storey clinic (~2.3x a
