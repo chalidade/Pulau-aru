@@ -1317,6 +1317,59 @@ export const BT = {
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
       const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.25, .44), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 2.55, 1.46); g.add(sg);
     } },
+  // ep 39 (komentar @adamfahriganteng & @nenkrahma16 "rumah warga"): Jalan Warga, houses built from comments. One-storey house
+  // (~2.4x a person with the roof), a door taller than a person, a name sign over the door (b.label / b.sub), wall/roof colour
+  // (b.wall / b.roof) and a front-yard detail (b.deco): 'cermin' = a giant gold-framed mirror next to the door ("namanya ganteng,
+  // cerminnya wajib"), 'kebun' = flower beds, a rocking chair on the porch and a watering can. Door faces +z at r=0.
+  rumahwarga: { n: 'Rumah Warga', w: 3, h: 3, land: true, clearTrees: true,
+    build(g, b) {
+      b = b || {}; const wall = b.wall || '#f1d9b5', roof = b.roof || '#b8523c';
+      box(g, '#cdbb9a', 2.8, .14, 2.8, 0, 0, 0);
+      box(g, wall, 2.5, 2.3, 1.9, 0, .14, -.35); box(g, '#ffffff', 2.54, .1, 1.94, 0, 2.44, -.35);
+      add(g, G.cone4, roof, 2.15, 1.15, 1.75, 0, 3.1, -.35, Math.PI / 4);
+      box(g, '#9a9b94', .26, .6, .26, .7, 2.9, -.7);
+      box(g, '#5e3b22', .66, 1.8, .06, 0, .14, .62); add(g, G.sph, '#f2c94c', .035, .035, .035, .22, 1.05, .67);
+      for (const x of [-.82, .82]) { box(g, '#ffffff', .6, .6, .05, x, 1.0, .61); box(g, windowMat, .48, .48, .06, x, 1.06, .61); }
+      box(g, '#a88c66', 1.1, .08, .7, 0, .14, .95);   // front step
+      const c = document.createElement('canvas'); c.width = 512; c.height = 180; const x = c.getContext('2d'); x.fillStyle = '#fbf3e4'; x.fillRect(0, 0, 512, 180);
+      x.strokeStyle = '#5e3b22'; x.lineWidth = 10; x.strokeRect(5, 5, 502, 170);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#5e3b22'; x.font = '700 62px "Pixelify Sans", sans-serif'; x.fillText(b.label || 'RUMAH WARGA', 256, 66, 480);
+      x.fillStyle = '#c0392b'; x.font = '700 38px "Pixelify Sans", sans-serif'; x.fillText(b.sub || '', 256, 136, 480);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.3, .46), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 2.12, .63); g.add(sg);
+      if (b.deco === 'cermin') {
+        const m = new THREE.Group(); m.position.set(1.05, .14, 1.05); m.rotation.y = -.35; g.add(m);
+        box(m, '#d4a83a', .9, 2.05, .1, 0, 0, 0); box(m, '#f2c94c', 1.02, .12, .14, 0, 2.0, 0); add(m, G.sph, '#f2c94c', .12, .12, .08, 0, 2.18, 0);
+        const gl = new THREE.Mesh(new THREE.PlaneGeometry(.72, 1.8), new THREE.MeshStandardMaterial({ color: '#bfe3f2', metalness: .6, roughness: .08, emissive: '#5d8fa6', emissiveIntensity: .25 })); gl.position.set(0, 1.03, .056); m.add(gl);
+        for (const [sx, sy, l] of [[-.12, 1.45, .5], [.08, 1.1, .32], [-.2, .7, .22]]) { const s = new THREE.Mesh(new THREE.PlaneGeometry(.05, l), new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: .7 })); s.position.set(sx, sy, .06); s.rotation.z = -.6; m.add(s); }
+        box(m, '#7a5534', .5, .08, .34, 0, 0, -.12);
+        add(m, G.sph, '#fff3a0', .05, .05, .05, .42, 2.0, .08); add(m, G.sph, '#fff3a0', .04, .04, .04, -.42, 1.6, .08);   // sparkles
+      }
+      if (b.deco === 'kebun') {
+        const cols = ['#f06b8a', '#ffd25a', '#f4f1ea', '#b48cf0', '#ff9b52'];
+        for (const s of [-1]) { box(g, '#7a5534', .7, .2, 1.0, s * 1.0, .14, 1.0); for (let i = 0; i < 8; i++) { const fx = s * 1.0 - .25 + (i % 3) * .25, fz = .62 + Math.floor(i / 3) * .32; add(g, G.cyl6, '#3f8a42', .015, .22, .015, fx, .45, fz, 0, false); add(g, G.sph, cols[(i + (s > 0 ? 2 : 0)) % 5], .08, .07, .08, fx, .58, fz); } }
+        const ch = new THREE.Group(); ch.position.set(.85, .14, 1.0); ch.rotation.y = -.35; g.add(ch); g.userData.chair = ch;
+        box(ch, '#8a5a34', .5, .07, .45, 0, .32, 0); box(ch, '#8a5a34', .5, .6, .07, 0, .36, -.2); for (const sx of [-.24, .24]) { box(ch, '#8a5a34', .05, .32, .05, sx, 0, -.15); box(ch, '#8a5a34', .05, .32, .05, sx, 0, .15); const rk = add(ch, G.box, '#5e3b22', .05, .04, .6, sx, .0, 0); rk.rotation.x = 0; }
+        box(ch, '#e07a8a', .42, .05, .36, 0, .39, .02);
+        add(g, G.cyl8, '#3a8a9a', .1, .16, .1, -.5, .14, 1.45); box(g, '#3a8a9a', .03, .03, .2, -.5, .26, 1.6);   // watering can
+      }
+    } },
+  // ep 39: an empty plot on Jalan Warga waiting for the next commenter: levelled dirt, four stakes with a red-white string, and a
+  // sign on a post (b.label / b.sub, default 'KAVLING KOSONG' / 'rumahmu?'). Sign faces +z at r=0.
+  kavling: { n: 'Kavling Kosong', w: 3, h: 3, land: true, clearTrees: true,
+    build(g, b) {
+      b = b || {}; box(g, '#b8916a', 2.7, .1, 2.7, 0, 0, 0);
+      for (const [x, z] of [[-1.25, -1.25], [1.25, -1.25], [-1.25, 1.25], [1.25, 1.25]]) box(g, '#e8dcc4', .07, .6, .07, x, 0, z);
+      for (const [l, x, z, ry] of [[2.5, 0, -1.25, 0], [2.5, 0, 1.25, 0], [2.5, -1.25, 0, Math.PI / 2], [2.5, 1.25, 0, Math.PI / 2]]) for (let i = 0; i < 6; i++) { const seg = add(g, G.box, i % 2 ? '#ffffff' : '#d0483a', l / 6, .025, .025, 0, .52, 0, ry); seg.position.set(x + (ry ? 0 : -l / 2 + l / 12 + i * l / 6), .52, z + (ry ? -l / 2 + l / 12 + i * l / 6 : 0)); }
+      box(g, '#5e3b22', .08, 1.5, .08, .7, 0, 1.05);
+      const c = document.createElement('canvas'); c.width = 512; c.height = 256; const x = c.getContext('2d'); x.fillStyle = '#fffaf0'; x.fillRect(0, 0, 512, 256);
+      x.fillStyle = '#d0483a'; x.fillRect(0, 0, 512, 22); x.fillRect(0, 234, 512, 22);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#2b2b2b'; x.font = '700 66px "Pixelify Sans", sans-serif'; x.fillText(b.label || 'KAVLING KOSONG', 256, 92, 480);
+      x.fillStyle = '#c0392b'; x.font = '700 58px "Pixelify Sans", sans-serif'; x.fillText(b.sub || 'rumahmu?', 256, 175, 480);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sg = new THREE.Mesh(new THREE.BoxGeometry(1.0, .5, .04), [mat('#5e3b22'), mat('#5e3b22'), mat('#5e3b22'), mat('#5e3b22'), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 }), mat('#5e3b22')]); sg.position.set(.7, 1.3, 1.1); sg.castShadow = true; g.add(sg);
+      for (let i = 0; i < 3; i++) add(g, G.dode, '#8a7d6a', .1 + i * .02, .08, .1, -.6 + i * .5, .12, -.4 + (i % 2) * .5);
+    } },
   // ep 37 (komentar @umi.cholifah164 "min bikin rumah sakit"): Rumah Sakit Hewan next to Taman Pulau, built when Nono, one of
   // the three Rumah Camar chicks (named Nini, Nono, Nana by @xonixccx_), sprained its wing. White one-storey clinic (~2.3x a
   // person), mint roof band, a tall door, a sign on the front (b.label / b.sub) with a green paw, a porch with a little exam
