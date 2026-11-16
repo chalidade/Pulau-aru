@@ -12093,12 +12093,15 @@
     "hm.",
     "...senjanya bagus."
    ],
-   "tempat": "ujung dermaga",
+   "tempat": "kursi goyang Rumah Kebun, Jalan Warga (numpang)",
    "spot": [
-    55,
-    101
+    46,
+    75,
+    0.85,
+    1.0,
+    0.5
    ],
-   "face": 0,
+   "face": -0.35,
    "pose": "sitlook"
   },
   {
@@ -12131,14 +12134,14 @@
     "Pinjam seratus dulu...",
     "Besok dibalikin, sumpah!"
    ],
-   "tempat": "depan Bank Pulau",
+   "tempat": "depan Rumah Ganteng, Jalan Warga (mau pinjam rumahnya)",
    "spot": [
-    58,
-    53,
+    44,
+    76,
     0,
-    0
+    0.7
    ],
-   "face": 3.14,
+   "face": -1.57,
    "pose": "beg"
   },
   {
@@ -12514,6 +12517,46 @@
    ],
    "face": 3.14,
    "pose": "pramugari"
+  },
+  {
+   "n": "adamfahriganteng",
+   "ep": 39,
+   "tampil": "adamfahriganteng",
+   "julukan": "Si Ganteng (katanya)",
+   "sifat": "percaya diri, selalu berkaca",
+   "kalimat": [
+    "Namanya ganteng. Cerminnya wajib.",
+    "Bentar, rapiin rambut dulu."
+   ],
+   "tempat": "depan cermin Rumah Ganteng, Jalan Warga",
+   "spot": [
+    42,
+    76,
+    0.75,
+    0.95
+   ],
+   "face": 2.8,
+   "pose": "cool"
+  },
+  {
+   "n": "nenkrahma16",
+   "ep": 39,
+   "tampil": "nenkrahma16",
+   "julukan": "Pemilik Rumah Kebun",
+   "sifat": "rajin, sayang bunga",
+   "kalimat": [
+    "Akhirnya punya rumah!",
+    "Bunganya aku siram tiap pagi."
+   ],
+   "tempat": "kebun bunga Rumah Kebun, Jalan Warga",
+   "spot": [
+    46,
+    76,
+    -1.0,
+    0.7
+   ],
+   "face": 0,
+   "pose": "wave"
   }
  ],
  "buildings": [
@@ -13247,6 +13290,65 @@
    "passenger": "NONO",
    "by": "april_stecu989",
    "ep": 38
+  },
+  {
+   "type": "rumahwarga",
+   "x": 41,
+   "y": 74,
+   "r": 0,
+   "label": "RUMAH GANTENG",
+   "sub": "@adamfahriganteng",
+   "deco": "cermin",
+   "wall": "#dde8f3",
+   "roof": "#2a9d8f",
+   "by": "adamfahriganteng",
+   "ep": 39
+  },
+  {
+   "type": "rumahwarga",
+   "x": 45,
+   "y": 74,
+   "r": 0,
+   "label": "RUMAH KEBUN",
+   "sub": "@nenkrahma16",
+   "deco": "kebun",
+   "wall": "#f7dde6",
+   "roof": "#c46a8a",
+   "by": "nenkrahma16",
+   "ep": 39
+  },
+  {
+   "type": "kavling",
+   "x": 37,
+   "y": 74,
+   "r": 0,
+   "by": "",
+   "ep": 39
+  },
+  {
+   "type": "kavling",
+   "x": 49,
+   "y": 79,
+   "r": 2,
+   "by": "",
+   "ep": 39
+  },
+  {
+   "type": "kavling",
+   "x": 45,
+   "y": 79,
+   "r": 2,
+   "by": "",
+   "ep": 39
+  },
+  {
+   "type": "papan",
+   "x": 53,
+   "y": 79,
+   "r": 3,
+   "label": "JALAN WARGA",
+   "by": "",
+   "ep": 39
   }
  ],
  "episodes": [
@@ -13605,6 +13707,15 @@
     "@david.p.h3: saya pramugari udah follow (pramugari di kapal pesiar)"
    ],
    "text": "Satu komentar jadi kapal pesiar raksasa: Kapal Pesiar Aru berlabuh di selatan Pelabuhan Nelayan, dengan Kapten April (@april_stecu989) di kaki tangganya.\nPramugari @david.p.h3 ikut bertugas, walau 'pesawatnya penuh': peragaan keselamatan di kapal. Ikan Rayhan kabur semua.\nKlub Pertama berebut jadi penumpang pertama, tapi Nono yang sudah sembuh terbang duluan ke pagar haluan: PENUMPANG PERTAMA: NONO."
+  },
+  {
+   "ep": 39,
+   "date": "2026-11-16",
+   "picks": [
+    "@adamfahriganteng: rumah warga (Rumah Ganteng dengan cermin raksasa, Jalan Warga)",
+    "@nenkrahma16: rumah warga (Rumah Kebun dengan kebun bunga dan kursi goyang, Jalan Warga)"
+   ],
+   "text": "Dua komentar minta rumah, jadilah Jalan Warga: jalan baru di barat jalan utama, dekat sekolah.\nRumah Ganteng milik @adamfahriganteng lengkap dengan cermin emas segede pintu ('namanya ganteng, cerminnya wajib'), Rumah Kebun milik @nenkrahma16 dengan kebun bunga dan kursi goyang.\nPinjam Seratus mau pinjam rumahnya, dell_ numpang di kursi goyang. Tiga kavling masih kosong: rumahmu?"
   }
  ],
  "letters": [],
@@ -13656,6 +13767,12 @@
     56,
     77,
     89,
+    78
+   ],
+   [
+    36,
+    77,
+    53,
     78
    ]
   ]

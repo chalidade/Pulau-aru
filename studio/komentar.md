@@ -26,7 +26,7 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 - @whatiathis8: "aku mau jadi presiden udah like" (13 Nov)
 
 ## Permintaan bangunan dari komentar (12 Nov malam, sudah dibalas "kucatat")
-- Rumah warga (@adamfahriganteng, @nenkrahma16) — rumah pantai @sanel1276 SUDAH (ep 34)
+- Rumah warga @adamfahriganteng & @nenkrahma16 SUDAH (ep 39, Jalan Warga) — rumah pantai @sanel1276 SUDAH (ep 34). Tiga kavling kosong menunggu permintaan rumah berikutnya.
 - Sekolah & mall (diminta berulang sejak 10 Nov)
 
 
