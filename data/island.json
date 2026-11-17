@@ -1,7 +1,7 @@
 {
  "v": 1,
  "islandName": "Pulau Netizen",
- "followers": 7620,
+ "followers": 7625,
  "residents": [
   {
    "n": "yanzz7384",
@@ -13804,8 +13804,8 @@
  ],
  "clueTotal": 10,
  "tiktok": {
-  "followers": 7620,
-  "updatedAt": "2026-11-17T09:12:45.495Z"
+  "followers": 7625,
+  "updatedAt": "2026-11-17T18:37:50.055Z"
  },
  "expand": 1,
  "president": {
@@ -14135,7 +14135,7 @@
    "spot": [
     55,
     89,
-    0.0,
+    0,
     0.7
    ],
    "face": 1.57,
