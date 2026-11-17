@@ -22,6 +22,12 @@ The person who owns all this is Chalid. Message him with `SendUserMessage` for t
 > Sesi otomatis **TIDAK BOLEH membalas komentar** di TikTok sama sekali, dan tidak boleh mengirim pesan/like massal.
 > Posting video lewat Studio (maks. 2x sehari, sekali per sesi) tetap boleh. Balasan komentar dilakukan Chalid sendiri.
 
+
+> **Cek kedip (17 Nov):** ep40 & ep42 punya frame yang SEBAGIAN hitam selama 1 frame (render belum selesai) — cek
+> rata-rata luminance per 4 fps tidak menangkapnya. Setelah render, cek SEMUA frame (30 fps): frame dengan YAVG <
+> 70% median ±3 frame di sekitarnya = rusak. Perbaiki dengan ffmpeg `freezeframes` (ganti dengan frame sebelumnya)
+> atau render ulang, sebelum commit ke branch videos.
+
 ## 0. Setup (fresh container)
 
 1. Attach and clone both repos, with push access:
