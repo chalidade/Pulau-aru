@@ -873,6 +873,8 @@ function frame() {
   fireSources.length = 0; fireSources.push(fireObj);
   for (const o of bObjs) if (o.userData.def.fire) fireSources.push(o);
   const fl = 1 + Math.sin(T0 * 11) * .08 + Math.sin(T0 * 17) * .05;
+  // ep 41: the heart-shaped smoke above the fish grill rises, swells and fades, again and again
+  for (const o of bObjs) if (o.userData.heart) { const h = o.userData.heart, c = (T0 % 4) / 4; h.position.y = 1.75 + c * 1.5; h.scale.setScalar(.8 + c * .8); h.rotation.y = Math.sin(T0 * .7) * .3; h.children.forEach(m => { m.material.opacity = .85 * (c < .15 ? c / .15 : 1 - Math.max(0, c - .6) / .4); }); }
   for (const o of fireSources) { const f = o.userData.flames; if (f) { f.scale.set(1, fl, 1); f.rotation.y = T0 * 2; } }
   const sorted = fireSources.map(o => ({ o, d: o.position.distanceToSquared(player.obj.position) })).sort((a, b) => a.d - b.d);
   firePool.forEach((l, i) => { const s = sorted[i]; if (!s) { l.intensity = 0; return; } l.position.set(s.o.position.x, s.o.position.y + .7, s.o.position.z); l.intensity = (1.2 + dk * 9) * fl; });

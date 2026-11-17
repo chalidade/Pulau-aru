@@ -125,7 +125,7 @@ export function createActivities(ctx) {
     n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
     if (n.role === 'president' || n.role === 'vicepresident') n.workFor = Infinity;
     if (n.role === 'listen') n.workFor = 60 + Math.random() * 90;
-    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'rodfish', 'hide', 'sneak', 'teach', 'sweep', 'clip', 'calc', 'damkar', 'keeper', 'detektif', 'pilot', 'dokter', 'kapten', 'pramugari', 'keeperbunga'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
+    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'rodfish', 'hide', 'sneak', 'teach', 'sweep', 'clip', 'calc', 'damkar', 'keeper', 'detektif', 'pilot', 'dokter', 'kapten', 'pramugari', 'keeperbunga', 'keepersurat', 'ikanbakar'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
     if (n.role === 'shop') { n.workFor = 4 + Math.random() * 6; n.t = 0; }
     n.yOff = spot && spot.y || 0;
     if (n.role === 'president') { const before = n.obj.userData.body.children.length; presidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
@@ -297,6 +297,10 @@ export function createActivities(ctx) {
     else if (p === 'pramugari') { const c = ph % 6; if (c < 2.6) { A(-1.5, -1.5, -1.25, 1.25); u.body.rotation.y = Math.sin(ph * 2) * .15; } else if (c < 4) A(-1.0, -1.0, .35, -.35); else A(-.2, -2.2 + Math.sin(ph * 6) * .3, 0, .4); }   // safety demo: exits left and right, then hands folded, then a wave
     // ep 40: the Penjaga Mercusuar holds a bouquet behind his back, looks at his feet and sways, now and then glances at the flower shop
     else if (p === 'keeperbunga') { const c = ph % 7; A(.55, .55, .12, -.12); u.body.rotation.x = c < 5 ? .14 : -.02; u.body.rotation.y = c < 5 ? Math.sin(ph * 1.6) * .12 : .6; u.body.position.y = Math.abs(Math.sin(ph * 1.6)) * .015; }
+    // ep 41: the keeper reads the unsigned letter, looks up, looks around (who?), reads it again; the fish-grill seller fans the
+    // coals and now and then turns to look toward the lighthouse with a smile
+    else if (p === 'keepersurat') { const c = ph % 8; A(-1.2, -1.2, .3, -.3); u.body.rotation.x = c < 5 ? .18 : -.02; u.body.rotation.y = c >= 5 && c < 7 ? Math.sin((c - 5) * 3.2) * .5 : 0; }
+    else if (p === 'ikanbakar') { const c = ph % 9; A(-.6, c < 6.5 ? -1.3 + Math.sin(ph * 11) * .35 : -.4, .1, -.15); u.body.rotation.y = c >= 6.5 ? .9 : 0; u.body.rotation.x = c < 6.5 ? .1 : 0; }
     else if (p === 'dokter') { const c = ph % 6; A(c < 3 ? -1.4 : -.2, c < 3 ? -.9 : -2.7 + Math.sin(ph * 5) * .1, .25, c < 3 ? -.2 : -.1); u.body.rotation.x = c < 3 ? .2 : -.06; }
     else if (p === 'detektif') { A(-.2, -1.75 + Math.sin(ph * 2.2) * .05, 0, -.1); u.body.rotation.x = .16 + Math.sin(ph * .9) * .06; u.body.rotation.y = Math.sin(ph * .5) * .45; }
     else A(0, 0);

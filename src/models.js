@@ -59,6 +59,12 @@ export function castKit(ch, pose) {
   // with a black peak and a gold badge; the flight attendant (@david.p.h3): navy uniform, red neck scarf, a small navy pillbox hat
   // ep 40: the Penjaga Mercusuar, blushing, hides a bouquet from the Mall's flower shop behind his back
   if (pose === 'keeperbunga') { castKit(ch, 'keeper'); const q = new THREE.Group(); q.position.set(.05, .62, -.26); q.rotation.x = .5; b.add(q); add(q, G.cone6, '#f7f1e3', .1, .26, .1, 0, 0, 0); for (let j = 0; j < 6; j++) add(q, G.sph, j % 2 ? '#d0302a' : '#f06b8a', .045, .045, .045, Math.cos(j) * .06, .16 + (j % 3) * .025, Math.sin(j) * .06); for (const x of [-.11, .11]) box(b, '#f08a8a', .07, .035, .01, x, 1.0, .205); }
+  // ep 41: the Penjaga Mercusuar reads an unsigned letter found on the lighthouse door (held in both hands, blushing)
+  if (pose === 'keepersurat') { castKit(ch, 'keeper'); const l = box(b, '#fbf7ee', .3, .22, .012, 0, .74, .36); l.rotation.x = -.55; for (let i = 0; i < 4; i++) { const r = box(b, '#6b6b78', .22 - (i % 2) * .06, .012, .013, -.01, .79 - i * .035, .372 - i * .02); r.rotation.x = -.55; } const sm = box(b, '#1b1b1b', .07, .035, .014, .07, .66, .41); sm.rotation.x = -.55; add(b, G.sph, '#d0302a', .03, .03, .012, -.1, .67, .405); for (const x of [-.11, .11]) box(b, '#f08a8a', .07, .035, .01, x, 1.0, .205); }
+  // ep 41: the fish-grill seller (a studio character): red bandana, apron, a woven bamboo fan, a charcoal smudge on the cheek (clue #2)
+  if (pose === 'ikanbakar') { box(b, '#c4473a', .43, .1, .43, 0, 1.38, -.01); box(b, '#c4473a', .1, .12, .04, .12, 1.3, -.23); box(b, '#efe6d2', .4, .5, .03, 0, .42, .155); box(b, '#efe6d2', .4, .03, .29, 0, .66, 0); box(b, '#a0523c', .14, .08, .01, 0, .5, .172);
+    box(b, '#1e1e1e', .07, .035, .01, .12, 1.03, .205); box(b, '#2a2a2a', .03, .02, .01, .16, 1.06, .205);
+    const f = new THREE.Group(); f.position.set(.3, .62, .3); b.add(f); ch.userData.fan = f; box(f, '#8a5a34', .03, .22, .03, 0, -.12, 0); const fp = box(f, '#d9b45a', .26, .24, .015, 0, .1, 0); for (let i = 0; i < 4; i++) box(f, '#b8903a', .26, .012, .017, 0, .0 + i * .06, 0); }
   if (pose === 'kapten') { box(b, '#fbfbf7', .48, .52, .31, 0, .48, 0); for (const x of [-.2, .2]) { box(b, '#1a1a1a', .11, .03, .2, x, 1.0, 0); box(b, '#d8b25a', .11, .012, .2, x, 1.031, 0); }
     for (const y of [.58, .7, .82]) box(b, '#d8b25a', .035, .035, .02, 0, y, .16);
     box(b, '#ffffff', .44, .14, .44, 0, 1.38, -.01); box(b, '#ffffff', .48, .05, .48, 0, 1.5, -.02); box(b, '#111111', .44, .035, .05, 0, 1.38, .22); box(b, '#111111', .3, .025, .14, 0, 1.36, .27); box(b, '#d8b25a', .1, .06, .02, 0, 1.44, .225); }
@@ -439,7 +445,7 @@ export const BT = {
     } },
   // a fish grill stall near the pier: brick grill with flames, fish on the grate, smoke, a bench (ep 8, usulan warga)
   bakarikan: { n: 'Pembakaran ikan', w: 2, h: 2, land: true, fire: true,
-    build(g) {
+    build(g, b) {
       box(g, '#c9bfa8', 1.9, .08, 1.85, 0, 0, 0);
       for (const [x, z] of [[-.85, -.8], [.85, -.8], [-.85, .8], [.85, .8]]) box(g, '#6b4a2b', .08, 1.45, .08, x, .08, z);
       roof4(g, '#7a5a3a', 2.3, .45, 2.2, 0, 1.53, 0); box(g, '#5e3b22', 1.9, .06, 1.9, 0, 1.5, 0);
@@ -463,6 +469,31 @@ export const BT = {
       const sign = new THREE.Mesh(new THREE.PlaneGeometry(1.3, .33), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sign.position.set(0, 1.32, .97); g.add(sign);
       box(g, '#5e3b22', 1.36, .38, .04, 0, 1.13, .94);
       const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.08, .11, .08); lamp.position.set(.8, 1.25, .85); g.add(lamp);
+      // ep 41: b.heart: a puff of smoke shaped like a heart keeps rising from the grill (the sender of the unsigned letter?)
+      if (b && b.heart) { const hm = new THREE.MeshStandardMaterial({ color: '#f7d9df', emissive: '#f0a0b0', emissiveIntensity: .25, transparent: true, opacity: .8, flatShading: true, depthWrite: false });
+        const h = new THREE.Group(); h.position.set(0, 1.0, -.35); g.add(h);
+        const sh = new THREE.Shape(); sh.moveTo(0, -.25); sh.bezierCurveTo(-.08, -.15, -.3, -.05, -.3, .1); sh.bezierCurveTo(-.3, .25, -.12, .3, 0, .16); sh.bezierCurveTo(.12, .3, .3, .25, .3, .1); sh.bezierCurveTo(.3, -.05, .08, -.15, 0, -.25);
+        const hg = new THREE.ExtrudeGeometry(sh, { depth: .08, bevelEnabled: true, bevelThickness: .04, bevelSize: .04, bevelSegments: 2, curveSegments: 10 }); hg.translate(0, 0, -.04);
+        const hh = new THREE.Mesh(hg, hm); h.add(hh);
+        h.children.forEach(c => c.castShadow = false); g.userData.heart = h; }
+    } },
+  // ep 41: a little post beside the lighthouse door with the unsigned letter pinned to it ('Lampumu yang menuntunku pulang, setiap malam.'),
+  // the signature hidden under a charcoal smudge; b.label = the addressee line. Faces +z at r=0.
+  suratmercusuar: { n: 'Surat Tanpa Nama', w: 1, h: 1, land: true,
+    build(g, b) {
+      box(g, '#6b4a2b', .1, 1.15, .1, 0, 0, -.05); box(g, '#8a5a34', .78, .62, .05, 0, .78, 0);
+      const c = document.createElement('canvas'); c.width = 512; c.height = 400; const x = c.getContext('2d');
+      x.fillStyle = '#fbf7ee'; x.fillRect(0, 0, 512, 400); x.fillStyle = '#e8dcc4'; for (let i = 0; i < 7; i++) x.fillRect(30, 110 + i * 40, 452, 2);
+      x.fillStyle = '#3a2a4a'; x.textAlign = 'left'; x.textBaseline = 'middle'; x.font = '700 40px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'Untuk: Penjaga Mercusuar', 34, 50, 450);
+      x.font = '400 38px "Pixelify Sans", sans-serif'; x.fillText('Lampumu yang menuntunku', 34, 140, 450); x.fillText('pulang, setiap malam.', 34, 190, 450); x.fillText('Terima kasih.', 34, 240, 450);
+      x.font = '700 38px "Pixelify Sans", sans-serif'; x.fillText('Dari:', 34, 320);
+      x.fillStyle = 'rgba(25,25,25,.92)'; x.beginPath(); x.ellipse(250, 322, 110, 36, -.08, 0, Math.PI * 2); x.fill(); x.fillStyle = 'rgba(25,25,25,.5)'; for (let i = 0; i < 9; i++) { x.beginPath(); x.arc(150 + i * 25, 300 + (i * 37) % 50, 9 + (i % 3) * 5, 0, Math.PI * 2); x.fill(); }
+      x.fillStyle = '#d0302a'; x.beginPath(); const hx = 452, hy = 330; x.moveTo(hx, hy + 22); x.bezierCurveTo(hx - 40, hy - 6, hx - 18, hy - 32, hx, hy - 12); x.bezierCurveTo(hx + 18, hy - 32, hx + 40, hy - 6, hx, hy + 22); x.fill();
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const pg = new THREE.Mesh(new THREE.PlaneGeometry(.66, .52), new THREE.MeshStandardMaterial({ map: tx, roughness: .9 })); pg.position.set(0, 1.09, .045); g.add(pg);
+      for (const xx of [-.3, .3]) add(g, G.sph, '#c9a24a', .025, .025, .02, xx, 1.33, .05);
+      const env = box(g, '#efe2c4', .3, .18, .02, .26, .45, .05); env.rotation.z = .12; add(g, G.sph, '#d0302a', .04, .04, .015, .26, .53, .07);
+      g.userData.label = (b && b.label) || 'Surat Tanpa Nama';
     } },
   // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
   papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,
