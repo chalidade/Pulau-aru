@@ -30,11 +30,11 @@ HEAD = """const P = window.__pulau; window.__fix41(); window.__clock = .42; wind
 C1 = """() => { """ + HEAD + """ P.player.obj.visible = false; const k = window.__PM(), x = k.x, z = k.z, y0 = P.surfaceY(x, z);
   window.__look(x, z, -1.3, .06, 1.9, false);
   window.__beforeRender = (dt, T) => { k.obj.rotation.y = -1.45; const b = k.obj.userData.body; if (T > .55) { b.rotation.x = -.08; b.position.y = T < .9 ? Math.sin((T - .55) / .35 * Math.PI) * .06 : 0; }
-    window.__C(x - .05, y0 + 1.12, z + .05); P.cam.dist = Math.max(1.55, 1.9 - T * .2); P.cam.yaw = -1.3; P.cam.pitch = .06; window.__clr([k], x, z, .5); }; }"""
+    window.__C(x - .05, y0 + 1.32, z + .05); P.cam.dist = Math.max(1.75, 2.1 - T * .2); P.cam.yaw = -1.3; P.cam.pitch = .06; window.__clr([k], x, z, .5); }; }"""
 # c2 premise: aerial over the island gliding east to the lighthouse
 C2 = """() => { """ + HEAD + """ P.player.obj.visible = false;
-  window.__look(8, 8, -2.0, 1.08, 62, false);
-  window.__beforeRender = (dt, T) => { const k = Math.min(1, Math.max(0, T) / 5.0), e = k * k * (3 - 2 * k); window.__C(8 + 18.5 * e, 1 + 1.5 * e, 8 - 10.5 * e); P.cam.dist = 62 - 50 * e; P.cam.pitch = 1.08 - .62 * e; P.cam.yaw = -2.0 + .55 * e; }; }"""
+  window.__look(8, 8, -2.0, 1.08, 44, false);
+  window.__beforeRender = (dt, T) => { const k = Math.min(1, Math.max(0, T) / 5.0), e = k * k * (3 - 2 * k); window.__C(8 + 18.5 * e, 1 + 1.5 * e, 8 - 10.5 * e); P.cam.dist = 44 - 32 * e; P.cam.pitch = 1.08 - .62 * e; P.cam.yaw = -2.0 + .55 * e; }; }"""
 # c3 'Pagi ini, di pintu mercusuar, ada surat tanpa nama': the door, the post with the letter, the keeper reading; slow push-in
 C3 = """() => { """ + HEAD + """ P.player.obj.visible = false; const k = window.__PM();
   window.__look(26.6, -2.7, -1.57, .22, 5.2, false);
@@ -73,9 +73,10 @@ C10 = """() => { """ + HEAD + """ P.player.obj.visible = false;
   window.__beforeRender = (dt, T) => { window.__heartAt(-1); window.__HEART.visible = false; window.__C(1.1, 1.6, 34); P.cam.dist = 6.5 - T * .4; P.cam.yaw = -1.57 - .35; P.cam.pitch = .3; window.__clr([], 1, 34, .6); }; }"""
 # c11 Mbak Sekar fanning the coals, smudge on her cheek; at the end she looks dreamily toward the lighthouse
 C11 = """() => { """ + HEAD + """ P.player.obj.visible = false; const n = window.__SK(), x = n.x, z = n.z, y0 = P.surfaceY(x, z);
-  window.__look(x, z, -.9, .04, 1.5, false);
-  window.__beforeRender = (dt, T) => { window.__HEART.visible = false; window.__heartAt(-1); n.obj.rotation.y = -2.3; if (T > 2.6) { n.obj.rotation.y = -2.3 + Math.min(1, (T - 2.6) / .5) * 1.5; }
-    window.__C(x - .05, y0 + 1.05, z); P.cam.dist = Math.max(1.25, 1.5 - T * .07); P.cam.yaw = -.9; P.cam.pitch = .04; window.__clr([n], x, z, .4); }; }"""
+  window.__look(x, z, -.9, .08, 1.9, false);
+  window.__beforeRender = (dt, T) => { window.__HEART.visible = false; window.__heartAt(-1); const u = n.obj.userData; n.obj.rotation.y = -1.25; if (T > 2.5) n.obj.rotation.y = -1.25 - Math.min(1, (T - 2.5) / .6) * 1.5;
+    if (u.body) { u.body.rotation.y = 0; u.body.rotation.x = .05; } if (u.armR) { u.armR.rotation.x = T < 2.5 ? -1.3 + Math.sin(T * 11) * .35 : -.5; } if (u.armL) u.armL.rotation.x = -.6;
+    window.__C(x - .05, y0 + 1.15, z); P.cam.dist = Math.max(1.6, 1.9 - T * .08); P.cam.yaw = -.9; P.cam.pitch = .08; window.__clr([n], x, z, .4); }; }"""
 # c12 'Asapnya... kok bentuk hati?': low angle on the stall roof, the heart-shaped smoke rises and swells
 C12 = """() => { """ + HEAD + """ P.player.obj.visible = false;
   window.__look(1, 34, -1.57, .12, 4.0, false);

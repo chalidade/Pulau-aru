@@ -12747,7 +12747,9 @@
    "y": 89,
    "r": 1,
    "by": "",
-   "ep": 8
+   "ep": 8,
+   "heart": true,
+   "heartEp": 41
   },
   {
    "type": "papansemangat",
@@ -13366,6 +13368,15 @@
    "emptySub": "jualan apa?|tulis di|komentar!",
    "by": "",
    "ep": 40
+  },
+  {
+   "type": "suratmercusuar",
+   "x": 82,
+   "y": 52,
+   "r": 1,
+   "label": "Untuk: Penjaga Mercusuar",
+   "by": "",
+   "ep": 41
   }
  ],
  "episodes": [
@@ -13741,6 +13752,14 @@
     "permintaan warga: mall (berkali-kali sejak 10 Nov)"
    ],
    "text": "Kalian minta mall berkali-kali, jadi Mall Pulau Aru resmi dibuka di jalan timur: Toko Baju, Toko Bunga, dan satu unit DISEWAKAN. Toko ketiga jualan apa? Tulis di komentar!\nD4L di depan pintu otomatis: 'Permisi... boleh masuk?' Pintunya terbuka sendiri, ia malah membungkuk 'makasih, pintu', lalu pintunya tertutup lagi.\nAidil terharu ('tokonya baru tiga'), Letisya santai di depan unit kosong.\nDi Toko Bunga satu buket SUDAH DIPESAN untuk 'P.M.', dan Penjaga Mercusuar menyembunyikan buket di balik punggung. 'Bukan buat siapa-siapa... buat mercusuar.' Petunjuk #1."
+  },
+  {
+   "ep": 41,
+   "date": "2026-11-17",
+   "picks": [
+    "subplot asmara: petunjuk #2 (tidak ada komentar baru)"
+   ],
+   "text": "Pagi ini ada surat tanpa nama di pintu mercusuar: 'Lampumu yang menuntunku pulang, setiap malam.' Tanda tangannya tertutup noda arang.\nPenjaga Mercusuar: 'Ini pasti salah alamat.' Aru: 'Mercusuar di pulau ini cuma satu!' inyuu membuka quest 'cari NPC yang bau arang', senar muliya memainkan lagu cinta sampai senarnya putus.\nDi Ikan Bakar dekat dermaga, Mbak Sekar mengipasi arang, ada noda hitam di pipinya, dan asap panggangannya berbentuk hati. Petunjuk #2: noda arang. Siapa pengirimnya?"
   }
  ],
  "letters": [],
@@ -14084,26 +14103,52 @@
    "name": "Penjaga Mercusuar",
    "julukan": "Penjaga Mercusuar · ketua panitia pemilu",
    "kalimat": [
-    "Bunga ini? Bukan buat siapa-siapa.",
-    "...Buat mercusuar.",
-    "Pemimpin pulau harus dipilih warga. Bukan ditunjuk."
+    "Surat... untukku?!",
+    "Ini pasti... salah alamat.",
+    "Bukan buat siapa-siapa... buat mercusuar."
    ],
    "spot": [
-    71,
-    79,
-    -0.2,
-    -0.1
+    82,
+    54,
+    0.15,
+    -0.5
    ],
-   "face": 0,
-   "pose": "keeperbunga",
+   "face": -1.57,
+   "pose": "keepersurat",
    "ep": 30,
-   "tempat": "depan Toko Bunga Mall Pulau, menyembunyikan buket (ep 40)",
+   "tempat": "depan pintu mercusuar, membaca surat tanpa nama (ep 41); buket dari Toko Bunga masih disimpan",
    "oldSpot": [
     58,
     44,
     0.25,
     0.5
+   ],
+   "mallSpot": [
+    71,
+    79,
+    -0.2,
+    -0.1
    ]
+  },
+  {
+   "key": "penjual-ikan-bakar",
+   "name": "Mbak Sekar",
+   "julukan": "Mbak Sekar · penjual ikan bakar",
+   "kalimat": [
+    "Ikan bakar! Yang paling matang... buat yang jaga lampu.",
+    "Noda arang? Ah, di pipiku? Masa sih.",
+    "Asapnya bentuk hati? Kebetulan aja itu."
+   ],
+   "spot": [
+    56,
+    89,
+    0.85,
+    1.3
+   ],
+   "face": 3.14,
+   "pose": "ikanbakar",
+   "ep": 41,
+   "tempat": "di balik panggangan Ikan Bakar dekat dermaga"
   }
  ],
  "mystery": {
