@@ -13377,6 +13377,23 @@
    "label": "Untuk: Penjaga Mercusuar",
    "by": "",
    "ep": 41
+  },
+  {
+   "type": "suratmercusuar",
+   "x": 56,
+   "y": 91,
+   "r": 1,
+   "name": "Surat Balasan",
+   "label": "Untuk: Yang Bakar Ikan",
+   "lines": [
+    "Lampunya akan tetap",
+    "menyala, setiap malam.",
+    "Ikannya enak.",
+    "Besok... boleh dua?"
+   ],
+   "from": "P.M.",
+   "by": "Penjaga Mercusuar",
+   "ep": 42
   }
  ],
  "episodes": [
@@ -13760,6 +13777,14 @@
     "subplot asmara: petunjuk #2 (tidak ada komentar baru)"
    ],
    "text": "Pagi ini ada surat tanpa nama di pintu mercusuar: 'Lampumu yang menuntunku pulang, setiap malam.' Tanda tangannya tertutup noda arang.\nPenjaga Mercusuar: 'Ini pasti salah alamat.' Aru: 'Mercusuar di pulau ini cuma satu!' inyuu membuka quest 'cari NPC yang bau arang', senar muliya memainkan lagu cinta sampai senarnya putus.\nDi Ikan Bakar dekat dermaga, Mbak Sekar mengipasi arang, ada noda hitam di pipinya, dan asap panggangannya berbentuk hati. Petunjuk #2: noda arang. Siapa pengirimnya?"
+  },
+  {
+   "ep": 42,
+   "date": "2026-11-17",
+   "picks": [
+    "subplot asmara: petunjuk #3 (tidak ada komentar baru)"
+   ],
+   "text": "Surat Dibalas. Penjaga Mercusuar turun ke lapak Ikan Bakar untuk pertama kalinya: 'Satu ikan bakar. Yang... paling matang.' Mbak Sekar mengipas sampai asapnya berbentuk hati lagi.\nDi samping lapak kini ada Surat Balasan: 'Lampunya akan tetap menyala. Ikannya enak. Besok... boleh dua? Dari: P.M.' Polisi Pantai RANUUGLL: 'Ini bukan kasus kriminal. Ini... kasus hati.'\nMbak Sekar bakal ngaku pengirim surat pertama?"
   }
  ],
  "letters": [],
@@ -14103,20 +14128,20 @@
    "name": "Penjaga Mercusuar",
    "julukan": "Penjaga Mercusuar · ketua panitia pemilu",
    "kalimat": [
-    "Surat... untukku?!",
-    "Ini pasti... salah alamat.",
-    "Bukan buat siapa-siapa... buat mercusuar."
+    "Satu ikan bakar. Yang... paling matang.",
+    "Hm. Asap yang aneh.",
+    "Ini pasti... salah alamat."
    ],
    "spot": [
-    82,
-    54,
-    0.15,
-    -0.5
+    55,
+    89,
+    0.0,
+    0.7
    ],
-   "face": -1.57,
-   "pose": "keepersurat",
+   "face": 1.57,
+   "pose": "keeper",
    "ep": 30,
-   "tempat": "depan pintu mercusuar, membaca surat tanpa nama (ep 41); buket dari Toko Bunga masih disimpan",
+   "tempat": "di depan lapak Ikan Bakar, antre ikan bakar paling matang (ep 42); surat tanpa nama tetap di tiang mercusuar, surat balasannya di samping lapak",
    "oldSpot": [
     58,
     44,
@@ -14128,6 +14153,12 @@
     79,
     -0.2,
     -0.1
+   ],
+   "suratSpot": [
+    82,
+    54,
+    0.15,
+    -0.5
    ]
   },
   {
@@ -14136,8 +14167,8 @@
    "julukan": "Mbak Sekar · penjual ikan bakar",
    "kalimat": [
     "Ikan bakar! Yang paling matang... buat yang jaga lampu.",
-    "Noda arang? Ah, di pipiku? Masa sih.",
-    "Asapnya bentuk hati? Kebetulan aja itu."
+    "Surat... buat aku?!",
+    "Besok aku bakar dua. Dua-duanya paling matang!"
    ],
    "spot": [
     56,
