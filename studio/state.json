@@ -1,5 +1,5 @@
 {
- "nextEp": 42,
+ "nextEp": 43,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -60,7 +60,7 @@
   "Ep 38: Kapal Pesiar Aru (kapalpesiar x61 y102 r0, 16x5 di laut selatan Pelabuhan Nelayan, b.gx/b.gl = tangga ke dek pelabuhan) dengan Kapten April (@april_stecu989, resident spot 65,97 pose kapten: hormat lalu menunjuk laut) dan Pramugari @david.p.h3 (spot 66,97 pose pramugari: peragaan keselamatan 'pintu darurat di kiri dan kanan' - lelucon: pramugari salah kendaraan, 'pesawatnya penuh'). Nono sembuh (perban dilepas), terbang pertama langsung ke kapal = PENUMPANG PERTAMA: NONO (b.passenger, anak camar di pagar haluan; tamancamar b.away=1 menyembunyikan Nono dari sarang). Klub Pertama kalah cepat. Rute KM NELAYAN BARU dipersempit (amplitudo z 3). Kapal belum berlayar: end card 'Kapal ini berlayar ke mana dulu?' -> episode berikut bisa pelayaran pertama (Pulau Seberang?) dengan jawaban komentar. PEMILU KE-2 masih menunggu like dari Chalid (tidak disebut di ep 38).",
   "Ep 39: Jalan Warga (roads segment [36,77,53,78], papan JALAN WARGA x53 y79) dengan Rumah Ganteng (@adamfahriganteng, cermin emas raksasa; adam berdiri di depan cermin, pose cool) dan Rumah Kebun (@nenkrahma16, kebun bunga + kursi goyang; nen melambai). Pinjam Seratus pindah ke antara dua rumah (mau 'pinjam rumahnya'), dell_ duduk di kursi goyang Rumah Kebun (numpang, 'hm.'). TIGA KAVLING KOSONG 'rumahmu?' (kavling x37 y74, x45 y79, x49 y79) menunggu komentar -> isi dengan permintaan rumah berikutnya (end card: 'Rumahmu mau warna apa?'; type rumahwarga b.wall/b.roof/b.deco). Model baru: BT.rumahwarga, BT.kavling.",
   "Ep 40: Mall Pulau Aru (mall x68 y80 r2, Jalan Pasar/jalan timur y77-78, permintaan 'mall' berulang) dengan pintu otomatis geser (userData.slide; main.js membuka saat pemain mendekat, window.__doorOpen untuk studio), TOKO BAJU, TOKO BUNGA, dan unit kosong DISEWAKAN ('jualan apa? tulis di komentar!', b.empty/b.emptySub) -> isi toko ketiga dari jawaban komentar (ganti label bay '???' lewat b.empty/emptySub atau tambah b.shop3). D4L berdiri di depan pintu ('boleh masuk?'), Aidil YZ terharu di depan Toko Baju, Letisya di depan unit kosong (dikeluarkan dari tour.pupils supaya tetap di spot).",
-  "SUBPLOT ASMARA (bagian 2/3-5, ep 41): petunjuk #1 buket SUDAH DIPESAN untuk P.M. di Toko Bunga Mall (ep 40); petunjuk #2 (ep 41) Surat Tanpa Nama di tiang samping pintu mercusuar (suratmercusuar x82 y52 r1: 'Lampumu yang menuntunku pulang, setiap malam. Terima kasih. Dari: [noda arang]'). Penjaga Mercusuar kini berdiri di depan pintu mercusuar membaca surat (storyCast spot 82,54, pose keepersurat; spot mall disimpan di storyCast.mallSpot). Tersangka (tokoh fiksi studio, dewasa): Mbak Sekar, penjual Ikan Bakar dekat dermaga (storyCast 'penjual-ikan-bakar', spot 56,89 +.85,+1.3 di selatan panggangan, pose ikanbakar: kipas bambu, bandana merah, NODA ARANG di pipi, sesekali menoleh ke arah mercusuar); asap panggangan berbentuk hati (bakarikan b.heart, dianimasikan main.js). Kalimatnya: 'Yang paling matang... buat yang jaga lampu.' End card: 'Siapa pengirim suratnya? Tebak di komentar' -> bagian 3 bisa: Mbak Sekar mengantar ikan bakar ke mercusuar tiap malam / Penjaga membalas surat lewat kedipan lampu mercusuar; pakai tebakan komentar. Jangan pasangkan akun sungguhan."
+  "SUBPLOT ASMARA (bagian 3/3-5, ep 42): petunjuk #1 buket SUDAH DIPESAN untuk P.M. (ep 40), #2 Surat Tanpa Nama di mercusuar dengan noda arang (ep 41), #3 Penjaga Mercusuar turun ke lapak Ikan Bakar dan meninggalkan Surat Balasan (suratmercusuar x56 y91 r1, b.name 'Surat Balasan', b.lines/b.from 'P.M.' - model kini mendukung surat bertanda tangan): 'Lampunya akan tetap menyala. Ikannya enak. Besok... boleh dua?'. Penjaga Mercusuar kini berdiri di depan lapak (storyCast spot 55,89 +0,+.7, face 1.57, pose keeper; spot surat lama di storyCast.suratSpot). Mbak Sekar belum mengaku pengirim surat pertama. Berikutnya (bagian 4-5): 'besok dua ikan' -> Sekar mengaku / makan bersama di dermaga / buket ep 40 diberikan, tetap manis tanpa adegan fisik. End card ep 42: Mbak Sekar bakal ngaku? -> pakai jawaban komentar kalau ada. Kamera: Sekar hanya terlihat dari depan dengan yaw -1.3, dist ~1.9, rotasi badan -1.0 (sisi lain tertutup Pos Penjaga Pantai/tiang lapak/papan IKAN BAKAR)."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -347,17 +347,23 @@
    "title": "Surat Tanpa Nama",
    "posted": "manual (Chrome tidak tersambung) - video: https://github.com/chalidade/Pulau-aru/raw/videos/episodes/pulau-aru-ep41.mp4",
    "summary": "Format KONSEP (run pagi 17 Nov; ep 40 CERITA). Apify gagal lagi (run 44004845207), Chrome tidak tersambung, komentar.md tanpa komentar baru yang bisa dipakai (calon presiden menunggu like; pertanyaan toko ketiga & warna rumah belum dijawab) -> tanpa kartu komentar, digerakkan subplot asmara. Cold open: Penjaga Mercusuar memegang surat 'Surat... untukku?!', hook SURAT TANPA NAMA / DI MERCUSUAR!. Premis follow=warga, komentar=cerita (title PULAU NETIZEN). Surat terbaca: 'Lampumu yang menuntunku pulang, setiap malam', tanda tangan tertutup noda arang. Aru 'Ciee', Penjaga 'salah alamat', Aru 'mercusuar cuma satu!'. Cameo inyuu (quest cari NPC bau arang) dan senar muliya (lagu cinta, senar putus). Ikan Bakar: Mbak Sekar (tokoh baru) mengipasi arang, noda di pipi, 'yang paling matang buat yang jaga lampu'; asap berbentuk hati. Title PETUNJUK #2 noda arang. End card: follow=warga, Siapa pengirim suratnya? tebak di komentar. 60 dtk."
+  },
+  {
+   "ep": 42,
+   "title": "Surat Dibalas",
+   "posted": "manual (Chrome tidak tersambung) - video: https://github.com/chalidade/Pulau-aru/raw/videos/episodes/pulau-aru-ep42.mp4",
+   "summary": "Format CERITA (run sore 17 Nov; ep 41 KONSEP). Apify gagal lagi (run 44057857964), Chrome tidak tersambung, komentar.md tanpa komentar baru -> tanpa kartu komentar, digerakkan subplot asmara (petunjuk #3). Cold open: Mbak Sekar di samping surat baru di lapaknya 'Surat... buat aku?!', hook SURAT TANPA NAMA / DIBALAS!. Premis (title PULAU NETIZEN). Surat ep 41 di mercusuar (noda arang). Cameo RANUUGLL Polisi Pantai ('siapa yang main arang?') dan whoyss ('aku mainnya sandal... eh'). Penjaga Mercusuar turun ke lapak Ikan Bakar: 'Satu ikan bakar. Yang... paling matang.' Sekar mengipas panik, asap hati lagi, 'Hm. Asap yang aneh.' Surat Balasan dari P.M.: 'Lampunya akan tetap menyala. Ikannya enak. Besok... boleh dua?' Sekar: 'dua-duanya paling matang!' RANUUGLL: 'bukan kasus kriminal... kasus hati' (title PETUNJUK #3). End card: Mbak Sekar bakal ngaku? + CTA UMKM (teks). 60 dtk."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 40,
-   "cta": "traktir"
+   "ep": 42,
+   "cta": "UMKM (teks di end card, tanpa suara)"
   },
-  "nextCta": "UMKM atau follow (ep 42 atau 43)",
-  "lastCtaNote": "ep 41 tanpa CTA uang (follow + tebak di komentar); CTA berikut UMKM di ep 42 atau 43"
+  "nextCta": "follow (ep 43) lalu traktir (ep 44 atau 45)",
+  "lastCtaNote": "ep 42 end card: Punya usaha? Komentar #UMKMPulauAru, warungmu kami bangun di pulau!"
  },
  "notes": [
   "Chalid 4 Nov 2026: video tetap sekitar 1 menit (55-60 dtk) mulai ep 8; aturan retensi lain tetap. Jalan cerita ep 7 disukai.",
@@ -395,7 +401,8 @@
   "Ep 38 (15 Nov sore): Apify gagal lagi (run 43700504318), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> video dikirim ke Chalid untuk diposting manual. Kode baru: BT.kapalpesiar (b.label/sub/gx/gl/passenger; userData.chicks + chickBase dianimasikan main.js), castKit/castPose 'kapten' & 'pramugari', tamancamar b.away, rute boat amplitudo 3. Kamera: KM NELAYAN BARU tertambat di sisi timur pelabuhan menghalangi close-up kru -> shots ep38 memakai __boatTheta = PI (kapal di laut). Pramugari harus di x<=10.9 (tepi dek pelabuhan x 11).",
   "Ep 39 (16 Nov pagi): Apify gagal lagi (run 43793745829), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> antrean komentar.md (rumah warga @adamfahriganteng & @nenkrahma16, teks asli tidak tercatat, kartu 'rumah warga' avatar huruf). Penempatan: sekolah (x49 y70 r3) menutupi y70-75 x49-52, jadi rumah di sisi utara Jalan Warga hanya x<=47. Kamera dari selatan jalan menabrak pohon di x40-50 y79-82 -> shots ep39 menyembunyikan instance pohon z 22.9-26.5 (SETUP39). b.x/b.y = sudut kiri-atas footprint. Capture DPR2 berjalan di background.",
   "Ep 40 (16 Nov sore): Apify gagal lagi (run 43841991606), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> tidak ada komentar baru; antrean komentar.md hanya permintaan berulang 'mall' tanpa username, jadi episode tanpa kartu komentar (username/foto tidak dikarang). Kode baru: BT.mall (pintu otomatis, buket b.order, unit b.empty), castKit/castPose 'keeperbunga'. Penempatan: kolam/teluk di x77-82 y81-90 (mall di x>=74 kena air); rumahsakit x62 y79 memakan sampai x67 -> mall x68. Warung di utara jalan (y74-76) menghalangi kamera rendah dari utara: pakai dist <=4.5 atau pitch >=1.0. Letisya ikut tour sekolah (island.json tour.pupils) sehingga tidak pernah di spot -> dikeluarkan dari pupils. Capture DPR2 ~1,1 dtk/frame.",
-  "Ep 41 (17 Nov pagi): Apify gagal lagi (run 44004845207), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> tidak ada komentar baru, episode tanpa kartu komentar (subplot asmara petunjuk #2), video dikirim ke Chalid untuk diposting manual. Kode baru: BT.suratmercusuar, bakarikan b.heart (asap hati ExtrudeGeometry, animasi main.js), castKit/castPose 'keepersurat' & 'ikanbakar'. Penempatan: sisi barat mercusuar (pintu menghadap barat), x82 y55 = air -> tiang surat di x82 y52. Penjual di (56,89)+(1.3,.5) terjepit pospantai (x58 y89) -> kamera masuk dinding; dipindah ke selatan panggangan (+.85,+1.3). Dalam shots, y0 = n.obj.position.y bisa 0 saat setup -> pakai P.surfaceY(x,z). Capture DPR2 ~0,9 dtk/frame."
+  "Ep 41 (17 Nov pagi): Apify gagal lagi (run 44004845207), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> tidak ada komentar baru, episode tanpa kartu komentar (subplot asmara petunjuk #2), video dikirim ke Chalid untuk diposting manual. Kode baru: BT.suratmercusuar, bakarikan b.heart (asap hati ExtrudeGeometry, animasi main.js), castKit/castPose 'keepersurat' & 'ikanbakar'. Penempatan: sisi barat mercusuar (pintu menghadap barat), x82 y55 = air -> tiang surat di x82 y52. Penjual di (56,89)+(1.3,.5) terjepit pospantai (x58 y89) -> kamera masuk dinding; dipindah ke selatan panggangan (+.85,+1.3). Dalam shots, y0 = n.obj.position.y bisa 0 saat setup -> pakai P.surfaceY(x,z). Capture DPR2 ~0,9 dtk/frame.",
+  "Ep 42 (17 Nov sore): Apify gagal lagi (run 44057857964), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> tanpa kartu komentar (episode ke-3 berturut-turut), video dikirim ke Chalid untuk diposting manual. Kode: suratmercusuar mendukung b.lines/b.from/b.name. Kamera: whoyss (50,42) di bawah pohon -> gelap; shots ep42 menyembunyikan instance pohon di sekitarnya (window.__hid42). Capture DPR2 sempat macet di c14 (proses hidup, frame berhenti) -> kill dan capture ulang c1,c14. n8 (CTA UMKM suara) dibuang karena durasi; CTA hanya teks."
  ],
  "rooms": {
   "open": [
@@ -420,7 +427,7 @@
   ]
  },
  "strategy": {
-  "lastFormat": "KONSEP",
+  "lastFormat": "CERITA",
   "tests": [
    {
     "ep": 25,
@@ -557,18 +564,17 @@
     "opening": "3D close-up Penjaga Mercusuar memegang surat di pintu mercusuar, kaget ('Surat... untukku?!'), tanpa filter buku cerita, tanpa kartu komentar (tidak ada komentar baru); premis lewat narasi + title PULAU NETIZEN",
     "captionStyle": "pendek personal + pertanyaan tebak pengirim + pulau-aru.web.id + #pulaunetizen #alurcerita",
     "duration": 60
+   },
+   {
+    "ep": 42,
+    "format": "CERITA",
+    "hook": "SURAT TANPA NAMA / DIBALAS!",
+    "opening": "3D close-up Mbak Sekar di balik panggangan, surat balasan terlihat di sampingnya ('Surat... buat aku?!'), tanpa kartu komentar (tidak ada komentar baru)",
+    "captionStyle": "pendek personal + pertanyaan ngaku/tidak + pulau-aru.web.id + #pulaunetizen #alurcerita",
+    "duration": 60
    }
   ],
   "castLog": [
-   {
-    "ep": 34,
-    "cast": [
-     "Alexandre",
-     "Aidil YZ",
-     "panggil aja zidan",
-     "senar muliya"
-    ]
-   },
    {
     "ep": 35,
     "cast": [
@@ -629,6 +635,15 @@
      "Mbak Sekar (baru)",
      "inyuu",
      "senar muliya"
+    ]
+   },
+   {
+    "ep": 42,
+    "cast": [
+     "Mbak Sekar",
+     "Penjaga Mercusuar",
+     "RANUUGLL",
+     "whoyss"
     ]
    }
   ]
