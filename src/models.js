@@ -485,15 +485,19 @@ export const BT = {
       const c = document.createElement('canvas'); c.width = 512; c.height = 400; const x = c.getContext('2d');
       x.fillStyle = '#fbf7ee'; x.fillRect(0, 0, 512, 400); x.fillStyle = '#e8dcc4'; for (let i = 0; i < 7; i++) x.fillRect(30, 110 + i * 40, 452, 2);
       x.fillStyle = '#3a2a4a'; x.textAlign = 'left'; x.textBaseline = 'middle'; x.font = '700 40px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'Untuk: Penjaga Mercusuar', 34, 50, 450);
-      x.font = '400 38px "Pixelify Sans", sans-serif'; x.fillText('Lampumu yang menuntunku', 34, 140, 450); x.fillText('pulang, setiap malam.', 34, 190, 450); x.fillText('Terima kasih.', 34, 240, 450);
+      const ln = (b && b.lines) || ['Lampumu yang menuntunku', 'pulang, setiap malam.', 'Terima kasih.'];
+      x.font = '400 38px "Pixelify Sans", sans-serif'; ln.forEach((t, i) => x.fillText(t, 34, ln.length > 3 ? 124 + i * 46 : 140 + i * 50, 450));
       x.font = '700 38px "Pixelify Sans", sans-serif'; x.fillText('Dari:', 34, 320);
-      x.fillStyle = 'rgba(25,25,25,.92)'; x.beginPath(); x.ellipse(250, 322, 110, 36, -.08, 0, Math.PI * 2); x.fill(); x.fillStyle = 'rgba(25,25,25,.5)'; for (let i = 0; i < 9; i++) { x.beginPath(); x.arc(150 + i * 25, 300 + (i * 37) % 50, 9 + (i % 3) * 5, 0, Math.PI * 2); x.fill(); }
-      x.fillStyle = '#d0302a'; x.beginPath(); const hx = 452, hy = 330; x.moveTo(hx, hy + 22); x.bezierCurveTo(hx - 40, hy - 6, hx - 18, hy - 32, hx, hy - 12); x.bezierCurveTo(hx + 18, hy - 32, hx + 40, hy - 6, hx, hy + 22); x.fill();
+      if (b && b.from) { x.fillStyle = '#1f3a6b'; x.font = '700 44px "Pixelify Sans", sans-serif'; x.fillText(b.from, 140, 322, 260);   // ep 42: a signed reply, with a little lighthouse
+        const lx = 448, ly = 352; x.fillStyle = '#d0302a'; x.beginPath(); x.moveTo(lx - 16, ly); x.lineTo(lx - 9, ly - 62); x.lineTo(lx + 9, ly - 62); x.lineTo(lx + 16, ly); x.fill(); x.fillStyle = '#fbf7ee'; x.fillRect(lx - 13, ly - 30, 26, 9);
+        x.fillStyle = '#f5c542'; x.fillRect(lx - 11, ly - 80, 22, 18); x.fillStyle = '#3a2a4a'; x.beginPath(); x.moveTo(lx - 15, ly - 80); x.lineTo(lx, ly - 94); x.lineTo(lx + 15, ly - 80); x.fill(); }
+      else { x.fillStyle = 'rgba(25,25,25,.92)'; x.beginPath(); x.ellipse(250, 322, 110, 36, -.08, 0, Math.PI * 2); x.fill(); x.fillStyle = 'rgba(25,25,25,.5)'; for (let i = 0; i < 9; i++) { x.beginPath(); x.arc(150 + i * 25, 300 + (i * 37) % 50, 9 + (i % 3) * 5, 0, Math.PI * 2); x.fill(); }
+      x.fillStyle = '#d0302a'; x.beginPath(); const hx = 452, hy = 330; x.moveTo(hx, hy + 22); x.bezierCurveTo(hx - 40, hy - 6, hx - 18, hy - 32, hx, hy - 12); x.bezierCurveTo(hx + 18, hy - 32, hx + 40, hy - 6, hx, hy + 22); x.fill(); }
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
       const pg = new THREE.Mesh(new THREE.PlaneGeometry(.66, .52), new THREE.MeshStandardMaterial({ map: tx, roughness: .9 })); pg.position.set(0, 1.09, .045); g.add(pg);
       for (const xx of [-.3, .3]) add(g, G.sph, '#c9a24a', .025, .025, .02, xx, 1.33, .05);
       const env = box(g, '#efe2c4', .3, .18, .02, .26, .45, .05); env.rotation.z = .12; add(g, G.sph, '#d0302a', .04, .04, .015, .26, .53, .07);
-      g.userData.label = (b && b.label) || 'Surat Tanpa Nama';
+      g.userData.label = (b && b.name) || (b && b.label) || 'Surat Tanpa Nama';
     } },
   // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
   papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,
