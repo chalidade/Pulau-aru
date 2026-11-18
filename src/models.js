@@ -499,6 +499,38 @@ export const BT = {
       const env = box(g, '#efe2c4', .3, .18, .02, .26, .45, .05); env.rotation.z = .12; add(g, G.sph, '#d0302a', .04, .04, .015, .26, .53, .07);
       g.userData.label = (b && b.name) || (b && b.label) || 'Surat Tanpa Nama';
     } },
+  // ep 43: Meja Dua Ikan, a little dinner table on the beach by the pier: checked cloth, two plates of grilled fish ('besok... boleh dua?'),
+  // two cups, a lantern, a heart card, and a sign (b.label / b.sub). The two story characters stand at its west and east sides.
+  mejaduaikan: { n: 'Meja Dua Ikan', w: 2, h: 2, land: true,
+    build(g, b) {
+      for (const [x, z] of [[-.32, -.42], [.32, -.42], [-.32, .42], [.32, .42]]) box(g, '#6b4a2b', .06, .72, .06, x, 0, z);
+      const cc = document.createElement('canvas'); cc.width = 128; cc.height = 128; const q = cc.getContext('2d');
+      for (let i = 0; i < 8; i++) for (let j = 0; j < 8; j++) { q.fillStyle = (i + j) % 2 ? '#fbf3e6' : '#d0483a'; q.fillRect(i * 16, j * 16, 16, 16); }
+      const ct = new THREE.CanvasTexture(cc); ct.colorSpace = THREE.SRGBColorSpace; ct.magFilter = THREE.NearestFilter;
+      const top = new THREE.Mesh(new THREE.BoxGeometry(.86, .05, 1.06), new THREE.MeshStandardMaterial({ map: ct, roughness: .9 })); top.position.set(0, .745, 0); top.castShadow = top.receiveShadow = true; g.add(top);
+      for (const s of [-1, 1]) {   // a plate + a whole grilled fish on each side, a cup beside it
+        add(g, G.cyl8, '#f4eee0', .16, .015, .16, s * .2, .78, .05);
+        const fish = new THREE.Group(); fish.position.set(s * .2, .81, .05); g.add(fish);
+        add(fish, G.ico, '#c98a4a', .07, .045, .14, 0, 0, 0); add(fish, G.cone4, '#8a5a34', .06, .07, .025, 0, 0, -.17).rotation.x = -Math.PI / 2;
+        add(fish, G.box, '#5e3b22', .012, .012, .12, .02, .035, 0);
+        cyl(g, '#e9e2d0', .035, .08, s * .25, .77, -.32, 8);
+      }
+      cyl(g, '#5e3b22', .05, .04, 0, .77, .38, 8); const lamp = new THREE.Mesh(G.sph, lanternMat); lamp.scale.set(.06, .09, .06); lamp.position.set(0, .89, .38); g.add(lamp);
+      g.userData.lamp = lamp;
+      const hc = document.createElement('canvas'); hc.width = 128; hc.height = 128; const h = hc.getContext('2d');
+      h.fillStyle = '#d0302a'; h.beginPath(); h.moveTo(64, 112); h.bezierCurveTo(-10, 60, 20, 4, 64, 38); h.bezierCurveTo(108, 4, 138, 60, 64, 112); h.fill();
+      const ht = new THREE.CanvasTexture(hc); ht.colorSpace = THREE.SRGBColorSpace;
+      for (const ry of [Math.PI / 2, -Math.PI / 2]) { const hp = new THREE.Mesh(new THREE.PlaneGeometry(.14, .14), new THREE.MeshStandardMaterial({ map: ht, transparent: true, alphaTest: .3, roughness: .8 })); hp.position.set(0, .86, -.3); hp.rotation.y = ry; g.add(hp); }
+      // the sign on a post at the north-west corner, readable from the main street and the beach
+      box(g, '#6b4a2b', .07, 1.25, .07, -.62, 0, -.78);
+      const c = document.createElement('canvas'); c.width = 384; c.height = 192; const x = c.getContext('2d');
+      x.fillStyle = '#fbf3e6'; x.fillRect(0, 0, 384, 192); x.fillStyle = '#d0483a'; x.fillRect(0, 0, 384, 10); x.fillRect(0, 182, 384, 10);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#a0523c'; x.font = '700 56px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'MEJA DUA IKAN', 192, 72, 360);
+      x.fillStyle = '#3a2a4a'; x.font = '400 34px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'dua-duanya paling matang', 192, 138, 360);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      for (const ry of [-Math.PI / 4, Math.PI * 3 / 4]) { const s = new THREE.Mesh(new THREE.PlaneGeometry(.76, .38), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); s.position.set(-.62 + Math.sin(ry) * .03, 1.12, -.78 + Math.cos(ry) * .03); s.rotation.y = ry; g.add(s); }
+      g.userData.label = (b && b.label) || 'Meja Dua Ikan';
+    } },
   // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
   papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,
     build(g, b) {
