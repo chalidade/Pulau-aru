@@ -13394,6 +13394,16 @@
    "from": "P.M.",
    "by": "Penjaga Mercusuar",
    "ep": 42
+  },
+  {
+   "type": "mejaduaikan",
+   "x": 57,
+   "y": 93,
+   "r": 0,
+   "label": "MEJA DUA IKAN",
+   "sub": "untuk P.M. & Mbak Sekar",
+   "by": "subplot asmara",
+   "ep": 43
   }
  ],
  "episodes": [
@@ -13785,6 +13795,14 @@
     "subplot asmara: petunjuk #3 (tidak ada komentar baru)"
    ],
    "text": "Surat Dibalas. Penjaga Mercusuar turun ke lapak Ikan Bakar untuk pertama kalinya: 'Satu ikan bakar. Yang... paling matang.' Mbak Sekar mengipas sampai asapnya berbentuk hati lagi.\nDi samping lapak kini ada Surat Balasan: 'Lampunya akan tetap menyala. Ikannya enak. Besok... boleh dua? Dari: P.M.' Polisi Pantai RANUUGLL: 'Ini bukan kasus kriminal. Ini... kasus hati.'\nMbak Sekar bakal ngaku pengirim surat pertama?"
+  },
+  {
+   "ep": 43,
+   "date": "2026-11-18",
+   "picks": [
+    "subplot asmara: bagian 4, pengakuan (tidak ada komentar baru)"
+   ],
+   "text": "Dua Ikan Bakar. Penjaga Mercusuar minta 'besok... boleh dua?', jadi Mbak Sekar membakar dua ikan, dua-duanya paling matang, dan menata Meja Dua Ikan di pantai dekat dermaga.\nMbak Sekar akhirnya mengaku: 'Surat pertama itu... dari aku.' Penjaga Mercusuar: 'Aku tahu. Tanda tangannya noda arang.'\nTapi buket bunga yang ia pesan di mall belum juga diberikan. Kapan?"
   }
  ],
  "letters": [],
@@ -14128,20 +14146,20 @@
    "name": "Penjaga Mercusuar",
    "julukan": "Penjaga Mercusuar · ketua panitia pemilu",
    "kalimat": [
-    "Satu ikan bakar. Yang... paling matang.",
-    "Hm. Asap yang aneh.",
-    "Ini pasti... salah alamat."
+    "Dua ikan. Persis seperti di surat.",
+    "Aku tahu. Tanda tangannya noda arang.",
+    "Penjaga mercusuar... melihat semuanya."
    ],
    "spot": [
-    55,
-    89,
-    0,
-    0.7
+    57,
+    93,
+    -0.3,
+    0.5
    ],
    "face": 1.57,
    "pose": "keeper",
    "ep": 30,
-   "tempat": "di depan lapak Ikan Bakar, antre ikan bakar paling matang (ep 42); surat tanpa nama tetap di tiang mercusuar, surat balasannya di samping lapak",
+   "tempat": "di Meja Dua Ikan di pantai dekat dermaga, makan ikan bakar bersama Mbak Sekar (ep 43); surat tanpa nama tetap di tiang mercusuar, surat balasannya di samping lapak",
    "oldSpot": [
     58,
     44,
@@ -14159,6 +14177,12 @@
     54,
     0.15,
     -0.5
+   ],
+   "stallSpot": [
+    55,
+    89,
+    0,
+    0.7
    ]
   },
   {
@@ -14166,20 +14190,26 @@
    "name": "Mbak Sekar",
    "julukan": "Mbak Sekar · penjual ikan bakar",
    "kalimat": [
-    "Ikan bakar! Yang paling matang... buat yang jaga lampu.",
-    "Surat... buat aku?!",
-    "Besok aku bakar dua. Dua-duanya paling matang!"
+    "Surat pertama itu... dari aku!",
+    "Dua-duanya paling matang!",
+    "Jadi Bapak tahu dari kemarin?!"
    ],
    "spot": [
+    58,
+    93,
+    0.3,
+    0.5
+   ],
+   "face": -1.57,
+   "pose": "ikanbakar",
+   "ep": 41,
+   "tempat": "di Meja Dua Ikan di pantai dekat dermaga (ep 43), sudah mengaku pengirim surat pertama",
+   "stallSpot": [
     56,
     89,
     0.85,
     1.3
-   ],
-   "face": 3.14,
-   "pose": "ikanbakar",
-   "ep": 41,
-   "tempat": "di balik panggangan Ikan Bakar dekat dermaga"
+   ]
   }
  ],
  "mystery": {
