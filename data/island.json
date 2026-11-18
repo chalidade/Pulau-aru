@@ -13363,11 +13363,12 @@
    "r": 2,
    "label": "MALL PULAU ARU",
    "sub": "permintaan warga · dibuka ep 40",
-   "order": "SUDAH DIPESAN|untuk: P.M. ♥",
+   "order": "SUDAH DIAMBIL|terima kasih, P.M. ♥",
    "empty": "DISEWAKAN",
    "emptySub": "jualan apa?|tulis di|komentar!",
    "by": "",
-   "ep": 40
+   "ep": 40,
+   "taken": true
   },
   {
    "type": "suratmercusuar",
@@ -13401,9 +13402,10 @@
    "y": 93,
    "r": 0,
    "label": "MEJA DUA IKAN",
-   "sub": "untuk P.M. & Mbak Sekar",
+   "sub": "untuk P.M. & Mbak Sekar ♥",
    "by": "subplot asmara",
-   "ep": 43
+   "ep": 43,
+   "missing": 1
   }
  ],
  "episodes": [
@@ -13803,6 +13805,12 @@
     "subplot asmara: bagian 4, pengakuan (tidak ada komentar baru)"
    ],
    "text": "Dua Ikan Bakar. Penjaga Mercusuar minta 'besok... boleh dua?', jadi Mbak Sekar membakar dua ikan, dua-duanya paling matang, dan menata Meja Dua Ikan di pantai dekat dermaga.\nMbak Sekar akhirnya mengaku: 'Surat pertama itu... dari aku.' Penjaga Mercusuar: 'Aku tahu. Tanda tangannya noda arang.'\nTapi buket bunga yang ia pesan di mall belum juga diberikan. Kapan?"
+  },
+  {
+   "ep": 44,
+   "date": "2026-11-18",
+   "picks": [],
+   "text": "Bunga untuk Mbak Sekar. Penjaga Mercusuar akhirnya mengambil buket di Toko Bunga mall (sekarang SUDAH DIAMBIL) dan memberikannya di Meja Dua Ikan: \"Ini... buat yang menjaga apinya.\" Mbak Sekar kini memeluk buketnya.\nTapi waktu mereka menoleh, satu ikan bakar hilang! Tinggal tulang kecil dan jejak kaki mungil menuju Pelabuhan Nelayan. Misteri baru: siapa pencuri ikannya?"
   }
  ],
  "letters": [],
@@ -14146,8 +14154,8 @@
    "name": "Penjaga Mercusuar",
    "julukan": "Penjaga Mercusuar · ketua panitia pemilu",
    "kalimat": [
-    "Dua ikan. Persis seperti di surat.",
-    "Aku tahu. Tanda tangannya noda arang.",
+    "Ini... buat yang menjaga apinya.",
+    "Yang gosong... juga kumakan.",
     "Penjaga mercusuar... melihat semuanya."
    ],
    "spot": [
@@ -14159,7 +14167,7 @@
    "face": 1.57,
    "pose": "keeper",
    "ep": 30,
-   "tempat": "di Meja Dua Ikan di pantai dekat dermaga, makan ikan bakar bersama Mbak Sekar (ep 43); surat tanpa nama tetap di tiang mercusuar, surat balasannya di samping lapak",
+   "tempat": "di Meja Dua Ikan; akhirnya memberikan buket dari Toko Bunga mall ke Mbak Sekar (ep 44)",
    "oldSpot": [
     58,
     44,
@@ -14190,9 +14198,9 @@
    "name": "Mbak Sekar",
    "julukan": "Mbak Sekar · penjual ikan bakar",
    "kalimat": [
-    "Surat pertama itu... dari aku!",
-    "Dua-duanya paling matang!",
-    "Jadi Bapak tahu dari kemarin?!"
+    "Bunga?! Buat... aku?!",
+    "Pak... ikannya gosong.",
+    "Ikanku... mana?!"
    ],
    "spot": [
     58,
@@ -14201,9 +14209,9 @@
     0.5
    ],
    "face": -1.57,
-   "pose": "ikanbakar",
+   "pose": "sekarbunga",
    "ep": 41,
-   "tempat": "di Meja Dua Ikan di pantai dekat dermaga (ep 43), sudah mengaku pengirim surat pertama",
+   "tempat": "di Meja Dua Ikan, memeluk buket dari Penjaga Mercusuar (ep 44); satu ikan bakarnya hilang!",
    "stallSpot": [
     56,
     89,
@@ -14213,11 +14221,29 @@
   }
  ],
  "mystery": {
-  "ep": 34,
-  "title": "Misteri Sandal Hilang (selesai)",
-  "trail": [],
+  "ep": 44,
+  "title": "Misteri Ikan Bakar Hilang",
+  "trail": [
+   [
+    58.5,
+    93.0
+   ],
+   [
+    59.8,
+    92.75
+   ],
+   [
+    61.2,
+    92.85
+   ],
+   [
+    62.6,
+    92.7
+   ]
+  ],
+  "paw": true,
   "pile": 0,
-  "note": "Kasus ditutup! Camar mengumpulkan sandal untuk sarang tiga bayinya. Keluarga camar sekarang tinggal di Rumah Camar, Taman Pulau; sandal dikembalikan di Rak Sandal dekat masjid. Sandal Aru jadi selimut bayi camar. Kasih nama bayi camarnya di komentar!",
-  "gull": false
+  "gull": false,
+  "note": "Satu ikan bakar hilang dari Meja Dua Ikan, waktu buket bunga diberikan! Yang tersisa cuma tulang kecil dan jejak kaki mungil berjari empat... menuju Pelabuhan Nelayan. Siapa pelakunya? Tebak di komentar!"
  }
 }

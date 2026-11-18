@@ -238,7 +238,7 @@ function rebuildMystery() {
       for (let j = 0; j < n; j++, k++) {
         const t = j / n, side = k % 2 ? .1 : -.1, px = ax + (bx - ax) * t + Math.cos(dir) * side, pz = az + (bz - az) * t - Math.sin(dir) * side;
         const pr = new THREE.Group(); pr.position.set(px, surfaceY(px, pz) + .012, pz); pr.rotation.y = dir;
-        if (m.paw) { M.box(pr, pm, .07, .012, .06, 0, 0, -.01).castShadow = false; for (const a of [-.9, -.3, .3, .9]) { const toe = M.box(pr, pm, .028, .012, .028, 0, 0, 0); toe.position.set(Math.sin(a) * .055, 0, .03 + Math.cos(a) * .025); toe.castShadow = false; } mysteryGroup.add(pr); continue; }   // ep 44: little four-toed paw prints
+        if (m.paw) { const pp = M.mat('#5a4228'); pr.scale.setScalar(1.5); M.box(pr, pp, .07, .014, .06, 0, 0, -.01).castShadow = false; for (const a of [-.9, -.3, .3, .9]) { const toe = M.box(pr, pp, .028, .014, .028, 0, 0, 0); toe.position.set(Math.sin(a) * .055, 0, .03 + Math.cos(a) * .025); toe.castShadow = false; } mysteryGroup.add(pr); continue; }   // ep 44: little four-toed paw prints
         for (const a of [-.55, 0, .55]) { const toe = M.box(pr, pm, .045, .014, .17, 0, 0, 0); toe.position.set(Math.sin(a) * .08, 0, Math.cos(a) * .08); toe.rotation.y = a; toe.castShadow = false; }
         mysteryGroup.add(pr);
       }
