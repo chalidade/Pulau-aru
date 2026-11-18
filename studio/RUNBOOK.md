@@ -28,6 +28,11 @@ The person who owns all this is Chalid. Message him with `SendUserMessage` for t
 > 70% median ±3 frame di sekitarnya = rusak. Perbaiki dengan ffmpeg `freezeframes` (ganti dengan frame sebelumnya)
 > atau render ulang, sebelum commit ke branch videos.
 
+
+> **Cek audio (18 Nov):** ep41 sempat diunggah TANPA trek audio sama sekali (langkah `final` tidak menyertakan
+> audio.wav). Sebelum commit ke branch videos: `ffprobe -show_entries stream=codec_type` harus berisi `audio`,
+> dan `volumedetect` mean_volume harus > -30 dB. Kalau gagal, jalankan `compose.py audio` lalu `final` lagi.
+
 ## 0. Setup (fresh container)
 
 1. Attach and clone both repos, with push access:
