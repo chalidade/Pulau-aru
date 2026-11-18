@@ -238,6 +238,7 @@ function rebuildMystery() {
       for (let j = 0; j < n; j++, k++) {
         const t = j / n, side = k % 2 ? .1 : -.1, px = ax + (bx - ax) * t + Math.cos(dir) * side, pz = az + (bz - az) * t - Math.sin(dir) * side;
         const pr = new THREE.Group(); pr.position.set(px, surfaceY(px, pz) + .012, pz); pr.rotation.y = dir;
+        if (m.paw) { M.box(pr, pm, .07, .012, .06, 0, 0, -.01).castShadow = false; for (const a of [-.9, -.3, .3, .9]) { const toe = M.box(pr, pm, .028, .012, .028, 0, 0, 0); toe.position.set(Math.sin(a) * .055, 0, .03 + Math.cos(a) * .025); toe.castShadow = false; } mysteryGroup.add(pr); continue; }   // ep 44: little four-toed paw prints
         for (const a of [-.55, 0, .55]) { const toe = M.box(pr, pm, .045, .014, .17, 0, 0, 0); toe.position.set(Math.sin(a) * .08, 0, Math.cos(a) * .08); toe.rotation.y = a; toe.castShadow = false; }
         mysteryGroup.add(pr);
       }
@@ -676,7 +677,7 @@ function interactables() {
   const at = (x, y, w, hh, dz) => { const [cx, cz] = fpCenter(x, y, w, hh); return { x: cx, z: cz + dz }; };
   L.push({ ...at(LM.stone[0], LM.stone[1], 2, 1, 1.2), label: 'Baca Batu Nama', act: UI.openNames, r: 2 });
   L.push({ ...at(LM.light[0], LM.light[1], 2, 2, 1.8), label: 'Lihat mercusuar', act: UI.openLight, r: 2 });
-  if (S.mystery && Array.isArray(S.mystery.trail) && S.mystery.trail.length) { const [tx, ty] = S.mystery.trail[0]; L.push({ x: WD.cx2w(tx), z: WD.cy2w(ty), label: 'Periksa jejak aneh', act: () => UI.dialog('Jejak kaki aneh', S.mystery.note || 'Jejak kecil bertiga jari... menuju mercusuar.'), r: 1.8, key: 'jejak' }); }
+  if (S.mystery && Array.isArray(S.mystery.trail) && S.mystery.trail.length) { const [tx, ty] = S.mystery.trail[0]; L.push({ x: WD.cx2w(tx), z: WD.cy2w(ty), label: 'Periksa jejak aneh', act: () => UI.dialog(S.mystery.paw ? 'Jejak kaki kecil' : 'Jejak kaki aneh', S.mystery.note || 'Jejak kecil bertiga jari... menuju mercusuar.'), r: 1.8, key: 'jejak' }); }
   L.push({ ...at(LM.mail[0], LM.mail[1], 1, 1, .8), label: 'Buka kotak surat', act: UI.openLetters, r: 1.5 });
   L.push({ ...at(LM.board[0], LM.board[1], 2, 1, .9), label: 'Baca aturan', act: UI.openRules, r: 1.6 });
   L.push({ ...at(LM.wreck[0], LM.wreck[1], 3, 2, 1.4), label: 'Periksa perahu', act: UI.openMystery, r: 2.4 });

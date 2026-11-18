@@ -65,6 +65,8 @@ export function castKit(ch, pose) {
   if (pose === 'ikanbakar') { box(b, '#c4473a', .43, .1, .43, 0, 1.38, -.01); box(b, '#c4473a', .1, .12, .04, .12, 1.3, -.23); box(b, '#efe6d2', .4, .5, .03, 0, .42, .155); box(b, '#efe6d2', .4, .03, .29, 0, .66, 0); box(b, '#a0523c', .14, .08, .01, 0, .5, .172);
     box(b, '#1e1e1e', .07, .035, .01, .12, 1.03, .205); box(b, '#2a2a2a', .03, .02, .01, .16, 1.06, .205);
     const f = new THREE.Group(); f.position.set(.3, .62, .3); b.add(f); ch.userData.fan = f; box(f, '#8a5a34', .03, .22, .03, 0, -.12, 0); const fp = box(f, '#d9b45a', .26, .24, .015, 0, .1, 0); for (let i = 0; i < 4; i++) box(f, '#b8903a', .26, .012, .017, 0, .0 + i * .06, 0); }
+  // ep 44: Mbak Sekar holds the bouquet the Penjaga Mercusuar finally gave her (in front, both hands), still in her bandana and apron
+  if (pose === 'sekarbunga') { castKit(ch, 'ikanbakar'); if (ch.userData.fan) ch.userData.fan.visible = false; const q = new THREE.Group(); q.position.set(0, .82, .36); q.rotation.x = -.3; b.add(q); ch.userData.bouquet = q; add(q, G.cone6, '#f7f1e3', .12, .3, .12, 0, .02, 0, 0).rotation.x = Math.PI; for (let j = 0; j < 7; j++) add(q, G.sph, j % 2 ? '#d0302a' : '#f06b8a', .05, .05, .05, Math.cos(j) * .07, .18 + (j % 3) * .028, Math.sin(j) * .07); box(q, '#c0392b', .14, .03, .03, 0, .02, .07); for (const x of [-.11, .11]) box(b, '#f08a8a', .07, .035, .01, x, 1.0, .205); }
   if (pose === 'kapten') { box(b, '#fbfbf7', .48, .52, .31, 0, .48, 0); for (const x of [-.2, .2]) { box(b, '#1a1a1a', .11, .03, .2, x, 1.0, 0); box(b, '#d8b25a', .11, .012, .2, x, 1.031, 0); }
     for (const y of [.58, .7, .82]) box(b, '#d8b25a', .035, .035, .02, 0, y, .16);
     box(b, '#ffffff', .44, .14, .44, 0, 1.38, -.01); box(b, '#ffffff', .48, .05, .48, 0, 1.5, -.02); box(b, '#111111', .44, .035, .05, 0, 1.38, .22); box(b, '#111111', .3, .025, .14, 0, 1.36, .27); box(b, '#d8b25a', .1, .06, .02, 0, 1.44, .225); }
@@ -510,7 +512,8 @@ export const BT = {
       const top = new THREE.Mesh(new THREE.BoxGeometry(.86, .05, 1.06), new THREE.MeshStandardMaterial({ map: ct, roughness: .9 })); top.position.set(0, .745, 0); top.castShadow = top.receiveShadow = true; g.add(top);
       for (const s of [-1, 1]) {   // a plate + a whole grilled fish on each side, a cup beside it
         add(g, G.cyl8, '#f4eee0', .16, .015, .16, s * .2, .78, .05);
-        const fish = new THREE.Group(); fish.position.set(s * .2, .81, .05); g.add(fish);
+        const gone = b && b.missing && s === 1, fish = new THREE.Group(); fish.position.set(s * .2, .81, .05); if (!gone) g.add(fish);
+        if (gone) { const bn = new THREE.Group(); bn.position.set(s * .2, .79, .05); g.add(bn); box(bn, '#efe6d2', .012, .01, .2, 0, 0, 0); for (let i = 0; i < 4; i++) box(bn, '#efe6d2', .07, .008, .008, 0, 0, -.06 + i * .04); }   // ep 44: one fish gone, only a little bone left
         add(fish, G.ico, '#c98a4a', .07, .045, .14, 0, 0, 0); add(fish, G.cone4, '#8a5a34', .06, .07, .025, 0, 0, -.17).rotation.x = -Math.PI / 2;
         add(fish, G.box, '#5e3b22', .012, .012, .12, .02, .035, 0);
         cyl(g, '#e9e2d0', .035, .08, s * .25, .77, -.32, 8);
@@ -1509,7 +1512,7 @@ export const BT = {
         const tt = tex(256, 128, c => { c.fillStyle = '#fffaf0'; c.fillRect(0, 0, 256, 128); c.strokeStyle = '#c0392b'; c.lineWidth = 8; c.strokeRect(4, 4, 248, 120); c.textAlign = 'center'; c.textBaseline = 'middle'; c.fillStyle = '#c0392b';
           const [a, z] = (b.order || 'SUDAH DIPESAN|untuk: P.M. ♥').split('|'); c.font = '700 34px "Pixelify Sans", sans-serif'; c.fillText(a, 128, 44, 240); c.fillStyle = '#2b2b2b'; c.font = '700 32px "Pixelify Sans", sans-serif'; c.fillText(z || '', 128, 92, 240); });
         plane(tt, .44, .22, cx - .25, 1.62, F + .32);
-        g.userData.bouquet = bq;
+        g.userData.bouquet = bq; if (b.taken) bq.visible = false;   // ep 44: picked up by the Penjaga Mercusuar
       });
       // the empty unit: a 'DISEWAKAN' poster that asks the comments what it should sell
       bay(2.5, 3.9, '???', '#9a9b94', (cx) => {
