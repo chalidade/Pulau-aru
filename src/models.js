@@ -550,7 +550,7 @@ export const BT = {
       for (let i = 0; i < 3; i++) { const f = add(g, G.sph, fishM, .2, .05, .07, .12 + i * .13, .41, -.12 + (i % 2 ? .08 : -.04)); f.rotation.y = 1.4 + (i - 1) * .3; }
       // orange fur tufts caught on the corner of the front crate
       const fur = mat('#f08a2c');
-      for (const [x, y, z, sx] of [[-.86, .3, .26, .07], [-.83, .38, .27, .05], [-.88, .22, .2, .045], [-.2, .05, .3, .05]]) { const t = add(g, G.ico, fur, sx, sx * .55, sx * .8, x, y, z); t.castShadow = false; t.rotation.z = .6; }
+      for (const [x, y, z, sx] of [[-.86, .3, .26, .11], [-.83, .4, .27, .08], [-.88, .2, .2, .075], [-.62, .36, .27, .07], [-.2, .05, .3, .08]]) { const t = add(g, G.ico, fur, sx, sx * .55, sx * .8, x, y, z); t.castShadow = false; t.rotation.z = .6; }
       // the dark gap between the crates and the little eyes inside it
       box(g, '#1b140e', .22, .34, .05, -.17, .02, .3);
       if (!b || b.eyes !== false) { const em = new THREE.MeshStandardMaterial({ color: '#d8ff6a', emissive: '#b8f040', emissiveIntensity: 1.6, flatShading: true });

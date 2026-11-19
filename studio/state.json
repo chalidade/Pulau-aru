@@ -1,5 +1,5 @@
 {
- "nextEp": 45,
+ "nextEp": 46,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -61,7 +61,7 @@
   "Ep 39: Jalan Warga (roads segment [36,77,53,78], papan JALAN WARGA x53 y79) dengan Rumah Ganteng (@adamfahriganteng, cermin emas raksasa; adam berdiri di depan cermin, pose cool) dan Rumah Kebun (@nenkrahma16, kebun bunga + kursi goyang; nen melambai). Pinjam Seratus pindah ke antara dua rumah (mau 'pinjam rumahnya'), dell_ duduk di kursi goyang Rumah Kebun (numpang, 'hm.'). TIGA KAVLING KOSONG 'rumahmu?' (kavling x37 y74, x45 y79, x49 y79) menunggu komentar -> isi dengan permintaan rumah berikutnya (end card: 'Rumahmu mau warna apa?'; type rumahwarga b.wall/b.roof/b.deco). Model baru: BT.rumahwarga, BT.kavling.",
   "Ep 40: Mall Pulau Aru (mall x68 y80 r2, Jalan Pasar/jalan timur y77-78, permintaan 'mall' berulang) dengan pintu otomatis geser (userData.slide; main.js membuka saat pemain mendekat, window.__doorOpen untuk studio), TOKO BAJU, TOKO BUNGA, dan unit kosong DISEWAKAN ('jualan apa? tulis di komentar!', b.empty/b.emptySub) -> isi toko ketiga dari jawaban komentar (ganti label bay '???' lewat b.empty/emptySub atau tambah b.shop3). D4L berdiri di depan pintu ('boleh masuk?'), Aidil YZ terharu di depan Toko Baju, Letisya di depan unit kosong (dikeluarkan dari tour.pupils supaya tetap di spot).",
   "SUBPLOT ASMARA SELESAI (ep 40-44): buket diberikan ep 44, Mbak Sekar (storyCast pose 'sekarbunga') & Penjaga Mercusuar tetap di Meja Dua Ikan. Boleh muncul sesekali sebagai pasangan manis, tanpa adegan fisik.",
-  "MISTERI IKAN BAKAR HILANG (bagian 1, ep 44): satu ikan di Meja Dua Ikan hilang saat buket diberikan (mejaduaikan b.missing=1, tulang). island.json mystery {paw:true, trail (58.3,94)->(62.4,95)} = jejak kaki kecil berjari empat menuju Pelabuhan Nelayan; tombol 'Periksa jejak'. Rencana 3-4 episode: petunjuk #2 (bulu oranye/kumis di pelabuhan?), saksi (Rayhan/nelayan, Polisi Pantai RANUUGLL), pelaku = kucing liar fiksi (atau anak kucing yang lapar) -> diadopsi warga. Akun sungguhan boleh dicurigai lucu tapi harus bersih di episode yang sama. Pakai jawaban komentar 'siapa pencurinya?'."
+  "MISTERI IKAN BAKAR HILANG (bagian 1, ep 44): satu ikan di Meja Dua Ikan hilang saat buket diberikan (mejaduaikan b.missing=1, tulang). island.json mystery {paw:true, trail (58.3,94)->(62.4,95)} = jejak kaki kecil berjari empat menuju Pelabuhan Nelayan; tombol 'Periksa jejak'. Rencana 3-4 episode: petunjuk #2 (bulu oranye/kumis di pelabuhan?), saksi (Rayhan/nelayan, Polisi Pantai RANUUGLL), pelaku = kucing liar fiksi (atau anak kucing yang lapar) -> diadopsi warga. Akun sungguhan boleh dicurigai lucu tapi harus bersih di episode yang sama. Pakai jawaban komentar 'siapa pencurinya?'. BAGIAN 2 (ep 45): Peti Ikan (petiikan x61 y93, b.label PETUNJUK #2 / bulu oranye; bulu oranye di sudut peti; sepasang mata kecil di celah peti berkedip, userData.eyes di main.js, b.eyes=false menyembunyikan) dan Papan Tersangka (papantersangka x65 y91 r2, b.suspects: HIU DARAT kata Luci / CAMAR sudah tobat / ??? bulu oranye). island.json mystery.fur=true, part=2. Detektif Pantai mhmmdalfaiz0 pindah ke (60,92) dekat peti, Luci ke (64,90) depan papan (dikeluarkan dari tour.pupils), Feros: ikannya kurang satu tiap pagi. Berikutnya: bagian 3 = kamera jaga malam/umpan ikan menangkap siluet kucing oranye kecil (pakai jawaban komentar 'siapa pencurinya?'), bagian 4 = ketahuan anak kucing lapar -> diadopsi warga (nama dari komentar)."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -366,16 +366,22 @@
    "title": "Bunga untuk Mbak Sekar",
    "posted": "menunggu posting manual (Chrome tidak tersambung); video: https://github.com/chalidade/Pulau-aru/raw/videos/episodes/pulau-aru-ep44.mp4",
    "summary": "Format CERITA (run sore 18 Nov; ep 43 KONSEP). Apify gagal lagi (run 44278311987), Chrome tidak tersambung, komentar.md tanpa komentar baru -> tanpa kartu komentar (ke-5 berturut-turut). Subplot asmara bagian 5/5 DITUTUP: cold open Mbak Sekar memeluk buket 'Bunga?! Buat... aku?!', hook BUKETNYA / AKHIRNYA DIKASIH!. Premis (title PULAU NETIZEN). Toko Bunga mall: label SUDAH DIAMBIL / terima kasih, P.M. (mall b.taken). Keeper di depan mall, buket di balik punggung: 'Hari ini. Harus hari ini.' Cameo -VANZwlee ('Kasih bunga itu gampang... aduh!', tersandung) dan ALERXMNC (adegan pertama: 'Dia sudah mondar-mandir tiga kali. Aku sudah di sini dari tadi.'). Meja Dua Ikan: 'Ini... buat yang menjaga apinya.' / 'Maaf lama, tiga hari aku latihan ngomong' / 'ikannya gosong' / 'Yang gosong juga kumakan' (title TAMAT?). Lalu satu ikan bakar hilang (mejaduaikan b.missing, tulang tersisa), jejak kaki kecil berjari empat menuju Pelabuhan Nelayan (mystery.paw) -> MISTERI BARU. End card: Siapa pencuri ikannya? + CTA traktir (teks). 60 dtk."
+  },
+  {
+   "ep": 45,
+   "title": "Kalian Detektifnya",
+   "posted": "menunggu posting manual (Chrome tidak tersambung); video: https://github.com/chalidade/Pulau-aru/raw/videos/episodes/pulau-aru-ep45.mp4",
+   "summary": "Format KONSEP (run pagi 19 Nov; ep 44 CERITA). Apify gagal lagi (run 44446115516: APIFY_TOKEN kosong), Chrome tidak tersambung, komentar.md tanpa komentar baru -> tanpa kartu komentar (ke-6 berturut-turut), digerakkan MISTERI IKAN BAKAR bagian 2. Cold open: Luci (Si Sok Tahu) di depan Papan Tersangka 'Pelakunya sudah jelas. Hiu darat!', hook IKAN BAKAR HILANG / KAMU DETEKTIFNYA!. Premis (title PULAU NETIZEN). Tulang di Meja Dua Ikan, jejak berjari empat ke pelabuhan. Detektif Pantai @mhmmdalfaiz0 (title) di Peti Ikan baru: PETUNJUK #2 bulu oranye. Feros (nelayan): ikannya kurang satu tiap pagi. Luci: 'hiu darat memang berbulu, saya dokter' / Detektif: 'Hiu tidak punya bulu, Bu Dokter.' Papan Tersangka (HIU DARAT kata Luci / CAMAR sudah tobat / ??? bulu oranye). Malam: sepasang mata kecil berkedip di balik peti (title SIAPA KAMU?). End card: Siapa pencuri ikannya? + follow = warga (KONSEP). 58,5 dtk."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 44,
-   "cta": "traktir (teks end card: Request tanpa undian: traktir Rp5.000 di teer.id/chalidade)"
+   "ep": 45,
+   "cta": "follow = warga (KONSEP, suara + teks end card)"
   },
-  "nextCta": "UMKM (ep 45 atau 46), lalu follow = warga",
+  "nextCta": "UMKM (ep 46 atau 47), lalu traktir",
   "lastCtaNote": "ep 42 end card: Punya usaha? Komentar #UMKMPulauAru, warungmu kami bangun di pulau!"
  },
  "notes": [
@@ -417,7 +423,8 @@
   "Ep 41 (17 Nov pagi): Apify gagal lagi (run 44004845207), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> tidak ada komentar baru, episode tanpa kartu komentar (subplot asmara petunjuk #2), video dikirim ke Chalid untuk diposting manual. Kode baru: BT.suratmercusuar, bakarikan b.heart (asap hati ExtrudeGeometry, animasi main.js), castKit/castPose 'keepersurat' & 'ikanbakar'. Penempatan: sisi barat mercusuar (pintu menghadap barat), x82 y55 = air -> tiang surat di x82 y52. Penjual di (56,89)+(1.3,.5) terjepit pospantai (x58 y89) -> kamera masuk dinding; dipindah ke selatan panggangan (+.85,+1.3). Dalam shots, y0 = n.obj.position.y bisa 0 saat setup -> pakai P.surfaceY(x,z). Capture DPR2 ~0,9 dtk/frame.",
   "Ep 42 (17 Nov sore): Apify gagal lagi (run 44057857964), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> tanpa kartu komentar (episode ke-3 berturut-turut), video dikirim ke Chalid untuk diposting manual. Kode: suratmercusuar mendukung b.lines/b.from/b.name. Kamera: whoyss (50,42) di bawah pohon -> gelap; shots ep42 menyembunyikan instance pohon di sekitarnya (window.__hid42). Capture DPR2 sempat macet di c14 (proses hidup, frame berhenti) -> kill dan capture ulang c1,c14. n8 (CTA UMKM suara) dibuang karena durasi; CTA hanya teks.",
   "Ep 43 (18 Nov pagi): Apify gagal lagi (run 44225124331), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> tanpa kartu komentar (ke-4 berturut-turut), video dikirim ke Chalid untuk diposting manual. Kode baru: BT.mejaduaikan (b.label/b.sub). Penempatan: pospantai (x58 y89, 6x4) memakan sampai y92 -> meja di x57 y93 (pasir). Capture DPR2 ~1 dtk/frame; 17 frame setengah hitam di c2/c5/c13/c14 ditambal dari frame sebelumnya (scan luminance per folder capture, ambang 0,8x median). Jangan membunuh server dengan perintah yang memuat teks 'python3 -m http.server' di baris bash yang sama (shell ikut mati, exit 144).",
-  "Ep 44 (18 Nov sore): Apify gagal lagi (run 44278311987, job fetch gagal ~10 detik setelah mulai; kemungkinan APIFY_TOKEN), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> tanpa kartu komentar (ke-5 berturut-turut), video dikirim ke Chalid untuk diposting manual. Kode baru: castKit/castPose 'sekarbunga' (ch.userData.bouquet; kerucut pembungkus dibalik), mall b.taken menyembunyikan buket, mejaduaikan b.missing (ikan TIDAK ditambahkan, bukan visible=false: __clr di shots mengembalikan visibilitas), mystery.paw = jejak berjari empat. Shots ep44: __fishBack(on) menaruh klon ikan di piring kosong untuk adegan sebelum ikan hilang; __giveKB(front) menempelkan klon buket ke keeper. Jangan git stash/pull saat capture berjalan (island.json sempat ter-revert sebentar)."
+  "Ep 44 (18 Nov sore): Apify gagal lagi (run 44278311987, job fetch gagal ~10 detik setelah mulai; kemungkinan APIFY_TOKEN), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> tanpa kartu komentar (ke-5 berturut-turut), video dikirim ke Chalid untuk diposting manual. Kode baru: castKit/castPose 'sekarbunga' (ch.userData.bouquet; kerucut pembungkus dibalik), mall b.taken menyembunyikan buket, mejaduaikan b.missing (ikan TIDAK ditambahkan, bukan visible=false: __clr di shots mengembalikan visibilitas), mystery.paw = jejak berjari empat. Shots ep44: __fishBack(on) menaruh klon ikan di piring kosong untuk adegan sebelum ikan hilang; __giveKB(front) menempelkan klon buket ke keeper. Jangan git stash/pull saat capture berjalan (island.json sempat ter-revert sebentar).",
+  "Ep 45 (19 Nov pagi): Apify gagal lagi (run 44446115516, log: 'APIFY_TOKEN belum diisi'), Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone) -> tanpa kartu komentar (ke-6 berturut-turut), video dikirim ke Chalid untuk diposting manual. Kode baru: BT.petiikan (scale 1.3, bulu oranye, mata berkedip userData.eyes), BT.papantersangka (b.suspects). Penempatan: Klub Pertama (DABY/princes) berdiri di gerbang pelabuhan sekitar (8.2,37.7)/(9.7,37.6) -> peti di x61 (bukan 62), papan di y91. Luci ada di tour.pupils (ikut study tour, tidak pernah di spot) -> dikeluarkan. Detektor kedip: run frame setengah hitam berurutan (c7 frame 10-13) lolos dari cek median tetangga; pakai juga fraksi piksel hitam (<6) > median+0,12 per folder capture. compose ep45: lines dengan t0 negatif = lanjutan caption dari segmen sebelumnya (audio dilewati) supaya kalimat panjang bisa dipotong 2 shot."
  ],
  "rooms": {
   "open": [
@@ -442,7 +449,7 @@
   ]
  },
  "strategy": {
-  "lastFormat": "CERITA",
+  "lastFormat": "KONSEP",
   "tests": [
    {
     "ep": 25,
@@ -603,17 +610,17 @@
     "opening": "3D close-up Mbak Sekar memeluk buket di Meja Dua Ikan ('Bunga?! Buat... aku?!', flash-forward ke payoff), tanpa kartu komentar (tidak ada komentar baru)",
     "captionStyle": "pendek personal + tebak pencuri + pulau-aru.web.id + #pulaunetizen #alurcerita",
     "duration": 60
+   },
+   {
+    "ep": 45,
+    "format": "KONSEP",
+    "hook": "IKAN BAKAR HILANG / KAMU DETEKTIFNYA!",
+    "opening": "3D close-up Luci (sok tahu) di depan Papan Tersangka, menunjuk: 'Hiu darat!', tanpa filter buku cerita",
+    "captionStyle": "pendek personal + kalian detektifnya + alur cerita + pulau-aru.web.id + #pulaunetizen #alurcerita",
+    "duration": 58.5
    }
   ],
   "castLog": [
-   {
-    "ep": 37,
-    "cast": [
-     "Luci Ardiansyah",
-     "Penjaga Mercusuar",
-     "'EGA_"
-    ]
-   },
    {
     "ep": 38,
     "cast": [
@@ -675,6 +682,14 @@
      "Penjaga Mercusuar",
      "-VANZwlee",
      "ALERXMNC"
+    ]
+   },
+   {
+    "ep": 45,
+    "cast": [
+     "mhmmdalfaiz0",
+     "Luci Ardiansyah",
+     "muhamatferos197"
     ]
    }
   ]
