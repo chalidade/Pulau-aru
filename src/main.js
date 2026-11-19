@@ -869,6 +869,7 @@ function frame() {
   for (const o of bObjs) { const sl = o.userData.slide; if (!sl) continue; const w = o.localToWorld(sl.pt.clone()); const near = Math.hypot(player.obj.position.x - w.x, player.obj.position.z - w.z) < 2.0;
     const tgt = window.__doorOpen != null ? window.__doorOpen : near ? 1 : 0; sl.open += (tgt - sl.open) * Math.min(1, dt * 6); sl.L.position.x = -sl.x - sl.open * .86; sl.R.position.x = sl.x + sl.open * .86; }
   // ep 34: the Rumah Camar chicks in Taman Pulau bob and beg; the parent gull looks around
+  for (const o of bObjs) if (o.userData.eyes) { const c = (T0 + o.position.x) % 4.2; o.userData.eyes.scale.y = c < .14 ? .1 : 1; o.userData.eyes.position.x = -.17 + Math.sin(T0 * .5) * .02; }   // ep 45: the little eyes between the fish crates blink
   for (const o of bObjs) if (o.userData.chicks) { const cb = o.userData.chickBase != null ? o.userData.chickBase : .05; o.userData.chicks.forEach((c, i) => { const p = Math.max(0, Math.sin(T0 * 3.2 + i * 2.1)); c.position.y = cb + p * .05; c.rotation.x = -p * .35; }); if (o.userData.gull) o.userData.gull.rotation.y = .5 + Math.sin(T0 * .6) * .5; }
   // fires
   fireSources.length = 0; fireSources.push(fireObj);

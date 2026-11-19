@@ -534,6 +534,63 @@ export const BT = {
       for (const ry of [-Math.PI / 4, Math.PI * 3 / 4]) { const s = new THREE.Mesh(new THREE.PlaneGeometry(.76, .38), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); s.position.set(-.62 + Math.sin(ry) * .03, 1.12, -.78 + Math.cos(ry) * .03); s.rotation.y = ry; g.add(s); }
       g.userData.label = (b && b.label) || 'Meja Dua Ikan';
     } },
+  // ep 45: Misteri Ikan Bakar bagian 2. Fish crates by the Pelabuhan Nelayan gate where the paw trail ends: wooden crates (one with fish
+  // on ice), orange fur tufts caught on a corner ('petunjuk kedua'), and in the dark gap between the crates a pair of little eyes
+  // (b.eyes) that blink now and then (userData.eyes, animated in main.js). A small evidence tag reads b.label / b.sub.
+  petiikan: { n: 'Peti Ikan', w: 2, h: 1, scale: 1.3, land: true,
+    build(g, b) {
+      const wood = ['#9a6a3c', '#86592f', '#a8774a'];
+      const crate = (x, y, z, s, c, ry = 0) => { const k = new THREE.Group(); k.position.set(x, y, z); k.rotation.y = ry; g.add(k);
+        box(k, c, s, s * .62, s * .8, 0, 0, 0); for (const yy of [.12, .34]) box(k, '#6b4426', s + .02, .04, s * .8 + .02, 0, s * .62 * yy * 2.2, 0);
+        for (const xx of [-1, 1]) box(k, '#6b4426', .04, s * .62 + .01, s * .8 + .02, xx * (s / 2 - .02), 0, 0); return k; };
+      crate(-.55, 0, 0, .62, wood[0], .05); crate(.25, 0, -.08, .62, wood[1], -.08); crate(-.4, .39, .02, .56, wood[2], .2);
+      // fish on ice in the open top crate
+      const ice = box(g, '#e7f3f7', .5, .05, .4, .25, .34, -.08); ice.castShadow = false;
+      const fishM = new THREE.MeshStandardMaterial({ color: '#8fb3c9', metalness: .3, roughness: .4, flatShading: true });
+      for (let i = 0; i < 3; i++) { const f = add(g, G.sph, fishM, .2, .05, .07, .12 + i * .13, .41, -.12 + (i % 2 ? .08 : -.04)); f.rotation.y = 1.4 + (i - 1) * .3; }
+      // orange fur tufts caught on the corner of the front crate
+      const fur = mat('#f08a2c');
+      for (const [x, y, z, sx] of [[-.86, .3, .26, .07], [-.83, .38, .27, .05], [-.88, .22, .2, .045], [-.2, .05, .3, .05]]) { const t = add(g, G.ico, fur, sx, sx * .55, sx * .8, x, y, z); t.castShadow = false; t.rotation.z = .6; }
+      // the dark gap between the crates and the little eyes inside it
+      box(g, '#1b140e', .22, .34, .05, -.17, .02, .3);
+      if (!b || b.eyes !== false) { const em = new THREE.MeshStandardMaterial({ color: '#d8ff6a', emissive: '#b8f040', emissiveIntensity: 1.6, flatShading: true });
+        const eyes = new THREE.Group(); eyes.position.set(-.17, .2, .33); g.add(eyes); for (const xx of [-.045, .045]) { const e = new THREE.Mesh(G.sph, em); e.scale.set(.028, .03, .012); e.position.x = xx; e.castShadow = false; eyes.add(e); }
+        g.userData.eyes = eyes; }
+      // evidence tag on a stick
+      box(g, '#5e3b22', .04, .7, .04, .78, 0, .25);
+      const c = document.createElement('canvas'); c.width = 320; c.height = 160; const x = c.getContext('2d');
+      x.fillStyle = '#f2c94c'; x.fillRect(0, 0, 320, 160); x.fillStyle = '#1f1f1f'; for (let i = -2; i < 12; i++) { x.beginPath(); x.moveTo(i * 32, 0); x.lineTo(i * 32 + 16, 0); x.lineTo(i * 32 - 4, 18); x.lineTo(i * 32 - 20, 18); x.fill(); x.beginPath(); x.moveTo(i * 32, 142); x.lineTo(i * 32 + 16, 142); x.lineTo(i * 32 - 4, 160); x.lineTo(i * 32 - 20, 160); x.fill(); }
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = '700 40px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'PETUNJUK #2', 160, 62, 300);
+      x.font = '400 30px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'bulu oranye', 160, 108, 300);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      for (const ry of [0, Math.PI]) { const s = new THREE.Mesh(new THREE.PlaneGeometry(.44, .22), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); s.position.set(.78, .74, .25 + (ry ? -.012 : .012)); s.rotation.y = ry; g.add(s); }
+      g.userData.label = (b && b.label) || 'Peti Ikan';
+    } },
+  // ep 45: Papan Tersangka by the harbour gate: 'SIAPA PENCURI IKAN?' with three suspects (b.suspects: [name, note]), a pinned photo
+  // silhouette each (the third one is a '?'), red string, and 'Tebak di komentar!'. Faces +z at r=0.
+  papantersangka: { n: 'Papan Tersangka', w: 2, h: 1, land: true, openLabel: 'Baca Papan Tersangka',
+    build(g, b) {
+      for (const x of [-.8, .8]) box(g, '#5e3b22', .09, 1.7, .09, x, 0, -.05);
+      box(g, '#7a5232', 1.84, 1.12, .07, 0, .62, -.02);
+      const sus = (b && b.suspects) || [['HIU DARAT', 'kata Luci'], ['CAMAR', 'sudah tobat'], ['???', 'bulu oranye']];
+      const c = document.createElement('canvas'); c.width = 768; c.height = 480; const x = c.getContext('2d');
+      x.fillStyle = '#c8a070'; x.fillRect(0, 0, 768, 480); x.fillStyle = 'rgba(90,60,30,.25)'; for (let i = 0; i < 260; i++) x.fillRect((i * 97) % 768, (i * 53) % 480, 3, 3);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#fbf3e6'; x.fillRect(84, 18, 600, 70); x.fillStyle = '#b8322a'; x.font = '700 50px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'SIAPA PENCURI IKAN?', 384, 55, 580);
+      const cx = [140, 384, 628];
+      x.strokeStyle = '#d0302a'; x.lineWidth = 5; x.beginPath(); x.moveTo(cx[0], 140); x.lineTo(cx[1], 170); x.lineTo(cx[2], 140); x.stroke();
+      sus.slice(0, 3).forEach(([nm, note], i) => { const X = cx[i], Y = 120;
+        x.save(); x.translate(X, Y + 100); x.rotate((i - 1) * .05); x.fillStyle = '#fbf7ee'; x.fillRect(-100, -100, 200, 230); x.fillStyle = i === 2 ? '#2b2b33' : '#8fb3c9'; x.fillRect(-84, -86, 168, 140);
+        x.fillStyle = i === 2 ? '#f2c94c' : '#3a4a5a';
+        if (i === 2) { x.font = '700 110px "Pixelify Sans", sans-serif'; x.fillText('?', 0, -16); }
+        else if (i === 0) { x.beginPath(); x.moveTo(-60, 20); x.quadraticCurveTo(0, -40, 60, 20); x.lineTo(-60, 20); x.fill(); x.beginPath(); x.moveTo(-6, -14); x.lineTo(14, -60); x.lineTo(26, -10); x.fill(); }
+        else { x.beginPath(); x.ellipse(0, -10, 40, 26, 0, 0, Math.PI * 2); x.fill(); x.beginPath(); x.moveTo(-10, -12); x.lineTo(-70, -40); x.lineTo(-30, 4); x.fill(); x.beginPath(); x.moveTo(10, -12); x.lineTo(70, -40); x.lineTo(30, 4); x.fill(); }
+        x.fillStyle = '#1f1f1f'; x.font = '700 34px "Pixelify Sans", sans-serif'; x.fillText(nm, 0, 82, 190); x.fillStyle = '#6a4a3a'; x.font = '400 26px "Pixelify Sans", sans-serif'; x.fillText(note, 0, 114, 190);
+        x.fillStyle = '#d0302a'; x.beginPath(); x.arc(0, -96, 10, 0, Math.PI * 2); x.fill(); x.restore(); });
+      x.fillStyle = '#1f3a6b'; x.font = '700 34px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'Tebak di komentar!', 384, 455, 700);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const s = new THREE.Mesh(new THREE.PlaneGeometry(1.72, 1.075), new THREE.MeshStandardMaterial({ map: tx, roughness: .85 })); s.position.set(0, 1.18, .02); g.add(s);
+      g.userData.label = (b && b.label) || 'Papan Tersangka';
+    } },
   // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
   papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,
     build(g, b) {
