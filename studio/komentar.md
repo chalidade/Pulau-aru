@@ -32,7 +32,7 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 
 
 ## Untuk ep 46 (19 Nov sore) — MOHON DIISI CHALID
-Apify masih gagal (run 44446115516: secret APIFY_TOKEN kosong) dan Chrome tidak tersambung, jadi ep 40–45 tanpa kartu komentar. Tulis 2-3 komentar
+Apify sudah dimatikan (19 Nov) dan Chrome biasanya tidak tersambung di sesi cloud, jadi komentar hanya dari sini. Tulis 2-3 komentar
 terbaru (`@username: isi`), terutama jawaban "Siapa pencuri ikannya?" (ep 44/45), "toko ketiga jualan apa?" (ep 40), "rumahmu warna apa?" (ep 39).
 
 ## Dari komentar 15 Nov (sudah dibalas)

@@ -4,6 +4,9 @@
 > "35–50 s" di bagian 2c dan 3. Aturan retensi lainnya (cold open, hook di detik 0, caption besar, segmen pendek) tetap berlaku:
 > isi menit penuh dengan lebih banyak momen, jangan dengan jeda kosong.
 
+> **Apify dimatikan (Chalid, 19 Nov 2026):** jangan jalankan workflow "TikTok: ambil komentar terbaru" (Apify) lagi.
+> Sumber komentar: komentar.md, traktir.json, lalu Claude in Chrome (TikTok Studio) kalau tersambung; kalau tidak, pakai thread cerita.
+
 Each scheduled run makes **one** episode (about 60 s, portrait 1080×1920), builds what it promises into the game,
 and posts it to TikTok **@kita.berkembang**. There are two runs a day (10:00 and 17:00 WIB). Work through the
 steps in order. Write everything the audience sees or hears in Indonesian, in the same voice as earlier episodes:
@@ -86,13 +89,8 @@ The person who owns all this is Chalid. Message him with `SendUserMessage` for t
 The scheduled runs work **without Chalid's laptop** (cloud mode, chosen by Chalid on 2026-11-04). Sources, in order:
 1. `studio/komentar.md`: anything Chalid queued comes first.
 2. `studio/traktir.json`: paid requests (see 1).
-3. **Fresh TikTok comments via Apify:** dispatch the workflow and wait for it (2–5 min):
-   ```
-   gh api -X POST repos/chalidade/Pulau-aru/actions/workflows/tiktok-comments.yml/dispatches -f ref=main
-   ```
-   Poll `gh api repos/chalidade/Pulau-aru/actions/workflows/tiktok-comments.yml/runs?per_page=1` until it completes,
-   then `git pull` and read `studio/comments.json` (`comments[]`: user, name, text, likes, video). If the run fails
-   because `APIFY_TOKEN` is not set (or Apify errors), say so in the report and carry on with the next source.
+3. ~~Fresh TikTok comments via Apify~~ **DIMATIKAN (Chalid, 19 Nov 2026).** Jangan dispatch workflow `tiktok-comments.yml`
+   dan jangan sebut Apify di laporan. Lanjut ke sumber berikutnya.
 4. Claude in Chrome, **only if** its tools are present and connected in this session (Chalid's laptop happens to be on):
    `https://www.tiktok.com/tiktokstudio/comment`, read with `get_page_text`.
 5. Nothing new available: drive the episode from an open thread in `state.json` and ask Chalid in the report to
