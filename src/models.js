@@ -591,6 +591,72 @@ export const BT = {
       const s = new THREE.Mesh(new THREE.PlaneGeometry(1.72, 1.075), new THREE.MeshStandardMaterial({ map: tx, roughness: .85 })); s.position.set(0, 1.18, .02); g.add(s);
       g.userData.label = (b && b.label) || 'Papan Tersangka';
     } },
+  // ep 46: Pojok Ilmu, a small open book hut by the harbour, traktiran Darwin x4 ("Semoga ilmunya terus berkembang dan bermanfaat").
+  // Back wall full of books, a reading bench, sign POJOK ILMU and a plaque with the supporter's wish (b.label / b.wish / b.from). Faces +z at r=0.
+  pojokilmu: { n: 'Pojok Ilmu', w: 2, h: 2, land: true,
+    build(g, b) {
+      const wood = '#8a5a32', dark = '#5e3b22';
+      box(g, '#c9a978', 1.9, .12, 1.9, 0, 0, 0);
+      for (const [x, z] of [[-.86, -.86], [.86, -.86], [-.86, .86], [.86, .86]]) box(g, dark, .12, 2.35, .12, x, .12, z);
+      box(g, '#e8dcc0', 1.84, 2.3, .08, 0, .12, -.9);
+      for (const x of [-.9, .9]) box(g, '#e8dcc0', .08, 1.0, 1.7, x, .12, 0);
+      const roof = add(g, G.cone4, '#b8452e', 1.62, .95, 1.62, 0, 2.47 + .47, 0, Math.PI / 4); roof.castShadow = true;
+      box(g, dark, 2.0, .12, 2.0, 0, 2.43, 0);
+      // bookshelf on the back wall: four shelves of coloured books
+      const cols = ['#d0302a', '#2f6db5', '#f2c94c', '#3a9a5b', '#8e44ad', '#e67e22', '#ecf0f1', '#16a085'];
+      for (let s = 0; s < 4; s++) { const y = .35 + s * .45; box(g, wood, 1.6, .05, .32, 0, y, -.72);
+        let x = -.76, i = s * 3; while (x < .72) { const w = .05 + ((i * 7) % 5) * .012, h = .26 + ((i * 3) % 4) * .03; const bk = box(g, cols[i % cols.length], w, h, .24, x + w / 2, y + .05, -.72); bk.castShadow = false; if (i % 9 === 4) bk.rotation.z = .25; x += w + .012; i++; } }
+      for (const x of [-.81, .81]) box(g, wood, .05, 1.85, .34, x, .3, -.72);
+      // reading bench and an open book on it
+      box(g, wood, 1.1, .08, .34, 0, .52, .3); for (const x of [-.45, .45]) box(g, dark, .08, .4, .3, x, .12, .3);
+      const pg = box(g, '#fbf7ee', .34, .02, .24, 0, .6, .3); pg.rotation.z = .02; box(g, '#2f6db5', .02, .025, .25, 0, .6, .3);
+      const T = (w, h, draw) => { const c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d'); draw(x); const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4; return t; };
+      // sign over the front
+      const st = T(512, 128, x => { x.fillStyle = '#2b5a3a'; x.fillRect(0, 0, 512, 128); x.strokeStyle = '#f2c94c'; x.lineWidth = 8; x.strokeRect(6, 6, 500, 116); x.fillStyle = '#fbf3e6'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.font = '700 70px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'POJOK ILMU', 256, 68, 480); });
+      box(g, dark, 1.5, .4, .06, 0, 2.0, .93);
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.44, .36), new THREE.MeshStandardMaterial({ map: st, roughness: .8 })); sg.position.set(0, 2.2, .965); g.add(sg);
+      // plaque on a post at the front right corner: the supporter's wish
+      box(g, dark, .07, .95, .07, .62, 0, 1.25);
+      const pt = T(384, 256, x => { x.fillStyle = '#f6edd6'; x.fillRect(0, 0, 384, 256); x.strokeStyle = '#8a5a32'; x.lineWidth = 8; x.strokeRect(4, 4, 376, 248); x.fillStyle = '#3a2412'; x.textAlign = 'center'; x.textBaseline = 'middle';
+        x.font = '400 27px "Pixelify Sans", sans-serif'; const wish = (b && b.wish) || 'Semoga ilmunya terus|berkembang dan|bermanfaat'; wish.split('|').forEach((l, i) => x.fillText(l, 192, 52 + i * 38, 350));
+        x.font = '700 30px "Pixelify Sans", sans-serif'; x.fillStyle = '#b8452e'; x.fillText((b && b.from) || 'traktiran Darwin ♥', 192, 212, 350); });
+      for (const ry of [0, Math.PI]) { const p = new THREE.Mesh(new THREE.PlaneGeometry(.54, .36), new THREE.MeshStandardMaterial({ map: pt, roughness: .8 })); p.position.set(.62, 1.05, 1.25 + (ry ? -.04 : .04)); p.rotation.y = ry; g.add(p); }
+      box(g, '#c9a978', .58, .4, .06, .62, .85, 1.25);
+      g.userData.label = (b && b.label) || 'Pojok Ilmu';
+    } },
+  // ep 46: the detective's night trap next to the Peti Ikan: a camera on a tripod aimed west at the crates, a grilled fish as bait,
+  // and a little monitor on a stool. b.caught shows the recorded frame: a small orange kitten eating the bait (part 3 of the mystery).
+  kamerajaga: { n: 'Kamera Jaga', w: 1, h: 1, land: true,
+    build(g, b) {
+      const blk = '#26262b';
+      for (const [a, t] of [[0, .3], [2.1, .3], [4.2, .3]]) { const l = box(g, '#7a7a82', .03, 1.05, .03, Math.cos(a) * .14, 0, Math.sin(a) * .14); l.rotation.z = Math.cos(a) * t * .5; l.rotation.x = -Math.sin(a) * t * .5; }
+      box(g, blk, .3, .2, .18, 0, 1.02, 0); const lens = add(g, G.cyl8, '#111', .06, .14, .06, -.2, 1.12, 0); lens.rotation.z = Math.PI / 2;
+      add(g, G.sph, new THREE.MeshStandardMaterial({ color: '#ff3030', emissive: '#ff2020', emissiveIntensity: 2 }), .02, .02, .02, .1, 1.24, .09, 0, false);
+      // the bait: a grilled fish on a plate on the sand, west of the camera
+      add(g, G.cyl8, '#f4f1ea', .2, .03, .2, -.38, .05, .15); const f = add(g, G.sph, '#8a4a22', .16, .05, .06, -.38, .1, .15); f.rotation.y = .4;
+      add(g, G.cone4, '#8a4a22', .05, .08, .04, -.2, .1, .2).rotation.z = Math.PI / 2;
+      // stool with the monitor (faces +z) and the borrowed book
+      box(g, '#8a5a32', .5, .04, .34, .2, .42, .25); for (const [x, z] of [[-.02, .11], [.42, .11], [-.02, .39], [.42, .39]]) box(g, '#5e3b22', .03, .42, .03, x, 0, z);
+      box(g, blk, .48, .36, .06, .2, .46, .18);
+      const c = document.createElement('canvas'); c.width = 320; c.height = 240; const x = c.getContext('2d');
+      x.fillStyle = '#16241c'; x.fillRect(0, 0, 320, 240); x.fillStyle = 'rgba(120,220,140,.08)'; for (let i = 0; i < 240; i += 4) x.fillRect(0, i, 320, 2);
+      x.fillStyle = '#4a6a52'; x.fillRect(0, 186, 320, 54); // sand
+      x.fillStyle = '#6b4a2c'; x.fillRect(196, 70, 124, 120); x.fillStyle = '#5a3d24'; x.fillRect(196, 112, 124, 6); // crate
+      x.fillStyle = '#e8e4da'; x.beginPath(); x.ellipse(118, 196, 46, 9, 0, 0, Math.PI * 2); x.fill(); x.fillStyle = '#8a4a22'; x.beginPath(); x.ellipse(118, 190, 34, 8, 0, 0, Math.PI * 2); x.fill();
+      if (!b || b.caught !== false) { x.fillStyle = '#f08a2c';
+        x.beginPath(); x.ellipse(160, 168, 34, 22, 0, 0, Math.PI * 2); x.fill();  // body
+        x.beginPath(); x.arc(132, 160, 17, 0, Math.PI * 2); x.fill();  // head bent to the fish
+        x.beginPath(); x.moveTo(120, 148); x.lineTo(118, 128); x.lineTo(132, 144); x.fill(); x.beginPath(); x.moveTo(136, 144); x.lineTo(146, 128); x.lineTo(148, 150); x.fill();  // ears
+        x.lineWidth = 9; x.strokeStyle = '#f08a2c'; x.lineCap = 'round'; x.beginPath(); x.moveTo(192, 162); x.quadraticCurveTo(222, 150, 214, 120); x.stroke();  // tail
+        x.strokeStyle = '#c0601a'; x.lineWidth = 4; for (const s of [150, 162, 174]) { x.beginPath(); x.moveTo(s, 150); x.lineTo(s + 4, 162); x.stroke(); }
+        x.fillStyle = '#d8ff6a'; x.beginPath(); x.arc(126, 158, 3, 0, Math.PI * 2); x.fill(); x.beginPath(); x.arc(137, 158, 3, 0, Math.PI * 2); x.fill(); }
+      x.fillStyle = '#ff3b3b'; x.beginPath(); x.arc(24, 24, 9, 0, Math.PI * 2); x.fill(); x.font = '700 24px monospace'; x.textBaseline = 'middle'; x.fillText('REC', 40, 25);
+      x.fillStyle = '#e8ffe8'; x.textAlign = 'right'; x.fillText((b && b.time) || '02:13', 306, 25); x.textAlign = 'left'; x.font = '700 18px monospace'; x.fillText('KAMERA JAGA', 14, 222);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace;
+      const scr = new THREE.Mesh(new THREE.PlaneGeometry(.44, .33), new THREE.MeshStandardMaterial({ map: tx, emissive: '#ffffff', emissiveMap: tx, emissiveIntensity: .9, roughness: .6 })); scr.position.set(.2, .64, .212); g.add(scr); g.userData.screen = scr;
+      const bk = box(g, '#2f6db5', .16, .02, .12, .36, .46, .35); bk.rotation.y = .3;
+      g.userData.label = 'Kamera Jaga';
+    } },
   // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
   papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,
     build(g, b) {

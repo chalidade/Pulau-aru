@@ -31,9 +31,9 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 - Chalid: Apify masih gagal (APIFY_TOKEN?), jadi tolong tulis di sini 2-3 komentar terbaru (format `@username: isi`) supaya episode berikutnya punya kartu komentar asli, termasuk jawaban "toko ketiga jualan apa?" dan "rumahmu mau warna apa?".
 
 
-## Untuk ep 46 (19 Nov sore) — MOHON DIISI CHALID
+## Untuk ep 47 (20 Nov pagi) — MOHON DIISI CHALID
 Apify sudah dimatikan (19 Nov) dan Chrome biasanya tidak tersambung di sesi cloud, jadi komentar hanya dari sini. Tulis 2-3 komentar
-terbaru (`@username: isi`), terutama jawaban "Siapa pencuri ikannya?" (ep 44/45), "toko ketiga jualan apa?" (ep 40), "rumahmu warna apa?" (ep 39).
+terbaru (`@username: isi`), terutama jawaban "Kalau pencurinya anak kucing, namanya siapa?" (ep 46), "Siapa pencuri ikannya?" (ep 44/45), "toko ketiga jualan apa?" (ep 40), "rumahmu warna apa?" (ep 39).
 
 ## Dari komentar 15 Nov (sudah dibalas)
 (@april_stecu989 kapal pesiar & @david.p.h3 pramugari sudah dipakai di ep 38)

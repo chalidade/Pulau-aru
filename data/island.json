@@ -11881,17 +11881,24 @@
    "sifat": "perasa",
    "kalimat": [
     "Hiks... indah banget 🥺",
-    "Makasih banyaaak..."
+    "Makasih banyaaak...",
+    "Ikannya dijadikan umpan... kasihan ikannya."
    ],
-   "tempat": "depan Toko Baju, Mall Pulau (ep 40): terharu",
+   "tempat": "dekat Kamera Jaga di Peti Ikan (ep 46): menangisi ikan umpan",
    "spot": [
+    64,
+    93,
+    0.45,
+    0.45
+   ],
+   "face": 0.3,
+   "pose": "cry",
+   "oldSpot": [
     75,
     79,
     0,
     0.1
-   ],
-   "face": 2.7,
-   "pose": "cry"
+   ]
   },
   {
    "n": "D..A..B..Y a..j..a",
@@ -11979,17 +11986,24 @@
    "sifat": "peragu",
    "kalimat": [
     "Boleh nggak?",
-    "Aku boleh ikut... boleh?"
+    "Aku boleh ikut... boleh?",
+    "Boleh... aku pinjam bukunya? Boleh nggak?"
    ],
-   "tempat": "depan pintu otomatis Mall Pulau (ep 40): boleh masuk?",
+   "tempat": "depan Pojok Ilmu (ep 46): pengunjung pertama, minta izin pinjam buku",
    "spot": [
+    63,
+    88,
+    -0.3,
+    0.4
+   ],
+   "face": 0.2,
+   "pose": "ask",
+   "oldSpot": [
     72,
     79,
     0.5,
     0.2
-   ],
-   "face": 0,
-   "pose": "ask"
+   ]
   },
   {
    "n": "ALIF HR",
@@ -13448,12 +13462,33 @@
      "sudah tobat"
     ],
     [
-     "???",
-     "bulu oranye"
+     "KUCING?",
+     "terekam kamera!"
     ]
    ],
    "sub": "Tebak di komentar!",
    "ep": 45
+  },
+  {
+   "type": "pojokilmu",
+   "x": 63,
+   "y": 86,
+   "r": 0,
+   "label": "POJOK ILMU",
+   "wish": "Semoga ilmunya terus|berkembang dan|bermanfaat",
+   "from": "traktiran Darwin ♥",
+   "by": "Darwin (traktir)",
+   "ep": 46
+  },
+  {
+   "type": "kamerajaga",
+   "x": 63,
+   "y": 93,
+   "r": 0,
+   "caught": true,
+   "time": "02:13",
+   "by": "Detektif Pantai",
+   "ep": 46
   }
  ],
  "episodes": [
@@ -13865,6 +13900,14 @@
    "date": "2026-11-19",
    "picks": [],
    "text": "Kalian Detektifnya. Misteri Ikan Bakar bagian 2: jejak kaki mungil berakhir di Peti Ikan dekat gerbang Pelabuhan Nelayan. Detektif Pantai @mhmmdalfaiz0 menemukan petunjuk kedua: bulu oranye! Nelayan @muhamatferos197 ternyata kehilangan satu ikan tiap pagi, dan Luci yakin pelakunya \"hiu darat\".\nPapan Tersangka dipasang: hiu darat, camar (sudah tobat), dan ???. Malam hari, sepasang mata kecil berkedip di balik peti... Siapa pencurinya? Tebak di komentar!"
+  },
+  {
+   "ep": 46,
+   "date": "2026-11-19",
+   "picks": [
+    "Darwin (traktir x4)"
+   ],
+   "text": "Jebakan Ikan Bakar. Traktiran Darwin jadi Pojok Ilmu, perpustakaan kecil dekat Pelabuhan Nelayan: \"Semoga ilmunya terus berkembang dan bermanfaat.\" Terima kasih, Darwin! D4L pengunjung pertamanya.\nDetektif Pantai @mhmmdalfaiz0 membaca buku: bulu oranye, jari empat, suka ikan... kucing! (Luci tetap bilang hiu darat.) Kamera Jaga dan umpan ikan bakar dipasang di samping Peti Ikan, Aidil YZ menangisi ikannya.\nJam 02:13 kamera merekam anak kucing oranye kecil yang lapar. Kalau dia pencurinya, namanya siapa? Tulis di komentar!"
   }
  ],
  "letters": [],
@@ -14301,8 +14344,9 @@
   "paw": true,
   "pile": 0,
   "gull": false,
-  "note": "Satu ikan bakar hilang dari Meja Dua Ikan (ep 44). Jejak kaki mungil berjari empat menuju Pelabuhan Nelayan, dan di Peti Ikan ada petunjuk kedua: bulu oranye (ep 45)! Nelayan Feros bilang ikannya juga kurang satu tiap pagi. Malam hari, ada sepasang mata kecil di balik peti... Siapa pelakunya? Tebak di komentar!",
+  "note": "Satu ikan bakar hilang dari Meja Dua Ikan (ep 44). Jejak kaki mungil berjari empat menuju Peti Ikan, ada bulu oranye (ep 45). Detektif Pantai membaca buku di Pojok Ilmu dan memasang Kamera Jaga dengan umpan ikan (ep 46). Jam 02:13 kamera merekam... sesuatu kecil berbulu oranye! Lihat layar Kamera Jaga di samping peti. Kalau dia anak kucing, namanya siapa? Tulis di komentar!",
   "fur": true,
-  "part": 2
+  "part": 3,
+  "cam": true
  }
 }
