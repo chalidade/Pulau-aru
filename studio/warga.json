@@ -461,6 +461,39 @@
    ],
    "pose": "bersedekap (fold)",
    "tempat": "depan Gedung Rapat Pulau"
+  },
+  {
+   "nama": "riskki.setya",
+   "akun": "@riskki.setya",
+   "komentar": "aku dan galau aku Riski",
+   "kartu": "studio/episodes/ep48/komentar/riskki.setya.png",
+   "masuk": "ep48",
+   "julukan": "Si Galau",
+   "sifat": "galau (lucu), hatinya lembut",
+   "peran": "Warga baru yang galau. Duduk di pinggir Kolam Renang dengan kaki di atas air, memeluk lutut. senar muliya menyanyikan lagu galau (senarnya putus), lala cute memberinya kue stroberi: galaunya berkurang... sedikit. Penyebab galaunya masih misteri (pertanyaan end card ep 48).",
+   "kalimat": [
+    "Aku Riski... dan aku galau.",
+    "Kolamnya dalam. Tapi galauku... lebih dalam.",
+    "Kue... gratis? Oke. Galaunya berkurang... sedikit."
+   ],
+   "pose": "duduk galau di pinggir kolam (galau)",
+   "tempat": "pinggir Kolam Renang"
+  },
+  {
+   "nama": "im.safar4",
+   "akun": "@im.safar4",
+   "komentar": "bikin kolam renang aku udah follow dan paket lengkap",
+   "kartu": "studio/episodes/ep48/komentar/im.safar4.png",
+   "masuk": "ep48",
+   "julukan": "Perenang Pertama",
+   "sifat": "semangat, 'paket lengkap'",
+   "peran": "Pengusul Kolam Renang. Berdiri di ujung papan loncat, tangan ke atas, memantul-mantul... tapi belum pernah benar-benar loncat.",
+   "kalimat": [
+    "Udah follow, paket lengkap!",
+    "Siap... loncat! ...Bentar, airnya dingin nggak?"
+   ],
+   "pose": "siap loncat (dive)",
+   "tempat": "ujung papan loncat Kolam Renang"
   }
  ]
 }

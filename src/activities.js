@@ -304,6 +304,10 @@ export function createActivities(ctx) {
     else if (p === 'ikanbakar') { const c = ph % 9; A(-.6, c < 6.5 ? -1.3 + Math.sin(ph * 11) * .35 : -.4, .1, -.15); u.body.rotation.y = c >= 6.5 ? .9 : 0; u.body.rotation.x = c < 6.5 ? .1 : 0; }
     else if (p === 'dokter') { const c = ph % 6; A(c < 3 ? -1.4 : -.2, c < 3 ? -.9 : -2.7 + Math.sin(ph * 5) * .1, .25, c < 3 ? -.2 : -.1); u.body.rotation.x = c < 3 ? .2 : -.06; }
     else if (p === 'detektif') { A(-.2, -1.75 + Math.sin(ph * 2.2) * .05, 0, -.1); u.body.rotation.x = .16 + Math.sin(ph * .9) * .06; u.body.rotation.y = Math.sin(ph * .5) * .45; }
+    // ep 48: Riski (Si Galau) sits on the pool rim, legs over the water, hugging his knees with his head down; a big sigh now and then
+    else if (p === 'galau') { const c = ph % 7; u.body.position.y = -.42 + (c > 5.6 && c < 6.4 ? Math.sin((c - 5.6) / .8 * Math.PI) * .03 : 0); u.legL.rotation.x = -1.5 + Math.sin(ph * 1.1) * .12; u.legR.rotation.x = -1.5 - Math.sin(ph * 1.1) * .12; A(-1.15, -1.15, .45, -.45); u.body.rotation.x = .32; u.body.rotation.y = Math.sin(ph * .3) * .08; }
+    // ep 48: Safar, the first swimmer, on the diving board: arms up, bouncing, never quite jumping
+    else if (p === 'dive') { const c = ph % 5; A(-3.0, -3.0, -.15, .15); u.body.position.y = c < 3 ? Math.abs(Math.sin(ph * 4)) * .06 : 0; u.body.rotation.x = c >= 3 ? .18 : 0; }
     else A(0, 0);
   }
   return { compute, assign, update, siteCells, get spots() { return spots; } };

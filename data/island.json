@@ -12037,13 +12037,20 @@
     "Mau kue? 🍪",
     "Semangaaat, semuanya! 🍓"
    ],
-   "tempat": "dekat warung",
+   "tempat": "pinggir Kolam Renang, membawa kue stroberi untuk Riski yang galau (ep 48)",
    "spot": [
+    92,
+    82,
+    0.1,
+    0.5,
+    0.12
+   ],
+   "face": -0.8,
+   "pose": "cookie",
+   "oldSpot": [
     66,
     76
-   ],
-   "face": 0,
-   "pose": "cookie"
+   ]
   },
   {
    "n": "apriantoro",
@@ -12055,15 +12062,22 @@
     "Satu lagu lagi, ya!",
     "Jreng... eh senarnya putus lagi."
    ],
-   "tempat": "teras Rumah Pantai (ep 34), main gitar syukuran",
+   "tempat": "pinggir Kolam Renang, menyanyikan lagu galau untuk Riski (ep 48; senarnya putus lagi)",
    "spot": [
+    90,
+    82,
+    0.7,
+    0.5,
+    0.12
+   ],
+   "face": 1.0,
+   "pose": "guitar",
+   "oldSpot": [
     71,
     88,
     0,
     0
-   ],
-   "face": 0,
-   "pose": "guitar"
+   ]
   },
   {
    "n": "luciardiansyah",
@@ -12600,6 +12614,49 @@
    ],
    "face": 0,
    "pose": "wave"
+  },
+  {
+   "n": "riskki.setya",
+   "ep": 48,
+   "tampil": "riskki.setya",
+   "julukan": "Si Galau",
+   "sifat": "galau (lucu), hatinya lembut",
+   "kalimat": [
+    "Aku Riski... dan aku galau.",
+    "Kolamnya dalam. Tapi galauku... lebih dalam.",
+    "Kue... gratis? Oke. Galaunya berkurang... sedikit."
+   ],
+   "tempat": "pinggir Kolam Renang, kaki di atas air (ep 48)",
+   "spot": [
+    91,
+    82,
+    0.5,
+    1.0,
+    0.32
+   ],
+   "face": 0,
+   "pose": "galau"
+  },
+  {
+   "n": "im.safar4",
+   "ep": 48,
+   "tampil": "im.safar4",
+   "julukan": "Perenang Pertama",
+   "sifat": "semangat, 'paket lengkap'",
+   "kalimat": [
+    "Udah follow, paket lengkap!",
+    "Siap... loncat! ...Bentar, airnya dingin nggak?"
+   ],
+   "tempat": "ujung papan loncat Kolam Renang (ep 48, usulannya sendiri)",
+   "spot": [
+    88,
+    84,
+    0.15,
+    0.8,
+    0.64
+   ],
+   "face": 1.57,
+   "pose": "dive"
   }
  ],
  "buildings": [
@@ -13510,6 +13567,16 @@
    "sub": "nama dari komentar kalian",
    "by": "warga Pulau Aru",
    "ep": 47
+  },
+  {
+   "type": "kolamrenang",
+   "x": 87,
+   "y": 82,
+   "r": 2,
+   "label": "KOLAM RENANG",
+   "sub": "usulan @im.safar4 · paket lengkap",
+   "by": "im.safar4",
+   "ep": 48
   }
  ],
  "episodes": [
@@ -13935,6 +14002,15 @@
    "date": "2026-11-20",
    "picks": [],
    "text": "Kasus ditutup! Pencuri ikan bakar ternyata anak kucing oranye yang kelaparan, sembunyi di celah Peti Ikan. Mbak Sekar memberinya ikan hangat, Detektif Pantai menutup kasus: 'hukumannya disayang satu pulau'. Warga membangun Rumah Kucing dekat Pojok Ilmu. Namanya belum ada: kasih nama di komentar!"
+  },
+  {
+   "ep": 48,
+   "date": "2026-11-20",
+   "picks": [
+    "im.safar4",
+    "riskki.setya"
+   ],
+   "text": "Dua komentar jadi nyata: @im.safar4 minta kolam renang (udah follow, paket lengkap!) -> Kolam Renang dekat pasar, lengkap dengan jalur renang, pelampung bebek dan papan loncat; Safar jadi perenang pertama. @riskki.setya cuma bilang 'aku galau' -> Riski duduk galau di pinggir kolam. senar muliya menyanyikan lagu galau (senarnya putus lagi), lala cute memberinya kue stroberi. Galaunya berkurang... sedikit. Riski galau gara-gara apa?"
   }
  ],
  "letters": [],

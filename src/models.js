@@ -687,6 +687,51 @@ export const BT = {
       box(g, '#d9b98a', .64, .44, .05, .62, .66, -.2);
       g.userData.label = (b && b.label) || 'Rumah Kucing';
     } },
+  // ep 48: Kolam Renang Umum (usulan @im.safar4: "bikin kolam renang aku udah follow dan paket lengkap"). A tiled deck around a
+  // lap pool with three lane ropes, a diving board at the east end (userData.board = its tip, local), a ladder, a duck float and a
+  // ring, a lifeguard chair, two loungers with an umbrella and a sign at the back: b.label / b.sub. Faces +z at r=0 (front = ladder side).
+  kolamrenang: { n: 'Kolam Renang', w: 8, h: 6, land: true, openLabel: 'Lihat kolam renang',
+    build(g, b) {
+      box(g, '#e9e2d0', 7.8, .12, 5.8, 0, 0, 0);
+      for (let i = 0; i < 16; i++) box(g, i % 2 ? '#d9d0ba' : '#e9e2d0', .48, .005, 5.75, -3.6 + i * .48, .12, 0);
+      const pz = -.3;
+      box(g, '#2f7fa8', 5.3, .14, 3.1, 0, .04, pz);
+      const wm = new THREE.MeshStandardMaterial({ color: '#46c2e6', emissive: '#1c7fa8', emissiveIntensity: .25, transparent: true, opacity: .88, roughness: .15, flatShading: true });
+      box(g, wm, 5.2, .04, 3.0, 0, .14, pz).receiveShadow = true;
+      for (const [w, d, x, z] of [[5.6, .2, 0, pz - 1.6], [5.6, .2, 0, pz + 1.6], [.2, 3.4, -2.7, pz], [.2, 3.4, 2.7, pz]]) box(g, '#f7f7f3', w, .2, d, x, .12, z);
+      // lane ropes: red and white floats
+      const rm = mat('#d0483a'), wmf = mat('#f7f7f3');
+      for (const dz of [-.75, 0, .75]) for (let i = 0; i < 17; i++) { const f = new THREE.Mesh(G.sph, i % 2 ? wmf : rm); f.scale.set(.06, .045, .06); f.position.set(-2.4 + i * .3, .19, pz + dz); g.add(f); }
+      // diving board on a blue block at the east end, pointing west over the water
+      box(g, '#3a7fc2', .7, .45, .7, 3.25, .12, pz); box(g, '#f2f2ea', 1.5, .07, .42, 2.65, .57, pz);
+      box(g, '#c9c2b0', .08, .3, .08, 2.2, .3, pz - .15).visible = false;
+      g.userData.board = new THREE.Vector3(2.35, .64, pz);
+      // ladder on the front rim
+      for (const x of [-2.15, -1.75]) { const r1 = add(g, G.cyl6, '#c9ced4', .025, .55, .025, x, .55, pz + 1.55); const r2 = add(g, G.box, '#c9ced4', .05, .05, .3, x, .82, pz + 1.43); r2.castShadow = false; }
+      // floats: a yellow duck ring and a red ring
+      const duck = new THREE.Group(); duck.position.set(-.9, .2, pz - .95); g.add(duck);
+      const tr = new THREE.Mesh(new THREE.TorusGeometry(.26, .1, 6, 12), mat('#ffd23f')); tr.rotation.x = Math.PI / 2; duck.add(tr);
+      add(duck, G.sph, '#ffd23f', .14, .14, .14, 0, .14, .28); add(duck, G.box, '#f08a24', .1, .04, .1, 0, .12, .42);
+      for (const x of [-.06, .06]) add(duck, G.sph, '#1c1c24', .025, .03, .025, x, .2, .36);
+      const rr = new THREE.Mesh(new THREE.TorusGeometry(.22, .08, 6, 12), mat('#e8573f')); rr.rotation.x = Math.PI / 2; rr.position.set(1.3, .2, pz + .45); g.add(rr);
+      // lifeguard chair in the back-left corner
+      for (const [x, z] of [[-3.55, -2.55], [-3.05, -2.55], [-3.55, -2.05], [-3.05, -2.05]]) add(g, G.cyl6, '#f7f7f3', .04, 1.5, .04, x, .87, z);
+      box(g, '#d0483a', .65, .08, .6, -3.3, 1.6, -2.3); box(g, '#d0483a', .65, .45, .07, -3.3, 1.68, -2.58);
+      for (let i = 0; i < 4; i++) box(g, '#f7f7f3', .5, .04, .05, -3.3, .4 + i * .3, -2.02);
+      // loungers and an umbrella on the front-right deck
+      cyl(g, '#f7f7f3', .03, 1.4, 2.3, .12, 2.15); add(g, G.cone6, '#3a7fc2', .7, .32, .7, 2.3, 1.6, 2.15);
+      for (const x of [1.7, 2.9]) { box(g, '#f7f7f3', .4, .1, .8, x, .2, 2.05); box(g, '#c9c2b0', .36, .08, .05, x, .12, 1.7); box(g, '#f7f7f3', .4, .06, .32, x, .32, 2.5).rotation.x = -.6; }
+      // the sign on two posts at the back
+      for (const x of [-1.15, 1.15]) box(g, '#5e3b22', .1, 1.9, .1, x, .12, -2.7);
+      const c = document.createElement('canvas'); c.width = 512; c.height = 192; const x = c.getContext('2d');
+      x.fillStyle = '#eaf7fb'; x.fillRect(0, 0, 512, 192); x.fillStyle = '#2f7fa8'; x.fillRect(0, 0, 512, 14); x.fillRect(0, 178, 512, 14);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#1f5f80'; x.font = '700 70px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'KOLAM RENANG', 256, 72, 490);
+      x.fillStyle = '#3a2412'; x.font = '700 34px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'kolam renang umum', 256, 140, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      for (const ry of [0, Math.PI]) { const sg = new THREE.Mesh(new THREE.PlaneGeometry(2.4, .9), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 1.75, -2.7 + (ry ? -.04 : .04)); sg.rotation.y = ry; g.add(sg); }
+      box(g, '#2f7fa8', 2.5, 1.0, .05, 0, 1.25, -2.7);
+      g.userData.label = (b && b.label) || 'Kolam Renang';
+    } },
   // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
   papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,
     build(g, b) {
