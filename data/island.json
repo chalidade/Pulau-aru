@@ -11847,13 +11847,17 @@
     "Serahkan padaku!",
     "Tenang, warga! Aku datang!"
    ],
-   "tempat": "berjaga dekat mercusuar",
+   "tempat": "menjaga Rumah Kucing (ep 47), dulu dekat mercusuar",
    "spot": [
-    82,
-    51
+    65,
+    88
    ],
    "face": 0,
-   "pose": "hero"
+   "pose": "hero",
+   "oldSpot": [
+    82,
+    51
+   ]
   },
   {
    "n": "whoyss",
@@ -12098,15 +12102,21 @@
     "GG, warga!",
     "Tunggu, aku respawn dulu."
    ],
-   "tempat": "jaga malam di Kamera Jaga Malam (sandal umpannya ikut dicuri camar, ep 33)",
+   "tempat": "di samping Rumah Kucing, mencoba menjinakkan pet langka (ep 47)",
    "spot": [
+    68,
+    88,
+    0,
+    0
+   ],
+   "face": -1.2,
+   "pose": "game",
+   "oldSpot": [
     77,
     56,
     0,
     0.2
-   ],
-   "face": 1.57,
-   "pose": "game"
+   ]
   },
   {
    "n": "abcdell_011",
@@ -13433,8 +13443,7 @@
    "label": "MEJA DUA IKAN",
    "sub": "untuk P.M. & Mbak Sekar ♥",
    "by": "subplot asmara",
-   "ep": 43,
-   "missing": 1
+   "ep": 43
   },
   {
    "type": "petiikan",
@@ -13444,14 +13453,15 @@
    "label": "PETUNJUK #2",
    "sub": "bulu oranye",
    "by": "Detektif Pantai",
-   "ep": 45
+   "ep": 45,
+   "eyes": false
   },
   {
    "type": "papantersangka",
    "x": 65,
    "y": 91,
    "r": 2,
-   "label": "SIAPA PENCURI IKAN?",
+   "label": "PENCURI IKAN: KETEMU!",
    "suspects": [
     [
      "HIU DARAT",
@@ -13462,11 +13472,11 @@
      "sudah tobat"
     ],
     [
-     "KUCING?",
-     "terekam kamera!"
+     "KUCING!",
+     "ketemu, diadopsi"
     ]
    ],
-   "sub": "Tebak di komentar!",
+   "sub": "Kasus ditutup! Kasih nama di komentar",
    "ep": 45
   },
   {
@@ -13489,6 +13499,17 @@
    "time": "02:13",
    "by": "Detektif Pantai",
    "ep": 46
+  },
+  {
+   "type": "rumahkucing",
+   "x": 66,
+   "y": 87,
+   "r": 0,
+   "label": "RUMAH KUCING",
+   "name": "NAMAKU: ???",
+   "sub": "nama dari komentar kalian",
+   "by": "warga Pulau Aru",
+   "ep": 47
   }
  ],
  "episodes": [
@@ -13908,6 +13929,12 @@
     "Darwin (traktir x4)"
    ],
    "text": "Jebakan Ikan Bakar. Traktiran Darwin jadi Pojok Ilmu, perpustakaan kecil dekat Pelabuhan Nelayan: \"Semoga ilmunya terus berkembang dan bermanfaat.\" Terima kasih, Darwin! D4L pengunjung pertamanya.\nDetektif Pantai @mhmmdalfaiz0 membaca buku: bulu oranye, jari empat, suka ikan... kucing! (Luci tetap bilang hiu darat.) Kamera Jaga dan umpan ikan bakar dipasang di samping Peti Ikan, Aidil YZ menangisi ikannya.\nJam 02:13 kamera merekam anak kucing oranye kecil yang lapar. Kalau dia pencurinya, namanya siapa? Tulis di komentar!"
+  },
+  {
+   "ep": 47,
+   "date": "2026-11-20",
+   "picks": [],
+   "text": "Kasus ditutup! Pencuri ikan bakar ternyata anak kucing oranye yang kelaparan, sembunyi di celah Peti Ikan. Mbak Sekar memberinya ikan hangat, Detektif Pantai menutup kasus: 'hukumannya disayang satu pulau'. Warga membangun Rumah Kucing dekat Pojok Ilmu. Namanya belum ada: kasih nama di komentar!"
   }
  ],
  "letters": [],
@@ -14344,9 +14371,11 @@
   "paw": true,
   "pile": 0,
   "gull": false,
-  "note": "Satu ikan bakar hilang dari Meja Dua Ikan (ep 44). Jejak kaki mungil berjari empat menuju Peti Ikan, ada bulu oranye (ep 45). Detektif Pantai membaca buku di Pojok Ilmu dan memasang Kamera Jaga dengan umpan ikan (ep 46). Jam 02:13 kamera merekam... sesuatu kecil berbulu oranye! Lihat layar Kamera Jaga di samping peti. Kalau dia anak kucing, namanya siapa? Tulis di komentar!",
+  "note": "Kasus ditutup (ep 47)! Pencuri ikan bakar ternyata anak kucing oranye yang kelaparan. Ia sembunyi di celah Peti Ikan, diberi ikan hangat oleh Mbak Sekar, lalu diadopsi seluruh pulau. Sekarang ia tinggal di Rumah Kucing dekat Pojok Ilmu. Namanya belum ada: kasih nama di komentar, nama terbaik dipasang di papannya!",
   "fur": true,
-  "part": 3,
-  "cam": true
+  "part": 4,
+  "cam": true,
+  "solved": true,
+  "kitten": true
  }
 }

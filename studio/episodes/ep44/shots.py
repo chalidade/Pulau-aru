@@ -17,7 +17,7 @@ SETUP44 = """() => { const P = window.__pulau;
   const F = s => P.npcs.find(n => n.name === s || (n.name || '').startsWith(s));
   window.__VA = () => F('-VANZwlee'); window.__AL = () => F('ALERX');
   window.__kb = null; { const mj = window.__MJ; let src = null, bones = null; for (const c of mj.children) { if (c.type === 'Group' && Math.abs(c.position.y - .81) < .01 && c.position.x < 0) src = c; if (c.type === 'Group' && Math.abs(c.position.y - .79) < .01 && c.position.x > 0) bones = c; }
-    const cl = src.clone(); cl.position.x = .2; mj.add(cl); window.__fishBack = on => { cl.visible = !!on; bones.visible = !on; }; }
+    const cl = src.clone(); cl.position.x = .2; mj.add(cl); window.__fishBack = on => { cl.visible = !!on && !!bones; if (bones) bones.visible = !on; }; }
   window.__giveKB = (front) => { const k = window.__PM(), s = window.__SK(); if (window.__kb) { window.__kb.parent && window.__kb.parent.remove(window.__kb); window.__kb = null; }
     if (front == null) return; const q = s.obj.userData.bouquet.clone(); const b = k.obj.userData.body; b.add(q);
     if (front) { q.position.set(0, .72, .36); q.rotation.set(-.35, 0, 0); } else { q.position.set(.05, .62, -.26); q.rotation.set(.5, 0, 0); } window.__kb = q; };
