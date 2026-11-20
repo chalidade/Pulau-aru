@@ -39,6 +39,16 @@ juga "toko ketiga jualan apa?" (ep 40) dan "rumahmu warna apa?" (ep 39).
 ## Dari komentar 15 Nov (sudah dibalas)
 (@april_stecu989 kapal pesiar & @david.p.h3 pramugari sudah dipakai di ep 38)
 
+## Komentar baru (dikumpulkan Claude via Chrome, 20 Nov; sebagian sudah dibalas)
+- @l4.rean: "aku mau jadi kepala desa"
+- @hanssmuhammad698: "tambahin hewan"
+- @revan.labublue: "tambahin bandara sama penambangan" (bandara sudah ada; penambangan belum)
+- @gonrong1231: "bikin masjit" (perlakukan dengan hormat)
+- @im.safar4: "bikin kolam renang aku udah follow dan paket lengkap"
+- @v1dy4_0560: "Kaka aku mau ikut nama Ku vidya semoga aku bisa masuk pulau ini" (cameo warga baru)
+- @riskki.setya: "aku dan galau aku Riski" (cameo: Riski si galau)
+- @dayang.qaisara19: "kak aku dayang19"
+
 ## Traktir (langsung diwujudkan, tanpa undian)
 Traktiran dari teer.id/chalidade masuk otomatis ke studio/traktir.json (kalau secret TRAKTEER_API_KEY sudah diisi). Tulis di sini hanya kalau mau menambah manual.
 
