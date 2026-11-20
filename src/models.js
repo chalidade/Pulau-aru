@@ -657,6 +657,36 @@ export const BT = {
       const bk = box(g, '#2f6db5', .16, .02, .12, .36, .46, .35); bk.rotation.y = .3;
       g.userData.label = 'Kamera Jaga';
     } },
+  // ep 47: Rumah Kucing, the home the whole island built for the kitten who stole the grilled fish (Misteri Ikan Bakar, part 4, solved).
+  // A little wooden house with a round door and cushion, a bowl with a fresh grilled fish, the kitten itself (userData.kitten, animated in
+  // main.js) and a sign: RUMAH KUCING / b.name (until the comments pick a name: 'NAMAKU: ???') / b.sub. Faces +z at r=0.
+  rumahkucing: { n: 'Rumah Kucing', w: 2, h: 1, scale: 1.3, land: true, openLabel: 'Sapa anak kucing',
+    build(g, b) {
+      const wood = '#b07a46', dark = '#5e3b22';
+      box(g, '#d9c49a', 1.5, .05, .9, 0, 0, 0);
+      // the house
+      box(g, wood, .62, .5, .55, -.42, .05, -.12); const rf = add(g, G.cone4, '#d0483a', .52, .32, .44, -.42, .55 + .16, -.12, Math.PI / 4); rf.scale.set(.5, .32, .45);
+      const door = add(g, G.cyl8, '#2a1a10', .14, .02, .14, -.42, .25, .16); door.rotation.x = Math.PI / 2; door.castShadow = false;
+      box(g, '#f2c94c', .5, .04, .03, -.42, .5, .16);
+      add(g, G.cyl8, '#e67e9a', .16, .04, .12, -.42, .08, .32);   // cushion in front of the door
+      // bowl with a fresh grilled fish
+      add(g, G.cyl8, '#5a9bd5', .11, .05, .11, .28, .05, .26); add(g, G.cyl8, '#e8f0f6', .09, .01, .09, .28, .1, .26, 0, false);
+      const f = add(g, G.sph, '#8a4a22', .09, .03, .035, .28, .12, .26); f.rotation.y = .5;
+      add(g, G.cone4, '#8a4a22', .03, .05, .02, .37, .12, .21).rotation.z = Math.PI / 2;
+      // the kitten
+      const k = kitten(); k.position.set(.02, .05, .22); k.rotation.y = .25; g.add(k); g.userData.kitten = k;
+      // name sign on a post
+      box(g, dark, .05, 1.0, .05, .62, 0, -.2);
+      const c = document.createElement('canvas'); c.width = 384; c.height = 256; const x = c.getContext('2d');
+      x.fillStyle = '#fbf3e6'; x.fillRect(0, 0, 384, 256); x.strokeStyle = '#f08a2c'; x.lineWidth = 10; x.strokeRect(5, 5, 374, 246);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#c0601a'; x.font = '700 48px "Pixelify Sans", sans-serif'; x.fillText((b && b.label) || 'RUMAH KUCING', 192, 54, 350);
+      x.fillStyle = '#3a2412'; x.font = '700 50px "Pixelify Sans", sans-serif'; x.fillText((b && b.name) || 'NAMAKU: ???', 192, 130, 350);
+      x.fillStyle = '#6a4a3a'; x.font = '400 30px "Pixelify Sans", sans-serif'; x.fillText((b && b.sub) || 'nama dari komentar kalian', 192, 204, 350);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      for (const ry of [0, Math.PI]) { const sg = new THREE.Mesh(new THREE.PlaneGeometry(.6, .4), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(.62, .88, -.2 + (ry ? -.03 : .03)); sg.rotation.y = ry; g.add(sg); }
+      box(g, '#d9b98a', .64, .44, .05, .62, .66, -.2);
+      g.userData.label = (b && b.label) || 'Rumah Kucing';
+    } },
   // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
   papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,
     build(g, b) {
@@ -2207,6 +2237,27 @@ export function plane(b) {
   const bm = new THREE.MeshStandardMaterial({ map: bt, roughness: .9 });
   for (const s of [-1, 1]) { const bp = new THREE.Mesh(new THREE.PlaneGeometry(4.2, .8), bm); bp.position.set(s * .01, .7, -5.6); bp.rotation.y = s * Math.PI / 2; bp.castShadow = false; bn.add(bp); }
   bn.visible = false;
+  return g;
+}
+// ep 47: the little orange kitten who stole the grilled fish (Misteri Ikan Bakar, solved and adopted). About 45 cm long, faces +z,
+// sitting. userData.head / userData.tail are animated in main.js (tail sway, head tilt). Also used by the studio for staging.
+export function kitten(col = '#f08a2c') {
+  const g = new THREE.Group(), dk = '#c0601a', wh = '#fbf3e6';
+  add(g, G.sph, col, .11, .1, .16, 0, .15, -.02);                       // body
+  add(g, G.sph, wh, .075, .08, .06, 0, .17, .1, 0, false);              // white chest
+  for (const z of [-.1, -.03, .04]) { const st = add(g, G.box, dk, .16, .02, .025, 0, .24, z, 0, false); st.rotation.z = 0; }
+  for (const [x, z] of [[-.06, .1], [.06, .1], [-.07, -.1], [.07, -.1]]) { add(g, G.cyl6, col, .028, .07, .028, x, .04, z); add(g, G.sph, wh, .03, .02, .035, x, .01, z + .01, 0, false); }
+  const h = new THREE.Group(); h.position.set(0, .3, .12); g.add(h);
+  add(h, G.sph, col, .105, .092, .092, 0, 0, 0);
+  add(h, G.sph, wh, .05, .035, .035, 0, -.03, .075, 0, false);          // muzzle
+  add(h, G.sph, '#e88a9a', .014, .011, .01, 0, -.012, .1, 0, false);    // nose
+  for (const x of [-.06, .06]) { const e = add(h, G.cone4, col, .038, .07, .03, x, .09, -.005); e.rotation.z = -x * 3; add(h, G.cone4, '#f2b0a0', .02, .045, .01, x, .085, .01, 0, false).rotation.z = -x * 3; }
+  const em = new THREE.MeshStandardMaterial({ color: '#7fd04a', emissive: '#4a8a20', emissiveIntensity: .5, flatShading: true });
+  for (const x of [-.04, .04]) { add(h, G.sph, em, .022, .026, .012, x, .015, .08, 0, false); add(h, G.sph, '#111', .008, .02, .006, x, .015, .09, 0, false); }
+  for (const s of [-1, 1]) for (const yy of [-.02, -.035]) { const w = add(h, G.box, '#fff', .09, .004, .004, s * .07, yy, .07, 0, false); w.rotation.z = s * (yy + .02) * 6; }
+  const t = new THREE.Group(); t.position.set(0, .14, -.16); g.add(t);
+  let p = t; for (let i = 0; i < 4; i++) { const seg = new THREE.Group(); seg.position.set(0, i ? .055 : 0, i ? -.01 : 0); seg.rotation.x = -.35; p.add(seg); add(seg, G.sph, i === 3 ? dk : col, .024, .04, .024, 0, .03, 0); p = seg; }
+  g.userData.head = h; g.userData.tail = t;
   return g;
 }
 export function seagull() {
