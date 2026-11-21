@@ -808,7 +808,7 @@ export const BT = {
   // hill with a timber-framed tunnel, rails running out to the street side, and a mine cart that rolls out, waits and rolls back in
   // (userData.cart, animated in main.js; window.__cartPos 0..1 pins it for the studio). The first cart brought out... a blue
   // sandal (b.found, on the 'TEMUAN HARI INI' board). Tunnel and sign face +z at r=0.
-  tambang: { n: 'Tambang Pulau', w: 6, h: 5, land: true, clearTrees: true, openLabel: 'Lihat tambang',
+  tambang: { n: 'Tambang Pulau', w: 6, h: 6, land: true, clearTrees: true, openLabel: 'Lihat tambang',
     build(g, b) {
       b = b || {}; const wood = '#8a5a34', dark = '#4e3220';
       box(g, '#a89074', 5.8, .06, 4.8, 0, 0, 0);
@@ -884,7 +884,7 @@ export const BT = {
       x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#1f4a30'; x.font = '700 50px "Pixelify Sans", sans-serif'; x.fillText(b.label || 'KANTOR KEPALA DESA', 256, 58, 490);
       x.fillStyle = '#7a3a1a'; x.font = '700 32px "Pixelify Sans", sans-serif'; x.fillText(b.sub || 'Desa Jalan Warga', 256, 118, 490);
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
-      const sg = new THREE.Mesh(new THREE.PlaneGeometry(2.4, .75), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 2.05, .6); g.add(sg);
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(2.4, .75), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 2.78, 1.3); g.add(sg); box(g, '#2f6a44', 2.5, .85, .05, 0, 2.355, 1.27);
       // flag pole and notice board
       cyl(g, '#d9d9d9', .04, 3.4, 1.55, .12, 1.15); box(g, '#d0302a', .55, .18, .02, 1.83, 3.18, 1.15); box(g, '#f7f7f3', .55, .18, .02, 1.83, 3.0, 1.15);
       for (const s of [-1, 1]) box(g, '#5e3b22', .06, 1.3, .06, -1.55 + s * .32, .12, 1.15);

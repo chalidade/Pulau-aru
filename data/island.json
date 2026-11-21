@@ -537,7 +537,23 @@
   },
   {
    "n": "revan.labublue",
-   "ep": 1
+   "ep": 1,
+   "tampil": "revan.labublue",
+   "julukan": "Si Penambang",
+   "sifat": "yakin banget (selalu yakin ada emas)",
+   "kalimat": [
+    "Pasti ada emas. Aku yakin, seratus persen!",
+    "Tiga jam menggali... dan yang keluar... SANDAL?!"
+   ],
+   "tempat": "Tambang Pulau, ujung barat Jalan Warga (ep 50, usulannya sendiri; warga sejak ep 1)",
+   "spot": [
+    34,
+    73,
+    0.5,
+    0.5
+   ],
+   "face": -0.45,
+   "pose": "miner"
   },
   {
    "n": "alkaikk1221",
@@ -11869,13 +11885,22 @@
     "Hehe... bukan aku.",
     "Pliss jangan bilang Aru!"
    ],
-   "tempat": "di balik semak dekat alun-alun",
+   "tempat": "mengintip dari balik batu Tambang Pulau (ep 50; dulu di balik semak dekat alun-alun)",
    "spot": [
-    50,
-    42
+    30,
+    71,
+    0.9,
+    0.6
    ],
-   "face": 0,
-   "pose": "sneak"
+   "face": -0.8,
+   "pose": "sneak",
+   "oldSpot": [
+    [
+     50,
+     42
+    ],
+    0
+   ]
   },
   {
    "n": "Aidil YZ",
@@ -12697,6 +12722,27 @@
    ],
    "face": 0,
    "pose": "wave"
+  },
+  {
+   "n": "l4.rean",
+   "ep": 50,
+   "tampil": "l4.rean",
+   "julukan": "Pak Kades",
+   "sifat": "bangga jabatan, suka mengecap apa saja",
+   "kalimat": [
+    "Keputusan pertamaku sebagai kepala desa: kita bikin tambang!",
+    "Saya kenal sandal ini. Punya Rayhan!",
+    "Sah! *cap*"
+   ],
+   "tempat": "mengawasi Tambang Pulau di samping papan TEMUAN HARI INI (ep 50); kantornya: Kantor Kepala Desa, Jalan Warga",
+   "spot": [
+    32,
+    73,
+    0.5,
+    0.3
+   ],
+   "face": 0.3,
+   "pose": "kades"
   }
  ],
  "buildings": [
@@ -13474,14 +13520,6 @@
   },
   {
    "type": "kavling",
-   "x": 49,
-   "y": 79,
-   "r": 2,
-   "by": "",
-   "ep": 39
-  },
-  {
-   "type": "kavling",
    "x": 45,
    "y": 79,
    "r": 2,
@@ -13643,6 +13681,29 @@
    "from": "traktiran Seseorang ♥ ×5",
    "by": "Seseorang (traktir)",
    "ep": 49
+  },
+  {
+   "type": "tambang",
+   "x": 31,
+   "y": 69,
+   "r": 0,
+   "label": "TAMBANG PULAU",
+   "sub": "usulan @revan.labublue",
+   "found": "1 SANDAL JEPIT",
+   "note": "punya _Rayhannn` (kata Pak Kades)",
+   "by": "revan.labublue",
+   "ep": 50
+  },
+  {
+   "type": "kantordesa",
+   "x": 49,
+   "y": 79,
+   "r": 2,
+   "label": "KANTOR KEPALA DESA",
+   "sub": "Kades: @l4.rean",
+   "notice": "gali tambang tiap pagi",
+   "by": "l4.rean",
+   "ep": 50
   }
  ],
  "episodes": [
@@ -14086,6 +14147,15 @@
     "hanssmuhammad698"
    ],
    "text": "Dua komentar jadi nyata: @v1dy4_0560 cuma bilang 'semoga aku bisa masuk pulau ini' -> kavling kosong pertama Jalan Warga jadi Rumah Vidya, lengkap dengan balon dan keset SELAMAT DATANG; Aru menyerahkan kuncinya, Pinjam Seratus langsung mau pinjam buat syukuran. @hanssmuhammad698 minta 'tambahin hewan' -> Kebun Hewan Mini di seberang jalan: ayam, kambing, sapi, bebek yang antre, dan seekor ayam yang mengejar si anak kucing. Traktiran Seseorang dari Aceh (x5) jadi Tugu Salam. Hewan apa lagi yang harus datang?"
+  },
+  {
+   "ep": 50,
+   "date": "2026-11-21",
+   "picks": [
+    "revan.labublue",
+    "l4.rean"
+   ],
+   "text": "Dua komentar jadi nyata: @l4.rean bilang 'aku mau jadi kepala desa' -> Kantor Kepala Desa di Jalan Warga, dan Pak Kades langsung mengecap keputusan pertamanya: bikin tambang! @revan.labublue (warga sejak episode 1) minta penambangan -> Tambang Pulau di ujung barat Jalan Warga, lengkap dengan rel dan gerobak. Revan yakin seratus persen ada emas... gerobak pertama keluar membawa satu sandal jepit biru. Kata Pak Kades itu sandal Rayhan yang hilang; whoyss mengintip dari balik batu: 'bukan aku'. Gerobak kedua bakal nemu apa?"
   }
  ],
  "letters": [],

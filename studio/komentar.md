@@ -31,19 +31,17 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 - Chalid: Apify masih gagal (APIFY_TOKEN?), jadi tolong tulis di sini 2-3 komentar terbaru (format `@username: isi`) supaya episode berikutnya punya kartu komentar asli, termasuk jawaban "toko ketiga jualan apa?" dan "rumahmu mau warna apa?".
 
 
-## Untuk ep 50 (21 Nov sore) — MOHON DIISI CHALID
+## Untuk ep 51 (22 Nov pagi) — MOHON DIISI CHALID
 Chrome tidak tersambung di sesi cloud, jadi komentar hanya dari sini. Tulis 2-3 komentar terbaru (`@username: isi`), terutama
-**nama untuk anak kucing** (papan Rumah Kucing masih "NAMAKU: ???"), jawaban **"Riski galau gara-gara apa?"** (ep 48) dan
-**"Hewan apa lagi yang harus datang?"** (ep 49, Kebun Hewan Mini). Dua kavling kosong Jalan Warga (x45 y79, x49 y79) masih menunggu
-"rumahmu?". Sisa antrean di bawah (@l4.rean kepala desa, @revan.labublue penambangan, @gonrong1231 masjid, @dayang.qaisara19) bisa dipakai.
+jawaban **"Gerobak kedua bakal nemu apa?"** (ep 50, Tambang Pulau), **nama untuk anak kucing** (papan Rumah Kucing masih "NAMAKU: ???"),
+**"Riski galau gara-gara apa?"** (ep 48) dan **"Hewan apa lagi yang harus datang?"** (ep 49). Satu kavling kosong Jalan Warga (x45 y79)
+masih menunggu "rumahmu?" (kavling x49 y79 jadi Kantor Kepala Desa di ep 50). Sisa antrean di bawah (@gonrong1231 masjid, @dayang.qaisara19) bisa dipakai.
 
 ## Dari komentar 15 Nov (sudah dibalas)
 (@april_stecu989 kapal pesiar & @david.p.h3 pramugari sudah dipakai di ep 38)
 
 ## Komentar baru (dikumpulkan Claude via Chrome, 20 Nov; sebagian sudah dibalas)
-(@v1dy4_0560 Rumah Vidya & @hanssmuhammad698 Kebun Hewan sudah dipakai di ep 49)
-- @l4.rean: "aku mau jadi kepala desa"
-- @revan.labublue: "tambahin bandara sama penambangan" (bandara sudah ada; penambangan belum)
+(@v1dy4_0560 Rumah Vidya & @hanssmuhammad698 Kebun Hewan sudah dipakai di ep 49; @revan.labublue Tambang Pulau & @l4.rean Kepala Desa di ep 50)
 - @gonrong1231: "bikin masjit" (perlakukan dengan hormat)
 - @dayang.qaisara19: "kak aku dayang19"
 

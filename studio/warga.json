@@ -526,6 +526,38 @@
    ],
    "pose": "melambai (wave)",
    "tempat": "gerbang Kebun Hewan Mini, Jalan Warga"
+  },
+  {
+   "nama": "revan.labublue",
+   "akun": "@revan.labublue",
+   "komentar": "tambahin bandara sama penambangan",
+   "kartu": "studio/episodes/ep50/komentar/revan.labublue.png",
+   "masuk": "ep50 (warga sejak ep1)",
+   "julukan": "Si Penambang",
+   "sifat": "yakin banget (selalu yakin ada emas)",
+   "peran": "Pengusul Tambang Pulau. Helm kuning berlampu, mengayun beliung di samping gerobak tambang; yakin seratus persen ada emas, yang keluar malah sandal.",
+   "kalimat": [
+    "Pasti ada emas. Aku yakin, seratus persen!",
+    "Tiga jam gali tambang... nemunya SANDAL?!"
+   ],
+   "pose": "menambang (miner)",
+   "tempat": "Tambang Pulau, ujung barat Jalan Warga"
+  },
+  {
+   "nama": "l4.rean",
+   "akun": "@l4.rean",
+   "komentar": "aku mau jadi kepala desa",
+   "kartu": "studio/episodes/ep50/komentar/l4.rean.png",
+   "masuk": "ep50",
+   "julukan": "Pak Kades",
+   "sifat": "bangga jabatan, suka mengecap apa saja",
+   "peran": "Kepala Desa Jalan Warga (kantor di bekas kavling x49 y79). Peci hitam, selempang hijau, stempel besar; setiap keputusan diakhiri 'Sah!' dan cap. Mengawasi Tambang Pulau.",
+   "kalimat": [
+    "Sah! Keputusan pertamaku sebagai kepala desa: kita bikin tambang!",
+    "Tunggu. Saya kenal sandal ini. Ini punya Rayhan, yang hilang!"
+   ],
+   "pose": "mengecap (kades)",
+   "tempat": "Tambang Pulau, di samping papan TEMUAN HARI INI"
   }
  ]
 }
