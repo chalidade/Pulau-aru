@@ -19,6 +19,12 @@ export function vicePresidentKit(ch) {
 // ep 19/20: props for the regular cast (guitar, game pad, cookie tray, bodyguard suit, fishing rod, hood)
 export function castKit(ch, pose) {
   const b = ch.userData.body;
+  // ep 50: the miner (@revan.labublue) wears a yellow helmet with a headlamp and swings a pickaxe (held in the right hand);
+  // the Kepala Desa (@l4.rean) wears a black peci and a green sash and carries a big rubber stamp
+  if (pose === 'miner') { box(b, '#f2c230', .42, .14, .42, 0, 1.36, -.01); box(b, '#f2c230', .48, .03, .5, 0, 1.35, 0); add(b, G.cyl8, new THREE.MeshStandardMaterial({ color: '#fff3c0', emissive: '#ffd56a', emissiveIntensity: 1.2 }), .06, .03, .06, 0, 1.44, .22).rotation.x = Math.PI / 2;
+    const a = ch.userData.armR, p = new THREE.Group(); p.position.set(0, -.5, .02); a.add(p); box(p, '#8a5a34', .05, .05, .75, 0, -.03, .3); const hd = box(p, '#8a9196', .06, .5, .07, 0, -.25, .66); hd.rotation.x = .2; ch.userData.pick = p; }
+  if (pose === 'kades') { box(b, '#16181d', .4, .15, .37, 0, 1.36, -.01); const s1 = box(b, '#2f8a4a', .09, .66, .03, 0, .48, .16); s1.rotation.z = -.62; s1.position.y = .76; box(b, '#f2c230', .1, .1, .02, -.1, .88, .165);
+    const a = ch.userData.armR, p = new THREE.Group(); p.position.set(0, -.56, .02); a.add(p); box(p, '#8a5a34', .08, .2, .08, 0, -.02, 0); box(p, '#d0302a', .2, .07, .14, 0, -.1, 0); add(p, G.sph, '#8a5a34', .07, .07, .07, 0, .2, 0); }
   if (pose === 'guitar') { box(b, '#b5651d', .34, .4, .1, .05, .42, .2); box(b, '#2a1a10', .1, .1, .11, .05, .44, .21); box(b, '#6b4226', .06, .5, .05, .38, .6, .2); box(b, '#3a2412', .08, .1, .06, .55, .75, .2); }
   if (pose === 'game') { box(b, '#2b2d42', .3, .08, .14, 0, .62, .38); box(b, '#e63946', .05, .03, .05, .08, .67, .38); box(b, '#43aa8b', .05, .03, .05, -.08, .67, .38); }
   // ep 20: the bodyguard's dark suit and sunglasses, Rayhan's rod with (as always) a sandal on the hook, NOVA's hood
@@ -797,6 +803,97 @@ export const BT = {
       for (let i = 0; i < 10; i++) { const a = -Math.PI * .9 + i * Math.PI * .2, fx = Math.cos(a) * .72, fz = Math.sin(a) * .5 + .25; if (fz < .3) continue; add(g, G.cyl6, '#3f8a42', .012, .2, .012, fx, .22, fz, 0, false); add(g, G.sph, cols[i % 5], .07, .06, .07, fx, .34, fz); }
       for (const s of [-1, 1]) { add(g, G.cyl8, '#8a7d6a', .14, .2, .14, s * .62, .2, .62); for (let j = 0; j < 5; j++) add(g, G.sph, cols[(j + (s > 0 ? 2 : 0)) % 5], .06, .05, .06, s * .62 + Math.cos(j * 1.3) * .07, .34, .62 + Math.sin(j * 1.3) * .07); }
       g.userData.label = 'Tugu Salam';
+    } },
+  // ep 50 (komentar @revan.labublue: "tambahin bandara sama penambangan"): Tambang Pulau at the west end of Jalan Warga. A rocky
+  // hill with a timber-framed tunnel, rails running out to the street side, and a mine cart that rolls out, waits and rolls back in
+  // (userData.cart, animated in main.js; window.__cartPos 0..1 pins it for the studio). The first cart brought out... a blue
+  // sandal (b.found, on the 'TEMUAN HARI INI' board). Tunnel and sign face +z at r=0.
+  tambang: { n: 'Tambang Pulau', w: 6, h: 5, land: true, clearTrees: true, openLabel: 'Lihat tambang',
+    build(g, b) {
+      b = b || {}; const wood = '#8a5a34', dark = '#4e3220';
+      box(g, '#a89074', 5.8, .06, 4.8, 0, 0, 0);
+      // the hill: rocks piled behind the tunnel
+      const rock = (sx, sy, sz, x, y, z, c, r = 0) => { const o = add(g, G.dode, c, sx, sy, sz, x, y, z, r); return o; };
+      rock(1.9, 1.7, 1.4, 0, .9, -1.55, '#8c7d6a', .3); rock(1.5, 1.5, 1.3, -1.6, .7, -1.5, '#9a8a74', 1.1); rock(1.4, 1.3, 1.2, 1.6, .65, -1.6, '#857664', .7);
+      rock(1.1, 1.0, 1.0, -2.3, .4, -.6, '#9a8a74', .2); rock(1.0, .9, .9, 2.3, .4, -.7, '#8c7d6a', 2.0); rock(1.2, 1.1, 1.0, .2, 2.2, -1.9, '#a3937c', .9);
+      rock(.7, .6, .7, -.9, 2.0, -1.8, '#7a6c5a', .4); rock(.8, .7, .7, 1.1, 1.9, -1.9, '#9a8a74', 1.6);
+      for (const [x, y, z] of [[-.7, 1.4, -.55], [.95, 1.2, -.6], [-1.6, .9, -.45], [1.7, 1.0, -.7], [.1, 2.6, -1.3]]) add(g, G.ico, new THREE.MeshStandardMaterial({ color: '#ffd23f', emissive: '#c99a1a', emissiveIntensity: .35, metalness: .5, roughness: .3, flatShading: true }), .09, .09, .09, x, y, z, 0, false);   // gold glints in the rock
+      // tunnel: a dark mouth in a timber frame
+      box(g, '#14100c', 1.25, 1.55, .9, 0, .06, -.55);
+      for (const s of [-1, 1]) box(g, wood, .16, 1.75, .18, s * .7, .06, -.08);
+      box(g, wood, 1.66, .18, .22, 0, 1.78, -.08);
+      for (const s of [-1, 1]) { const br = box(g, dark, .08, .5, .08, s * .52, 1.4, -.02); br.rotation.z = s * .7; }
+      // lantern hanging from the lintel
+      box(g, dark, .02, .2, .02, .55, 1.58, .06); box(g, '#2b2b2b', .14, .18, .14, .55, 1.42, .06); g.userData.lamp = add(g, G.box, new THREE.MeshStandardMaterial({ color: '#ffd56a', emissive: '#ffb030', emissiveIntensity: 1.6 }), .09, .12, .09, .55, 1.51, .06, 0, false);
+      // sign above the tunnel
+      const c = document.createElement('canvas'); c.width = 512; c.height = 200; const x = c.getContext('2d');
+      x.fillStyle = '#5e3b22'; x.fillRect(0, 0, 512, 200); x.fillStyle = '#7a4e2c'; for (let i = 0; i < 5; i++) x.fillRect(0, i * 40 + 18, 512, 4);
+      x.strokeStyle = '#f2c230'; x.lineWidth = 10; x.strokeRect(6, 6, 500, 188);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#f2c230'; x.font = '700 70px "Pixelify Sans", sans-serif'; x.fillText(b.label || 'TAMBANG PULAU', 256, 74, 480);
+      x.fillStyle = '#f7f1e3'; x.font = '700 32px "Pixelify Sans", sans-serif'; x.fillText(b.sub || 'tambang warga', 256, 150, 480);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.9, .74), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 2.32, .05); g.add(sg);
+      box(g, dark, 1.98, .82, .06, 0, 1.91, .0);
+      // rails from inside the tunnel out to the front
+      for (const s of [-1, 1]) box(g, '#6b6f75', .05, .05, 3.4, s * .28, .1, .6);
+      for (let i = 0; i < 9; i++) box(g, wood, .8, .05, .14, 0, .06, -.7 + i * .38);
+      box(g, wood, .9, .35, .14, 0, .06, 2.3);   // buffer stop at the end
+      // the mine cart (local z -.55 = inside the tunnel, 1.7 = out at the end of the rails)
+      const cart = new THREE.Group(); g.add(cart); cart.position.set(0, .11, 1.7);
+      box(cart, '#5c6168', .74, .42, .9, 0, .14, 0); box(cart, '#7a7f86', .8, .06, .96, 0, .54, 0);
+      for (const sx of [-1, 1]) for (const sz of [-1, 1]) { const w = add(cart, G.cyl8, '#2b2b2b', .11, .06, .11, sx * .36, .12, sz * .3); w.rotation.z = Math.PI / 2; }
+      for (const [px, pz, s] of [[-.15, -.15, .2], [.15, .1, .22], [0, -.05, .26], [-.18, .22, .16], [.2, -.25, .15]]) add(cart, G.dode, '#4a4440', s, s * .7, s, px, .56, pz);
+      // what came out: a blue flip-flop on top of the ore
+      const sd = new THREE.Group(); sd.position.set(.02, .72, .05); sd.rotation.set(-.25, .5, .15); cart.add(sd);
+      box(sd, '#2f7de1', .2, .04, .46, 0, 0, 0); box(sd, '#1b4f9a', .2, .04, .04, 0, .04, .05); const s1 = box(sd, '#1b4f9a', .03, .05, .2, -.06, .04, .12); s1.rotation.y = .5; const s2 = box(sd, '#1b4f9a', .03, .05, .2, .06, .04, .12); s2.rotation.y = -.5;
+      sd.visible = b.found !== '';
+      g.userData.cart = { o: cart, z0: -.55, z1: 1.7, sandal: sd };
+      // pickaxes leaning on a rock, an ore heap, a wheelbarrow-ish crate
+      for (const [px, r] of [[-1.55, .35], [-1.3, -.25]]) { const p = new THREE.Group(); p.position.set(px, .06, .2); p.rotation.z = r; g.add(p); box(p, wood, .05, .95, .05, 0, 0, 0); const hd = box(p, '#8a9196', .5, .06, .06, 0, .9, 0); hd.rotation.z = .25; }
+      for (const [px, pz, s] of [[1.6, .7, .45], [1.95, .4, .35], [1.35, .35, .3], [1.85, 1.0, .28]]) add(g, G.dode, '#5a524a', s, s * .7, s, px, .2, pz);
+      // board: TEMUAN HARI INI
+      for (const s of [-1, 1]) box(g, dark, .07, 1.2, .07, -1.75 + s * .45, .06, 1.45);
+      const c2 = document.createElement('canvas'); c2.width = 384; c2.height = 256; const y = c2.getContext('2d');
+      y.fillStyle = '#26332b'; y.fillRect(0, 0, 384, 256); y.strokeStyle = '#a0754a'; y.lineWidth = 14; y.strokeRect(7, 7, 370, 242);
+      y.textAlign = 'center'; y.textBaseline = 'middle'; y.fillStyle = '#f7f1e3'; y.font = '700 40px "Pixelify Sans", sans-serif'; y.fillText('TEMUAN HARI INI:', 192, 62, 350);
+      y.fillStyle = '#ffd23f'; y.font = '700 46px "Pixelify Sans", sans-serif'; (b.found || 'emas? belum...').split('|').forEach((l, i, a) => y.fillText(l, 192, 140 + (i - (a.length - 1) / 2) * 52, 350));
+      y.fillStyle = '#c9d6cc'; y.font = '400 26px "Pixelify Sans", sans-serif'; y.fillText(b.note || '', 192, 222, 350);
+      const tx2 = new THREE.CanvasTexture(c2); tx2.colorSpace = THREE.SRGBColorSpace; tx2.anisotropy = 4;
+      for (const ry of [0, Math.PI]) { const bd = new THREE.Mesh(new THREE.PlaneGeometry(1.05, .7), new THREE.MeshStandardMaterial({ map: tx2, roughness: .8 })); bd.position.set(-1.75, 1.0, 1.45 + (ry ? -.04 : .04)); bd.rotation.y = ry; g.add(bd); }
+      box(g, dark, 1.12, .76, .05, -1.75, .62, 1.45);
+      g.userData.label = b.label || 'Tambang Pulau';
+    } },
+  // ep 50 (komentar @l4.rean: "aku mau jadi kepala desa"): Kantor Kepala Desa on Jalan Warga. A small white office with a green
+  // roof, a porch, a flag pole, a notice board and the sign (b.label / b.sub). Door faces +z at r=0.
+  kantordesa: { n: 'Kantor Kepala Desa', w: 4, h: 3, land: true, clearTrees: true, openLabel: 'Lihat Kantor Kepala Desa',
+    build(g, b) {
+      b = b || {};
+      box(g, '#c9c2b0', 3.6, .12, 2.8, 0, 0, 0);
+      box(g, '#f4efe2', 3.0, 2.5, 1.8, 0, .12, -.35);
+      box(g, '#d9cfb8', 3.06, .14, 1.86, 0, .12, -.35);
+      roof4(g, '#3f8a5a', 3.7, 1.1, 2.5, 0, 2.62, -.35);
+      box(g, '#2f6a44', 3.3, .1, 2.1, 0, 2.58, -.35);
+      // porch roof on two posts
+      box(g, '#2f6a44', 3.0, .1, .8, 0, 2.3, .9); for (const s of [-1, 1]) box(g, '#f7f7f3', .12, 2.2, .12, s * 1.35, .12, 1.2);
+      // door and windows
+      box(g, '#6b4226', .8, 1.85, .06, 0, .12, .56); add(g, G.sph, '#e6b84a', .04, .04, .04, .28, 1.05, .6);
+      for (const s of [-1, 1]) { box(g, '#f7f7f3', .78, .78, .05, s * 1.0, .95, .56); box(g, '#2f4a5a', .66, .66, .06, s * 1.0, 1.01, .56); box(g, '#f7f7f3', .04, .66, .07, s * 1.0, 1.01, .56); }
+      // sign over the porch
+      const c = document.createElement('canvas'); c.width = 512; c.height = 160; const x = c.getContext('2d');
+      x.fillStyle = '#f7f1e3'; x.fillRect(0, 0, 512, 160); x.strokeStyle = '#2f6a44'; x.lineWidth = 10; x.strokeRect(5, 5, 502, 150);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#1f4a30'; x.font = '700 50px "Pixelify Sans", sans-serif'; x.fillText(b.label || 'KANTOR KEPALA DESA', 256, 58, 490);
+      x.fillStyle = '#7a3a1a'; x.font = '700 32px "Pixelify Sans", sans-serif'; x.fillText(b.sub || 'Desa Jalan Warga', 256, 118, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(2.4, .75), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 2.05, .6); g.add(sg);
+      // flag pole and notice board
+      cyl(g, '#d9d9d9', .04, 3.4, 1.55, .12, 1.15); box(g, '#d0302a', .55, .18, .02, 1.83, 3.18, 1.15); box(g, '#f7f7f3', .55, .18, .02, 1.83, 3.0, 1.15);
+      for (const s of [-1, 1]) box(g, '#5e3b22', .06, 1.3, .06, -1.55 + s * .32, .12, 1.15);
+      const c2 = document.createElement('canvas'); c2.width = 256; c2.height = 192; const y = c2.getContext('2d');
+      y.fillStyle = '#c9a878'; y.fillRect(0, 0, 256, 192); y.fillStyle = '#f7f1e3'; y.fillRect(18, 18, 100, 70); y.fillRect(132, 26, 104, 60); y.fillRect(30, 104, 196, 70);
+      y.fillStyle = '#d0302a'; y.font = '700 22px "Pixelify Sans", sans-serif'; y.textAlign = 'center'; y.fillText('PENGUMUMAN', 128, 128); y.fillStyle = '#333'; y.font = '400 18px "Pixelify Sans", sans-serif'; y.fillText(b.notice || 'kerja bakti Minggu', 128, 156);
+      const tx2 = new THREE.CanvasTexture(c2); tx2.colorSpace = THREE.SRGBColorSpace;
+      const nb = new THREE.Mesh(new THREE.PlaneGeometry(.8, .6), new THREE.MeshStandardMaterial({ map: tx2, roughness: .9 })); nb.position.set(-1.55, 1.15, 1.19); g.add(nb);
+      g.userData.label = b.label || 'Kantor Kepala Desa';
     } },
   // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
   papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,

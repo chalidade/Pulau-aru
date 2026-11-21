@@ -125,7 +125,7 @@ export function createActivities(ctx) {
     n.state = spot ? 'work' : 'stroll'; n.t = Math.random() * 20; n.workFor = 35 + Math.random() * 50;
     if (n.role === 'president' || n.role === 'vicepresident') n.workFor = Infinity;
     if (n.role === 'listen') n.workFor = 60 + Math.random() * 90;
-    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'rodfish', 'hide', 'sneak', 'teach', 'sweep', 'clip', 'calc', 'damkar', 'keeper', 'detektif', 'pilot', 'dokter', 'kapten', 'pramugari', 'keeperbunga', 'keepersurat', 'ikanbakar', 'sekarbunga'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
+    if (n.role === 'cast') { n.workFor = 50 + Math.random() * 60; const ps = spot.pose; if (['guitar', 'game', 'cookie', 'guard', 'rod', 'rodfish', 'hide', 'sneak', 'teach', 'sweep', 'clip', 'calc', 'damkar', 'keeper', 'detektif', 'pilot', 'dokter', 'kapten', 'pramugari', 'keeperbunga', 'keepersurat', 'ikanbakar', 'sekarbunga', 'miner', 'kades'].includes(ps)) { const before = n.obj.userData.body.children.length; castKit(n.obj, ps); n.kit = n.obj.userData.body.children.slice(before); } }
     if (n.role === 'shop') { n.workFor = 4 + Math.random() * 6; n.t = 0; }
     n.yOff = spot && spot.y || 0;
     if (n.role === 'president') { const before = n.obj.userData.body.children.length; presidentKit(n.obj); n.kit = n.obj.userData.body.children.slice(before); }
@@ -308,6 +308,10 @@ export function createActivities(ctx) {
     else if (p === 'galau') { const c = ph % 7; u.body.position.y = -.42 + (c > 5.6 && c < 6.4 ? Math.sin((c - 5.6) / .8 * Math.PI) * .03 : 0); u.legL.rotation.x = -1.5 + Math.sin(ph * 1.1) * .12; u.legR.rotation.x = -1.5 - Math.sin(ph * 1.1) * .12; A(-1.15, -1.15, .45, -.45); u.body.rotation.x = .32; u.body.rotation.y = Math.sin(ph * .3) * .08; }
     // ep 48: Safar, the first swimmer, on the diving board: arms up, bouncing, never quite jumping
     else if (p === 'dive') { const c = ph % 5; A(-3.0, -3.0, -.15, .15); u.body.position.y = c < 3 ? Math.abs(Math.sin(ph * 4)) * .06 : 0; u.body.rotation.x = c >= 3 ? .18 : 0; }
+    // ep 50: Revan the miner swings his pickaxe at the rock (two quick blows), then wipes his brow; the Kepala Desa stamps the air
+    // with his big stamp (sah!), then stands proud with a hand on his hip
+    else if (p === 'miner') { const c = ph % 5; if (c < 3.2) { const s = (c % 1.6) / 1.6, up = s < .55 ? s / .55 : 1 - (s - .55) / .45; A(-1.6 - up * .9, -.6 - up * 2.3, .25, -.1); u.body.rotation.x = .18 - up * .22; } else { A(.1, -2.6, 0, -.6); u.body.rotation.x = -.05; } }
+    else if (p === 'kades') { const c = ph % 6; if (c < 1.8) { const s = Math.max(0, Math.sin(c / 1.8 * Math.PI * 3)); A(.25, -1.3 - s * .9, -.6, -.1); u.body.rotation.x = .05 + s * .08; } else { A(.25, -.3, -.75, -.1); u.body.rotation.x = -.08; u.body.rotation.y = Math.sin(ph * .5) * .25; } }
     else A(0, 0);
   }
   return { compute, assign, update, siteCells, get spots() { return spots; } };

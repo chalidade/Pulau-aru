@@ -878,6 +878,10 @@ function frame() {
     A.ducks.forEach((d, i) => { d.rotation.z = Math.sin(T0 * 6 + i * 1.3) * .12; d.position.y = .06 + Math.abs(Math.sin(T0 * 6 + i * 1.3)) * .02; });
     const c = o.userData.chase; if (c) { const a = T0 * 1.3; for (const [m, off] of [[c.k, 0], [c.h, -.75]]) { const t = a + off; m.position.x = c.cx + Math.cos(t) * c.r; m.position.z = c.cz + Math.sin(t) * c.r * .9; m.position.y = .06 + Math.abs(Math.sin(T0 * 9 + off)) * .04; m.rotation.y = -t; }
       const kk = c.k.userData; kk.tail.rotation.x = -.6 + Math.sin(T0 * 9) * .2; c.h.userData.head.rotation.x = -.2; } }
+  // ep 50: Tambang Pulau: the mine cart rolls out of the tunnel, waits at the buffer (showing the sandal), and rolls back (14 s);
+  // window.__cartPos (0 = inside, 1 = out) pins it for the studio
+  for (const o of bObjs) if (o.userData.cart) { const c = o.userData.cart, ph = (T0 + o.position.x) % 14; let k = ph < 2 ? 0 : ph < 5 ? (ph - 2) / 3 : ph < 11 ? 1 : ph < 13.5 ? 1 - (ph - 11) / 2.5 : 0; k = k * k * (3 - 2 * k); if (window.__cartPos != null) k = window.__cartPos;
+    c.o.position.z = c.z0 + (c.z1 - c.z0) * k; c.o.position.y = .11 + (k > .02 && k < .98 ? Math.abs(Math.sin(T0 * 14)) * .012 : 0); }
   for (const o of bObjs) if (o.userData.chicks) { const cb = o.userData.chickBase != null ? o.userData.chickBase : .05; o.userData.chicks.forEach((c, i) => { const p = Math.max(0, Math.sin(T0 * 3.2 + i * 2.1)); c.position.y = cb + p * .05; c.rotation.x = -p * .35; }); if (o.userData.gull) o.userData.gull.rotation.y = .5 + Math.sin(T0 * .6) * .5; }
   // fires
   fireSources.length = 0; fireSources.push(fireObj);
