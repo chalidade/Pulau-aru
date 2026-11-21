@@ -25,7 +25,7 @@ CY = 1640
 SEGS = [
     dict(id='h0', seq='e49c1', mood='cheer', capy=CY, hook=("KOMEN 'MAU MASUK'", 'DAPAT RUMAH!', 0, 3.4), cheer=.3, lines=[(0.05, 'x1')]),
     dict(id='s2', seq='e49c2', mood='cheer', capy=CY, title=('PULAU NETIZEN', 'follow = warga · komentar = cerita', .6, 4.4), lines=[(.05, 'n1')]),
-    dict(id='s3', seq='e49c3', mood='hype', capy=CY, ccards=[('komentar/v1dy4_0560.png', 'masuk', 140), ('komentar/hanssmuhammad698.png', 3.9, 520)], lines=[(.05, 'n2')]),
+    dict(id='s3', seq='e49c3', mood='hype', capy=CY, ccards=[('komentar/v1dy4_0560.png', 'masuk', 140), ('komentar/hanssmuhammad698.png', 3.9, 440)], lines=[(.05, 'n2')]),
     dict(id='s4', seq='e49c4', mood='cheer', capy=CY, title=('RUMAH VIDYA', '@v1dy4_0560 · warga baru', .4, 4.8), lines=[(.05, 'n3')]),
     dict(id='s5', seq='e49c5', mood='cheer', capy=CY, lines=[(.05, 'a1')]),
     dict(id='s6', seq='e49c6', mood='hype', capy=CY, cheer=.3, lines=[(.05, 'v1')]),
@@ -524,7 +524,7 @@ def build_audio(path):
             if t0 < 0: continue   # a line carried over from the previous segment (captions only, the voice is already placed)
             v = load_mp3(VO + l + '.mp3'); voice.add(v, t + t0, 1.0)
         if 'ccard' in s: sfx.add(S.sfx_chime([76, 81, 84]), t + s['ccard'][1], .55)
-        for _p, w, _y in s.get('ccards', ()): sfx.add(S.sfx_chime([76, 81, 84]), t + s['lines'][0][0] + (word_time(s['lines'][0][1], w) or 1.0), .55)
+        for _p, w, _y in s.get('ccards', ()): sfx.add(S.sfx_chime([76, 81, 84]), t + (w if isinstance(w, (int, float)) else s['lines'][0][0] + (word_time(s['lines'][0][1], w) or 1.0)), .55)
         for key in ('title', 'banner', 'place'):
             if key in s: sfx.add(S.sfx_whoosh(1.0), t + s[key][2], .8); sfx.add(S.sfx_shimmer(), t + s[key][2] + .25, .5)
         if 'cheer' in s: sfx.add(crowd_cheer(), t + s['cheer'], 1.0)
