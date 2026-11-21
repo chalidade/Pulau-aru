@@ -732,6 +732,72 @@ export const BT = {
       box(g, '#2f7fa8', 2.5, 1.0, .05, 0, 1.25, -2.7);
       g.userData.label = (b && b.label) || 'Kolam Renang';
     } },
+  // ep 49 (komentar @hanssmuhammad698: "tambahin hewan"): Kebun Hewan Mini south of Jalan Warga. A fenced paddock with a red barn,
+  // a hay trough, a little pond, hens that peck, a goat, a cow and three ducks queuing for the pond (userData.farm: animated in
+  // main.js), plus the kitten's favourite game: a hen chasing it round the trough (userData.chase). Gate and sign (b.label / b.sub)
+  // face +z at r=0.
+  kebunhewan: { n: 'Kebun Hewan Mini', w: 5, h: 4, land: true, clearTrees: true, openLabel: 'Lihat hewan-hewan',
+    build(g, b) {
+      b = b || {}; const wood = '#9a6a3e', dark = '#5e3b22';
+      box(g, '#8fbf5a', 4.8, .06, 3.8, 0, 0, 0); box(g, '#c9a878', 1.2, .065, 3.8, 0, 0, 0);
+      // fence (gate gap at the front centre)
+      const post = (x, z) => box(g, dark, .09, .75, .09, x, .05, z);
+      for (let i = 0; i <= 8; i++) { post(-2.35 + i * .5875, -1.85); }
+      for (let i = 0; i <= 6; i++) { post(-2.35, -1.85 + i * .6167); post(2.35, -1.85 + i * .6167); }
+      for (const x of [-2.35, -1.76, -1.17, 1.17, 1.76, 2.35]) post(x, 1.85);
+      for (const y of [.35, .65]) {
+        box(g, wood, 4.7, .06, .05, 0, y, -1.85);
+        for (const x of [-2.35, 2.35]) box(g, wood, .05, .06, 3.7, x, y, 0);
+        for (const s of [-1, 1]) box(g, wood, 1.2, .06, .05, s * 1.76, y, 1.85);
+      }
+      // gate arch with the sign
+      for (const s of [-1, 1]) box(g, dark, .12, 2.1, .12, s * .62, .05, 1.85);
+      box(g, dark, 1.45, .12, .14, 0, 2.15, 1.85);
+      const c = document.createElement('canvas'); c.width = 512; c.height = 200; const x = c.getContext('2d');
+      x.fillStyle = '#fbf3e0'; x.fillRect(0, 0, 512, 200); x.strokeStyle = '#3f8a42'; x.lineWidth = 12; x.strokeRect(6, 6, 500, 188);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#2f6a32'; x.font = '700 66px "Pixelify Sans", sans-serif'; x.fillText(b.label || 'KEBUN HEWAN', 256, 74, 480);
+      x.fillStyle = '#7a3a1a'; x.font = '700 34px "Pixelify Sans", sans-serif'; x.fillText(b.sub || 'hewan pulau', 256, 148, 480);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      for (const ry of [0, Math.PI]) { const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.3, .51), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 1.86, 1.85 + (ry ? -.04 : .04)); sg.rotation.y = ry; g.add(sg); }
+      // red barn, back left
+      box(g, '#b8402e', 1.4, 1.5, 1.1, -1.55, .06, -1.15); box(g, '#f7f1e3', 1.42, .08, 1.12, -1.55, 1.56, -1.15);
+      const rf = add(g, G.cone4, '#6b2a1e', 1.1, .7, .85, -1.55, 1.98, -1.15, Math.PI / 4); rf.scale.set(1.1, .7, .85);
+      box(g, '#6b2a1e', .6, 1.05, .04, -1.55, .06, -.59); for (const r of [-.6, .6]) { const xx = box(g, '#f7f1e3', .05, 1.15, .045, -1.55, .02, -.575); xx.rotation.z = r; xx.position.y = .58; }
+      // hay trough and hay bale
+      box(g, wood, .9, .3, .35, .2, .06, -.2); box(g, '#e8c766', .82, .1, .28, .2, .34, -.2);
+      box(g, '#e8c766', .5, .4, .4, 1.85, .06, -1.4); for (const y of [.2, .34]) box(g, '#c9a24a', .51, .02, .41, 1.85, y, -1.4);
+      // pond, back right
+      add(g, G.cyl8, '#4a7fa0', .62, .06, .45, 1.2, .06, -1.05); add(g, G.cyl8, new THREE.MeshStandardMaterial({ color: '#5fc3e4', roughness: .15, flatShading: true }), .56, .02, .4, 1.2, .1, -1.05, 0, false);
+      const A = { hens: [], ducks: [], heads: [] };
+      for (const [hx, hz, col, ry] of [[-.9, .5, '#f7f1e3', .6], [-.4, 1.0, '#b8743a', -.9], [.9, .7, '#f7f1e3', 2.4]]) { const h = hen(col); h.position.set(hx, .06, hz); h.rotation.y = ry; g.add(h); A.hens.push(h); }
+      const gt = goat(); gt.position.set(-.55, .06, -.2); gt.rotation.y = .9; g.add(gt); A.heads.push(gt.userData.head);
+      const cw = cow(); cw.position.set(-.35, .06, -1.25); cw.rotation.y = 1.5; g.add(cw); A.heads.push(cw.userData.head);
+      for (let i = 0; i < 3; i++) { const d = duck(); d.position.set(1.95 - i * .3, .06, -.45 + i * .02); d.rotation.y = -2.3; g.add(d); A.ducks.push(d); }
+      // the chase: the island kitten running from a hen, round the trough (local centre, radius)
+      const k = kitten(); k.scale.setScalar(.85); g.add(k); const ch = hen('#b8743a'); g.add(ch);
+      g.userData.farm = A; g.userData.chase = { k, h: ch, cx: .2, cz: .15, r: .85 };
+      k.position.set(1.05, .06, .15); ch.position.set(.6, .06, .9);
+      g.userData.label = b.label || 'Kebun Hewan Mini';
+    } },
+  // ep 49 (traktiran 'Seseorang' x5 dari Aceh: "semoga sehat selalu dan terus berkembang"): Tugu Salam, a little stone with a plaque,
+  // flowers around it. Text from b.label / b.wish ('|' = line break) / b.from. Plaque faces +z at r=0.
+  tugusalam: { n: 'Tugu Salam', w: 2, h: 2, land: true, openLabel: 'Baca Tugu Salam',
+    build(g, b) {
+      b = b || {};
+      box(g, '#bdb6a6', 1.7, .12, 1.7, 0, 0, 0); box(g, '#9c9585', 1.1, .5, .7, 0, .12, 0); box(g, '#aaa392', .9, 1.1, .5, 0, .62, -.02);
+      add(g, G.cone4, '#aaa392', .64, .3, .36, 0, 1.87, -.02, Math.PI / 4).scale.set(.64, .3, .36);
+      const c = document.createElement('canvas'); c.width = 384; c.height = 448; const x = c.getContext('2d');
+      x.fillStyle = '#2f5a46'; x.fillRect(0, 0, 384, 448); x.strokeStyle = '#e6c25a'; x.lineWidth = 10; x.strokeRect(10, 10, 364, 428);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#f2d77a'; x.font = '700 54px "Pixelify Sans", sans-serif'; x.fillText(b.label || 'TUGU SALAM', 192, 66, 340);
+      x.fillStyle = '#f7f1e3'; x.font = '700 34px "Pixelify Sans", sans-serif'; const ls = (b.wish || '').split('|'); ls.forEach((l, i) => x.fillText(l, 192, 160 + i * 50, 340));
+      x.fillStyle = '#f2b6c0'; x.font = '400 28px "Pixelify Sans", sans-serif'; x.fillText(b.from || '', 192, 392, 340);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const pl = new THREE.Mesh(new THREE.PlaneGeometry(.74, .86), new THREE.MeshStandardMaterial({ map: tx, roughness: .7 })); pl.position.set(0, 1.18, .235); g.add(pl);
+      const cols = ['#f06b8a', '#ffd25a', '#f4f1ea', '#b48cf0', '#ff9b52'];
+      for (let i = 0; i < 10; i++) { const a = -Math.PI * .9 + i * Math.PI * .2, fx = Math.cos(a) * .72, fz = Math.sin(a) * .5 + .25; if (fz < .3) continue; add(g, G.cyl6, '#3f8a42', .012, .2, .012, fx, .22, fz, 0, false); add(g, G.sph, cols[i % 5], .07, .06, .07, fx, .34, fz); }
+      for (const s of [-1, 1]) { add(g, G.cyl8, '#8a7d6a', .14, .2, .14, s * .62, .2, .62); for (let j = 0; j < 5; j++) add(g, G.sph, cols[(j + (s > 0 ? 2 : 0)) % 5], .06, .05, .06, s * .62 + Math.cos(j * 1.3) * .07, .34, .62 + Math.sin(j * 1.3) * .07); }
+      g.userData.label = 'Tugu Salam';
+    } },
   // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
   papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,
     build(g, b) {
@@ -1615,6 +1681,15 @@ export const BT = {
         box(m, '#7a5534', .5, .08, .34, 0, 0, -.12);
         add(m, G.sph, '#fff3a0', .05, .05, .05, .42, 2.0, .08); add(m, G.sph, '#fff3a0', .04, .04, .04, -.42, 1.6, .08);   // sparkles
       }
+      if (b.deco === 'balon') {   // ep 49: a new resident's welcome, balloons by the door and a SELAMAT DATANG mat
+        const cols = ['#f06b8a', '#ffd25a', '#5fc3e4', '#b48cf0', '#ff9b52', '#7fd04a'];
+        for (const s of [-1, 1]) for (let j = 0; j < 3; j++) { const bx = s * (1.0 + (j % 2) * .16), by = 1.85 + j * .2, bz = .75 + j * .05;
+          add(g, G.sph, cols[(j + (s > 0 ? 3 : 0)) % 6], .13, .16, .13, bx, by, bz); add(g, G.cyl6, '#f7f7f3', .006, by - .6, .006, s * 1.08, (by + .6) / 2 - .08, .74, 0, false); }
+        box(g, '#d0483a', .9, .02, .45, 0, .22, 1.0);
+        const mc = document.createElement('canvas'); mc.width = 256; mc.height = 128; const mx = mc.getContext('2d'); mx.fillStyle = '#d0483a'; mx.fillRect(0, 0, 256, 128);
+        mx.fillStyle = '#fff4dc'; mx.textAlign = 'center'; mx.textBaseline = 'middle'; mx.font = '700 40px "Pixelify Sans", sans-serif'; mx.fillText('SELAMAT', 128, 42, 240); mx.fillText('DATANG', 128, 90, 240);
+        const mt = new THREE.CanvasTexture(mc); mt.colorSpace = THREE.SRGBColorSpace; const mm = new THREE.Mesh(new THREE.PlaneGeometry(.86, .42), new THREE.MeshStandardMaterial({ map: mt, roughness: .9 })); mm.rotation.x = -Math.PI / 2; mm.position.set(0, .245, 1.0); g.add(mm);
+      }
       if (b.deco === 'kebun') {
         const cols = ['#f06b8a', '#ffd25a', '#f4f1ea', '#b48cf0', '#ff9b52'];
         for (const s of [-1]) { box(g, '#7a5534', .7, .2, 1.0, s * 1.0, .14, 1.0); for (let i = 0; i < 8; i++) { const fx = s * 1.0 - .25 + (i % 3) * .25, fz = .62 + Math.floor(i / 3) * .32; add(g, G.cyl6, '#3f8a42', .015, .22, .015, fx, .45, fz, 0, false); add(g, G.sph, cols[(i + (s > 0 ? 2 : 0)) % 5], .08, .07, .08, fx, .58, fz); } }
@@ -2304,6 +2379,50 @@ export function kitten(col = '#f08a2c') {
   let p = t; for (let i = 0; i < 4; i++) { const seg = new THREE.Group(); seg.position.set(0, i ? .055 : 0, i ? -.01 : 0); seg.rotation.x = -.35; p.add(seg); add(seg, G.sph, i === 3 ? dk : col, .024, .04, .024, 0, .03, 0); p = seg; }
   g.userData.head = h; g.userData.tail = t;
   return g;
+}
+// ep 49: Kebun Hewan Mini animals (~life size against a 1.46 m person). All face +z; userData.head is animated in main.js.
+export function hen(col = '#f7f1e3') {
+  const g = new THREE.Group();
+  add(g, G.sph, col, .11, .1, .14, 0, .19, 0); add(g, G.cone4, col, .06, .12, .05, 0, .26, -.14).rotation.x = -.8;
+  for (const x of [-.04, .04]) add(g, G.cyl6, '#f2a03a', .01, .1, .01, x, .05, 0);
+  const h = new THREE.Group(); h.position.set(0, .3, .1); g.add(h);
+  add(h, G.sph, col, .06, .065, .06, 0, 0, 0); add(h, G.sph, '#d0302a', .015, .04, .03, 0, .06, 0); add(h, G.sph, '#d0302a', .014, .025, .014, 0, -.05, .045);
+  const bk = add(h, G.cone4, '#f2b632', .02, .05, .02, 0, -.005, .07); bk.rotation.x = Math.PI / 2;
+  for (const x of [-.035, .035]) add(h, G.sph, '#111', .012, .012, .012, x, .015, .045);
+  g.userData.head = h; return g;
+}
+export function goat() {
+  const g = new THREE.Group(), c = '#f4f0e6';
+  add(g, G.sph, c, .17, .15, .28, 0, .42, 0);
+  for (const [x, z] of [[-.09, .16], [.09, .16], [-.09, -.16], [.09, -.16]]) add(g, G.cyl6, '#d8d2c2', .03, .32, .03, x, .16, z);
+  const h = new THREE.Group(); h.position.set(0, .62, .28); g.add(h);
+  add(h, G.box, c, .13, .14, .2, 0, 0, .04); add(h, G.box, '#e8c0b0', .1, .06, .03, 0, -.03, .15);
+  for (const x of [-.045, .045]) { add(h, G.sph, '#222', .014, .014, .014, x, .03, .13); const hr = add(h, G.cone4, '#a89a7a', .022, .13, .022, x, .12, -.02); hr.rotation.x = -.5; }
+  for (const s of [-1, 1]) { const e = add(h, G.box, c, .1, .03, .05, s * .1, .02, 0); e.rotation.z = s * -.4; }
+  add(h, G.cone4, '#d8d2c2', .03, .08, .03, 0, -.1, .08).rotation.x = Math.PI;
+  add(g, G.cone4, c, .04, .1, .04, 0, .52, -.28).rotation.x = -1.1;
+  g.userData.head = h; return g;
+}
+export function cow() {
+  const g = new THREE.Group(), c = '#f7f4ee', k = '#2b2b2b';
+  add(g, G.sph, c, .28, .24, .48, 0, .74, 0);
+  for (const [x, y, z, s] of [[.2, .8, .1, .14], [-.18, .72, -.2, .16], [.05, .95, -.25, .12]]) add(g, G.sph, k, s * .7, s, s, x, y, z, 0, false);
+  for (const [x, z] of [[-.15, .28], [.15, .28], [-.15, -.28], [.15, -.28]]) add(g, G.cyl6, c, .055, .55, .055, x, .27, z);
+  add(g, G.sph, '#f2a6b0', .09, .06, .09, 0, .5, -.05, 0, false);
+  const h = new THREE.Group(); h.position.set(0, .95, .5); g.add(h);
+  add(h, G.box, c, .26, .24, .26, 0, 0, 0); add(h, G.box, '#f2b0b8', .24, .12, .08, 0, -.08, .15);
+  for (const x of [-.07, .07]) { add(h, G.sph, '#222', .02, .02, .02, x, .05, .13); add(h, G.cone4, '#e8dcc4', .025, .1, .025, x * 1.6, .16, -.02); }
+  for (const s of [-1, 1]) add(h, G.box, k, .12, .04, .07, s * .17, .06, -.02);
+  g.userData.head = h; return g;
+}
+export function duck() {
+  const g = new THREE.Group();
+  add(g, G.sph, '#f7f7f2', .1, .09, .14, 0, .14, 0); add(g, G.cone4, '#f7f7f2', .05, .08, .05, 0, .19, -.14).rotation.x = -1;
+  for (const x of [-.035, .035]) add(g, G.box, '#f2a03a', .04, .01, .05, x, .0, .02);
+  const h = new THREE.Group(); h.position.set(0, .27, .09); g.add(h);
+  add(h, G.sph, '#f7f7f2', .055, .06, .055, 0, 0, 0); add(h, G.box, '#f2a03a', .05, .02, .06, 0, -.01, .07);
+  for (const x of [-.03, .03]) add(h, G.sph, '#111', .01, .01, .01, x, .015, .045);
+  g.userData.head = h; return g;
 }
 export function seagull() {
   const g = new THREE.Group();

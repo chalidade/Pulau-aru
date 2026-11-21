@@ -871,6 +871,13 @@ function frame() {
   // ep 34: the Rumah Camar chicks in Taman Pulau bob and beg; the parent gull looks around
   for (const o of bObjs) if (o.userData.eyes) { const c = (T0 + o.position.x) % 4.2; o.userData.eyes.scale.y = c < .14 ? .1 : 1; o.userData.eyes.position.x = -.17 + Math.sin(T0 * .5) * .02; }   // ep 45: the little eyes between the fish crates blink
   for (const o of bObjs) if (o.userData.kitten) { const k = o.userData.kitten.userData, c = (T0 * .7 + o.position.x) % 6; k.tail.rotation.z = Math.sin(T0 * 2.2) * .45; k.tail.rotation.x = Math.sin(T0 * 1.3) * .15; k.head.rotation.z = c < 1.2 ? Math.sin(c / 1.2 * Math.PI) * .35 : 0; k.head.rotation.y = Math.sin(T0 * .4) * .25; }   // ep 47: the adopted kitten
+  // ep 49: Kebun Hewan Mini: hens peck, goat and cow nod, ducks waddle in their queue; a hen chases the kitten round the trough
+  for (const o of bObjs) if (o.userData.farm) { const A = o.userData.farm;
+    A.hens.forEach((h, i) => { const p = Math.max(0, Math.sin(T0 * 2.6 + i * 1.7)); h.userData.head.rotation.x = p * .9; h.userData.head.position.y = .3 - p * .05; });
+    A.heads.forEach((h, i) => { h.rotation.x = Math.sin(T0 * .8 + i * 2) * .25 + .15; h.rotation.y = Math.sin(T0 * .5 + i) * .3; });
+    A.ducks.forEach((d, i) => { d.rotation.z = Math.sin(T0 * 6 + i * 1.3) * .12; d.position.y = .06 + Math.abs(Math.sin(T0 * 6 + i * 1.3)) * .02; });
+    const c = o.userData.chase; if (c) { const a = T0 * 1.3; for (const [m, off] of [[c.k, 0], [c.h, -.75]]) { const t = a + off; m.position.x = c.cx + Math.cos(t) * c.r; m.position.z = c.cz + Math.sin(t) * c.r * .9; m.position.y = .06 + Math.abs(Math.sin(T0 * 9 + off)) * .04; m.rotation.y = -t; }
+      const kk = c.k.userData; kk.tail.rotation.x = -.6 + Math.sin(T0 * 9) * .2; c.h.userData.head.rotation.x = -.2; } }
   for (const o of bObjs) if (o.userData.chicks) { const cb = o.userData.chickBase != null ? o.userData.chickBase : .05; o.userData.chicks.forEach((c, i) => { const p = Math.max(0, Math.sin(T0 * 3.2 + i * 2.1)); c.position.y = cb + p * .05; c.rotation.x = -p * .35; }); if (o.userData.gull) o.userData.gull.rotation.y = .5 + Math.sin(T0 * .6) * .5; }
   // fires
   fireSources.length = 0; fireSources.push(fireObj);
