@@ -494,6 +494,38 @@
    ],
    "pose": "siap loncat (dive)",
    "tempat": "ujung papan loncat Kolam Renang"
+  },
+  {
+   "nama": "v1dy4_0560",
+   "akun": "@v1dy4_0560",
+   "komentar": "Kaka aku mau ikut nama Ku vidya semoga aku bisa masuk pulau ini",
+   "kartu": "studio/episodes/ep49/komentar/v1dy4_0560.png",
+   "masuk": "ep49",
+   "julukan": "Warga Baru (Vidya)",
+   "sifat": "polos, gampang terharu, semangat",
+   "peran": "Cuma minta masuk pulau, langsung dapat Rumah Vidya (kavling pertama Jalan Warga, balon dan keset SELAMAT DATANG). Tetangganya Pinjam Seratus.",
+   "kalimat": [
+    "Aku cuma komentar, mau masuk pulau... terus sekarang aku punya rumah?!",
+    "Rumahku ada namanya! Aku warga beneran!"
+   ],
+   "pose": "melambai (wave)",
+   "tempat": "depan Rumah Vidya, Jalan Warga"
+  },
+  {
+   "nama": "hanssmuhammad698",
+   "akun": "@hanssmuhammad698",
+   "komentar": "tambahin hewan",
+   "kartu": "studio/episodes/ep49/komentar/hanssmuhammad698.png",
+   "masuk": "ep49",
+   "julukan": "Penjaga Kebun Hewan",
+   "sifat": "sayang hewan, sedikit panik",
+   "peran": "Pengusul Kebun Hewan Mini. Berdiri di dalam gerbang, melambai; selalu mengingatkan jangan kasih kambing makan sandal.",
+   "kalimat": [
+    "Jangan kasih kambing makan sandal!",
+    "Bebeknya antre dulu, ya!"
+   ],
+   "pose": "melambai (wave)",
+   "tempat": "gerbang Kebun Hewan Mini, Jalan Warga"
   }
  ]
 }

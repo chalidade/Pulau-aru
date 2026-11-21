@@ -12183,11 +12183,11 @@
     "Pinjam seratus dulu...",
     "Besok dibalikin, sumpah!"
    ],
-   "tempat": "depan Rumah Ganteng, Jalan Warga (mau pinjam rumahnya)",
+   "tempat": "antara Rumah Vidya dan Rumah Ganteng, Jalan Warga (mau pinjam seratus buat syukuran)",
    "spot": [
-    44,
+    40,
     76,
-    0,
+    0.0,
     0.7
    ],
    "face": -1.57,
@@ -12657,6 +12657,46 @@
    ],
    "face": 1.57,
    "pose": "dive"
+  },
+  {
+   "n": "v1dy4_0560",
+   "ep": 49,
+   "tampil": "v1dy4_0560",
+   "julukan": "Warga Baru (Vidya)",
+   "sifat": "polos, gampang terharu, semangat",
+   "kalimat": [
+    "Aku cuma komentar, mau masuk pulau... terus sekarang aku punya rumah?!",
+    "Rumahku ada namanya! Aku warga beneran!"
+   ],
+   "tempat": "depan Rumah Vidya, Jalan Warga (ep 49)",
+   "spot": [
+    38,
+    76,
+    0.35,
+    0.55
+   ],
+   "face": 0,
+   "pose": "wave"
+  },
+  {
+   "n": "hanssmuhammad698",
+   "ep": 49,
+   "tampil": "hanssmuhammad698",
+   "julukan": "Penjaga Kebun Hewan",
+   "sifat": "sayang hewan, sedikit panik",
+   "kalimat": [
+    "Jangan kasih kambing makan sandal!",
+    "Bebeknya antre dulu, ya!"
+   ],
+   "tempat": "di dalam gerbang Kebun Hewan Mini, Jalan Warga (ep 49, usulannya sendiri)",
+   "spot": [
+    40,
+    80,
+    0.95,
+    0.3
+   ],
+   "face": 0,
+   "pose": "wave"
   }
  ],
  "buildings": [
@@ -13420,12 +13460,17 @@
    "ep": 39
   },
   {
-   "type": "kavling",
+   "type": "rumahwarga",
    "x": 37,
    "y": 74,
    "r": 0,
-   "by": "",
-   "ep": 39
+   "label": "RUMAH VIDYA",
+   "sub": "@v1dy4_0560 · warga baru",
+   "deco": "balon",
+   "wall": "#fde7c8",
+   "roof": "#e07a5f",
+   "by": "v1dy4_0560",
+   "ep": 49
   },
   {
    "type": "kavling",
@@ -13577,6 +13622,27 @@
    "sub": "usulan @im.safar4 · paket lengkap",
    "by": "im.safar4",
    "ep": 48
+  },
+  {
+   "type": "kebunhewan",
+   "x": 38,
+   "y": 80,
+   "r": 2,
+   "label": "KEBUN HEWAN",
+   "sub": "usulan @hanssmuhammad698",
+   "by": "hanssmuhammad698",
+   "ep": 49
+  },
+  {
+   "type": "tugusalam",
+   "x": 35,
+   "y": 80,
+   "r": 2,
+   "label": "TUGU SALAM",
+   "wish": "Salam dari Aceh|semoga sehat selalu|dan terus|berkembang",
+   "from": "traktiran Seseorang ♥ ×5",
+   "by": "Seseorang (traktir)",
+   "ep": 49
   }
  ],
  "episodes": [
@@ -14011,6 +14077,15 @@
     "riskki.setya"
    ],
    "text": "Dua komentar jadi nyata: @im.safar4 minta kolam renang (udah follow, paket lengkap!) -> Kolam Renang dekat pasar, lengkap dengan jalur renang, pelampung bebek dan papan loncat; Safar jadi perenang pertama. @riskki.setya cuma bilang 'aku galau' -> Riski duduk galau di pinggir kolam. senar muliya menyanyikan lagu galau (senarnya putus lagi), lala cute memberinya kue stroberi. Galaunya berkurang... sedikit. Riski galau gara-gara apa?"
+  },
+  {
+   "ep": 49,
+   "date": "2026-11-21",
+   "picks": [
+    "v1dy4_0560",
+    "hanssmuhammad698"
+   ],
+   "text": "Dua komentar jadi nyata: @v1dy4_0560 cuma bilang 'semoga aku bisa masuk pulau ini' -> kavling kosong pertama Jalan Warga jadi Rumah Vidya, lengkap dengan balon dan keset SELAMAT DATANG; Aru menyerahkan kuncinya, Pinjam Seratus langsung mau pinjam buat syukuran. @hanssmuhammad698 minta 'tambahin hewan' -> Kebun Hewan Mini di seberang jalan: ayam, kambing, sapi, bebek yang antre, dan seekor ayam yang mengejar si anak kucing. Traktiran Seseorang dari Aceh (x5) jadi Tugu Salam. Hewan apa lagi yang harus datang?"
   }
  ],
  "letters": [],

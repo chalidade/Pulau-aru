@@ -31,20 +31,20 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 - Chalid: Apify masih gagal (APIFY_TOKEN?), jadi tolong tulis di sini 2-3 komentar terbaru (format `@username: isi`) supaya episode berikutnya punya kartu komentar asli, termasuk jawaban "toko ketiga jualan apa?" dan "rumahmu mau warna apa?".
 
 
-## Untuk ep 49 (21 Nov pagi) — MOHON DIISI CHALID
-Apify sudah dimatikan (19 Nov) dan Chrome biasanya tidak tersambung di sesi cloud, jadi komentar hanya dari sini. Tulis 2-3 komentar
-terbaru (`@username: isi`), terutama **nama untuk anak kucing** (papan Rumah Kucing masih "NAMAKU: ???") dan jawaban end card ep 48
-**"Riski galau gara-gara apa?"**. @im.safar4 (kolam renang) & @riskki.setya (galau) sudah dipakai di ep 48.
+## Untuk ep 50 (21 Nov sore) — MOHON DIISI CHALID
+Chrome tidak tersambung di sesi cloud, jadi komentar hanya dari sini. Tulis 2-3 komentar terbaru (`@username: isi`), terutama
+**nama untuk anak kucing** (papan Rumah Kucing masih "NAMAKU: ???"), jawaban **"Riski galau gara-gara apa?"** (ep 48) dan
+**"Hewan apa lagi yang harus datang?"** (ep 49, Kebun Hewan Mini). Dua kavling kosong Jalan Warga (x45 y79, x49 y79) masih menunggu
+"rumahmu?". Sisa antrean di bawah (@l4.rean kepala desa, @revan.labublue penambangan, @gonrong1231 masjid, @dayang.qaisara19) bisa dipakai.
 
 ## Dari komentar 15 Nov (sudah dibalas)
 (@april_stecu989 kapal pesiar & @david.p.h3 pramugari sudah dipakai di ep 38)
 
 ## Komentar baru (dikumpulkan Claude via Chrome, 20 Nov; sebagian sudah dibalas)
+(@v1dy4_0560 Rumah Vidya & @hanssmuhammad698 Kebun Hewan sudah dipakai di ep 49)
 - @l4.rean: "aku mau jadi kepala desa"
-- @hanssmuhammad698: "tambahin hewan"
 - @revan.labublue: "tambahin bandara sama penambangan" (bandara sudah ada; penambangan belum)
 - @gonrong1231: "bikin masjit" (perlakukan dengan hormat)
-- @v1dy4_0560: "Kaka aku mau ikut nama Ku vidya semoga aku bisa masuk pulau ini" (cameo warga baru)
 - @dayang.qaisara19: "kak aku dayang19"
 
 ## Traktir (langsung diwujudkan, tanpa undian)
