@@ -31,7 +31,10 @@ export function castKit(ch, pose) {
   if (pose === 'guard') { box(b, '#16181d', .48, .55, .3, 0, .49, 0); box(b, '#0a0a0a', .32, .07, .03, 0, 1.21, .18); box(b, '#0a0a0a', .03, .1, .03, .19, 1.1, .05); box(b, '#d9d9d9', .08, .2, .02, 0, .8, .155); box(b, '#8b1e1e', .04, .2, .022, 0, .78, .158); }
   if (pose === 'rod') { const r = box(b, '#6b4226', .04, 1.7, .04, .22, .35, .95); r.rotation.x = 1.0; const l = box(b, '#e8e8e8', .012, 1.42, .012, .22, .24, 1.66); const s1 = box(b, '#2f7de1', .12, .03, .26, .22, .2, 1.66); s1.rotation.x = .5; box(b, '#1b4f9a', .1, .03, .03, .22, .26, 1.6); }
   // ep 29: the new harbour's first fisherman (@muhamatferos197) has a real fish on his hook, not a sandal
-  if (pose === 'rodfish') { const r = box(b, '#6b4226', .04, 1.7, .04, .22, .35, .95); r.rotation.x = 1.0; box(b, '#e8e8e8', .012, 1.42, .012, .22, .24, 1.66); const f = add(b, G.sph, new THREE.MeshStandardMaterial({ color: '#b9e2f5', emissive: '#3a6f8f', emissiveIntensity: .25, metalness: .2, roughness: .35, flatShading: true }), .09, .27, .07, .22, .02, 1.66); add(b, G.cone4, '#e8a33a', .13, .14, .04, .22, -.33, 1.66); add(b, G.cone4, '#e8a33a', .03, .1, .06, .22, .1, 1.6); add(b, G.sph, '#1d1d1d', .02, .02, .02, .28, .16, 1.66); }
+  // ep 52: _Rayhannn` got his lost pair of blue flip-flops back (delivered by the Pos Gotong Royong) and, wearing them, caught his
+  // first real fish: pose 'rodpair' = the fish rod + blue sandals on both feet
+  if (pose === 'rodpair') { ch.userData.feet = []; for (const l of [ch.userData.legL, ch.userData.legR]) ch.userData.feet.push(box(l, '#2f7de1', .23, .05, .31, 0, -.5, .03), box(l, '#3d8ff0', .19, .04, .05, 0, -.43, .1), box(l, '#3d8ff0', .05, .04, .12, 0, -.43, .07)); }
+  if (pose === 'rodfish' || pose === 'rodpair') { const r = box(b, '#6b4226', .04, 1.7, .04, .22, .35, .95); r.rotation.x = 1.0; box(b, '#e8e8e8', .012, 1.42, .012, .22, .24, 1.66); const f = add(b, G.sph, new THREE.MeshStandardMaterial({ color: '#b9e2f5', emissive: '#3a6f8f', emissiveIntensity: .25, metalness: .2, roughness: .35, flatShading: true }), .09, .27, .07, .22, .02, 1.66); add(b, G.cone4, '#e8a33a', .13, .14, .04, .22, -.33, 1.66); add(b, G.cone4, '#e8a33a', .03, .1, .06, .22, .1, 1.6); add(b, G.sph, '#1d1d1d', .02, .02, .02, .28, .16, 1.66); }
   // ep 30: the Penjaga Mercusuar: long navy coat, hood, white beard, a glowing lantern in the right hand
   if (pose === 'keeper') { box(b, '#22344a', .5, .62, .32, 0, .45, 0); box(b, '#4a6a86', .5, .16, .48, 0, 1.44, -.02); box(b, '#4a6a86', .5, .4, .08, 0, 1.2, -.24); for (const x of [-.24, .24]) box(b, '#4a6a86', .06, .4, .44, x, 1.22, -.02); box(b, '#eeeae2', .3, .12, .06, 0, .98, .2); box(b, '#eeeae2', .18, .1, .06, 0, .88, .2); box(b, '#eeeae2', .07, .04, .05, -.07, 1.07, .2); box(b, '#eeeae2', .07, .04, .05, .07, 1.07, .2); box(b, '#c9a24a', .5, .04, .33, 0, .78, 0);
     add(b, G.cyl6, '#2a2a2a', .012, .16, .012, .3, .8, .4); add(b, G.cyl6, '#2a2a2a', .1, .03, .1, .3, .72, .4); add(b, G.cyl6, '#2a2a2a', .09, .03, .09, .3, .52, .4); const gl = add(b, G.cyl6, new THREE.MeshStandardMaterial({ color: '#ffe3a0', emissive: '#ffb84a', emissiveIntensity: 1.6, transparent: true, opacity: .9 }), .075, .17, .075, .3, .62, .4); gl.castShadow = false; }
@@ -848,9 +851,9 @@ export const BT = {
       // what came out: a blue flip-flop on top of the ore
       const sd = new THREE.Group(); sd.position.set(.02, .72, .05); sd.rotation.set(-.25, .5, .15); cart.add(sd);
       box(sd, '#2f7de1', .2, .04, .46, 0, 0, 0); box(sd, '#1b4f9a', .2, .04, .04, 0, .04, .05); const s1 = box(sd, '#1b4f9a', .03, .05, .2, -.06, .04, .12); s1.rotation.y = .5; const s2 = box(sd, '#1b4f9a', .03, .05, .2, .06, .04, .12); s2.rotation.y = -.5;
-      sd.visible = b.found !== '';
+      sd.visible = b.found !== '' && !b.returned;   // ep 52: b.returned = the sandals went home to their owner
       // ep 51: the second cart brought out the other one: a pair (b.sandals = 2)
-      const sd2 = sd.clone(); sd2.position.set(-.16, .7, -.18); sd2.rotation.set(-.2, -.6, -.1); cart.add(sd2); sd2.visible = (b.sandals | 0) >= 2;
+      const sd2 = sd.clone(); sd2.position.set(-.16, .7, -.18); sd2.rotation.set(-.2, -.6, -.1); cart.add(sd2); sd2.visible = (b.sandals | 0) >= 2 && !b.returned;
       g.userData.cart = { o: cart, z0: -.55, z1: 1.7, sandal: sd };
       // pickaxes leaning on a rock, an ore heap, a wheelbarrow-ish crate
       for (const [px, r] of [[-1.55, .35], [-1.3, -.25]]) { const p = new THREE.Group(); p.position.set(px, .06, .2); p.rotation.z = r; g.add(p); box(p, wood, .05, .95, .05, 0, 0, 0); const hd = box(p, '#8a9196', .5, .06, .06, 0, .9, 0); hd.rotation.z = .25; }
@@ -976,6 +979,16 @@ export const BT = {
       y.fillStyle = '#f2b6c0'; y.font = '400 28px "Pixelify Sans", sans-serif'; y.fillText(b.from || '', 192, 282, 350);
       const tx2 = new THREE.CanvasTexture(c2); tx2.colorSpace = THREE.SRGBColorSpace; tx2.anisotropy = 4;
       const pl = new THREE.Mesh(new THREE.PlaneGeometry(.72, .6), new THREE.MeshStandardMaterial({ map: tx2, roughness: .8 })); pl.position.set(-1.0, .98, 1.485); g.add(pl); box(g, dark, .78, .66, .04, -1.0, .65, 1.45);
+      // ep 52: PAPAN TUGAS on a stand at the front right: the pos's finished jobs (b.tasks = ['Antar sandal Rayhan', ...], ticked)
+      if (b.tasks && b.tasks.length) {
+        for (const s of [-1, 1]) box(g, dark, .05, 1.0, .05, 1.05 + s * .3, .12, 1.45);
+        const c3 = document.createElement('canvas'); c3.width = 384; c3.height = 320; const z = c3.getContext('2d');
+        z.fillStyle = '#f7f1e3'; z.fillRect(0, 0, 384, 320); z.strokeStyle = '#b5523a'; z.lineWidth = 10; z.strokeRect(8, 8, 368, 304);
+        z.textAlign = 'center'; z.textBaseline = 'middle'; z.fillStyle = '#7a2e1e'; z.font = '700 38px "Pixelify Sans", sans-serif'; z.fillText('TUGAS SELESAI', 192, 46, 350);
+        z.textAlign = 'left'; b.tasks.slice(-5).forEach((t, i) => { const yy = 104 + i * 46; z.fillStyle = '#2f8a4a'; z.font = '700 34px "Pixelify Sans", sans-serif'; z.fillText('\u2713', 26, yy); z.fillStyle = '#2b1d14'; z.font = '700 27px "Pixelify Sans", sans-serif'; z.fillText((i + 1) + '. ' + t, 64, yy, 300); });
+        const tx3 = new THREE.CanvasTexture(c3); tx3.colorSpace = THREE.SRGBColorSpace; tx3.anisotropy = 4;
+        const tb = new THREE.Mesh(new THREE.PlaneGeometry(.72, .6), new THREE.MeshStandardMaterial({ map: tx3, roughness: .8 })); tb.position.set(1.05, .98, 1.485); g.add(tb); box(g, dark, .78, .66, .04, 1.05, .65, 1.45);
+      }
       g.userData.label = b.label || 'Pos Gotong Royong';
     } },
   // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
