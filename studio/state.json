@@ -1,5 +1,5 @@
 {
- "nextEp": 51,
+ "nextEp": 52,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -65,7 +65,8 @@
   "NAMA ANAK KUCING (mulai ep 47): papan Rumah Kucing 'NAMAKU: ???' menunggu nama dari komentar (pertanyaan end card ep 46 & 47). Begitu ada komentar (komentar.md / Chrome), pilih nama terlucu, ganti b.name di island.json jadi 'NAMAKU: <nama>' + kredit username di b.sub, dan jadikan episode pemberian nama (upacara kecil, Klub Pertama rebutan elus pertama?). Jangan mengarang username; kalau tetap tidak ada komentar, boleh tunda atau beri nama sementara tanpa kredit.",
   "Ep 48: Kolam Renang (kolamrenang x87 y82 r2, selatan jalan timur, di sebelah pasar; b.label/b.sub; userData.board = ujung papan loncat). @im.safar4 Perenang Pertama di ujung papan loncat (pose 'dive': tangan ke atas, memantul, BELUM PERNAH LONCAT -> lelucon berjalan, bisa jadi payoff: kapan Safar loncat?). @riskki.setya Si Galau duduk di pinggir kolam (pose 'galau'); lala cute & senar muliya dipindah ke kolam (oldSpot disimpan). End card: 'Riski galau gara-gara apa?' -> episode berikut pakai jawaban komentar (kocak, jangan pasangkan dengan akun nyata). NAMA ANAK KUCING masih menunggu komentar (papan NAMAKU: ???).",
   "Ep 49: Rumah Vidya (rumahwarga x37 y74, deco 'balon' = balon + keset SELAMAT DATANG) untuk @v1dy4_0560, Vidya melambai di pintu (pose wave); Pinjam Seratus pindah ke (40,76) antara Rumah Vidya dan Rumah Ganteng. Kebun Hewan Mini (kebunhewan x38 y80 r2, selatan Jalan Warga): ayam mematuk, kambing, sapi, 3 bebek antre ke kolam kecil, ayam mengejar anak kucing mengelilingi palung (userData.farm/chase di main.js); @hanssmuhammad698 penjaga di dalam gerbang. Tugu Salam (tugusalam x35 y80 r2) dari traktiran Seseorang x5 (Aceh). End card: 'Hewan apa lagi yang harus datang?' -> tambah hewan dari jawaban komentar (model hen/goat/cow/duck di models.js, tinggal tambah). Dua kavling kosong tersisa (x45 y79, x49 y79). NAMA ANAK KUCING & 'Riski galau gara-gara apa?' masih menunggu komentar.",
-  "Ep 50: Tambang Pulau (tambang x31 y69, ujung barat Jalan Warga; rel + gerobak beranimasi userData.cart, window.__cartPos untuk studio; b.found/b.note di papan TEMUAN HARI INI) dengan Revan Si Penambang (@revan.labublue, warga sejak ep 1, pose 'miner': helm berlampu + beliung) dan Pak Kades (@l4.rean, pose 'kades': peci, selempang hijau, stempel; spot di samping papan). Kantor Kepala Desa (kantordesa x49 y79 r2) menggantikan kavling x49 y79. Gerobak pertama = 1 sandal jepit biru, kata Pak Kades punya Rayhan (_Rayhannn` belum tahu!); whoyss dipindah ke balik batu tambang (oldSpot disimpan), 'bukan aku'. End card: 'Gerobak kedua bakal nemu apa?' -> isi gerobak kedua dari jawaban komentar (ganti b.found, tambah benda di gerobak), payoff: sandal dikembalikan ke Rayhan di pelabuhan."
+  "Ep 50: Tambang Pulau (tambang x31 y69, ujung barat Jalan Warga; rel + gerobak beranimasi userData.cart, window.__cartPos untuk studio; b.found/b.note di papan TEMUAN HARI INI) dengan Revan Si Penambang (@revan.labublue, warga sejak ep 1, pose 'miner': helm berlampu + beliung) dan Pak Kades (@l4.rean, pose 'kades': peci, selempang hijau, stempel; spot di samping papan). Kantor Kepala Desa (kantordesa x49 y79 r2) menggantikan kavling x49 y79. Gerobak pertama = 1 sandal jepit biru, kata Pak Kades punya Rayhan (_Rayhannn` belum tahu!); whoyss dipindah ke balik batu tambang (oldSpot disimpan), 'bukan aku'. End card: 'Gerobak kedua bakal nemu apa?' -> isi gerobak kedua dari jawaban komentar (ganti b.found, tambah benda di gerobak), payoff: sandal dikembalikan ke Rayhan di pelabuhan.",
+  "Ep 51: Mushola Warga (mushola x74 y73, usulan @gonrong1231; zidan dipindah ke halamannya, oldSpot disimpan). Pos Gotong Royong (posgotong x60 y73, traktiran Ish x10, kentongan + rak alat + teh; b.wish plakat) dengan Dayang (@dayang.qaisara19, pose 'relawan': rompi oranye + papan catatan) di depannya. Tambang: gerobak kedua = sandal Rayhan yang sebelah (b.sandals 2, papan 'SEPASANG SANDAL JEPIT'); _Rayhannn` BELUM tahu sandalnya ketemu -> payoff: Rayhan menerima sepasang sandalnya (mungkin diantar Dayang sebagai tugas Pos Gotong Royong). End card: 'Pos Gotong Royong bantu siapa dulu?' -> pakai jawaban komentar. Antrean komentar.md HABIS; kavling x45 y79 masih kosong. NAMA ANAK KUCING masih menunggu komentar."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -140,7 +141,10 @@
   "v1dy4_0560: Kaka aku mau ikut nama Ku vidya semoga aku bisa masuk pulau ini (antrean komentar.md 20 Nov, via TikTok Studio) -> Rumah Vidya (rumahwarga x37 y74, deco balon, kavling pertama Jalan Warga) ep 49",
   "hanssmuhammad698: tambahin hewan (antrean komentar.md 20 Nov, via TikTok Studio) -> Kebun Hewan Mini (kebunhewan x38 y80 r2) + Hans penjaga ep 49",
   "revan.labublue: tambahin bandara sama penambangan (antrean komentar.md 20 Nov, via TikTok Studio; bandara sudah ada) -> Tambang Pulau (tambang x31 y69) + Revan Si Penambang ep 50",
-  "l4.rean: aku mau jadi kepala desa (antrean komentar.md 20 Nov, via TikTok Studio) -> Kantor Kepala Desa (kantordesa x49 y79 r2, bekas kavling) + Pak Kades mengawasi tambang ep 50"
+  "l4.rean: aku mau jadi kepala desa (antrean komentar.md 20 Nov, via TikTok Studio) -> Kantor Kepala Desa (kantordesa x49 y79 r2, bekas kavling) + Pak Kades mengawasi tambang ep 50",
+  "gonrong1231: bikin masjit (antrean komentar.md 20 Nov, via TikTok Studio) -> Mushola Warga (mushola x74 y73, Jalan Warga) + zidan penjaga masjid ikut menyapu halamannya ep 51",
+  "dayang.qaisara19: kak aku dayang19 (antrean komentar.md 20 Nov, via TikTok Studio) -> Dayang warga baru, relawan pertama Pos Gotong Royong (pose relawan) ep 51",
+  "traktir Ish x10 (Trakteer 21 Nov): 'Semangat dalam berkarya dan membantu memudahkan pekerjaan orang lain bang' -> Pos Gotong Royong (posgotong x60 y73, plakat pesan Ish) ep 51"
  ],
  "episodes": [
   {
@@ -412,16 +416,22 @@
    "title": "Gali Tambang, Nemu Sandal",
    "posted": "menunggu posting manual (Chrome tidak tersambung); video: https://github.com/chalidade/Pulau-aru/raw/videos/episodes/pulau-aru-ep50.mp4",
    "summary": "Format CERITA (run sore 21 Nov; ep 49 KONSEP). Komentar asli dari antrean komentar.md (dikumpulkan via TikTok Studio 20 Nov), kartu digambar dengan username asli tanpa foto profil (tidak ada avatar). Cold open: close-up sandal jepit biru di atas gerobak tambang, Revan: 'Tiga jam gali tambang... nemunya SANDAL?!', hook GALI TAMBANG, / NEMU... SANDAL?!. Premis (PULAU NETIZEN), kartu @revan.labublue & @l4.rean. Kantor Kepala Desa (title KEPALA DESA), Pak Kades: 'Sah! Keputusan pertamaku: kita bikin tambang!' Tambang Pulau (title, usulan @revan.labublue), Revan (Si Penambang, warga sejak ep 1): 'Pasti ada emas!'. Gerobak pertama keluar: 1 sandal jepit, biru, sebelah (title TEMUAN PERTAMA). Pak Kades: 'Ini punya Rayhan, yang hilang!' whoyss (Si Iseng) mengintip: 'Hehe... bukan aku.' End card: Gerobak kedua bakal nemu apa? + pulau-aru.web.id + follow = warga (teks). Tanpa CTA traktir/UMKM. 57,5 dtk; 2 frame hitam di c11 ditambal freezeframes."
+  },
+  {
+   "ep": 51,
+   "title": "Komen 'Bikin Masjid', Besoknya Berdiri",
+   "posted": "menunggu posting manual (Chrome tidak tersambung); video: https://github.com/chalidade/Pulau-aru/raw/videos/episodes/pulau-aru-ep51.mp4",
+   "summary": "Format KONSEP (run pagi 22 Nov; ep 50 CERITA). Komentar asli dari antrean komentar.md (via TikTok Studio 20 Nov), kartu digambar dengan username asli tanpa foto profil (tidak ada avatar). Cold open: zidan menyapu halaman Mushola Warga, 'Komentar: bikin masjid. Pagi ini... berdiri!', hook 1 KOMENTAR, / MUSHOLA BERDIRI!. Premis (PULAU NETIZEN), kartu @gonrong1231 & @dayang.qaisara19. Mushola Warga (masjid besar jauh di utara). zidan: 'Sandalnya dilepas dulu ya, kak. Raknya baru!' Dayang: 'Halo! Aku Dayang... boleh tinggal di sini?' Kartu traktiran Ish x10 + plakat pesannya; Aru: 'Pesan sebaik itu harus jadi bangunan. Pos Gotong Royong!' (kentongan, sorak). Dayang relawan pertama. Tugas pertama: dorong gerobak kedua; Revan: 'Kali ini pasti emas... SANDAL LAGI?!' -> sepasang. End card: Pos Gotong Royong bantu siapa dulu? + follow = warga + CTA traktir teer.id/chalidade. 56 dtk."
   }
  ],
  "monetization": {
   "plan": "tumbuhkan komunitas dulu; pendapatan dari traktir (Rp5.000/request), gift LIVE, dan etalase UMKM (gratis selama perintisan)",
   "ctaEvery": "2-3 episode, satu ajakan per episode, bergiliran",
   "lastCta": {
-   "ep": 49,
-   "cta": "follow = warga (suara+teks) + UMKM #UMKMPulauAru (teks end card)"
+   "ep": 51,
+   "cta": "follow = warga (suara+teks) + traktir Rp5.000 teer.id/chalidade (teks end card)"
   },
-  "nextCta": "traktir teer.id/chalidade (ep 51 atau 52), lalu UMKM",
+  "nextCta": "UMKM #UMKMPulauAru (ep 53 atau 54), lalu traktir",
   "lastCtaNote": "ep 42 end card: Punya usaha? Komentar #UMKMPulauAru, warungmu kami bangun di pulau!"
  },
  "notes": [
@@ -469,7 +479,8 @@
   "Ep 46 (19 Nov sore): Apify dimatikan, Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone), komentar.md tanpa komentar baru -> tanpa kartu komentar, video dikirim ke Chalid untuk diposting manual. Traktiran Darwin x4 diwujudkan (Pojok Ilmu). Kode baru: BT.pojokilmu (b.label/b.wish dengan '|'/b.from), BT.kamerajaga (b.caught/b.time, monitor emissive). Nama window.__PJ bentrok dengan ep39 -> shots ep46 pakai __PJK. n2 (rekap petunjuk) dibuang karena durasi.",
   "Ep 47 (20 Nov pagi): Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone), komentar.md & traktir.json tanpa yang baru -> tanpa kartu komentar (ke-8 berturut-turut), video dikirim ke Chalid untuk diposting manual. Kode baru: kitten() (export, models.js) dan BT.rumahkucing (b.label/b.name/b.sub, userData.kitten), animasi kucing di main.js. Bangunan berskala (scale 1.3): localToWorld pada objek luar TIDAK memasukkan skala, kalikan offset lokal dengan 1.3 sendiri. ep44 shots: __fishBack dibuat aman kalau tulang (b.missing) sudah tidak ada. e47c2 (aerial) punya 5 frame setengah hitam, ditambal dari frame sebelumnya.",
   "Ep 49 (21 Nov pagi): Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone); komentar dari antrean komentar.md (via TikTok Studio 20 Nov), traktiran Seseorang x2+x3 (Aceh) -> Tugu Salam. Kode baru: BT.kebunhewan (hen/goat/cow/duck diekspor dari models.js, userData.farm & chase dianimasikan di main.js), BT.tugusalam (b.label/b.wish '|'/b.from), rumahwarga deco 'balon'. Capture DPR2 ~1 dtk/frame (sempat 4 dtk/frame saat preview berjalan bersamaan). Bingkai potret sempit: lingkaran kejar r .85 butuh dist ~5 pitch 1. Jangan kill dengan pola yang memuat argumen shots.py di baris yang sama (shell ikut mati, exit 144). compose ccards: waktu kartu numerik kini didukung juga di build_audio.",
-  "Ep 50 (21 Nov sore): Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone); komentar dari antrean komentar.md (via TikTok Studio 20 Nov); traktir.json tanpa yang baru. Kode baru: BT.tambang (h 6 supaya lampu desa tidak tumbuh di depan pad; userData.cart dianimasikan di main.js, window.__cartPos), BT.kantordesa (b.label/b.sub/b.notice), castKit/castPose 'miner' (beliung di armR) & 'kades' (stempel di armR). Lampu desa (InstancedMesh tiang 1.4/lampu .18x.22) disembunyikan di shots ep50 karena menghalangi close-up. Arah hadap NPC: kamera yaw ~ face = melihat wajah. Jalan [33,77,35,78] dibatalkan (menabrak LM wreck 31-33,77-78). JANGAN restart server dengan awk-kill di baris yang sama dengan perintah nohup http.server (shell ikut mati, exit 144)."
+  "Ep 50 (21 Nov sore): Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone); komentar dari antrean komentar.md (via TikTok Studio 20 Nov); traktir.json tanpa yang baru. Kode baru: BT.tambang (h 6 supaya lampu desa tidak tumbuh di depan pad; userData.cart dianimasikan di main.js, window.__cartPos), BT.kantordesa (b.label/b.sub/b.notice), castKit/castPose 'miner' (beliung di armR) & 'kades' (stempel di armR). Lampu desa (InstancedMesh tiang 1.4/lampu .18x.22) disembunyikan di shots ep50 karena menghalangi close-up. Arah hadap NPC: kamera yaw ~ face = melihat wajah. Jalan [33,77,35,78] dibatalkan (menabrak LM wreck 31-33,77-78). JANGAN restart server dengan awk-kill di baris yang sama dengan perintah nohup http.server (shell ikut mati, exit 144).",
+  "Ep 51 (22 Nov pagi): Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone); komentar dari antrean komentar.md (dua terakhir, antrean sekarang kosong); traktiran Ish x10 -> Pos Gotong Royong. Kode baru: BT.mushola (scale 1.3, b.label/b.sub), BT.posgotong (b.label/b.sub/b.wish/b.from), tambang b.sandals>=2 = sandal kedua, castKit/activities pose 'relawan' (clip + rompi). Capture: aerial c2 (descent dist 55->20) punya ~16% frame setengah hitam (render belum selesai) berulang meski diulang -> diganti frame sebelumnya (skrip fix: rata-rata & piksel hitam vs tetangga ±3). Kamera di selatan Jalan Warga x70-80 masuk ke atap Mall: pakai yaw positif (kamera ke timur) atau dari utara (yaw 3.0)."
  ],
  "rooms": {
   "open": [
@@ -494,7 +505,7 @@
   ]
  },
  "strategy": {
-  "lastFormat": "CERITA",
+  "lastFormat": "KONSEP",
   "tests": [
    {
     "ep": 25,
@@ -703,18 +714,17 @@
     "opening": "3D close-up sandal jepit biru di atas gerobak tambang (benda baru, flash-forward ke payoff), suara Revan di 0,05 dtk",
     "captionStyle": "pendek personal + tebak isi gerobak kedua + alur cerita + pulau-aru.web.id + #pulaunetizen",
     "duration": 57.5
+   },
+   {
+    "ep": 51,
+    "format": "KONSEP",
+    "hook": "1 KOMENTAR, / MUSHOLA BERDIRI!",
+    "opening": "3D dua-shot zidan menyapu di depan Mushola Warga (papan nama terbaca di atas hook, wajah di bawah hook), suara di 0,05 dtk",
+    "captionStyle": "pendek personal + komentar=bangunan + pulau netizen + pulau-aru.web.id + teer.id + #pulaunetizen #alurcerita",
+    "duration": 56
    }
   ],
   "castLog": [
-   {
-    "ep": 43,
-    "cast": [
-     "Mbak Sekar",
-     "Penjaga Mercusuar",
-     "_Rayhannn`",
-     "lala cute"
-    ]
-   },
    {
     "ep": 44,
     "cast": [
@@ -775,6 +785,15 @@
      "revan.labublue (baru)",
      "l4.rean (baru)",
      "whoyss"
+    ]
+   },
+   {
+    "ep": 51,
+    "cast": [
+     "panggil aja zidan",
+     "dayang.qaisara19 (baru)",
+     "revan.labublue",
+     "Aru (suara)"
     ]
    }
   ]
