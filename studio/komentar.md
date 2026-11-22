@@ -31,9 +31,9 @@ Dari end card ep31 "komentar: AKU CALON + janjimu". Pakai di episode debat/pemil
 - Chalid: Apify masih gagal (APIFY_TOKEN?), jadi tolong tulis di sini 2-3 komentar terbaru (format `@username: isi`) supaya episode berikutnya punya kartu komentar asli, termasuk jawaban "toko ketiga jualan apa?" dan "rumahmu mau warna apa?".
 
 
-## Untuk ep 52 (22 Nov sore) dan seterusnya — MOHON DIISI CHALID
-Antrean komentar sudah habis (ep 51 memakai dua yang terakhir). Chrome tidak tersambung di sesi cloud, jadi tolong tulis 2-3
-komentar terbaru (`@username: isi`), terutama jawaban **"Pos Gotong Royong bantu siapa dulu?"** (ep 51), **nama untuk anak kucing**
+## Untuk ep 53 (23 Nov pagi) dan seterusnya — MOHON DIISI CHALID
+Antrean komentar masih kosong (ep 52 jalan dari thread sandal tanpa komentar baru). Chrome tidak tersambung di sesi cloud, jadi tolong tulis 2-3
+komentar terbaru (`@username: isi`), terutama jawaban **"Pos Gotong Royong bantu siapa lagi?"** (ep 51 & 52), **nama untuk anak kucing**
 (papan Rumah Kucing masih "NAMAKU: ???"), **"Riski galau gara-gara apa?"** (ep 48) dan **"Hewan apa lagi yang harus datang?"** (ep 49).
 Satu kavling kosong Jalan Warga (x45 y79) masih menunggu "rumahmu?".
 

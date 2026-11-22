@@ -12226,9 +12226,10 @@
    "sifat": "sabar & apes",
    "kalimat": [
     "Lumayan... sandal lagi 😁👌",
-    "Sabar, ikannya lagi otw."
+    "Sandalku pulang... dua-duanya!",
+    "Ini bukan sandal... IKAN!"
    ],
-   "tempat": "Pelabuhan Nelayan, di samping muhamatferos197 (pindah dari dermaga ep 29)",
+   "tempat": "Pelabuhan Nelayan, di samping muhamatferos197; sejak ep 52 pakai sandal jepit birunya lagi dan akhirnya dapat ikan",
    "spot": [
     63,
     98,
@@ -12236,7 +12237,7 @@
     0.4
    ],
    "face": 0,
-   "pose": "rod"
+   "pose": "rodpair"
   },
   {
    "n": "KM GPP TAN",
@@ -12762,17 +12763,27 @@
    "sifat": "ramah, sigap menolong",
    "kalimat": [
     "Halo! Aku Dayang... boleh tinggal di sini?",
-    "Aku mau jadi relawan pertamanya!"
+    "Aku mau jadi relawan pertamanya!",
+    "Tugas pertama: antar sandal ke pemiliknya!"
    ],
-   "tempat": "depan Pos Gotong Royong, Jalan Warga (ep 51)",
+   "tempat": "Pelabuhan Nelayan, baru mengantar sandal Rayhan (tugas pertama Pos Gotong Royong, ep 52); posnya di Jalan Warga",
    "spot": [
-    61,
-    76,
-    0.5,
-    0.3
+    63,
+    97,
+    0.7,
+    0.5
    ],
-   "face": 0,
-   "pose": "relawan"
+   "face": -0.5,
+   "pose": "relawan",
+   "oldSpot": [
+    [
+     61,
+     76,
+     0.5,
+     0.3
+    ],
+    0
+   ]
   }
  ],
  "buildings": [
@@ -13719,11 +13730,12 @@
    "r": 0,
    "label": "TAMBANG PULAU",
    "sub": "usulan @revan.labublue",
-   "found": "SEPASANG|SANDAL JEPIT",
-   "note": "dua-duanya punya _Rayhannn`",
+   "found": "SUDAH PULANG|KE RAYHAN",
+   "note": "diantar Pos Gotong Royong (ep 52)",
    "by": "revan.labublue",
    "ep": 50,
-   "sandals": 2
+   "sandals": 2,
+   "returned": true
   },
   {
    "type": "kantordesa",
@@ -13756,7 +13768,10 @@
    "wish": "Semangat berkarya|dan saling|memudahkan",
    "from": "traktiran Ish ♥ ×10",
    "by": "Ish (traktir)",
-   "ep": 51
+   "ep": 51,
+   "tasks": [
+    "Antar sandal Rayhan"
+   ]
   }
  ],
  "episodes": [
@@ -14218,6 +14233,12 @@
     "dayang.qaisara19"
    ],
    "text": "@gonrong1231 komentar 'bikin masjit' -> Mushola Warga berdiri di Jalan Warga, supaya warga sini tidak perlu jalan jauh ke masjid besar; zidan si penjaga masjid ikut menyapu halamannya. @dayang.qaisara19 cuma bilang 'kak aku dayang19' -> Dayang jadi warga baru. Semalam Ish mentraktir sepuluh kali dengan pesan 'semangat berkarya dan membantu memudahkan pekerjaan orang lain' -> Pos Gotong Royong (ketuk kentongannya kalau butuh bantuan), dan Dayang jadi relawan pertamanya. Tugas pertama: bantu Revan dorong gerobak tambang kedua... isinya sandal Rayhan yang sebelah. Sekarang sepasang!"
+  },
+  {
+   "ep": 52,
+   "date": "2026-11-22",
+   "picks": [],
+   "text": "Sandal Pulang, Ikan Datang. Tugas pertama Pos Gotong Royong: Dayang mengantar sepasang sandal jepit biru dari Tambang Pulau ke pemiliknya, _Rayhannn` si nelayan apes di Pelabuhan Nelayan. Polisi Pantai RANUUGLL sempat menghentikannya ('barang bukti!'), lalu malah ikut mengawal. Rayhan memakai sandalnya... dan kailnya langsung dapat IKAN pertamanya. Papan TUGAS SELESAI kini berdiri di Pos Gotong Royong. Pos Gotong Royong harus bantu siapa lagi? Tulis di komentar!"
   }
  ],
  "letters": [],
