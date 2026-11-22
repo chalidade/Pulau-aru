@@ -42,6 +42,8 @@ export function castKit(ch, pose) {
   if (pose === 'teach') { box(b, '#2f5e8a', .26, .34, .05, -.24, .5, .3).rotation.x = -.5; box(b, '#f4eee0', .22, .3, .052, -.24, .505, .3).rotation.x = -.5; box(b, '#c4473a', .02, .16, .02, .3, 1.0, .1); }
   if (pose === 'sweep') { const st = box(b, '#a9784a', .035, 1.3, .035, .26, -.1, .38); st.rotation.x = -.35; const br = box(b, '#d9b45a', .3, .2, .1, .26, -.12, .62); br.rotation.x = -.35; box(b, '#2f7de1', .1, .03, .22, -.3, .42, .22).rotation.x = -1.2; box(b, '#1b4f9a', .08, .03, .03, -.3, .47, .2); }
   // ep 23: Debby's clipboard with the president's schedule, Bu Guru Gina's study-tour flag, the pupils' yellow tour caps
+  // ep 51: Dayang (@dayang.qaisara19), first volunteer of the Pos Gotong Royong: an orange volunteer vest over the clipboard pose
+  if (pose === 'relawan') { castKit(ch, 'clip'); box(b, '#f28c28', .5, .42, .31, 0, .55, 0); box(b, '#f7f1e3', .5, .05, .315, 0, .7, 0); box(b, '#f7f1e3', .12, .08, .02, .12, .88, .16); }
   if (pose === 'clip') { const cb = box(b, '#8a5a34', .26, .34, .03, -.22, .48, .32); cb.rotation.x = -.6; const pg = box(b, '#fbf7ee', .22, .26, .032, -.22, .5, .325); pg.rotation.x = -.6; box(b, '#9a9b94', .1, .04, .04, -.22, .8, .27); box(b, '#2f5e8a', .02, .18, .02, .3, .7, .2); }
   if (pose === 'flag') { add(b, G.cyl6, '#c9a868', .018, 1.5, .018, .3, 1.25, .28); const fl = box(b, '#ffd25a', .42, .26, .015, .52, 1.78, .28); box(b, '#d0483a', .42, .05, .016, .52, 1.9, .28); }
   if (pose === 'cap') { box(b, '#ffd25a', .42, .1, .42, 0, 1.4, -.01); box(b, '#ffd25a', .3, .03, .2, 0, 1.4, .26); box(b, '#d0483a', .43, .03, .43, 0, 1.43, -.01); }
@@ -847,6 +849,8 @@ export const BT = {
       const sd = new THREE.Group(); sd.position.set(.02, .72, .05); sd.rotation.set(-.25, .5, .15); cart.add(sd);
       box(sd, '#2f7de1', .2, .04, .46, 0, 0, 0); box(sd, '#1b4f9a', .2, .04, .04, 0, .04, .05); const s1 = box(sd, '#1b4f9a', .03, .05, .2, -.06, .04, .12); s1.rotation.y = .5; const s2 = box(sd, '#1b4f9a', .03, .05, .2, .06, .04, .12); s2.rotation.y = -.5;
       sd.visible = b.found !== '';
+      // ep 51: the second cart brought out the other one: a pair (b.sandals = 2)
+      const sd2 = sd.clone(); sd2.position.set(-.16, .7, -.18); sd2.rotation.set(-.2, -.6, -.1); cart.add(sd2); sd2.visible = (b.sandals | 0) >= 2;
       g.userData.cart = { o: cart, z0: -.55, z1: 1.7, sandal: sd };
       // pickaxes leaning on a rock, an ore heap, a wheelbarrow-ish crate
       for (const [px, r] of [[-1.55, .35], [-1.3, -.25]]) { const p = new THREE.Group(); p.position.set(px, .06, .2); p.rotation.z = r; g.add(p); box(p, wood, .05, .95, .05, 0, 0, 0); const hd = box(p, '#8a9196', .5, .06, .06, 0, .9, 0); hd.rotation.z = .25; }
@@ -894,6 +898,85 @@ export const BT = {
       const tx2 = new THREE.CanvasTexture(c2); tx2.colorSpace = THREE.SRGBColorSpace;
       const nb = new THREE.Mesh(new THREE.PlaneGeometry(.8, .6), new THREE.MeshStandardMaterial({ map: tx2, roughness: .9 })); nb.position.set(-1.55, 1.15, 1.19); g.add(nb);
       g.userData.label = b.label || 'Kantor Kepala Desa';
+    } },
+  // ep 51 (komentar @gonrong1231: "bikin masjit"): Mushola Warga on Jalan Warga, so the west of the island no longer walks to the
+  // big masjid. A small white prayer house with a two-tier green tajug roof, a porch, a sandal rack, a wudu wall with taps and the
+  // sign (b.label / b.sub). Door faces +z at r=0. Local size 3 x 3, scale 1.3 (about 3x a person at the roof top).
+  mushola: { n: 'Mushola Warga', w: 4, h: 4, land: true, clearTrees: true, scale: 1.3, openLabel: 'Lihat Mushola Warga',
+    build(g, b) {
+      b = b || {}; const wall = '#f6f2e6', trim = '#2f8a5a', roof = '#2e7d52', wood = '#6b4226';
+      box(g, '#cfc8b6', 3.0, .1, 3.0, 0, 0, 0);                                     // courtyard
+      box(g, '#e4ddcc', 2.4, .16, 2.1, 0, .1, -.35);                                 // raised floor
+      box(g, wall, 2.2, 1.45, 1.8, 0, .26, -.4);                                     // prayer room
+      box(g, trim, 2.26, .1, 1.86, 0, .26, -.4);
+      // door (arched) and windows
+      box(g, wood, .62, 1.2, .04, 0, .26, .51); const ar = new THREE.Mesh(new THREE.CircleGeometry(.31, 14, 0, Math.PI), mat(wood)); ar.position.set(0, 1.46, .53); g.add(ar);
+      for (const s of [-1, 1]) { box(g, windowMat, .32, .48, .04, s * .72, .7, .51); const w = new THREE.Mesh(new THREE.CircleGeometry(.16, 12, 0, Math.PI), windowMat); w.position.set(s * .72, 1.18, .535); g.add(w); }
+      // two-tier tajug roof with a little golden finial
+      roof4(g, roof, 2.9, .65, 2.5, 0, 1.71, -.4); box(g, wall, .7, .35, .7, 0, 2.2, -.4); roof4(g, trim, 1.2, .55, 1.2, 0, 2.5, -.4);
+      add(g, G.cyl6, '#e5c06a', .03, .3, .03, 0, 3.2, -.4); add(g, G.sph, '#e5c06a', .09, .09, .09, 0, 3.38, -.4);
+      // porch roof on two posts
+      box(g, roof, 2.3, .08, .62, 0, 1.78, .78); for (const s of [-1, 1]) box(g, wall, .1, 1.52, .1, s * 1.0, .26, 1.0);
+      // sign on the porch beam
+      const c = document.createElement('canvas'); c.width = 512; c.height = 150; const x = c.getContext('2d');
+      x.fillStyle = '#1f5a3a'; x.fillRect(0, 0, 512, 150); x.strokeStyle = '#e5c06a'; x.lineWidth = 8; x.strokeRect(5, 5, 502, 140);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#f7f1e3'; x.font = '700 58px "Pixelify Sans", sans-serif'; x.fillText(b.label || 'MUSHOLA WARGA', 256, 56, 490);
+      x.fillStyle = '#e5c06a'; x.font = '700 30px "Pixelify Sans", sans-serif'; x.fillText(b.sub || 'Jalan Warga', 256, 114, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.7, .5), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 2.08, 1.1); g.add(sg); box(g, trim, 1.78, .56, .04, 0, 1.8, 1.075);
+      // sandal rack with a few pairs, steps
+      box(g, '#d9d2c0', .9, .1, .3, 0, .1, .72);
+      box(g, wood, .9, .05, .3, -1.0 + .0, .38, 1.35); for (const s of [-1, 1]) box(g, wood, .05, .4, .3, -1.0 + s * .43, .1, 1.35);
+      const sc = ['#2f7de1', '#d0302a', '#2b2b2b', '#43aa8b'];
+      for (let i = 0; i < 4; i++) for (const o of [-.05, .05]) box(g, sc[i], .08, .03, .2, -1.32 + i * .2 + o, .43, 1.35);
+      // wudu wall with taps on the right
+      box(g, '#bfc8cc', .2, .55, 1.2, 1.3, .1, .45); box(g, '#7fa9b8', .26, .06, 1.1, 1.18, .3, .45);
+      for (let i = 0; i < 3; i++) { box(g, '#c9ced2', .14, .03, .03, 1.16, .55, .05 + i * .4); box(g, '#c9ced2', .03, .06, .03, 1.1, .5, .05 + i * .4); }
+      // lanterns and a frangipani bush
+      for (const s of [-1, 1]) { const l = new THREE.Mesh(G.sph, lanternMat); l.scale.set(.08, .11, .08); l.position.set(s * .7, 1.62, .9); g.add(l); box(g, '#2b2b2b', .02, .1, .02, s * .7, 1.68, .9); }
+      add(g, G.ico, '#4f9b45', .3, .3, .3, -1.25, .35, -1.25); add(g, G.ico, '#4f9b45', .26, .26, .26, 1.25, .32, -1.25);
+      for (const [px, pz] of [[-1.2, -1.1], [-1.35, -1.3], [1.3, -1.15]]) add(g, G.sph, '#f7f1e3', .06, .05, .06, px, .58, pz);
+      g.userData.label = b.label || 'Mushola Warga';
+    } },
+  // ep 51 (traktiran Ish x10: "semangat dalam berkarya dan membantu memudahkan pekerjaan orang lain"): Pos Gotong Royong. An open
+  // pavilion with a red tiled roof, a kentongan to ring when someone needs a hand, a table with tea, a tool rack (broom, shovel,
+  // bucket) to borrow, the sign (b.label / b.sub) and a plaque with Ish's message (b.wish, '|' = line break, b.from). Faces +z at r=0.
+  posgotong: { n: 'Pos Gotong Royong', w: 3, h: 3, land: true, clearTrees: true, openLabel: 'Baca Pos Gotong Royong',
+    build(g, b) {
+      b = b || {}; const wood = '#8a5a34', dark = '#5e3b22';
+      box(g, '#c9b48e', 2.8, .12, 2.6, 0, 0, 0);
+      for (const sx of [-1, 1]) for (const sz of [-1, 1]) box(g, wood, .12, 2.0, .12, sx * 1.15, .12, sz * 1.0);
+      box(g, dark, 2.5, .12, 2.2, 0, 2.1, 0); roof4(g, '#b5523a', 3.4, .85, 3.0, 0, 2.2, 0); box(g, '#9a4430', 2.9, .06, 2.6, 0, 2.18, 0);
+      // kentongan hanging from the front beam
+      box(g, dark, .03, .3, .03, .7, 1.8, 1.0); const k = add(g, G.cyl8, '#a0683a', .1, .5, .1, .7, 1.55, 1.0); box(g, '#2b1d14', .04, .3, .02, .7, 1.4, 1.09);
+      const ks = box(g, dark, .03, .35, .03, .9, 1.25, 1.02); ks.rotation.z = .6;
+      // table with a teapot and cups, two stools
+      box(g, wood, 1.1, .06, .6, -.35, .62, -.3); for (const sx of [-1, 1]) for (const sz of [-1, 1]) box(g, dark, .05, .5, .05, -.35 + sx * .48, .12, -.3 + sz * .24);
+      add(g, G.sph, '#e7e2d6', .14, .12, .14, -.55, .76, -.3); add(g, G.cyl6, '#e7e2d6', .02, .1, .02, -.42, .8, -.3).rotation.z = -.8;
+      for (const [px, pz] of [[-.2, -.4], [0, -.2], [.05, -.42]]) add(g, G.cyl8, '#f7f1e3', .045, .07, .045, px, .69, pz);
+      for (const sx of [-1, 1]) add(g, G.cyl8, wood, .14, .38, .14, -.35 + sx * .75, .31, -.3);
+      // tool rack on the right: broom, shovel, bucket
+      box(g, dark, .08, 1.0, .5, 1.0, .12, -.4); box(g, dark, .25, .06, .5, .92, .9, -.4);
+      const br = box(g, '#a9784a', .04, 1.2, .04, .88, .2, -.6); br.rotation.z = -.12; box(g, '#d9b45a', .22, .25, .08, .82, .14, -.6);
+      const sh = box(g, '#a9784a', .04, 1.1, .04, .88, .25, -.25); sh.rotation.z = -.1; box(g, '#8a9196', .2, .25, .03, .84, .14, -.25);
+      add(g, G.cyl8, '#2f7de1', .14, .2, .14, .7, .22, .2);
+      // sign on the front beam
+      const c = document.createElement('canvas'); c.width = 512; c.height = 150; const x = c.getContext('2d');
+      x.fillStyle = '#f7f1e3'; x.fillRect(0, 0, 512, 150); x.strokeStyle = '#b5523a'; x.lineWidth = 10; x.strokeRect(5, 5, 502, 140);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#7a2e1e'; x.font = '700 52px "Pixelify Sans", sans-serif'; x.fillText(b.label || 'POS GOTONG ROYONG', 256, 56, 490);
+      x.fillStyle = '#2f6a44'; x.font = '700 30px "Pixelify Sans", sans-serif'; x.fillText(b.sub || 'butuh bantuan? ketuk saja', 256, 114, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(2.0, .58), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(-.2, 2.42, 1.16); g.add(sg); box(g, dark, 2.08, .64, .04, -.2, 2.1, 1.13);
+      // plaque with Ish's message on a stand at the front left
+      for (const s of [-1, 1]) box(g, dark, .05, 1.0, .05, -1.0 + s * .3, .12, 1.45);
+      const c2 = document.createElement('canvas'); c2.width = 384; c2.height = 320; const y = c2.getContext('2d');
+      y.fillStyle = '#2f5a46'; y.fillRect(0, 0, 384, 320); y.strokeStyle = '#e6c25a'; y.lineWidth = 10; y.strokeRect(8, 8, 368, 304);
+      y.textAlign = 'center'; y.textBaseline = 'middle'; y.fillStyle = '#f7f1e3'; y.font = '700 34px "Pixelify Sans", sans-serif';
+      (b.wish || 'Semangat berkarya').split('|').forEach((l, i, a) => y.fillText(l, 192, 140 + (i - (a.length - 1) / 2) * 46, 350));
+      y.fillStyle = '#f2b6c0'; y.font = '400 28px "Pixelify Sans", sans-serif'; y.fillText(b.from || '', 192, 282, 350);
+      const tx2 = new THREE.CanvasTexture(c2); tx2.colorSpace = THREE.SRGBColorSpace; tx2.anisotropy = 4;
+      const pl = new THREE.Mesh(new THREE.PlaneGeometry(.72, .6), new THREE.MeshStandardMaterial({ map: tx2, roughness: .8 })); pl.position.set(-1.0, .98, 1.485); g.add(pl); box(g, dark, .78, .66, .04, -1.0, .65, 1.45);
+      g.userData.label = b.label || 'Pos Gotong Royong';
     } },
   // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
   papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,
