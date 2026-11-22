@@ -12326,17 +12326,27 @@
    "sifat": "rajin & tertib",
    "kalimat": [
     "Sandalnya dilepas dulu ya, kak 🤩",
-    "Sandal siapa ini? Pasti whoyss lagi..."
+    "Sandal siapa ini? Pasti whoyss lagi...",
+    "Mushola baru, sandal baru... semoga sandalnya nggak ilang lagi 🤩"
    ],
-   "tempat": "halaman masjid",
+   "tempat": "halaman Mushola Warga, Jalan Warga (ep 51; dulu halaman masjid)",
    "spot": [
-    45,
-    50,
-    0,
-    0
+    75,
+    76,
+    0.6,
+    0.85
    ],
    "face": 0,
-   "pose": "sweep"
+   "pose": "sweep",
+   "oldSpot": [
+    [
+     45,
+     50,
+     0,
+     0
+    ],
+    0
+   ]
   },
   {
    "n": "Debby_l0vata",
@@ -12743,6 +12753,26 @@
    ],
    "face": 0.3,
    "pose": "kades"
+  },
+  {
+   "n": "dayang.qaisara19",
+   "ep": 51,
+   "tampil": "dayang.qaisara19",
+   "julukan": "Relawan Pertama",
+   "sifat": "ramah, sigap menolong",
+   "kalimat": [
+    "Halo! Aku Dayang... boleh tinggal di sini?",
+    "Aku mau jadi relawan pertamanya!"
+   ],
+   "tempat": "depan Pos Gotong Royong, Jalan Warga (ep 51)",
+   "spot": [
+    61,
+    76,
+    0.5,
+    0.3
+   ],
+   "face": 0,
+   "pose": "relawan"
   }
  ],
  "buildings": [
@@ -13689,10 +13719,11 @@
    "r": 0,
    "label": "TAMBANG PULAU",
    "sub": "usulan @revan.labublue",
-   "found": "1 SANDAL JEPIT",
-   "note": "punya _Rayhannn` (kata Pak Kades)",
+   "found": "SEPASANG|SANDAL JEPIT",
+   "note": "dua-duanya punya _Rayhannn`",
    "by": "revan.labublue",
-   "ep": 50
+   "ep": 50,
+   "sandals": 2
   },
   {
    "type": "kantordesa",
@@ -13704,6 +13735,28 @@
    "notice": "gali tambang tiap pagi",
    "by": "l4.rean",
    "ep": 50
+  },
+  {
+   "type": "mushola",
+   "x": 74,
+   "y": 73,
+   "r": 0,
+   "label": "MUSHOLA WARGA",
+   "sub": "usulan @gonrong1231",
+   "by": "gonrong1231",
+   "ep": 51
+  },
+  {
+   "type": "posgotong",
+   "x": 60,
+   "y": 73,
+   "r": 0,
+   "label": "POS GOTONG ROYONG",
+   "sub": "butuh bantuan? ketuk saja",
+   "wish": "Semangat berkarya|dan saling|memudahkan",
+   "from": "traktiran Ish ♥ ×10",
+   "by": "Ish (traktir)",
+   "ep": 51
   }
  ],
  "episodes": [
@@ -14156,6 +14209,15 @@
     "l4.rean"
    ],
    "text": "Dua komentar jadi nyata: @l4.rean bilang 'aku mau jadi kepala desa' -> Kantor Kepala Desa di Jalan Warga, dan Pak Kades langsung mengecap keputusan pertamanya: bikin tambang! @revan.labublue (warga sejak episode 1) minta penambangan -> Tambang Pulau di ujung barat Jalan Warga, lengkap dengan rel dan gerobak. Revan yakin seratus persen ada emas... gerobak pertama keluar membawa satu sandal jepit biru. Kata Pak Kades itu sandal Rayhan yang hilang; whoyss mengintip dari balik batu: 'bukan aku'. Gerobak kedua bakal nemu apa?"
+  },
+  {
+   "ep": 51,
+   "date": "2026-11-22",
+   "picks": [
+    "gonrong1231",
+    "dayang.qaisara19"
+   ],
+   "text": "@gonrong1231 komentar 'bikin masjit' -> Mushola Warga berdiri di Jalan Warga, supaya warga sini tidak perlu jalan jauh ke masjid besar; zidan si penjaga masjid ikut menyapu halamannya. @dayang.qaisara19 cuma bilang 'kak aku dayang19' -> Dayang jadi warga baru. Semalam Ish mentraktir sepuluh kali dengan pesan 'semangat berkarya dan membantu memudahkan pekerjaan orang lain' -> Pos Gotong Royong (ketuk kentongannya kalau butuh bantuan), dan Dayang jadi relawan pertamanya. Tugas pertama: bantu Revan dorong gerobak tambang kedua... isinya sandal Rayhan yang sebelah. Sekarang sepasang!"
   }
  ],
  "letters": [],

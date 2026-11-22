@@ -558,6 +558,22 @@
    ],
    "pose": "mengecap (kades)",
    "tempat": "Tambang Pulau, di samping papan TEMUAN HARI INI"
+  },
+  {
+   "nama": "dayang.qaisara19",
+   "akun": "dayang.qaisara19",
+   "komentar": "kak aku dayang19",
+   "kartu": "studio/episodes/ep51/komentar/dayang.qaisara19.png",
+   "julukan": "Relawan Pertama",
+   "sifat": "ramah, sigap menolong",
+   "peran": "Relawan pertama Pos Gotong Royong: selalu bawa papan catatan, mencatat siapa yang butuh bantuan dan langsung berangkat.",
+   "kalimat": [
+    "Halo! Aku Dayang... boleh tinggal di sini?",
+    "Aku mau jadi relawan pertamanya!"
+   ],
+   "pose": "rompi relawan oranye + papan catatan",
+   "tempat": "depan Pos Gotong Royong, Jalan Warga",
+   "masuk": "ep51"
   }
  ]
 }
