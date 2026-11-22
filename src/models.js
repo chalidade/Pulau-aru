@@ -854,6 +854,7 @@ export const BT = {
       sd.visible = b.found !== '' && !b.returned;   // ep 52: b.returned = the sandals went home to their owner
       // ep 51: the second cart brought out the other one: a pair (b.sandals = 2)
       const sd2 = sd.clone(); sd2.position.set(-.16, .7, -.18); sd2.rotation.set(-.2, -.6, -.1); cart.add(sd2); sd2.visible = (b.sandals | 0) >= 2 && !b.returned;
+      if (b.returned) { cart.remove(sd); cart.remove(sd2); }   // gone home: not in the cart at all (meshes get merged, .visible alone is not enough)
       g.userData.cart = { o: cart, z0: -.55, z1: 1.7, sandal: sd };
       // pickaxes leaning on a rock, an ore heap, a wheelbarrow-ish crate
       for (const [px, r] of [[-1.55, .35], [-1.3, -.25]]) { const p = new THREE.Group(); p.position.set(px, .06, .2); p.rotation.z = r; g.add(p); box(p, wood, .05, .95, .05, 0, 0, 0); const hd = box(p, '#8a9196', .5, .06, .06, 0, .9, 0); hd.rotation.z = .25; }
