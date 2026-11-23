@@ -12044,13 +12044,22 @@
     "Aku warga biasa aja, bang...",
     "Kenapa harus aku lagi?!"
    ],
-   "tempat": "rumah biasa paling biasa",
+   "tempat": "api unggun Semangat (ep 53), tetap rumah biasa paling biasa",
    "spot": [
-    61,
-    61
+    38,
+    69,
+    0.2,
+    0.35
    ],
-   "face": 0,
-   "pose": "scratch"
+   "face": 1.57,
+   "pose": "scratch",
+   "oldSpot": [
+    [
+     61,
+     61
+    ],
+    0
+   ]
   },
   {
    "n": "alivia_vi",
@@ -12087,21 +12096,24 @@
     "Satu lagu lagi, ya!",
     "Jreng... eh senarnya putus lagi."
    ],
-   "tempat": "pinggir Kolam Renang, menyanyikan lagu galau untuk Riski (ep 48; senarnya putus lagi)",
+   "tempat": "api unggun Semangat (ep 53), main gitar, senarnya putus di reff",
    "spot": [
-    90,
-    82,
-    0.7,
-    0.5,
-    0.12
-   ],
-   "face": 1,
-   "pose": "guitar",
-   "oldSpot": [
-    71,
-    88,
+    39,
+    68,
     0,
     0
+   ],
+   "face": 0,
+   "pose": "guitar",
+   "oldSpot": [
+    [
+     90,
+     82,
+     0.7,
+     0.5,
+     0.12
+    ],
+    1
    ]
   },
   {
@@ -12289,15 +12301,24 @@
     "Aku biasa aja bang...",
     "Jangan lihat aku, aku orang biasa!"
    ],
-   "tempat": "rumah biasa di sebelah ALIF HR",
+   "tempat": "api unggun Semangat (ep 53), tudung tetap dipakai walau panas",
    "spot": [
-    63,
-    61,
-    0,
-    0
+    40,
+    69,
+    -0.2,
+    0.35
    ],
-   "face": 0,
-   "pose": "hide"
+   "face": -1.57,
+   "pose": "hide",
+   "oldSpot": [
+    [
+     63,
+     61,
+     0,
+     0
+    ],
+    0
+   ]
   },
   {
    "n": "Bu Guru Gina",
@@ -13770,8 +13791,33 @@
    "by": "Ish (traktir)",
    "ep": 51,
    "tasks": [
-    "Antar sandal Rayhan"
+    "Antar sandal Rayhan",
+    "Bangun api unggun & sumur"
    ]
+  },
+  {
+   "type": "apiunggun",
+   "x": 38,
+   "y": 68,
+   "r": 0,
+   "label": "API UNGGUN SEMANGAT",
+   "sub": "traktiran Anon Indo ×11",
+   "wish": "Semangat utk|cavatomnya!",
+   "from": "- Anon Indo, traktir ×11",
+   "by": "Anon Indo (traktir)",
+   "ep": 53
+  },
+  {
+   "type": "sumurjariyah",
+   "x": 41,
+   "y": 71,
+   "r": 2,
+   "label": "SUMUR JARIYAH",
+   "sub": "air gratis untuk semua",
+   "wish": "Semangat terus Kaka|inshaa Allaah|jadi jariyah",
+   "from": "- umi ZahamaAlkena ×2",
+   "by": "umi ZahamaAlkena (traktir)",
+   "ep": 53
   }
  ],
  "episodes": [
@@ -14239,6 +14285,12 @@
    "date": "2026-11-22",
    "picks": [],
    "text": "Sandal Pulang, Ikan Datang. Tugas pertama Pos Gotong Royong: Dayang mengantar sepasang sandal jepit biru dari Tambang Pulau ke pemiliknya, _Rayhannn` si nelayan apes di Pelabuhan Nelayan. Polisi Pantai RANUUGLL sempat menghentikannya ('barang bukti!'), lalu malah ikut mengawal. Rayhan memakai sandalnya... dan kailnya langsung dapat IKAN pertamanya. Papan TUGAS SELESAI kini berdiri di Pos Gotong Royong. Pos Gotong Royong harus bantu siapa lagi? Tulis di komentar!"
+  },
+  {
+   "ep": 53,
+   "date": "2026-11-23",
+   "picks": [],
+   "text": "Traktiran Kalian Jadi Api Unggun. Anon Indo traktir 11 kali dengan pesan 'Semangat utk cavatomnya 🔥', jadi pulau membangun Api Unggun Semangat di utara Jalan Warga (dekat Tambang). umi ZahamaAlkena traktir 2 kali: 'Semangat terus Kaka, inshaa Allaah jadi jariyah', jadi di sebelahnya berdiri Sumur Jariyah, air gratis untuk semua. Pos Gotong Royong menyelesaikan tugas keduanya. Malamnya ALIF HR, NOVA (tudung tetap dipakai) dan senar muliya berkumpul di api unggun; senarnya putus lagi. Malam besok, api unggun buat apa? Tulis di komentar!"
   }
  ],
  "letters": [],
@@ -14487,18 +14539,6 @@
     "Etet_443",
     -0.4,
     4.9,
-    3.14
-   ],
-   [
-    "ALIF HR",
-    2,
-    3.5,
-    3.14
-   ],
-   [
-    "NOVA",
-    2.6,
-    3.7,
     3.14
    ]
   ]

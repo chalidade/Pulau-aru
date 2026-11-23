@@ -190,7 +190,8 @@
    "qty": 11,
    "message": "Semangat utk cavatomnya 🔥",
    "at": "2026-11-22 14:21:21",
-   "done": false
+   "done": true,
+   "ep": 53
   },
   {
    "id": "66eb58ec-f9f4-5ce5-9c3a-5df01cc6466e",
@@ -198,7 +199,8 @@
    "qty": 2,
    "message": "Semangat terus Kaka inshaa Allaah jadi jariyah",
    "at": "2026-11-23 04:21:07",
-   "done": false
+   "done": true,
+   "ep": 53
   }
  ]
 }
