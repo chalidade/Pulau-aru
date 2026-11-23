@@ -882,6 +882,8 @@ function frame() {
   // window.__cartPos (0 = inside, 1 = out) pins it for the studio
   for (const o of bObjs) if (o.userData.cart) { const c = o.userData.cart, ph = (T0 + o.position.x) % 14; let k = ph < 2 ? 0 : ph < 5 ? (ph - 2) / 3 : ph < 11 ? 1 : ph < 13.5 ? 1 - (ph - 11) / 2.5 : 0; k = k * k * (3 - 2 * k); if (window.__cartPos != null) k = window.__cartPos;
     c.o.position.z = c.z0 + (c.z1 - c.z0) * k; c.o.position.y = .11 + (k > .02 && k < .98 ? Math.abs(Math.sin(T0 * 14)) * .012 : 0); }
+  // ep 53: the Sumur Jariyah bucket sways on its rope and the tap's stream shimmers
+  for (const o of bObjs) if (o.userData.bucket) { o.userData.bucket.rotation.z = Math.sin(T0 * 1.3) * .08; o.userData.bucket.rotation.x = Math.sin(T0 * .9 + 1) * .05; const st = o.userData.stream; if (st) st.scale.x = st.scale.z = .03 + Math.abs(Math.sin(T0 * 9)) * .012; }
   for (const o of bObjs) if (o.userData.chicks) { const cb = o.userData.chickBase != null ? o.userData.chickBase : .05; o.userData.chicks.forEach((c, i) => { const p = Math.max(0, Math.sin(T0 * 3.2 + i * 2.1)); c.position.y = cb + p * .05; c.rotation.x = -p * .35; }); if (o.userData.gull) o.userData.gull.rotation.y = .5 + Math.sin(T0 * .6) * .5; }
   // fires
   fireSources.length = 0; fireSources.push(fireObj);

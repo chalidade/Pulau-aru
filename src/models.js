@@ -992,6 +992,87 @@ export const BT = {
       }
       g.userData.label = b.label || 'Pos Gotong Royong';
     } },
+  // ep 53 (traktiran Anon Indo x11: "Semangat utk cavatomnya 🔥"): Api Unggun Semangat. A ring of stones round a big log
+  // teepee fire (flames animated in main.js like every `fire` building, plus a warm point light at night), three log benches
+  // round it (open toward the front), two lantern poles, the sign (b.label / b.sub) and a plaque with the supporter's message
+  // (b.wish, '|' = line break, b.from). Faces +z at r=0.
+  apiunggun: { n: 'Api Unggun Semangat', w: 3, h: 3, land: true, clearTrees: true, fire: true, openLabel: 'Baca Api Unggun Semangat',
+    build(g, b) {
+      b = b || {}; const wood = '#8a5a34', dark = '#5e3b22';
+      add(g, G.cyl8, '#b39a72', 1.45, .06, 1.45, 0, .03, 0);
+      for (let a = 0; a < 11; a++) add(g, G.dode, a % 2 ? '#8d8e88' : '#a3a49c', .16, .12, .16, Math.cos(a / 11 * 6.283) * .52, .1, Math.sin(a / 11 * 6.283) * .52);
+      add(g, G.cyl8, '#3a2a20', .42, .04, .42, 0, .07, 0);
+      for (let i = 0; i < 5; i++) { const a = i / 5 * 6.283, l = box(g, dark, .1, .75, .1, Math.cos(a) * .16, .02, Math.sin(a) * .16); l.rotation.set(Math.sin(a) * .45, 0, -Math.cos(a) * .45); }
+      for (let i = 0; i < 6; i++) add(g, G.sph, i % 2 ? '#ff6a2a' : '#ffb347', .07, .05, .07, Math.cos(i) * .25, .1, Math.sin(i) * .25);
+      const fl = new THREE.Group(); fl.position.y = .12; g.add(fl);
+      for (let i = 0; i < 7; i++) { const f = new THREE.Mesh(G.cone4, i % 2 ? flameMat2 : flameMat); const r = i ? .14 : 0, s = i ? 1 : 1.5; f.scale.set(.17 * s, .62 * s, .17 * s); f.position.set(Math.cos(i * 1.05) * r, .32 * s, Math.sin(i * 1.05) * r); f.rotation.y = i * .7; fl.add(f); }
+      const core = new THREE.Mesh(G.cone4, new THREE.MeshBasicMaterial({ color: '#fff1a8' })); core.scale.set(.09, .5, .09); core.position.y = .28; fl.add(core);
+      g.userData.flames = fl;
+      // log benches: back, left, right
+      for (const [a, len] of [[-Math.PI / 2, 1.3], [Math.PI, 1.1], [0, 1.1]]) {
+        const bx = Math.cos(a) * 1.08, bz = Math.sin(a) * 1.08, lg = add(g, G.cyl8, wood, .14, len, .14, bx, .2, bz); lg.rotation.order = 'YXZ'; lg.rotation.set(0, Math.PI / 2 - a, Math.PI / 2);
+        for (const s of [-1, 1]) add(g, G.dode, '#8d8e88', .1, .08, .1, bx + Math.cos(a + Math.PI / 2) * s * len * .4, .06, bz + Math.sin(a + Math.PI / 2) * s * len * .4);
+      }
+      // lantern poles at the back corners
+      for (const s of [-1, 1]) { box(g, dark, .07, 1.9, .07, s * 1.3, 0, -1.25); box(g, dark, .3, .05, .05, s * 1.2, 1.85, -1.25); const l = new THREE.Mesh(G.sph, lanternMat); l.scale.set(.09, .12, .09); l.position.set(s * 1.1, 1.68, -1.25); g.add(l); box(g, '#2b2b2b', .02, .1, .02, s * 1.1, 1.78, -1.25); }
+      // the sign on two posts at the front right, plaque at the front left
+      for (const s of [-1, 1]) box(g, dark, .06, 1.55, .06, .95 + s * .5, 0, 1.3);
+      const c = document.createElement('canvas'); c.width = 512; c.height = 170; const x = c.getContext('2d');
+      x.fillStyle = '#3a2418'; x.fillRect(0, 0, 512, 170); x.strokeStyle = '#ff9b3a'; x.lineWidth = 10; x.strokeRect(5, 5, 502, 160);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#ffcf70'; x.font = '700 50px "Pixelify Sans", sans-serif'; x.fillText(b.label || 'API UNGGUN SEMANGAT', 256, 60, 490);
+      x.fillStyle = '#f7f1e3'; x.font = '700 30px "Pixelify Sans", sans-serif'; x.fillText(b.sub || 'duduk, hangat, cerita', 256, 124, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.3, .43), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(.95, 1.3, 1.335); g.add(sg); box(g, dark, 1.36, .49, .04, .95, 1.055, 1.3);
+      for (const s of [-1, 1]) box(g, dark, .05, .95, .05, -.95 + s * .28, 0, 1.3);
+      const c2 = document.createElement('canvas'); c2.width = 384; c2.height = 320; const y = c2.getContext('2d');
+      y.fillStyle = '#2f5a46'; y.fillRect(0, 0, 384, 320); y.strokeStyle = '#e6c25a'; y.lineWidth = 10; y.strokeRect(8, 8, 368, 304);
+      y.textAlign = 'center'; y.textBaseline = 'middle'; y.fillStyle = '#f7f1e3'; y.font = '700 34px "Pixelify Sans", sans-serif';
+      (b.wish || 'Semangat!').split('|').forEach((l, i, a) => y.fillText(l, 192, 140 + (i - (a.length - 1) / 2) * 46, 350));
+      y.fillStyle = '#f2b6c0'; y.font = '400 28px "Pixelify Sans", sans-serif'; y.fillText(b.from || '', 192, 282, 350);
+      const tx2 = new THREE.CanvasTexture(c2); tx2.colorSpace = THREE.SRGBColorSpace; tx2.anisotropy = 4;
+      const pl = new THREE.Mesh(new THREE.PlaneGeometry(.66, .55), new THREE.MeshStandardMaterial({ map: tx2, roughness: .8 })); pl.position.set(-.95, .9, 1.335); g.add(pl); box(g, dark, .72, .61, .04, -.95, .6, 1.3);
+      g.userData.label = b.label || 'Api Unggun Semangat';
+    } },
+  // ep 53 (traktiran umi ZahamaAlkena x2: "Semangat terus Kaka inshaa Allaah jadi jariyah"): Sumur Jariyah, free water for
+  // everyone. A round stone well with a little tiled roof, a crank and a bucket that bobs on its rope (userData.bucket, main.js),
+  // a tap with a stone basin and a running stream at the front right, a shelf of cups, the sign (b.label / b.sub) and the
+  // supporter's plaque (b.wish / b.from). Faces +z at r=0.
+  sumurjariyah: { n: 'Sumur Jariyah', w: 2, h: 2, land: true, clearTrees: true, openLabel: 'Baca Sumur Jariyah',
+    build(g, b) {
+      b = b || {}; const wood = '#8a5a34', dark = '#5e3b22';
+      box(g, '#c9c2b2', 1.9, .08, 1.9, 0, 0, 0);
+      add(g, G.cyl8, '#9c9585', .5, .72, .5, -.2, .44, -.2); add(g, G.cyl8, '#b7b0a0', .54, .08, .54, -.2, .82, -.2);
+      add(g, G.cyl8, '#2f6fa8', .4, .02, .4, -.2, .78, -.2, 0, false);
+      for (const s of [-1, 1]) box(g, dark, .08, 1.5, .08, -.2 + s * .55, .8, -.2);
+      roof4(g, '#b5523a', 1.5, .45, 1.1, -.2, 2.28, -.2);
+      const ax = add(g, G.cyl8, wood, .05, 1.1, .05, -.2, 1.85, -.2); ax.rotation.z = Math.PI / 2;
+      box(g, dark, .04, .22, .04, .37, 1.65, -.2); box(g, dark, .2, .04, .04, .43, 1.65, -.2);
+      const bk = new THREE.Group(); bk.position.set(-.2, 1.85, -.2); g.add(bk);
+      box(bk, '#c9b48e', .015, .55, .015, 0, -.55, 0); add(bk, G.cyl8, '#6b7c86', .12, .18, .12, 0, -.62, 0); add(bk, G.cyl8, '#2f6fa8', .1, .02, .1, 0, -.54, 0, 0, false);
+      g.userData.bucket = bk;
+      // tap with basin at the front right
+      box(g, '#8f8778', .16, .9, .16, .6, .08, .45); const sp = box(g, '#9aa3a8', .05, .05, .24, .6, .86, .56); add(g, G.cyl6, '#c0392b', .05, .03, .05, .6, 1.0, .5);
+      box(g, '#a9a292', .5, .22, .4, .6, .08, .72); add(g, G.cyl8, '#2f6fa8', .19, .02, .15, .6, .3, .72, 0, false);
+      const st = new THREE.Mesh(G.box, new THREE.MeshBasicMaterial({ color: '#9fd3f2', transparent: true, opacity: .75 })); st.scale.set(.035, .52, .035); st.position.set(.6, .58, .67); g.add(st); g.userData.stream = st;
+      // shelf with cups, left front
+      box(g, wood, .5, .05, .22, -.62, .62, .55); for (const s of [-1, 1]) box(g, dark, .05, .6, .05, -.62 + s * .2, .08, .55);
+      for (let i = 0; i < 4; i++) add(g, G.cyl8, i % 2 ? '#f7f1e3' : '#e6c25a', .045, .1, .045, -.78 + i * .1, .72, .55);
+      // sign above the well on the roof beam (front) + plaque on the well wall
+      const c = document.createElement('canvas'); c.width = 512; c.height = 160; const x = c.getContext('2d');
+      x.fillStyle = '#f7f1e3'; x.fillRect(0, 0, 512, 160); x.strokeStyle = '#2f6fa8'; x.lineWidth = 10; x.strokeRect(5, 5, 502, 150);
+      x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#1f4f7a'; x.font = '700 56px "Pixelify Sans", sans-serif'; x.fillText(b.label || 'SUMUR JARIYAH', 256, 60, 490);
+      x.fillStyle = '#2f6a44'; x.font = '700 30px "Pixelify Sans", sans-serif'; x.fillText(b.sub || 'air gratis untuk semua', 256, 120, 490);
+      const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
+      const sg = new THREE.Mesh(new THREE.PlaneGeometry(1.2, .375), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(-.2, 2.12, .36); g.add(sg); box(g, dark, 1.26, .43, .04, -.2, 1.905, .33);
+      const c2 = document.createElement('canvas'); c2.width = 384; c2.height = 320; const y = c2.getContext('2d');
+      y.fillStyle = '#2f5a46'; y.fillRect(0, 0, 384, 320); y.strokeStyle = '#e6c25a'; y.lineWidth = 10; y.strokeRect(8, 8, 368, 304);
+      y.textAlign = 'center'; y.textBaseline = 'middle'; y.fillStyle = '#f7f1e3'; y.font = '700 32px "Pixelify Sans", sans-serif';
+      (b.wish || 'Semoga jadi jariyah').split('|').forEach((l, i, a) => y.fillText(l, 192, 140 + (i - (a.length - 1) / 2) * 44, 350));
+      y.fillStyle = '#f2b6c0'; y.font = '400 26px "Pixelify Sans", sans-serif'; y.fillText(b.from || '', 192, 282, 350);
+      const tx2 = new THREE.CanvasTexture(c2); tx2.colorSpace = THREE.SRGBColorSpace; tx2.anisotropy = 4;
+      const pl = new THREE.Mesh(new THREE.PlaneGeometry(.5, .42), new THREE.MeshStandardMaterial({ map: tx2, roughness: .8 })); pl.position.set(-.2, .45, .345); g.add(pl); box(g, "#3d2a1c", .54, .46, .02, -.2, .22, .325);
+      g.userData.label = b.label || 'Sumur Jariyah';
+    } },
   // a cheer billboard from the whole island for a supporter's request (ep 8, traktiran Chalid: "semangat"); text from b.label
   papansemangat: { n: 'Papan Semangat', w: 2, h: 1, land: true,
     build(g, b) {
