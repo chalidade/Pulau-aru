@@ -203,7 +203,7 @@ export function createActivities(ctx) {
   }
   function animateWork(n, u, T, dt) {
     const ph = T + (n.seed || (n.seed = Math.random() * 10));
-    u.legL.rotation.x = 0; u.legR.rotation.x = 0; u.body.position.y = 0; u.body.rotation.x = 0;
+    u.legL.rotation.x = 0; u.legR.rotation.x = 0; u.body.position.y = 0; u.body.rotation.x = 0; if (u.body.position.x || u.body.position.z) u.body.position.x = u.body.position.z = 0;
     if (n.role === 'chop') {
       const c = (ph % 1.3) / 1.3, swing = c < .7 ? -2.7 + c / .7 * .6 : -2.1 + (c - .7) / .3 * 1.6;
       u.armR.rotation.x = swing; u.armL.rotation.x = swing * .9; u.body.rotation.x = c > .7 ? .12 : 0;
@@ -251,6 +251,35 @@ export function createActivities(ctx) {
       const a = inv(tip.clone()), b = inv(n.bob.position.clone()); p.setXYZ(0, a.x, a.y, a.z); p.setXYZ(1, b.x, b.y, b.z); p.needsUpdate = true;
     }
   }
+  const diveClock = T => window.__diveT != null ? window.__diveT : T % 14;
+  function diveSplash(u) {
+    if (u.splash) return u.splash;
+    const g = new THREE.Group(), m = new THREE.MeshStandardMaterial({ color: '#f4fbff', emissive: '#9fd8ee', emissiveIntensity: .35, transparent: true, opacity: .9, roughness: .3, flatShading: true });
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(.5, .07, 5, 18), m); ring.rotation.x = Math.PI / 2; g.add(ring);
+    const drops = []; for (let i = 0; i < 14; i++) { const d = new THREE.Mesh(G.sph, m); const a = i / 14 * Math.PI * 2 + (i % 3) * .3; d.userData.v = [Math.cos(a) * (1.1 + (i % 4) * .35), 2.6 + (i % 5) * .5, Math.sin(a) * (1.1 + (i % 4) * .35)]; d.scale.setScalar(.08 + (i % 3) * .035); g.add(d); drops.push(d); }
+    const col = new THREE.Mesh(G.cyl6, m); col.scale.set(.45, 1, .45); g.add(col);
+    g.userData = { ring, drops, col }; g.visible = false; u.body.parent.add(g); u.splash = g; return g;
+  }
+  function diveSafar(u, c, A) {
+    const W = -.48 / .9, Z = 1.3 / .9;   // water surface and landing point, in the character's (unscaled) units, from the board tip
+    let y = 0, z = 0, rx = 0;
+    u.legL.rotation.x = 0; u.legR.rotation.x = 0;
+    if (c < 3.6) { A(-3.0, -3.0, -.15, .15); y = Math.abs(Math.sin(c * 4)) * .06; }   // bouncing, arms up... not yet
+    else if (c < 4.1) { const s = (c - 3.6) / .5; A(-3.0 + s * 1.9, -3.0 + s * 1.9, -.15, .15); y = -.14 * Math.sin(s * Math.PI); rx = .3 * s; }
+    else if (c < 4.9) { const s = (c - 4.1) / .8; z = Z * s; y = 2.6 * s * (1 - s) + (W - .1) * s; rx = .3 + 1.27 * s * s; A(-1.4 - Math.sin(c * 20) * .6, -1.4 + Math.sin(c * 20) * .6, -1.3, 1.3); u.legL.rotation.x = .4 * s; u.legR.rotation.x = .5 * s; }
+    else if (c < 5.7) { z = Z; y = W - .1 - Math.min(1, (c - 4.9) / .3) * .08; rx = 1.57; A(-1.6, -1.6, -1.35, 1.35); }   // SPLAT
+    else if (c < 10) { const s = (c - 5.7) / 4.3; z = Z + 1.8 * s; y = W - .14 + Math.sin(c * 3) * .02; rx = 1.45; const k = c * 5.5; A(-1.6 + Math.sin(k) * 1.5, -1.6 - Math.sin(k) * 1.5); u.legL.rotation.x = Math.sin(c * 14) * .3; u.legR.rotation.x = -Math.sin(c * 14) * .3; }
+    else if (c < 12.2) { z = Z + 2.0; y = W - 1.0 + Math.sin(c * 4) * .03; A(-.4, -2.9 + Math.sin(c * 9) * .3, -.6, -.4); }   // treading water, waving
+    else if (c < 13) { z = Z + 2.0; y = W - 1.0 - (c - 12.2) / .8 * 1.2; A(-.4, -.4); }
+    else { z = 0; y = -1.8 + Math.min(1, (c - 13) / .5) * 1.8; A(-3.0, -3.0, -.15, .15); }   // back up the ladder (off camera) and onto the board
+    u.body.position.set(0, y, z); u.body.rotation.x = rx;
+    const sp = diveSplash(u), t = c - 4.9;
+    sp.visible = t > 0 && t < 1.4;
+    if (sp.visible) { const { ring, drops, col } = sp.userData, q = t / 1.4; sp.position.set(0, W + .02, Z + .8);
+      ring.scale.setScalar(1 + q * 2.6); ring.material.opacity = .9 * (1 - q);
+      col.scale.set(.22 + q * .12, Math.max(.01, Math.sin(Math.min(1, t / .8) * Math.PI) * .95), .22 + q * .12); col.position.y = col.scale.y / 2;
+      for (const d of drops) { const [vx, vy, vz] = d.userData.v; d.position.set(vx * t * .9, Math.max(0, vy * t - 4.9 * t * t), vz * t * .9); d.visible = vy * t - 4.9 * t * t > -.05; } }
+  }
   // ep 19: each regular resident has a pose that shows their personality (studio/warga.json → pose)
   function castPose(p, u, ph, T) {
     const A = (l, r, lz = 0, rz = 0) => { u.armL.rotation.x = l; u.armR.rotation.x = r; u.armL.rotation.z = lz; u.armR.rotation.z = rz; };
@@ -279,7 +308,7 @@ export function createActivities(ctx) {
     else if (p === 'beg') { const c = ph % 4; A(-1.25 + (c < 1 ? Math.sin(c * 12) * .12 : 0), -1.25, .25, -.25); u.body.rotation.x = .12; u.body.position.y = c < 1 ? Math.abs(Math.sin(c * 9)) * .04 : 0; }   // palms up: pinjam seratus dulu...
     else if (p === 'rod' || p === 'rodfish' || p === 'rodpair') { const c = (ph % 9) / 9; A(-1.1, -1.1 + (c > .85 ? -.6 : 0), .15, -.1); u.body.rotation.x = c > .85 ? -.12 : 0; }   // fishing, a big tug now and then (a sandal again)
     else if (p === 'thumbs') { const c = ph % 2.4; const up = c < .3 || (c > .5 && c < .8); A(up ? -1.9 : -1.5, up ? -1.9 : -1.5, .2, -.2); u.body.position.y = up ? .06 : 0; }   // two thumbs, twice, always twice
-    else if (p === 'cool') { const c = ph % 8; if (c < 6.5) { A(-.15, -2.45, 0, -.55); u.body.rotation.y = .25; } else { A(-2.6, -2.6, .5, -.5); u.body.rotation.x = .3 * Math.sin((c - 6.5) / 1.5 * Math.PI); } }   // anime pose... then a stumble
+    else if (p === 'cool') { const c = window.__coolT != null ? window.__coolT : ph % 8; if (c < 6.5) { A(-.15, -2.45, 0, -.55); u.body.rotation.y = .25; } else { A(-2.6, -2.6, .5, -.5); u.body.rotation.x = .3 * Math.sin((c - 6.5) / 1.5 * Math.PI); } }   // anime pose... then a stumble
     else if (p === 'hide') { A(-2.4, -2.4, .45, -.45); u.body.rotation.x = .28; u.body.position.y = -.03; }   // head down, hands over the face: jangan lihat aku
     else if (p === 'sitlook') { u.body.position.y = -.42; u.legL.rotation.x = -1.5; u.legR.rotation.x = -1.5; A(-.25, -.25, .1, -.1); }   // sitting on the boards, watching the sea
     // ep 22: Bu Guru Gina takes attendance (book in one hand, pointing now and then); Zidan sweeps the mosque yard
@@ -305,8 +334,13 @@ export function createActivities(ctx) {
     else if (p === 'dokter') { const c = ph % 6; A(c < 3 ? -1.4 : -.2, c < 3 ? -.9 : -2.7 + Math.sin(ph * 5) * .1, .25, c < 3 ? -.2 : -.1); u.body.rotation.x = c < 3 ? .2 : -.06; }
     else if (p === 'detektif') { A(-.2, -1.75 + Math.sin(ph * 2.2) * .05, 0, -.1); u.body.rotation.x = .16 + Math.sin(ph * .9) * .06; u.body.rotation.y = Math.sin(ph * .5) * .45; }
     // ep 48: Riski (Si Galau) sits on the pool rim, legs over the water, hugging his knees with his head down; a big sigh now and then
+    // ep 54: Riski (Si Galau) gets splashed by Safar's belly flop every round and, for a moment, laughs (synced with 'loncat')
+    else if (p === 'galau' && diveClock(T) > 5.0 && diveClock(T) < 7.6) { const d = diveClock(T) - 5.0, k = Math.sin(ph * 18) * .18; u.body.position.y = -.42 + Math.abs(Math.sin(d * 9)) * .03; u.legL.rotation.x = -1.5 + Math.sin(d * 14) * .25; u.legR.rotation.x = -1.5 - Math.sin(d * 14) * .25; A(-.75 + k, -.75 - k, .55, -.55); u.body.rotation.x = -.3 + Math.sin(ph * 14) * .05; }
     else if (p === 'galau') { const c = ph % 7; u.body.position.y = -.42 + (c > 5.6 && c < 6.4 ? Math.sin((c - 5.6) / .8 * Math.PI) * .03 : 0); u.legL.rotation.x = -1.5 + Math.sin(ph * 1.1) * .12; u.legR.rotation.x = -1.5 - Math.sin(ph * 1.1) * .12; A(-1.15, -1.15, .45, -.45); u.body.rotation.x = .32; u.body.rotation.y = Math.sin(ph * .3) * .08; }
     // ep 48: Safar, the first swimmer, on the diving board: arms up, bouncing, never quite jumping
+    // ep 54: after six episodes on the board Safar finally jumps, every 14 s: bounce, crouch, a belly flop (splash), a few strokes of
+    // crawl, treading water with a wave, then he climbs back up (off camera) and does it again. window.__diveT pins the clock (studio).
+    else if (p === 'loncat') diveSafar(u, diveClock(T), A);
     else if (p === 'dive') { const c = ph % 5; A(-3.0, -3.0, -.15, .15); u.body.position.y = c < 3 ? Math.abs(Math.sin(ph * 4)) * .06 : 0; u.body.rotation.x = c >= 3 ? .18 : 0; }
     // ep 50: Revan the miner swings his pickaxe at the rock (two quick blows), then wipes his brow; the Kepala Desa stamps the air
     // with his big stamp (sah!), then stands proud with a hand on his hip

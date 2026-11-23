@@ -741,6 +741,17 @@ export const BT = {
       const tx = new THREE.CanvasTexture(c); tx.colorSpace = THREE.SRGBColorSpace; tx.anisotropy = 4;
       for (const ry of [0, Math.PI]) { const sg = new THREE.Mesh(new THREE.PlaneGeometry(2.4, .9), new THREE.MeshStandardMaterial({ map: tx, roughness: .8 })); sg.position.set(0, 1.75, -2.7 + (ry ? -.04 : .04)); sg.rotation.y = ry; g.add(sg); }
       box(g, '#2f7fa8', 2.5, 1.0, .05, 0, 1.25, -2.7);
+      // ep 54: the Papan Skor Loncat at the back-right corner, behind the diving block: b.score = 'title|line|line|line'
+      if (b && b.score) {
+        for (const x of [2.05, 3.45]) box(g, '#5e3b22', .08, 2.0, .08, x, .12, -2.6);
+        const L = String(b.score).split('|'), c2 = document.createElement('canvas'); c2.width = 384; c2.height = 288; const y2 = c2.getContext('2d');
+        y2.fillStyle = '#16324a'; y2.fillRect(0, 0, 384, 288); y2.strokeStyle = '#ffd23f'; y2.lineWidth = 10; y2.strokeRect(5, 5, 374, 278);
+        y2.textAlign = 'center'; y2.textBaseline = 'middle'; y2.fillStyle = '#ffd23f'; y2.font = '700 40px "Pixelify Sans", sans-serif'; y2.fillText(L[0] || 'PAPAN SKOR', 192, 44, 360);
+        y2.fillStyle = '#ffffff'; for (let i = 1; i < Math.min(L.length, 5); i++) { y2.font = (i === 2 ? '700 54px' : '700 30px') + ' "Pixelify Sans", sans-serif'; y2.fillStyle = i === 2 ? '#7fe0ff' : '#ffffff'; y2.fillText(L[i], 192, [0, 100, 162, 222, 262][i], 360); }
+        const t2 = new THREE.CanvasTexture(c2); t2.colorSpace = THREE.SRGBColorSpace; t2.anisotropy = 4;
+        box(g, '#0e2233', 1.5, 1.14, .06, 2.75, 1.0, -2.6);
+        const sb = new THREE.Mesh(new THREE.PlaneGeometry(1.4, 1.05), new THREE.MeshStandardMaterial({ map: t2, roughness: .7, emissive: '#ffffff', emissiveMap: t2, emissiveIntensity: .25 })); sb.position.set(2.75, 1.57, -2.56); g.add(sb);
+      }
       g.userData.label = (b && b.label) || 'Kolam Renang';
     } },
   // ep 49 (komentar @hanssmuhammad698: "tambahin hewan"): Kebun Hewan Mini south of Jalan Warga. A fenced paddock with a red barn,
