@@ -12279,17 +12279,25 @@
    "sifat": "sok keren",
    "kalimat": [
     "Namaku... Revan.",
-    "Hmph. Biasa aja."
+    "Hmph. Biasa aja.",
+    "Itu... gaya."
    ],
-   "tempat": "dekat batu nama pulau di pantai",
+   "tempat": "dek Kolam Renang di belakang papan loncat (ep 54): mengajari Safar loncat yang keren... lalu kesandung",
    "spot": [
+    88,
+    87,
+    0.5,
+    -0.05,
+    0.12
+   ],
+   "face": 3.14,
+   "pose": "cool",
+   "oldSpot": [
     52,
     94,
     0,
     0
-   ],
-   "face": 3.14,
-   "pose": "cool"
+   ]
   },
   {
    "n": "NOVA",
@@ -12702,9 +12710,10 @@
    "sifat": "semangat, 'paket lengkap'",
    "kalimat": [
     "Udah follow, paket lengkap!",
-    "Siap... loncat! ...Bentar, airnya dingin nggak?"
+    "Siap... loncat! ...Bentar, airnya dingin nggak?",
+    "Airnya... DINGIN BANGET!"
    ],
-   "tempat": "ujung papan loncat Kolam Renang (ep 48, usulannya sendiri)",
+   "tempat": "papan loncat Kolam Renang: ep 54 akhirnya loncat (perut duluan), sekarang loncat terus tiap 14 detik",
    "spot": [
     88,
     84,
@@ -12713,7 +12722,7 @@
     0.64
    ],
    "face": 1.57,
-   "pose": "dive"
+   "pose": "loncat"
   },
   {
    "n": "v1dy4_0560",
@@ -13721,7 +13730,8 @@
    "label": "KOLAM RENANG",
    "sub": "usulan @im.safar4 · paket lengkap",
    "by": "im.safar4",
-   "ep": 48
+   "ep": 48,
+   "score": "PAPAN SKOR LONCAT|loncatan pertama (ep 54)|SAFAR|juri: 10 · 10 · 10|gaya: perut duluan"
   },
   {
    "type": "kebunhewan",
@@ -13792,7 +13802,8 @@
    "ep": 51,
    "tasks": [
     "Antar sandal Rayhan",
-    "Bangun api unggun & sumur"
+    "Bangun api unggun & sumur",
+    "Bantu Safar loncat"
    ]
   },
   {
@@ -14291,6 +14302,12 @@
    "date": "2026-11-23",
    "picks": [],
    "text": "Traktiran Kalian Jadi Api Unggun. Anon Indo traktir 11 kali dengan pesan 'Semangat utk cavatomnya 🔥', jadi pulau membangun Api Unggun Semangat di utara Jalan Warga (dekat Tambang). umi ZahamaAlkena traktir 2 kali: 'Semangat terus Kaka, inshaa Allaah jadi jariyah', jadi di sebelahnya berdiri Sumur Jariyah, air gratis untuk semua. Pos Gotong Royong menyelesaikan tugas keduanya. Malamnya ALIF HR, NOVA (tudung tetap dipakai) dan senar muliya berkumpul di api unggun; senarnya putus lagi. Malam besok, api unggun buat apa? Tulis di komentar!"
+  },
+  {
+   "ep": 54,
+   "date": "2026-11-23",
+   "picks": [],
+   "text": "Enam Episode di Papan Loncat. Sejak ep 48, Safar (@im.safar4) berdiri di papan loncat Kolam Renang tanpa pernah loncat ('airnya dingin nggak?'). Pos Gotong Royong membuat tugas ketiga: bantu Safar loncat. -VANZwlee memberi contoh gaya keren... lalu kesandung ('itu gaya'). Akhirnya Safar loncat: perut duluan! Riski Si Galau kecipratan dan untuk pertama kalinya tertawa. Papan Skor Loncat berdiri di kolam: juri kasih 10. Sekarang Safar loncat terus. Siapa yang harus loncat berikutnya? Tulis di komentar!"
   }
  ],
  "letters": [],

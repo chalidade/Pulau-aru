@@ -1,5 +1,5 @@
 {
- "nextEp": 54,
+ "nextEp": 55,
  "tiktok": "https://www.tiktok.com/@kita.berkembang",
  "schedule": "2 episode per hari, 10:00 dan 17:00 WIB",
  "rules": {
@@ -68,7 +68,8 @@
   "Ep 50: Tambang Pulau (tambang x31 y69, ujung barat Jalan Warga; rel + gerobak beranimasi userData.cart, window.__cartPos untuk studio; b.found/b.note di papan TEMUAN HARI INI) dengan Revan Si Penambang (@revan.labublue, warga sejak ep 1, pose 'miner': helm berlampu + beliung) dan Pak Kades (@l4.rean, pose 'kades': peci, selempang hijau, stempel; spot di samping papan). Kantor Kepala Desa (kantordesa x49 y79 r2) menggantikan kavling x49 y79. Gerobak pertama = 1 sandal jepit biru, kata Pak Kades punya Rayhan (_Rayhannn` belum tahu!); whoyss dipindah ke balik batu tambang (oldSpot disimpan), 'bukan aku'. End card: 'Gerobak kedua bakal nemu apa?' -> isi gerobak kedua dari jawaban komentar (ganti b.found, tambah benda di gerobak), payoff: sandal dikembalikan ke Rayhan di pelabuhan.",
   "Ep 51: Mushola Warga (mushola x74 y73, usulan @gonrong1231; zidan dipindah ke halamannya, oldSpot disimpan). Pos Gotong Royong (posgotong x60 y73, traktiran Ish x10, kentongan + rak alat + teh; b.wish plakat) dengan Dayang (@dayang.qaisara19, pose 'relawan': rompi oranye + papan catatan) di depannya. Tambang: gerobak kedua = sandal Rayhan yang sebelah (b.sandals 2, papan 'SEPASANG SANDAL JEPIT'); _Rayhannn` BELUM tahu sandalnya ketemu -> payoff: Rayhan menerima sepasang sandalnya (mungkin diantar Dayang sebagai tugas Pos Gotong Royong). End card: 'Pos Gotong Royong bantu siapa dulu?' -> pakai jawaban komentar. Antrean komentar.md HABIS; kavling x45 y79 masih kosong. NAMA ANAK KUCING masih menunggu komentar.",
   "Ep 52: THREAD SANDAL RAYHAN SELESAI. Dayang mengantar sepasang sandal ke _Rayhannn` di Pelabuhan Nelayan (Dayang kini berdiri di pelabuhan, spot [63,97,.7,.5], oldSpot = depan Pos Gotong Royong; boleh dikembalikan ke pos di episode berikut). Rayhan pose 'rodpair' (sandal biru di kaki + ikan di kail, userData.feet). Tambang b.returned (gerobak kosong, papan SUDAH PULANG KE RAYHAN) -> gerobak berikutnya bisa menemukan hal baru dari komentar. Pos Gotong Royong b.tasks = ['Antar sandal Rayhan'] (PAPAN TUGAS SELESAI, maks 5 baris) -> tambah tugas dari jawaban 'Pos Gotong Royong bantu siapa lagi?'. Masih menunggu komentar: nama anak kucing, Riski galau kenapa, hewan baru, kavling x45 y79.",
-  "Ep 53: Api Unggun Semangat (apiunggun x38 y68, traktiran Anon Indo x11; fire:true, plakat b.wish/b.from) dan Sumur Jariyah (sumurjariyah x41 y71 r2, traktiran umi ZahamaAlkena x2; ember bergoyang userData.bucket, keran mengalir) di lahan hijau utara Jalan Warga, timur Tambang. ALIF HR, NOVA (dikeluarkan dari event.join debat ep 36) dan senar muliya (oldSpot pinggir Kolam Renang) kini berdiri di api unggun. Pos Gotong Royong b.tasks: 2 tugas. End card: 'Malam besok, api unggun buat apa?' -> jawaban komentar bisa jadi episode malam (cerita seram lucu? bakar jagung? konser senar muliya tanpa senar putus?). Anak kucing masih 'NAMAKU: ???'."
+  "Ep 53: Api Unggun Semangat (apiunggun x38 y68, traktiran Anon Indo x11; fire:true, plakat b.wish/b.from) dan Sumur Jariyah (sumurjariyah x41 y71 r2, traktiran umi ZahamaAlkena x2; ember bergoyang userData.bucket, keran mengalir) di lahan hijau utara Jalan Warga, timur Tambang. ALIF HR, NOVA (dikeluarkan dari event.join debat ep 36) dan senar muliya (oldSpot pinggir Kolam Renang) kini berdiri di api unggun. Pos Gotong Royong b.tasks: 2 tugas. End card: 'Malam besok, api unggun buat apa?' -> jawaban komentar bisa jadi episode malam (cerita seram lucu? bakar jagung? konser senar muliya tanpa senar putus?). Anak kucing masih 'NAMAKU: ???'.",
+  "Ep 54: LELUCON SAFAR SELESAI. im.safar4 pose 'loncat' (activities.js diveSafar: siklus 14 dtk bounce -> jongkok -> belly flop + cipratan (u.splash) -> renang gaya bebas -> mengapung melambai -> kembali ke papan; window.__diveT mengunci jam untuk studio). Riski 'galau' tertawa sebentar di setiap cipratan (diveClock 5.0-7.6). -VANZwlee pindah ke dek Kolam Renang (spot [88,87,.5,-.05,.12], oldSpot batu nama); window.__coolT mengunci pose 'cool' untuk studio. kolamrenang b.score = Papan Skor Loncat (judul|baris|NAMA besar|baris|baris). posgotong b.tasks 3 tugas. End card: 'Siapa yang harus loncat berikutnya?' -> jawaban komentar bisa jadi episode (papan skor diganti nama berikutnya). Thread terbuka lain: nama anak kucing, Riski galau gara-gara apa, api unggun malam besok."
  ],
  "usedComments": [
   "EN17: buat jalan aspal",
@@ -438,6 +439,12 @@
    "title": "Traktiran Kalian Jadi Api Unggun",
    "posted": "menunggu posting manual (Chrome tidak tersambung); video: https://github.com/chalidade/Pulau-aru/raw/videos/episodes/pulau-aru-ep53.mp4",
    "summary": "Format KONSEP (run pagi 23 Nov; ep 52 CERITA). Tanpa komentar TikTok baru (komentar.md kosong, Chrome tidak tersambung) -> episode digerakkan dua traktiran: Anon Indo x11 ('Semangat utk cavatomnya 🔥') -> Api Unggun Semangat, umi ZahamaAlkena x2 ('...jadi jariyah') -> Sumur Jariyah; kartu traktir digambar dengan nama Trakteer (tanpa foto). Cold open: api unggun malam close-up (senar muliya di belakang, NOVA/ALIF di sisi), Aru: 'Dua traktiran masuk pagi ini... dan malam ini, pulau punya API UNGGUN!', hook TRAKTIRAN KALIAN / JADI API UNGGUN!. Premis (PULAU NETIZEN). Plakat Anon Indo, situs api unggun siang (title API UNGGUN SEMANGAT), plakat umi, Sumur Jariyah (title). Senja -> malam, ALIF: 'NOVA, buka tudungnya. Ini api unggun, bukan panggung!' NOVA: 'Justru itu. Aku orang biasa. Orang biasa nggak kelihatan.' senar muliya main gitar -> TING, senar putus (freeze + title). Aru berterima kasih. End card: Malam besok, api unggun buat apa? + pulau-aru.web.id + follow = warga + CTA UMKM #UMKMPulauAru. 60 dtk."
+  },
+  {
+   "ep": 54,
+   "title": "Enam Episode di Papan Loncat",
+   "posted": "menunggu posting manual (Chrome tidak tersambung); video: https://github.com/chalidade/Pulau-aru/raw/videos/episodes/pulau-aru-ep54.mp4",
+   "summary": "Format CERITA (run sore 23 Nov; ep 53 KONSEP). Tanpa komentar baru (komentar.md kosong, traktir.json tanpa yang baru, Chrome tidak tersambung) -> tanpa kartu komentar; episode menutup lelucon berjalan Safar di papan loncat (ep 48). Cold open: Safar di papan, 3/4 depan, 'Enam episode nunggu... hari ini... LONCAAAT!' lalu perut duluan + cipratan, hook 6 EPISODE NUNGGU / AKHIRNYA LONCAT?!. Premis (PULAU NETIZEN). Safar: 'Bentar, airnya dingin nggak?' Riski (Si Galau): 'galauku lebih dalam'. lala cute menghitung, Safar: 'Belum pemanasan!' Papan Tugas Pos Gotong Royong: tugas #3 bantu Safar loncat. -VANZwlee (Si Paling Keren): 'Lihat gaya aku' -> kesandung, 'Itu... gaya.' Safar: 'Demi paket lengkap... bismillah' -> LONCAAAT, perut duluan (title LONCATAN PERTAMA!). Riski kecipratan dan tertawa, lala: 'Riski senyum!' Safar: 'Airnya DINGIN BANGET!' Papan Skor Loncat: juri 10, perutnya merah. End card: Siapa yang harus loncat berikutnya? + pulau-aru.web.id + follow = warga (teks). Tanpa CTA traktir/UMKM. 58,5 dtk."
   }
  ],
  "monetization": {
@@ -498,7 +505,8 @@
   "Ep 50 (21 Nov sore): Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone); komentar dari antrean komentar.md (via TikTok Studio 20 Nov); traktir.json tanpa yang baru. Kode baru: BT.tambang (h 6 supaya lampu desa tidak tumbuh di depan pad; userData.cart dianimasikan di main.js, window.__cartPos), BT.kantordesa (b.label/b.sub/b.notice), castKit/castPose 'miner' (beliung di armR) & 'kades' (stempel di armR). Lampu desa (InstancedMesh tiang 1.4/lampu .18x.22) disembunyikan di shots ep50 karena menghalangi close-up. Arah hadap NPC: kamera yaw ~ face = melihat wajah. Jalan [33,77,35,78] dibatalkan (menabrak LM wreck 31-33,77-78). JANGAN restart server dengan awk-kill di baris yang sama dengan perintah nohup http.server (shell ikut mati, exit 144).",
   "Ep 51 (22 Nov pagi): Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone); komentar dari antrean komentar.md (dua terakhir, antrean sekarang kosong); traktiran Ish x10 -> Pos Gotong Royong. Kode baru: BT.mushola (scale 1.3, b.label/b.sub), BT.posgotong (b.label/b.sub/b.wish/b.from), tambang b.sandals>=2 = sandal kedua, castKit/activities pose 'relawan' (clip + rompi). Capture: aerial c2 (descent dist 55->20) punya ~16% frame setengah hitam (render belum selesai) berulang meski diulang -> diganti frame sebelumnya (skrip fix: rata-rata & piksel hitam vs tetangga ±3). Kamera di selatan Jalan Warga x70-80 masuk ke atap Mall: pakai yaw positif (kamera ke timur) atau dari utara (yaw 3.0).",
   "Ep 52 (22 Nov sore): Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone); komentar.md & traktir.json tanpa yang baru -> episode dari thread sandal, tanpa kartu komentar. Kode baru: castKit pose 'rodpair' (userData.feet), BT.posgotong b.tasks (Papan Tugas), BT.tambang b.returned.",
-  "Ep 53 (23 Nov pagi): Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone); komentar.md & antrean kosong -> episode dari dua traktiran baru (Anon Indo x11, umi ZahamaAlkena x2), kartu traktir digambar (komentar/*-traktir.png, emoji dari NotoColorEmoji). Kode baru: BT.apiunggun (fire:true, flames + bangku kayu + plakat), BT.sumurjariyah (userData.bucket/stream dianimasikan di main.js). Lahan kosong di kota sangat sedikit: skrip cari 5x5 bebas (margin 1) hanya menemukan x37-43 y67-73 dan x89 y71. event.join debat ep 36 masih menarik ALIF/NOVA ke panggung -> dikeluarkan supaya resident spot berlaku. Cold open terbaik: depan api (yaw -.15, pitch .42, dist 3.4) di antara plakat dan papan."
+  "Ep 53 (23 Nov pagi): Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone); komentar.md & antrean kosong -> episode dari dua traktiran baru (Anon Indo x11, umi ZahamaAlkena x2), kartu traktir digambar (komentar/*-traktir.png, emoji dari NotoColorEmoji). Kode baru: BT.apiunggun (fire:true, flames + bangku kayu + plakat), BT.sumurjariyah (userData.bucket/stream dianimasikan di main.js). Lahan kosong di kota sangat sedikit: skrip cari 5x5 bebas (margin 1) hanya menemukan x37-43 y67-73 dan x89 y71. event.join debat ep 36 masih menarik ALIF/NOVA ke panggung -> dikeluarkan supaya resident spot berlaku. Cold open terbaik: depan api (yaw -.15, pitch .42, dist 3.4) di antara plakat dan papan.",
+  "Ep 54 (23 Nov sore): Chrome tidak tersambung (tool claude-in-chrome & add_repo tidak ada; repo sudah ter-clone); komentar.md & traktir.json tanpa yang baru -> episode dari thread Safar (ep 48), tanpa kartu komentar. Kode baru: castPose 'loncat' (diveSafar + diveSplash, window.__diveT), 'galau' tertawa saat cipratan, window.__coolT, kolamrenang b.score. Dua capture paralel DPR2 ~1,4 dtk/frame masing-masing. JANGAN git stash/pull saat capture baru mulai (island.json sempat kembali ke versi lama -> capture diulang)."
  ],
  "rooms": {
   "open": [
@@ -523,7 +531,7 @@
   ]
  },
  "strategy": {
-  "lastFormat": "KONSEP",
+  "lastFormat": "CERITA",
   "tests": [
    {
     "ep": 25,
@@ -756,18 +764,17 @@
     "opening": "3D close-up api unggun malam (api besar di bawah hook, senar muliya di belakang), suara Aru di 0,05 dtk",
     "captionStyle": "pendek personal + traktiran=bangunan + pulau netizen + pulau-aru.web.id + teer.id + #pulaunetizen #alurcerita",
     "duration": 60
+   },
+   {
+    "ep": 54,
+    "format": "CERITA",
+    "hook": "6 EPISODE NUNGGU / AKHIRNYA LONCAT?!",
+    "opening": "3D Safar di papan loncat dari sisi timur (menghadap kamera), lengan ke atas di frame 0, loncat perut duluan + cipratan di 2,2-3,0 dtk, suara Safar di 0,05 dtk",
+    "captionStyle": "pendek personal + alur cerita + pertanyaan siapa loncat berikutnya + pulau-aru.web.id + #pulaunetizen",
+    "duration": 58.5
    }
   ],
   "castLog": [
-   {
-    "ep": 46,
-    "cast": [
-     "mhmmdalfaiz0",
-     "D4L",
-     "Luci Ardiansyah",
-     "Aidil YZ"
-    ]
-   },
    {
     "ep": 47,
     "cast": [
@@ -830,6 +837,15 @@
      "NOVA",
      "senar muliya",
      "Aru (suara)"
+    ]
+   },
+   {
+    "ep": 54,
+    "cast": [
+     "im.safar4",
+     "riskki.setya",
+     "lala cute",
+     "-VANZwlee"
     ]
    }
   ]
